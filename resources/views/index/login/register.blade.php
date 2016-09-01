@@ -22,16 +22,16 @@ console.log(1);
 <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/core.min.js"></script>
 <script type="text/javascript">
-var youdao_conv_id = 271546; 
-</script> 
-<script type="text/javascript" src="style/js/conv.js"></script>
+var youdao_conv_id = 271546;
+</script>
+<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/conv.js"></script>
 </head>
 <body id="login_bg">
 	<div class="login_wrapper">
 		<div class="login_header">
         	<a href="h/"><img src="" width="285" height="62" alt="校易聘招聘" /></a>
-            <div id="cloud_s"><img src="style/images/cloud_s.png" width="81" height="52" alt="cloud" /></div>
-            <div id="cloud_m"><img src="style/images/cloud_m.png" width="136" height="95"  alt="cloud" /></div>
+            <div id="cloud_s"><img src="{{env('APP_HOST')}}/style/images/cloud_s.png" width="81" height="52" alt="cloud" /></div>
+            <div id="cloud_m"><img src="{{env('APP_HOST')}}/style/images/cloud_m.png" width="136" height="95"  alt="cloud" /></div>
         </div> 
     	<input type="hidden" id="resubmitToken" value="<?php echo csrf_token(); ?>" />		
 		<div class="login_box">
