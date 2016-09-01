@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends BaseController
 {
@@ -14,7 +15,9 @@ class IndexController extends BaseController
     	return  view('index.test');
     }
     public function indexs(){
-    	return  view('index.lar.public');
+    	echo Session::get('u_id')."\t";
+        echo Session::get('u_email');
+    	return view('index.lar.public');
     }
 
 }

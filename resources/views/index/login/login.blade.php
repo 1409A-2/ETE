@@ -13,12 +13,10 @@ var ctx = "h";
 console.log(1);
 </script>
 <link rel="Shortcut Icon" href="h/images/favicon.ico">
-<link rel="stylesheet" type="text/css" href="style/css/style.css"/>
-
-<script src="style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
-
-<script type="text/javascript" src="style/js/jquery.lib.min.js"></script>
-<script type="text/javascript" src="style/js/core.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
+<script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
+<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/core.min.js"></script>
 
 
 <script type="text/javascript">
@@ -35,7 +33,7 @@ var youdao_conv_id = 271546;
             <div id="cloud_m"><img src="style/images/cloud_m.png" width="136" height="95"  alt="cloud" /></div>
         </div>
         
-    	<input type="hidden" id="resubmitToken" value="" />		
+    	<input type="hidden" id="resubmitToken" value="<?php echo csrf_token(); ?>" />		
 		 <div class="login_box">
         	<form id="loginForm" >
 				<input type="text" id="email" name="email" value="" tabindex="1" placeholder="请输入登录邮箱地址" />
@@ -55,7 +53,7 @@ var youdao_conv_id = 271546;
 			</form>
 			<div class="login_right">
 				<div>还没有校易聘帐号？</div>
-				<a  href="register"  class="registor_now">立即注册</a>
+				<a  href="register.html"  class="registor_now">立即注册</a>
 			    <div class="login_others">使用以下帐号直接登录:</div>
 			    <a  href="h/ologin/auth/sina.html"  target="_blank" class="icon_wb" title="使用新浪微博帐号登录"></a>
 			    <a  href="h/ologin/auth/qq.html"  class="icon_qq" target="_blank" title="使用腾讯QQ帐号登录"></a>
@@ -97,29 +95,25 @@ $(function(){
 	    		var email = $('#email').val();
 	    		var password = $('#password').val();
 	    		var remember = $('#remember').val();
+	    		var resubmitToken = $('#resubmitToken').val();
 	    		
-	    		var callback = $('#callback').val();
-	    		var authType = $('#authType').val();
-	    		var signature = $('#signature').val();
-	    		var timestamp = $('#timestamp').val();
-	    		
-	    		$(form).find(":submit").attr("disabled", true);
+	    		// $(form).find(":submit").attr("disabled", true);
 	            $.ajax({
 	            	type:'POST',
-	            	data:{email:email,password:password,autoLogin:remember, callback:callback, authType:authType, signature:signature, timestamp:timestamp},
-	            	url:ctx+'/user/login.json'
-	            }).done(function(result) {
-					if(result.success){
-					 	if(result.content.loginToUrl){
-							window.location.href=result.content.loginToUrl;
-	            		}else{
-	            			window.location.href=ctx+'/';
-	            		} 
-					}else{
-						$('#beError').text(result.msg).show();
-					}
-					$(form).find(":submit").attr("disabled", false);
-	            }); 
+	            	data:{u_email:email,u_pwd:password,status:remember, _token:resubmitToken},
+	            	url:'loginPro',
+	            	success:function(e){
+	            		if (e==0) {
+	            			window.location.href='/';
+	            		} else if (e==1) {
+	            			window.location.href='/';
+	            		} else if (e==2) {
+	            			var str = '用户名或者密码错误！';
+	            			$('#beError').attr('style','');
+	            			$('#beError').append(str);
+	            		}
+	            	}
+	            })
 	        }  
 		});
 })

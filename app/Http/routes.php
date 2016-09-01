@@ -14,10 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/','Index\indexController@index');
-Route::get('indexs','Index\indexController@indexs');
-Route::get('login','Index\loginController@login');
-Route::get('register','Index\loginController@register');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -30,5 +27,13 @@ Route::get('register','Index\loginController@register');
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+	
+    Route::get('/','Index\indexController@index');
+	Route::get('indexs','Index\indexController@indexs');
+
+	//登录注册
+	Route::get('login.html','Index\loginController@login');
+	Route::get('register.html','Index\loginController@register');
+	Route::post('registerPro','Index\loginController@registerPro');
+	Route::post('loginPro','Index\loginController@loginPro');
 });
