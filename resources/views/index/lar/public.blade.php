@@ -103,7 +103,6 @@ var youdao_conv_id = 271546;
 <script type="text/javascript" src="style/js/home.min.js"></script>
 <script type="text/javascript" src="style/js/count.js"></script>
 			<div class="clear"></div>
-			<input type="hidden" id="resubmitToken" value="" />
 	    	<a id="backtop" title="回到顶部" rel="nofollow"></a>
 	    </div><!-- end #container -->
 	</div><!-- end #body -->

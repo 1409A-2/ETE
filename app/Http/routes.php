@@ -36,4 +36,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('register.html','Index\loginController@register');
 	Route::post('registerPro','Index\loginController@registerPro');
 	Route::post('loginPro','Index\loginController@loginPro');
+
+		//这是发布职位控制
+	Route::get('postOffice','Index\industryController@postOffice');
+	Route::post('postOffice_add','Index\industryController@postOffice_add');
+	Route::get('postOffice_issue','Index\industryController@postOffice_issue');
 });

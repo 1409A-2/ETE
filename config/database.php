@@ -49,7 +49,7 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => database_path('database.sqlite'),
-            'prefix' => '',
+            'prefix' => 'ete_',
         ],
 
         'mysql' => [
@@ -74,7 +74,7 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
-            'prefix' => '',
+            'prefix' => 'ete_',
             'schema' => 'public',
         ],
 
