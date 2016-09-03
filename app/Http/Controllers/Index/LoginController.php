@@ -60,6 +60,7 @@ class LoginController extends BaseController
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();
 		$data['u_cid'] = $data['type'];
+        unset($data['type']);
 		$res = User::addUser($data);
     	if ($res) {
     		echo json_encode($res);

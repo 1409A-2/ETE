@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Index;
 use Validator;
 use Session;
+use Redirect;
 use App\Model\Industry;
 use App\Model\Education;
 use App\Model\Company;
 use App\Model\Release;
+use App\Model\User;
 use App\Model\ResumeReseale;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -18,14 +20,18 @@ header('content-type:text/html;charset=utf-8');
 class IndustryController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public function postOffice(){
-    	$c_id['c_id'] =Session::get('u_id'); 
-    	$industry=Industry::Sel();
-    	$education=Education::Sel();
-    	$company=Company::Sel($c_id);
-    	// $release=Release::sel();
-    	// print_r($company);die;
-    	return view('index.industry.postOffice',['industry'=>$industry,'education'=>$education,'company'=>$company]);
+    public function postOffice(){    	
+        $company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];
+            // print_r($company_c_id);die;
+        	$industry=Industry::Sel();
+        	$education=Education::Sel();
+        	$company=Company::Sel($c_id);
+        	return view('index.industry.postOffice',['industry'=>$industry,'education'=>$education,'company'=>$company]);
+        }
     }
 
     //发布成功后添加入库
