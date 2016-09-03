@@ -12,7 +12,7 @@ class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(){
-    	return  view('index.test');
+    	return  view('index.index');
     }
     public function indexs(){
     	echo Session::get('u_id')."\t";

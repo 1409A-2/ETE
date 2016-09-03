@@ -33,29 +33,45 @@ var youdao_conv_id = 271546;
 	<div id="header">
     	<div class="wrapper">
     		<a href="index.html" class="logo">
-    			<img src="" width="229" height="43" alt="校易聘-专注互联网招聘" />
+    			<img src="style/images/logo.png" width="229" height="43" alt="校易聘-专注互联网招聘" />
     		</a>
     		<ul class="reset" id="navheader">
-    			<li class="current"><a href="index.html">首页</a></li>
+    			<li class="current"><a href="/">首页</a></li>
     			<li ><a href="companylist.html" >公司</a></li>
     			<li ><a href="h/toForum.html" target="_blank">论坛</a></li>
     				    			<li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
 	    							    			<li ><a href="create.html" rel="nofollow">发布职位</a></li>
 	    		    		</ul>
-        	            <ul class="loginTop">
-            	<li><a href="login.html" rel="nofollow">登录</a></li> 
-            	<li>|</li>
-            	<li><a href="register.html" rel="nofollow">注册</a></li>
+                <?php
+            if(session('u_email')){
+                ?>
+            <dl class="collapsible_menu">
+                <dt>
+                    <span>{{session('u_email')}}&nbsp;</span>
+                    <span class="red dn" id="noticeDot-0"></span>
+                    <i></i>
+                </dt>
+                <dd><a rel="nofollow" href="jianli.html">我的简历</a></dd>
+                <dd><a href="collections.html">我收藏的职位</a></dd>
+                <dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
+                <dd><a href="create.html">我要招人</a></dd>
+                <dd><a href="accountBind.html">帐号设置</a></dd>
+                <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+            </dl>
+          <?php  }else{?>
+            <ul class="loginTop">
+                <li><a href="login.html" rel="nofollow">登录</a></li>
+                <li>|</li>
+                <li><a href="register.html" rel="nofollow">注册</a></li>
             </ul>
-                               </div>
+          <?php  }?>
+         </div>
     </div>
 
 		<!-- 中间内容开始 -->
-		<div id="container">
-			<div id="sidebar">
+
 				@yield('content')
-			</div>
-  		</div>
+
 		<!-- 中间内容结束 -->
 		
        <div class="clear"></div>
