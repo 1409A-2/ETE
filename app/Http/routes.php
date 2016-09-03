@@ -24,9 +24,11 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-
+    //前台
     Route::get('/','Index\indexController@index');
 	Route::get('indexs','Index\indexController@indexs');
+    //跳转职业详情
+    Route::get('jump','Index\indexController@jump');
 
 
 	//登录注册
@@ -74,7 +76,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
-    
+
     //我的简历
     Route::get('jianli.html','Index\resumeController@index');
     Route::post('educationPro','Index\resumeController@educationPro');//个人资料

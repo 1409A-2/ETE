@@ -1,23 +1,67 @@
 <?php
 
 namespace App\Http\Controllers\Index;
-
+use App\Model\Industry;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Session;
+use Request;
+use DB;
+header("content-type:text/html;charset=utf8");
 
 class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(){
-    	return  view('index.index');
-    }
-    public function indexs(){
-    	echo Session::get('u_id')."\t";
-        echo Session::get('u_email');
-    	return view('index.lar.public');
+    	//查询所有行业
+    	$industry=industry::sel();
+        //print_r($industry);die;
+        $new_industry='';
+        $parent=0;
+        foreach($industry as $key => $val) {
+            if ($val['level']==0){
+                $new_industry[$val['i_id']] = $val;
+                $parent = $val['i_id'];
+            }
+
+            if($val['level']==2){
+                $new_industry[$parent]['son'][] = $val;
+            }
+        }
+        $num = count($new_industry);
+        $i=0;
+        foreach($industry as $key => $val) {
+            if ($val['level']==1){
+                $hid_industry[$i] = $val;
+                $parent = $i;
+                $i++;
+            }
+            if($val['level']==2){
+                $hid_industry[$parent]['son'][] = $val;
+            }
+        }
+        unset($industry);
+    	//print_r($hid_industry);die
+    	return  view('index.index.test',['count'=>$num,'industry'=>$hid_industry,'nav_industry'=>$new_industry]);
     }
 
+    //跳转职业详情
+    public function jump(){
+        $i_name=Request::input('i_name');
+        $row = DB::table('release')->where('i_name',$i_name)->count('re_id');
+        $length = 6;
+        $pages = ceil($row/$length);
+        $page = Request::get('page',1);
+        $limit = ($page-1)*$length;
+        
+        $list=DB::table('release')
+            ->where('i_name',$i_name)
+            ->join('company','release.c_id','=','company.c_id')
+            ->limit($length)->offset($limit)->get();
+        $str=json_encode($list);
+        $arr=json_decode($str,true);
+          // print_r($arr);die;
+        return view('index.index.ShowList',['arr'=>$arr,'i_name'=>$i_name,'pages'=>$pages,'page'=>$page]);
+    }
 }
