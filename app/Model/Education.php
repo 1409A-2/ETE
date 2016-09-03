@@ -15,7 +15,7 @@ class Education extends Model
     protected $hidden = [];
 
     public $timestamps = false;
-    public static function sel(){
+    public static function Sel(){
     	return Education::get()->toArray();
     }
 }

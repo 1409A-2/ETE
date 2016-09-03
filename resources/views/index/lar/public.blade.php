@@ -8,10 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>@yield('title','校易聘')</title>
 <meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
-<script type="text/javascript">
-var ctx = "h";
-console.log(1);
-</script>
+
 <link rel="Shortcut Icon" href="h/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/external.min.css"/>
@@ -23,9 +20,7 @@ console.log(1);
 <!--[if lte IE 8]>
     <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/excanvas.js"></script>
 <![endif]-->
-<script type="text/javascript">
-var youdao_conv_id = 271546; 
-</script> 
+
 <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/conv.js"></script>
 </head>
 <body>
@@ -51,11 +46,9 @@ var youdao_conv_id = 271546;
     </div>
 
 		<!-- 中间内容开始 -->
-		<div id="container">
-			<div id="sidebar">
+		
 				@yield('content')
-			</div>
-  		</div>
+		
 		<!-- 中间内容结束 -->
 		
        <div class="clear"></div>
