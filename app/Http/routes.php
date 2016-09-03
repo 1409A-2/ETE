@@ -54,4 +54,26 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('haveNoticeResumes','Index\industryController@haveNoticeResumes');//查看已发送邮件的简历
 	Route::get('haveRefuseResumes','Index\industryController@haveRefuseResumes');//查看不合适的简历
 	Route::get('preview','Index\industryController@preview');//公司查看简历详情
+
+	//用户个人信息
+	Route::group(['middleware' => 'login'], function () {
+
+		//完善公司基本信息
+		Route::get('info','Index\InfoController@checkCompany');
+
+		Route::get('sendEamil','Index\InfoController@sendMail');
+
+		Route::post('company1pro','Index\InfoController@company1Pro');
+
+		Route::post('company2pro','Index\InfoController@company2Pro');
+
+		//完善公司的信息
+		Route::get('detailed','Index\DetailedController@index');
+
+		Route::post('info1pro','Index\DetailedController@Info1Pro');
+
+	});
+
+	//通过邮箱验证
+	Route::get('adopt','Index\InfoController@adoptVerify');
 });

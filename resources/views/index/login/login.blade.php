@@ -104,9 +104,9 @@ $(function(){
 	            	url:'loginPro',
 	            	success:function(e){
 	            		if (e==0) {
-	            			window.location.href='/';
+	            			window.location.href='/info';
 	            		} else if (e==1) {
-	            			window.location.href='/';
+	            			window.location.href='/info';
 	            		} else if (e==2) {
 	            			var str = '用户名或者密码错误！';
 	            			$('#beError').attr('style','');

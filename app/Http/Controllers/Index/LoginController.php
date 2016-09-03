@@ -27,9 +27,10 @@ class LoginController extends BaseController
 		unset($data['_token']);
 		$data['u_pwd'] = md5($data['u_pwd']);
     	$list = User::checkLog($data);
+
         if ($list)
         {
-			if ($data['status'] == 1) {
+			if ($data['status'] != 0) {
 				//使用put方法直接创建Session变量
 			    Session::put('u_id', $list['u_id']);
 			    Session::put('u_email', $list['u_email']);
@@ -58,6 +59,7 @@ class LoginController extends BaseController
 		unset($data['_token']);
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();
+		$data['u_cid'] = $data['type'];
 		$res = User::addUser($data);
     	if ($res) {
     		echo json_encode($res);
