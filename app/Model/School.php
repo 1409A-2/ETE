@@ -21,9 +21,9 @@ class School extends Model
      *
      * @param  $data 教育背景的信息
      */
-    public static function sel_All()
+    public static function sel_All($where)
     {
-        return self::get()->toArray();
+        return self::where($where)->get()->toArray();
     }
 
     public static function sel_One($where)

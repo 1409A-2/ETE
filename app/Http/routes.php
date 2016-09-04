@@ -57,19 +57,13 @@ Route::group(['middleware' => ['web']], function () {
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
-
 		//完善公司基本信息
 		Route::get('info','Index\InfoController@checkCompany');
-
 		Route::get('sendEamil','Index\InfoController@sendMail');
-
 		Route::post('company1pro','Index\InfoController@company1Pro');
-
 		Route::post('company2pro','Index\InfoController@company2Pro');
-
 		//完善公司的信息
 		Route::get('detailed','Index\DetailedController@index');
-
 		Route::post('info1pro','Index\DetailedController@Info1Pro');
 
 	});
@@ -86,4 +80,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('worksDel/{id}','Index\resumeController@worksDel');//删除作品
     Route::post('porjectAdd','Index\resumeController@porjectAdd');//添加项目
     Route::get('porjectDel/{id}','Index\resumeController@porjectDel');//删除项目
+
+    //投递简历
+    Route::get('toudi.html','');
+
+
 });
