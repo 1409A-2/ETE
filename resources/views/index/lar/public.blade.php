@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+
 <html>
 <head>
 	<script id="allmobilize" charset="utf-8" src="style/js/allmobilize.min.js"></script>
@@ -8,10 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>@yield('title','校易聘')</title>
 	<meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
-	<script type="text/javascript">
-		var ctx = "{{env('APP_HOST')}}";
-		console.log(1);
-	</script>
 	<link rel="Shortcut Icon" href="h/images/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/external.min.css"/>
@@ -20,12 +16,7 @@
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
-	<!--[if lte IE 8]>
-	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/excanvas.js"></script>
-	<![endif]-->
-	<script type="text/javascript">
-		var youdao_conv_id = 271546;
-	</script>
+
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/conv.js"></script>
 </head>
 <body>

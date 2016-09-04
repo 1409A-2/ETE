@@ -43,4 +43,23 @@ class Release extends Model
     public static function Sel_Preview($c_id){
         return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
     }
+
+    //查看各个职位的简历
+    public static function Sel_Pr($c_id,$re_status){
+        return Release::Join('company', 'release.c_id', '=', 'company.c_id')
+        ->where('release.c_id','=',$c_id)
+        ->where('release.re_status','=',$re_status)
+        ->get()        
+        ->toArray();
+    }
+
+    //修改职位上下线问题
+    public static function Up_re_status($data){
+         return Release::where('re_id','=',$data['re_id'])->update($data);
+    }
+
+    //删除职位
+    public static function Del($data){
+       return Release::where('re_id','=',$data['re_id'])->delete(); 
+    }
 }

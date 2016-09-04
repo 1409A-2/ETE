@@ -69,29 +69,44 @@ class IndustryController extends BaseController
 
     //查看发布的职位
     public function postOffice_list(){
-    	$c_id['c_id']=Session::get('u_id');
-    	$release=Release::Sel_List($c_id);
-    	// print_r($release);die;
-    	return view('index.industry.postOffice_list',['release'=>$release]);
+    	$company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];;
+        	$release=Release::Sel_List($c_id);
+        	// print_r($release);die;
+        	return view('index.industry.postOffice_list',['release'=>$release]);
+        }
     }
 
     //职位预览
     public function postOffice_preview(){
-    	$c_id['c_id']=Session::get('u_id');
-    	$release=Release::Sel_Preview($c_id);
-    	$company=Company::Sel($c_id);
-    	// print_r($release);die;
-    	return view('index.industry.postOffice_preview',['release'=>$release,'company'=>$company]);
+    	$company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];
+        	$release=Release::Sel_Preview($c_id);
+        	$company=Company::Sel($c_id);
+        	// print_r($release);die;
+        	return view('index.industry.postOffice_preview',['release'=>$release,'company'=>$company]);
+        }
     }
 
     /*   ------------------------此处分割线----------------------*/
     //公司查看简历   //待处理
     public function PendingResume(){
-    	$c_id=Session::get('u_id');
-    	$remuse_resele=0;
-    	$resume=Release::sel($c_id,$remuse_resele); 
-    	// print_r($resume);die;   	
-    	return view('index.pendingresume.pendingresume',['resume'=>$resume]);
+    	$company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id=$company_c_id['u_cid'];
+        	$remuse_resele=0;
+        	$resume=Release::sel($c_id,$remuse_resele); 
+        	// print_r($resume);die;   	
+        	return view('index.pendingresume.pendingresume',['resume'=>$resume]);
+        }
     }
 
     //修改公司查看简历后状态
@@ -102,11 +117,16 @@ class IndustryController extends BaseController
 
     //查看待定简历
     public function CanInterviewResumes(){
-    	$c_id=Session::get('u_id');
-    	$remuse_resele=2;
-    	$resume=Release::sel($c_id,$remuse_resele); 
-    	// print_r($resume);die;   	
-    	return view('index.pendingresume.CanInterviewResumes',['resume'=>$resume]);
+    	$company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id=$company_c_id['u_cid'];
+        	$remuse_resele=2;
+        	$resume=Release::sel($c_id,$remuse_resele); 
+        	// print_r($resume);die;   	
+        	return view('index.pendingresume.CanInterviewResumes',['resume'=>$resume]);
+        }
     }
     //执行待定与不合适
     public function Nndetermineds(Request $request){
@@ -158,20 +178,30 @@ class IndustryController extends BaseController
 
     //查看已发送邮件的简历
     public function haveNoticeResumes(){
-    	$c_id=Session::get('u_id');
-    	$remuse_resele=1;
-    	$resume=Release::sel($c_id,$remuse_resele); 
-    	// print_r($resume);die;   	
-    	return view('index.pendingresume.haveNoticeResumes',['resume'=>$resume]);
+    	$company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id=$company_c_id['u_cid'];
+        	$remuse_resele=1;
+        	$resume=Release::sel($c_id,$remuse_resele); 
+        	// print_r($resume);die;   	
+        	return view('index.pendingresume.haveNoticeResumes',['resume'=>$resume]);
+        }
     }
 
     //查看不合适的简历
     public function haveRefuseResumes(){
-    	$c_id=Session::get('u_id');
-    	$remuse_resele=3;
-    	$resume=Release::sel($c_id,$remuse_resele); 
-    	// print_r($resume);die;   	
-    	return view('index.pendingresume.haveRefuseResumes',['resume'=>$resume]);
+    	$company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];
+        	$remuse_resele=3;
+        	$resume=Release::sel($c_id,$remuse_resele); 
+        	// print_r($resume);die;   	
+        	return view('index.pendingresume.haveRefuseResumes',['resume'=>$resume]);
+        }
     }
 
     //公司查看简历
@@ -179,4 +209,47 @@ class IndustryController extends BaseController
         return view('index.pendingresume.preview');
     }
 
+    //查看有效职位  positions
+    public function positions(){
+        $company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];
+            $re_status=0;
+            $release=Release::Sel_Pr($c_id['c_id'],$re_status);
+            foreach ($release as $k => $v) {
+                $count_preview[$v['re_id']]=ResumeReseale::countPreview($v['re_id']);
+            }
+            // print_r($release);die;
+            return view('index.pendingresume.positions',['release'=>$release,'count'=>$count_preview]);
+        }
+    }
+
+    //查看下线职位  positionsdown
+    public function positionsdown(){
+        $company_c_id=User::selOne(Session::get('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];
+            $re_status=1;
+            $release=Release::Sel_Pr($c_id['c_id'],$re_status);
+            foreach ($release as $k => $v) {
+                $count_preview[$v['re_id']]=ResumeReseale::countPreview($v['re_id']);
+            }
+            // print_r($release);die;
+            return view('index.pendingresume.positionsdown',['release'=>$release,'count'=>$count_preview]);
+        }
+    }
+    //修改职位上下线问题
+    public function positionsType(Request $request){
+        $data = $request->except('_token');
+        echo Release::Up_re_status($data);
+    }
+    //删除职位
+    public function positionsDel(Request $request){
+        $data = $request->except('_token');
+        echo Release::Del($data);
+    }
 }

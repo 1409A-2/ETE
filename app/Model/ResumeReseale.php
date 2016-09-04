@@ -28,5 +28,10 @@ class ResumeReseale extends Model
     	return ResumeReseale::Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')->where('rere_id','=',$data['rere_id'])->first()->toArray();
     	
     }
+    //查询每个职位的简历数量
+    public static function countPreview($re_id){
+        return ResumeReseale::where('re_id','=',$re_id)->count();
+    }
 
+    
 }

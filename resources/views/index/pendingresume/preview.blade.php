@@ -1,15 +1,8 @@
-<!DOCTYPE HTML>
+
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <title>简历预览-校易聘平台</title>
-
-    <!-- <div class="web_root"  style="display:none">h</div> -->
-    </script>
-    <script type="text/javascript">
-        var ctx = "h";
-        console.log(1);
-    </script>
     <link href="h/images/favicon.ico" rel="Shortcut Icon">
     <link href="style/css/style.css" type="text/css" rel="stylesheet">
     <link href="style/css/colorbox.min.css" type="text/css" rel="stylesheet">

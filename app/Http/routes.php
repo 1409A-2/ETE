@@ -53,7 +53,11 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('NndeterminedEmail','Index\industryController@NndeterminedEmail');//面试成功和发送邮件haveNoticeResumes
 	Route::get('haveNoticeResumes','Index\industryController@haveNoticeResumes');//查看已发送邮件的简历
 	Route::get('haveRefuseResumes','Index\industryController@haveRefuseResumes');//查看不合适的简历
-	Route::get('preview','Index\industryController@preview');//公司查看简历详情
+	Route::get('preview','Index\industryController@preview');//公司查看简历详情   
+	Route::get('positions','Index\industryController@positions');//查看有效职位  positions
+	Route::get('positionsdown','Index\industryController@positionsdown');//查看有效职位  positionsdown
+	Route::get('positionsType','Index\industryController@positionsType');//职位上下线管理	positionsType 
+	Route::get('positionsDel','Index\industryController@positionsDel');//删除职位   positionsDel
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
