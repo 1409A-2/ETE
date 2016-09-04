@@ -6,16 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class Education extends Model
 {
-	protected $table = "education";
+    // 用户model
+    protected $table = "education";
 
     protected $guarded = [];
 
-    protected $primaryKey = 'i_id';
+    protected $primaryKey = 'ed_id';
 
     protected $hidden = [];
 
     public $timestamps = false;
-    public static function Sel(){
+
+    /**
+     *
+     * @param  $data 学历的信息
+     */
+    public static function sel_All()
+    {
+        return self::get()->toArray();
+    }
+
+
+    //添加
+    public static function  addEducation($data){
+        return self::insert($data);
+
+    }
+        //修改
+    public  static  function updateEducation($data,$u_id){
+        return self::where('u_id',$u_id)->update($data);
+    }
+  public static function Sel(){
     	return Education::get()->toArray();
     }
+
 }
