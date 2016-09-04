@@ -23,27 +23,31 @@ class ResumeController extends BaseController
     public function index(){
         $sum='';
         $education= Education::sel_All(); //学历
-        $works=Works::sel_All(); //作品
-        if($works){
-            $sum+=20;
-        }
-        $porject=Porject::sel_All();//项目
-        if($porject){
-            $sum+=20;
-        }
-        $u_id=Session::get('u_id'); //用户Id
-        $res=Resume::sel_One($u_id); //简历
+
+         $u_id=Session::get('u_id'); //用户Id
+
+       $res=Resume::sel_One($u_id); //简历
+
         if($res){
             if($res['r_img']){
                 $sum+=5;
             }
             $sum+=15;
         }
-
-        $school= School::where('r_id',$res['r_id'])->first()->toArray();//教育背景
-        if($school){
+        if($works=Works::sel_All(['r_id'=>$res['r_id']])){
             $sum+=20;
-        }
+        }; //作品
+
+        if($porject=Porject::sel_All(['r_id'=>$res['r_id']])){
+            $sum+=20;
+        };//项目
+
+//echo $sum;die;
+         if($school= School::sel_All(['r_id'=>$res['r_id']])){
+             $sum+=20;
+         };//教育背景
+
+
     	return  view('index.resume.resume',[
             'education'=>$education,
             'res'=>$res,
@@ -99,16 +103,13 @@ class ResumeController extends BaseController
         }
     }
 
-
+        //头像
     public  function educationUpload(Request $request){
         $u_id= $request->session()->get('u_id');
-        $data['r_img']='./uploads/'.session('u_email').'.jpg';
 
-        if(file_exists($data['r_img'])){
-            unlink($data['r_img']);
-        }
+        $data['r_img']='./uploads/'.session('u_email').rand(0,999).'.jpg';
+
             move_uploaded_file($_FILES['headPic']['tmp_name'],$data['r_img']);
-
 
         Resume::updateResume($data,['u_id'=>$u_id]);
 
@@ -154,7 +155,8 @@ class ResumeController extends BaseController
     public  function  educationDesc(Request $request){
             $data['r_desc']=$request->input('myRemark');
             $data['r_time']=time();
-            $r_id=$request->input('id');
+          $r_id=$request->input('id');
+
            return Resume::updateResume($data,['r_id'=>$r_id]);
     }
 

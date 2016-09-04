@@ -21,9 +21,9 @@ class Porject extends Model
      *
      * @param  $data 学历的信息
      */
-    public static function sel_All()
+    public static function sel_All($where)
     {
-        return self::get()->toArray();
+        return self::where($where)->get()->toArray();
     }
 
     /**
