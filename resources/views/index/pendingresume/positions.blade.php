@@ -1,5 +1,5 @@
 @extends('index.lar.public')
-@section('title', '通知面试')
+@section('title', '有效职位')
 @section('content')
         <script src="style/js/job_list.min.js" type="text/javascript"></script>
 
