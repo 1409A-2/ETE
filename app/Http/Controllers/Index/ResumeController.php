@@ -102,8 +102,11 @@ class ResumeController extends BaseController
 
     public  function educationUpload(Request $request){
         $u_id= $request->session()->get('u_id');
-        $data['r_img']='./uploads/'.session('u_email').rand(0,999).'.jpg';
+        $data['r_img']='./uploads/'.session('u_email').'.jpg';
 
+        if(file_exists($data['r_img'])){
+            unlink($data['r_img']);
+        }
             move_uploaded_file($_FILES['headPic']['tmp_name'],$data['r_img']);
 
 

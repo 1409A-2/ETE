@@ -1,6 +1,8 @@
 @extends('index.lar.public')
 @section('title', '拉勾网-最专业的互联网招聘平台')
 @section('content')
+    <div id="container">
+        <div id="sidebar">
     <div class="mainNavs">
         @for($i=0;$i<$count; $i++)
             <div class="menu_box">
@@ -41,7 +43,8 @@
 
     </div>
     <a class="subscribe" href="subscribe.html" target="_blank">订阅职位</a>
-    </div>
+            </div>
+
     <div class="content">
         <div id="search_box">
             <ul id="searchType">
@@ -274,4 +277,5 @@
         </div>
     </div>
     <input type="hidden" value="" name="userid" id="userid" />
+    </div>
 @endsection
