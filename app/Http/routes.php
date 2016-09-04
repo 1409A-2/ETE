@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	//通过邮箱验证
 	Route::get('adopt','Index\InfoController@adoptVerify');
-我的简历
+//我的简历
     Route::get('jianli.html','Index\resumeController@index');
     Route::post('educationPro','Index\resumeController@educationPro');//个人资料
     Route::post('educationUpload','Index\resumeController@educationUpload');//个人头像
