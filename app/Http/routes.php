@@ -58,6 +58,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('positionsdown','Index\industryController@positionsdown');//查看有效职位  positionsdown
 	Route::get('positionsType','Index\industryController@positionsType');//职位上下线管理	positionsType 
 	Route::get('positionsDel','Index\industryController@positionsDel');//删除职位   positionsDel
+	Route::get('downloadResume','Index\industryController@downloadResume');//下载简历   	downloadResume
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {

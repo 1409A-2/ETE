@@ -209,7 +209,11 @@ class IndustryController extends BaseController
         $data=$request->input();
         $data['read']=1;
         ResumeReseale::Up($data);
-        return view('index.pendingresume.preview');
+        $res=ResumeReseale::SelAll($data);
+        $porject=ResumeReseale::SelAlls($data);
+        $works=ResumeReseale::SelAllw($data);
+        // print_r($porject);die;
+        return view('index.pendingresume.preview',['res'=>$res,'porject'=>$porject,'works'=>$works]);
     }
 
     //查看有效职位  positions
@@ -254,5 +258,43 @@ class IndustryController extends BaseController
     public function positionsDel(Request $request){
         $data = $request->except('_token');
         echo Release::Del($data);
+    }
+
+    //简历详情的下载
+    public function downloadResume(Request $request){
+        $data=$request->input();
+        ob_start();
+        $fp =fopen("./".$data['rere_id'].".html",'w');
+        $content=self::previews($data);
+        fwrite($fp, $content);
+        
+        $fps =file_get_contents("./".$data['rere_id'].".html");
+        print_r($fps);
+        if($data['type']==1){
+            header('Content-Type:doc/docx');
+            header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.doc"');
+        }elseif($data['type']==2){
+            header('Content-Type:html');
+            header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.html"');
+        }else{
+            header('Content-Type:pdf');
+            header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.pdf"');
+        }
+        
+        fclose($fp);
+        unlink("./".$data['rere_id'].".html");
+    }
+
+    //公司查看简历
+    public static function previews($data){
+        $res=ResumeReseale::SelAll($data);
+        $porject=ResumeReseale::SelAlls($data);
+        $works=ResumeReseale::SelAllw($data);
+        // print_r($porject);die;
+        if($data['type']!=2){
+            return view('index.pendingresume.previews',['res'=>$res,'porject'=>$porject,'works'=>$works]);
+        }else{
+            return view('index.pendingresume.preview',['res'=>$res,'porject'=>$porject,'works'=>$works]);
+        }
     }
 }

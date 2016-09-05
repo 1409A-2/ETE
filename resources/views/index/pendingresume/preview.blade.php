@@ -3,14 +3,13 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <title>简历预览-校易聘平台</title>
-    <link href="h/images/favicon.ico" rel="Shortcut Icon">
-    <link href="style/css/style.css" type="text/css" rel="stylesheet">
-    <link href="style/css/colorbox.min.css" type="text/css" rel="stylesheet">
-    <link href="style/css/popup.css" type="text/css" rel="stylesheet">
+    <link href="{{env('APP_HOST')}}/style/css/style.css" type="text/css" rel="stylesheet">
+    <link href="{{env('APP_HOST')}}/style/css/colorbox.min.css" type="text/css" rel="stylesheet">
+    <link href="{{env('APP_HOST')}}/style/css/popup.css" type="text/css" rel="stylesheet">
 
-    <script type="text/javascript" src="style/js/jquery.1.10.1.min.js"></script>
+    <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js"></script>
 
-    <script src="style/js/jquery.colorbox-min.js" type="text/javascript"></script>
+    <script src="{{env('APP_HOST')}}/style/js/jquery.colorbox-min.js" type="text/javascript"></script>
     <script>
         $(function () {
             $("body").on("click", "a.btn_s", function () {
@@ -27,7 +26,7 @@
 <body>
 <div id="previewWrapper">
     <div class="preview_header">
-        <h1 title="jason的简历">jason的简历</h1>
+        <h1 title="jason的简历">{{$res['r_name']}} 的简历</h1>
         <a title="下载简历" class="inline cboxElement" href="#downloadOnlineResume">下载该简历</a>
     </div>
     <!--end .preview_header-->
@@ -37,16 +36,13 @@
             <h2>基本信息</h2>
 
             <div class="basicShow">
-                   <span>jason | 
-                    男 |                     大专 |                                       		3年工作经验
-            		            			| 广州<br>
-            			            				高级产品经理 · 上海辉硕科技有限公司 | 本科 · 北京大学<br>
-            			            			18644444444 | jason@qq.com<br>
+                   <span>{{$res['r_name']}} |  @if($res['u_sex']==0) 男 @else  女  @endif |{{$res['ed_name']}} |广州<br>
+                     {{$res['ed_name']}}· {{$res['s_name']}}<br>
+            			            			{{$res['r_photo']}} | {{$res['r_email']}}<br>
             			
             		</span>
 
                 <div class="m_portrait">
-                    <div></div>
                     <img width="120" height="120" alt="jason" src="style/images/default_headpic.png">
                 </div>
             </div>
@@ -58,7 +54,7 @@
             <h2>期望工作</h2>
 
             <div class="expectShow">
-                广州，全职，月薪5k-10k，产品经理
+                月薪{{$res['re_salarymin']}}k-{{$res['re_salarymax']}}k，{{$res['ex_name']}}
             </div>
             <!--end .expectShow-->
         </div>
@@ -69,13 +65,15 @@
 
             <div class="projectShow">
                 <ul class="plist clearfix">
+                @foreach($porject as $v)
                     <li class="noborder">
                         <div class="projectList">
-                            <div class="f16 mb10">微盟，jason<span class="c9">2013.06-至今）</span>
+                            <div class="f16 mb10">{{$v['p_name']}}<span class="c9">({{date('Y-m-d H:i:s',$v['p_start_time'])}}——{{date('Y-m-d H:i:s',$v['p_end_time'])}})</span>
                             </div>
                             <div class="dl1"></div>
                         </div>
                     </li>
+                @endforeach
                 </ul>
             </div>
             <!--end .projectShow-->
@@ -88,11 +86,11 @@
             <div class="educationalShow">
                 <ul class="elist clearfix">
                     <li class="clear">
-                        <span class="c9">2004-2008</span>
+                        <span class="c9">{{date('Y-m-d',$res['s_start_time'])}}——{{date('Y-m-d',$res['s_end_time'])}}</span>
 
                         <div>
-                            <h3>北京大学</h3>
-                            <h4>黑客联盟，本科</h4>
+                            <h3>{{$res['s_name']}}</h3>
+                            <h4>{{$res['s_major']}}，{{$res['ed_name']}}</h4>
                         </div>
                     </li>
                 </ul>
@@ -105,7 +103,7 @@
             <h2>自我描述</h2>
 
             <div class="descriptionShow">
-                黑客
+                {{$res['r_desc']}}
             </div>
             <!--end .descriptionShow-->
         </div>
@@ -116,13 +114,15 @@
 
             <div class="workShow">
                 <ul class="slist clearfix">
+                @foreach($works as $v)
                     <li class="noborder">
                         <div class="workList c7">
-                            <div class="f16">网址：<a target="_blank"
-                                                   href="http://www.weimob.com">http://www.weimob.com</a></div>
-                            <p>产品 </p>
+                             项目：{{$v['w_name']}} <em></em>
+                            <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a></div>
+                            
                         </div>
                     </li>
+                @endforeach
                 </ul>
             </div>
             <!--end .workShow-->
@@ -144,9 +144,9 @@
             </tr>
             <tr>
                 <td>
-                    <a class="btn_s" href="h/resume/downloadResume?key=1ccca806e13637f7b1a4560f80f08057&amp;type=1">word格式</a>
-                    <a class="btn_s" href="h/resume/downloadResume?key=1ccca806e13637f7b1a4560f80f08057&amp;type=2">html格式</a>
-                    <a class="btn_s" href="h/resume/downloadResume?key=1ccca806e13637f7b1a4560f80f08057&amp;type=3">pdf格式</a>
+                    <a class="btn_s" href="downloadResume?key={{csrf_token()}}&type=1&rere_id={{$res['rere_id']}}&name={{$res['r_name']}}">word格式</a>
+                    <a class="btn_s" href="downloadResume?key={{csrf_token()}}&type=2&rere_id={{$res['rere_id']}}&name={{$res['r_name']}}">html格式</a>
+                    <a class="btn_s" href="downloadResume?key={{csrf_token()}}&type=3&rere_id={{$res['rere_id']}}&name={{$res['r_name']}}">pdf格式</a>
                 </td>
             </tr>
             </tbody>
@@ -154,37 +154,3 @@
     </div>
     <!--/#downloadOnlineResume-->
 </div>
-<!------------------------------------- end ----------------------------------------->
-
-
-<div id="cboxOverlay" style="display: none;"></div>
-<div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;">
-    <div id="cboxWrapper">
-        <div>
-            <div id="cboxTopLeft" style="float: left;"></div>
-            <div id="cboxTopCenter" style="float: left;"></div>
-            <div id="cboxTopRight" style="float: left;"></div>
-        </div>
-        <div style="clear: left;">
-            <div id="cboxMiddleLeft" style="float: left;"></div>
-            <div id="cboxContent" style="float: left;">
-                <div id="cboxTitle" style="float: left;"></div>
-                <div id="cboxCurrent" style="float: left;"></div>
-                <button type="button" id="cboxPrevious"></button>
-                <button type="button" id="cboxNext"></button>
-                <button id="cboxSlideshow"></button>
-                <div id="cboxLoadingOverlay" style="float: left;"></div>
-                <div id="cboxLoadingGraphic" style="float: left;"></div>
-            </div>
-            <div id="cboxMiddleRight" style="float: left;"></div>
-        </div>
-        <div style="clear: left;">
-            <div id="cboxBottomLeft" style="float: left;"></div>
-            <div id="cboxBottomCenter" style="float: left;"></div>
-            <div id="cboxBottomRight" style="float: left;"></div>
-        </div>
-    </div>
-    <div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
-</div>
-</body>
-</html>
