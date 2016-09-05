@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +24,12 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-
+    //前台
     Route::get('/','Index\indexController@index');
 	Route::get('indexs','Index\indexController@indexs');
+    //跳转职业详情
+    Route::get('jump','Index\indexController@jump');
+
 
 	//登录注册
 	Route::get('login.html','Index\loginController@login');
@@ -57,19 +57,13 @@ Route::group(['middleware' => ['web']], function () {
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
-
 		//完善公司基本信息
 		Route::get('info','Index\InfoController@checkCompany');
-
 		Route::get('sendEamil','Index\InfoController@sendMail');
-
 		Route::post('company1pro','Index\InfoController@company1Pro');
-
 		Route::post('company2pro','Index\InfoController@company2Pro');
-
 		//完善公司的信息
 		Route::get('detailed','Index\DetailedController@index');
-
 		Route::post('info1pro','Index\DetailedController@Info1Pro');
 
 		Route::get('detailed_info2','Index\DetailedController@Info2');
@@ -85,4 +79,21 @@ Route::group(['middleware' => ['web']], function () {
 
 	//通过邮箱验证
 	Route::get('adopt','Index\InfoController@adoptVerify');
+//我的简历
+    Route::get('jianli.html','Index\resumeController@index');
+    Route::post('educationPro','Index\resumeController@educationPro');//个人资料
+    Route::post('educationUpload','Index\resumeController@educationUpload');//个人头像
+    Route::post('schoolPro','Index\resumeController@schoolPro');//教育背景
+    Route::post('educationDesc','Index\resumeController@educationDesc');//自我描述
+    Route::post('worksAdd','Index\resumeController@worksAdd');//添加作品
+    Route::get('worksDel/{id}','Index\resumeController@worksDel');//删除作品
+    Route::post('porjectAdd','Index\resumeController@porjectAdd');//添加项目
+    Route::get('porjectDel/{id}','Index\resumeController@porjectDel');//删除项目
+
+    //投递简历
+  
+ 
+
+
+
 });

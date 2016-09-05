@@ -23,7 +23,23 @@ class User extends Model
      */
     public static function addUser($data)
     {
-        return self::insert($data);
+        return self::insertGetId($data);
+    }
+
+
+    /**
+     * 查看用户是否存在
+     * @param $bool [查看用户是否存在]
+     */
+    public static function findOne($data)
+    {
+        $user_data = self::where('u_email', '=', $data['u_email'])->first();
+        if ($user_data!=null) {
+            $res = 1;
+        } else {
+            $res = null;
+        }
+        return $res;
     }
 
     /**
@@ -42,6 +58,23 @@ class User extends Model
     }
 
     /**
+     * 修改邮箱状态
+     * @param $bool [u_status]
+     */
+    public static function emailStatus($email)
+    {
+        $mod = self::where('u_email', '=', $email)
+            ->where('u_status', '=' , '0')
+            ->first();
+        if ($mod != null) {
+            $mod->u_status = '1';
+            $res = $mod->save();
+        } else {
+            $res = null;
+        }
+        return $res;
+    }
+ /**
      * 查询一个用户的所欲信息
      */
     public static function selOne($u_id)
@@ -58,5 +91,24 @@ class User extends Model
     {
         return self::where('u_id',session('u_id'))->update(['u_cid'=>$c_id]);
     }
+
+    /**
+     * 查询一个用户的所欲信息
+     */
+    public static function selOne($u_id)
+    {
+        return self::where('u_id',$u_id)
+            ->select('u_name','u_cid')
+            ->first()->toArray();
+    }
+
+    /**
+     * 修改关联公司
+     */
+    public static function upCompany($c_id)
+    {
+        return self::where('u_id',session('u_id'))->update(['u_cid'=>$c_id]);
+    }
+
 
 }
