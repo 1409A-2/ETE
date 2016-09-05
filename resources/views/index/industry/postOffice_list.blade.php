@@ -18,7 +18,7 @@
                         @foreach($release as $v)
                             <li data-id="{{$v['re_id']}}">
                                 <h3>
-                                    <a target="_blank" title="{{$v['re_name']}}" href="http://www.lagou.com/jobs/149594.html">{{$v['re_name']}}</a>
+                                    <a target="_blank" title="{{$v['re_name']}}" href="#">{{$v['re_name']}}</a>
                                     <span>{{$v['re_address']}}</span>
                                 </h3>
                                 <span class="receivedResumeNo"><a
@@ -42,7 +42,7 @@
         <!-- end .content -->
         <script src="style/js/job_list.min.js" type="text/javascript"></script>
         <div class="clear"></div>
-        <input type="hidden" value="74fb1ce14ebf4e2495270b0fbad64704" id="resubmitToken">
+        <input type="hidden" value="{{csrf_token()}}" id="resubmitToken">
         <a rel="nofollow" title="回到顶部" id="backtop"></a>
     </div>
     <!-- end #container -->

@@ -77,5 +77,10 @@ class Company extends Model
     {
         return self::where('c_id',$c_id)->update($up_data);
     }
+	//查询添加时间
+    public static function Sel_Time($c_id){
+        return self::where('company.c_id','=',$c_id)
+        ->first()->toArray();
+    }
 }
 
