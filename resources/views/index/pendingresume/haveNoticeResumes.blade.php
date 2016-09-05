@@ -80,13 +80,23 @@
                                     </a>
 
                                     <div class="resumeIntro">
+                                    @if($v['read']==0)
                                         <h3 class="unread">
-                                            <a target="_blank" title="预览jason的简历"
-                                               href="preview">
+                                            <a class="r" target="_blank" title="预览jason的简历"
+                                               href="preview?rere_id={{$v['rere_id']}}">
                                                 {{$v['r_name']}}的简历
                                             </a>
                                             <em></em>
                                         </h3>
+                                    @else
+                                        <h3 class="read">
+                                            <a target="_blank" title="预览jason的简历"
+                                               href="preview?rere_id={{$v['rere_id']}}">
+                                                {{$v['r_name']}}的简历
+                                            </a>
+                                            <em></em>
+                                        </h3>
+                                    @endif
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
 
                                         <div>
@@ -192,6 +202,9 @@
 </div>
 <script type="text/javascript">
                                         $(function(){
+                                            $('.r').click(function(){
+                                                $(this).parent().attr('class','read');
+                                            }) 
                                             $(document).delegate('.resume_notice','click',function(){
                                                 resume_notice=$(this).attr('status');
                                                 resume_no=$(this).html();

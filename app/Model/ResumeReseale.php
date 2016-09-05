@@ -16,7 +16,7 @@ class ResumeReseale extends Model
 
     public $timestamps = false;
     public static function Up($data){
-    	if($data['remuse_resele']==5){
+    	if(@$data['remuse_resele']==5){
     		return ResumeReseale::where('rere_id','=',$data['rere_id'])->delete();
     	}else{
     		return ResumeReseale::where('rere_id','=',$data['rere_id'])->update($data);

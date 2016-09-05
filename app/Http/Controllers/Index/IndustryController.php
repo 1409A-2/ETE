@@ -205,7 +205,10 @@ class IndustryController extends BaseController
     }
 
     //公司查看简历
-    public function preview(){
+    public function preview(Request $request){
+        $data=$request->input();
+        $data['read']=1;
+        ResumeReseale::Up($data);
         return view('index.pendingresume.preview');
     }
 

@@ -62,28 +62,7 @@
             </div>
             <!--end .expectShow-->
         </div>
-        <!--end #expectJob-->
 
-        <div class="profile_box" id="workExperience">
-            <h2>工作经历</h2>
-
-            <div class="experienceShow">
-                <ul class="wlist clearfix">
-                    <li class="clear">
-                        <span class="c9">2013.06-至今</span>
-
-                        <div>
-                            <img width="56" height="56" alt="上海辉硕科技有限公司" src="style/images/logo_default.png">
-
-                            <h3>高级产品经理 </h3>
-                            <h4>上海辉硕科技有限公司</h4>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!--end .experienceShow-->
-        </div>
-        <!--end #workExperience-->
 
         <div class="profile_box" id="projectExperience">
             <h2>项目经验</h2>
@@ -92,10 +71,7 @@
                 <ul class="plist clearfix">
                     <li class="noborder">
                         <div class="projectList">
-                            <div class="f16 mb10">微盟，jason
-		            						<span class="c9">
-		            									            								（2013.06-至今）
-		            									            						</span>
+                            <div class="f16 mb10">微盟，jason<span class="c9">2013.06-至今）</span>
                             </div>
                             <div class="dl1"></div>
                         </div>
