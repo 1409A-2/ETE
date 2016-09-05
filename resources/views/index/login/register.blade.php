@@ -143,17 +143,16 @@ var youdao_conv_id = 271546;
 			            	dataType:'json',
 		            		success: function(e) {
 							    if(e) {
-							    	alert(e);
-							    // 	if (e==500) {
-							    // 		var str = '该邮箱已被注册！';
-				       //      			$('#beError').attr('style','');
-				       //      			$('#beError').text('');
-				       //      			$('#beError').append(str);
-							    // 	} else {
-								   //  	window.location.href='register.html';
-							    // 	}
-							    // } else {
-							    // 	window.location.href='register.html';
+							    	if (e==500) {
+							    		var str = '该邮箱已被注册！';
+				            			$('#beError').attr('style','');
+				            			$('#beError').text('');
+				            			$('#beError').append(str);
+							    	} else {
+								    	window.location.href='login.html';
+							    	}
+							    } else {
+							    	window.location.href='register.html';
 							    }
 						    },
 			            	error:function(e){
@@ -163,7 +162,7 @@ var youdao_conv_id = 271546;
 			            			$('#beError').text('');
 			            			$('#beError').append(str);
 			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
-			            			// window.location.href='login.html';
+			            			window.location.href='login.html';
 			            			// var str = '验证码验证失效，请刷新重置！';
 			            			// $('#beError').attr('style','');
 			            			// $('#beError').text('');
