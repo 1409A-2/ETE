@@ -150,28 +150,28 @@
 
 
 
-
                 <div class="profile_box" id="projectExperience">
                     <h2>项目经验</h2>
+                    @if($porject)
                     <span class="c_add"></span>
 
                     <div class="projectShow">
-                    @if($porject)
 
 
-                  @foreach($porject as $v)
+
+                            @foreach($porject as $v)
 
 
-                        <ul class="plist clearfix">
-                         <li>  项目名称: <b>{{$v['p_name']}}</b>
-                            担任职务:  <b> {{$v['p_duties']}}</b>
-                            开始时间:  <b> {{date('Y-m',$v['p_start_time'])}}</b>
-                            结束时间: <b> {{date('Y-m',$v['p_end_time']) }}</b>
-                            描述:    <b>  {{$v['p_desc']}}</b>
-                            </li>
-                            <a href="{{url('porjectDel')}}/{{$v['p_id']}}">删除</a>
-                        </ul>
-                    @endforeach
+                                <ul class="plist clearfix">
+                                    <li>  项目名称: <b>{{$v['p_name']}}</b>
+                                        担任职务:  <b> {{$v['p_duties']}}</b>
+                                        开始时间:  <b> {{date('Y-m',$v['p_start_time'])}}</b>
+                                        结束时间: <b> {{date('Y-m',$v['p_end_time']) }}</b>
+                                        描述:    <b>  {{$v['p_desc']}}</b>
+                                    </li>
+                                    <a href="{{url('porjectDel')}}/{{$v['p_id']}}">删除</a>
+                                </ul>
+                            @endforeach
                     </div><!--end .projectShow-->
                     <div class="projectEdit dn">
                         <form class="projectForm">
@@ -355,200 +355,202 @@
                         </form><!--end .projectForm-->
                     </div>
                     @else
-                    <div class="projectEdit dn">
-                        <form class="projectForm">
-                            <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
-                            <table>
-                                <tbody><tr>
-                                    <td valign="top">
-                                        <span class="redstar">*</span>
-                                    </td>
-                                    <td>
-                                        <input type="text" placeholder="项目名称" name="projectName" class="projectName">
-                                    </td>
-                                    <td valign="top">
-                                        <span class="redstar">*</span>
-                                    </td>
-                                    <td>
-                                        <input type="text" placeholder="担任职务，如：产品负责人" name="thePost" class="thePost">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        <span class="redstar">*</span>
-                                    </td>
-                                    <td>
-                                        <div class="fl">
-                                            <input type="hidden" class="projectYearStart" value="" name="projectYearStart">
-                                            <input type="button" value="开始年份" class="profile_select_139 profile_select_normal select_projectYearStart">
-                                            <div class="box_projectYearStart  boxUpDown boxUpDown_139 dn" style="display: none;">
-                                                <ul>
-                                                    <li>2014</li>
-                                                    <li>2013</li>
-                                                    <li>2012</li>
-                                                    <li>2011</li>
-                                                    <li>2010</li>
-                                                    <li>2009</li>
-                                                    <li>2008</li>
-                                                    <li>2007</li>
-                                                    <li>2006</li>
-                                                    <li>2005</li>
-                                                    <li>2004</li>
-                                                    <li>2003</li>
-                                                    <li>2002</li>
-                                                    <li>2001</li>
-                                                    <li>2000</li>
-                                                    <li>1999</li>
-                                                    <li>1998</li>
-                                                    <li>1997</li>
-                                                    <li>1996</li>
-                                                    <li>1995</li>
-                                                    <li>1994</li>
-                                                    <li>1993</li>
-                                                    <li>1992</li>
-                                                    <li>1991</li>
-                                                    <li>1990</li>
-                                                    <li>1989</li>
-                                                    <li>1988</li>
-                                                    <li>1987</li>
-                                                    <li>1986</li>
-                                                    <li>1985</li>
-                                                    <li>1984</li>
-                                                    <li>1983</li>
-                                                    <li>1982</li>
-                                                    <li>1981</li>
-                                                    <li>1980</li>
-                                                    <li>1979</li>
-                                                    <li>1978</li>
-                                                    <li>1977</li>
-                                                    <li>1976</li>
-                                                    <li>1975</li>
-                                                    <li>1974</li>
-                                                    <li>1973</li>
-                                                    <li>1972</li>
-                                                    <li>1971</li>
-                                                    <li>1970</li>
-                                                </ul>
+                        <div class="projectEdit dn">
+                            <form class="projectForm">
+                                <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
+                                <table>
+                                    <tbody><tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="项目名称" name="projectName" class="projectName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="担任职务，如：产品负责人" name="thePost" class="thePost">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectYearStart" value="" name="projectYearStart">
+                                                <input type="button" value="开始年份" class="profile_select_139 profile_select_normal select_projectYearStart">
+                                                <div class="box_projectYearStart  boxUpDown boxUpDown_139 dn" style="display: none;">
+                                                    <ul>
+                                                        <li>2014</li>
+                                                        <li>2013</li>
+                                                        <li>2012</li>
+                                                        <li>2011</li>
+                                                        <li>2010</li>
+                                                        <li>2009</li>
+                                                        <li>2008</li>
+                                                        <li>2007</li>
+                                                        <li>2006</li>
+                                                        <li>2005</li>
+                                                        <li>2004</li>
+                                                        <li>2003</li>
+                                                        <li>2002</li>
+                                                        <li>2001</li>
+                                                        <li>2000</li>
+                                                        <li>1999</li>
+                                                        <li>1998</li>
+                                                        <li>1997</li>
+                                                        <li>1996</li>
+                                                        <li>1995</li>
+                                                        <li>1994</li>
+                                                        <li>1993</li>
+                                                        <li>1992</li>
+                                                        <li>1991</li>
+                                                        <li>1990</li>
+                                                        <li>1989</li>
+                                                        <li>1988</li>
+                                                        <li>1987</li>
+                                                        <li>1986</li>
+                                                        <li>1985</li>
+                                                        <li>1984</li>
+                                                        <li>1983</li>
+                                                        <li>1982</li>
+                                                        <li>1981</li>
+                                                        <li>1980</li>
+                                                        <li>1979</li>
+                                                        <li>1978</li>
+                                                        <li>1977</li>
+                                                        <li>1976</li>
+                                                        <li>1975</li>
+                                                        <li>1974</li>
+                                                        <li>1973</li>
+                                                        <li>1972</li>
+                                                        <li>1971</li>
+                                                        <li>1970</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="fl">
-                                            <input type="hidden" class="projectMonthStart" value="" name="projectMonthStart">
-                                            <input type="button" value="开始月份" class="profile_select_139 profile_select_normal select_projectMonthStart">
-                                            <div style="display: none;" class="box_projectMonthStart boxUpDown boxUpDown_139 dn">
-                                                <ul>
-                                                    <li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li>
-                                                </ul>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectMonthStart" value="" name="projectMonthStart">
+                                                <input type="button" value="开始月份" class="profile_select_139 profile_select_normal select_projectMonthStart">
+                                                <div style="display: none;" class="box_projectMonthStart boxUpDown boxUpDown_139 dn">
+                                                    <ul>
+                                                        <li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </td>
-                                    <td valign="top">
-                                        <span class="redstar">*</span>
-                                    </td>
-                                    <td>
-                                        <div class="fl">
-                                            <input type="hidden" class="projectYearEnd" value="" name="projectYearEnd">
-                                            <input type="button" value="结束年份" class="profile_select_139 profile_select_normal select_projectYearEnd">
-                                            <div class="box_projectYearEnd  boxUpDown boxUpDown_139 dn" style="display: none;">
-                                                <ul>
-                                                    <li>至今</li>
-                                                    <li>2014</li>
-                                                    <li>2013</li>
-                                                    <li>2012</li>
-                                                    <li>2011</li>
-                                                    <li>2010</li>
-                                                    <li>2009</li>
-                                                    <li>2008</li>
-                                                    <li>2007</li>
-                                                    <li>2006</li>
-                                                    <li>2005</li>
-                                                    <li>2004</li>
-                                                    <li>2003</li>
-                                                    <li>2002</li>
-                                                    <li>2001</li>
-                                                    <li>2000</li>
-                                                    <li>1999</li>
-                                                    <li>1998</li>
-                                                    <li>1997</li>
-                                                    <li>1996</li>
-                                                    <li>1995</li>
-                                                    <li>1994</li>
-                                                    <li>1993</li>
-                                                    <li>1992</li>
-                                                    <li>1991</li>
-                                                    <li>1990</li>
-                                                    <li>1989</li>
-                                                    <li>1988</li>
-                                                    <li>1987</li>
-                                                    <li>1986</li>
-                                                    <li>1985</li>
-                                                    <li>1984</li>
-                                                    <li>1983</li>
-                                                    <li>1982</li>
-                                                    <li>1981</li>
-                                                    <li>1980</li>
-                                                    <li>1979</li>
-                                                    <li>1978</li>
-                                                    <li>1977</li>
-                                                    <li>1976</li>
-                                                    <li>1975</li>
-                                                    <li>1974</li>
-                                                    <li>1973</li>
-                                                    <li>1972</li>
-                                                    <li>1971</li>
-                                                    <li>1970</li>
-                                                </ul>
+                                            <div class="clear"></div>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectYearEnd" value="" name="projectYearEnd">
+                                                <input type="button" value="结束年份" class="profile_select_139 profile_select_normal select_projectYearEnd">
+                                                <div class="box_projectYearEnd  boxUpDown boxUpDown_139 dn" style="display: none;">
+                                                    <ul>
+                                                        <li>至今</li>
+                                                        <li>2014</li>
+                                                        <li>2013</li>
+                                                        <li>2012</li>
+                                                        <li>2011</li>
+                                                        <li>2010</li>
+                                                        <li>2009</li>
+                                                        <li>2008</li>
+                                                        <li>2007</li>
+                                                        <li>2006</li>
+                                                        <li>2005</li>
+                                                        <li>2004</li>
+                                                        <li>2003</li>
+                                                        <li>2002</li>
+                                                        <li>2001</li>
+                                                        <li>2000</li>
+                                                        <li>1999</li>
+                                                        <li>1998</li>
+                                                        <li>1997</li>
+                                                        <li>1996</li>
+                                                        <li>1995</li>
+                                                        <li>1994</li>
+                                                        <li>1993</li>
+                                                        <li>1992</li>
+                                                        <li>1991</li>
+                                                        <li>1990</li>
+                                                        <li>1989</li>
+                                                        <li>1988</li>
+                                                        <li>1987</li>
+                                                        <li>1986</li>
+                                                        <li>1985</li>
+                                                        <li>1984</li>
+                                                        <li>1983</li>
+                                                        <li>1982</li>
+                                                        <li>1981</li>
+                                                        <li>1980</li>
+                                                        <li>1979</li>
+                                                        <li>1978</li>
+                                                        <li>1977</li>
+                                                        <li>1976</li>
+                                                        <li>1975</li>
+                                                        <li>1974</li>
+                                                        <li>1973</li>
+                                                        <li>1972</li>
+                                                        <li>1971</li>
+                                                        <li>1970</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="fl">
-                                            <input type="hidden" class="projectMonthEnd" value="" name="projectMonthEnd">
-                                            <input type="button" value="结束月份" class="profile_select_139 profile_select_normal select_projectMonthEnd">
-                                            <div style="display: none;" class="box_projectMonthEnd boxUpDown boxUpDown_139 dn">
-                                                <ul>
-                                                    <li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li>
-                                                </ul>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectMonthEnd" value="" name="projectMonthEnd">
+                                                <input type="button" value="结束月份" class="profile_select_139 profile_select_normal select_projectMonthEnd">
+                                                <div style="display: none;" class="box_projectMonthEnd boxUpDown boxUpDown_139 dn">
+                                                    <ul>
+                                                        <li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top"></td>
-                                    <td colspan="3">
-                                        <textarea class="projectDescription s_textarea" name="projectDescription" placeholder="项目描述"></textarea>
-                                        <div class="word_count">你还可以输入 <span>500</span> 字</div>
-                                    </td>
-                                </tr>
-                                <!-- <tr>
-                                    <td colspan="2">
-                                        <textarea placeholder="职责描述" name="ResponsDescription" class="ResponsDescription s_textarea"></textarea>
-                                        <div class="word_count">你还可以输入 <span>500</span> 字</div>
-                                    </td>
-                                </tr> -->
-                                <tr>
-                                    <td valign="top"></td>
-                                    <td colspan="3">
-                                        <input type="submit" value="保 存" class="btn_profile_save">
-                                        <a class="btn_profile_cancel" href="javascript:;">取 消</a>
-                                    </td>
-                                </tr>
-                                </tbody></table>
-                            <input type="hidden" value="" class="projectId">
-                        </form><!--end .projectForm-->
-                    </div><!--end .projectEdit-->
-                    <div class="projectAdd pAdd">
-                        项目经验是用人单位衡量人才能力的重要指标哦！<br>
-                        来说说让你难忘的项目吧！
-                        <span>添加项目经验</span>
-                    </div><!--end .projectAdd-->
+                                            <div class="clear"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" placeholder="项目描述"></textarea>
+                                            <div class="word_count">你还可以输入 <span>500</span> 字</div>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td colspan="2">
+                                            <textarea placeholder="职责描述" name="ResponsDescription" class="ResponsDescription s_textarea"></textarea>
+                                            <div class="word_count">你还可以输入 <span>500</span> 字</div>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+                                <input type="hidden" value="" class="projectId">
+                            </form><!--end .projectForm-->
+                        </div><!--end .projectEdit-->
+                        <div class="projectAdd pAdd">
+                            项目经验是用人单位衡量人才能力的重要指标哦！<br>
+                            来说说让你难忘的项目吧！
+                            <span>添加项目经验</span>
+                        </div><!--end .projectAdd-->
                     @endif
-                </div><!--end #projectExperience-->
+                </div>
+
 
                 <div class="profile_box" id="educationalBackground">
                     <h2>教育背景<span>（投递简历时必填）</span></h2>
                     <span class="c_edit dn"></span>
 
                      @if($school)
+
                         <div class="educationalShow">
 
                            <span>学校名称——   <b>{{$school['s_name']}}</b>   <br/>最高学历——<b> @if($school['ed_id']==1)大专@elseif($school['ed_id']==2)本科@elseif($school['ed_id']==3)硕士@elseif($school['ed_id']==4)博士@elseif($school['ed_id']==5)其他@endif </b> <br>
