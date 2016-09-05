@@ -90,18 +90,20 @@ class LoginController extends BaseController
 		$data['u_resign'] = time();
 		$res = User::addUser($data);
     	if ($res) {
-            $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
-            $rest = Mail::raw($arr['content'], function ($message) use($email) {
-                $to = $email;
-                $message ->to($to)->subject('校易聘注册认证邮件');
-            });
-            if ($rest) {
-                echo json_encode($rest);
-                exit;
-            } else {
-                echo json_encode($rest);
-                exit;
-            }
+            echo json_encode($res);
+            exit;
+            // $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
+            // $rest = Mail::raw($arr['content'], function ($message) use($email) {
+            //     $to = $email;
+            //     $message ->to($to)->subject('校易聘注册认证邮件');
+            // });
+            // if ($rest) {
+            //     echo json_encode($rest);
+            //     exit;
+            // } else {
+            //     echo json_encode($rest);
+            //     exit;
+            // }
     	} else {
     		echo json_encode($res);
             exit;
