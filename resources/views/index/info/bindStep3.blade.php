@@ -11,7 +11,7 @@
                 <dd>
                     <div class="os_step_3"></div>
                     <div class="open_service_success">
-                        <h3>请检查邮箱发送：{{$company_data['c_email']}}</h3><button><a style="color: red;" href="javascript:void(0)" onclick="sendEamil()">发送验证邮件</a></button>
+                        <h3>请检查邮箱发送：{{$company_data['c_email']}}</h3><button  onclick="sendEamil()"><a style="color: red;" href="javascript:void(0)">发送验证邮件</a></button>
                         <h4>请登录邮箱进入邮件内的链接，验证后即可发布职位</h4>
                         <!-- <div class="emailus">
                             我们已将主题为“开通招聘服务信息确认”邮件发送至邮箱：<a class="f18"></a> <br />

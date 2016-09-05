@@ -59,7 +59,6 @@ class LoginController extends BaseController
     public function registerPro(Request $Request)
     {
     	$data = $Request->all();
-		print_r($data);die;
 		unset($data['_token']);
         $email = $data['u_email'];
         $reslut = User::findOne($data);

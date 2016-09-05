@@ -26,6 +26,7 @@ class CreateEteResumeTable extends Migration
             $table->integer('e_id');
             $table->integer('i_id');
             $table->integer('u_id');
+            $table->integer('r_time');
         });
     }
 

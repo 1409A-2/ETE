@@ -9,7 +9,7 @@
 <title>@yield('title','校易聘')</title>
 <meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
 <script type="text/javascript">
-var ctx = "h";
+var ctx = "{{env('APP_HOST')}}";
 console.log(1);
 </script>
 <link rel="Shortcut Icon" href="h/images/favicon.ico">
