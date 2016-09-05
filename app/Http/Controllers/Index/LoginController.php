@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Index;
 
-use App\Model\Resume;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,10 +26,18 @@ class LoginController extends BaseController
     // 登陆ajax验证
     public function loginPro(Request $Request)
     {
-    	$data = $Request->all();
-		unset($data['_token']);
-		$data['u_pwd'] = md5($data['u_pwd']);
-
+        $data = $Request->all();
+        unset($data['_token']);
+        $data['u_pwd'] = md5($data['u_pwd']);
+        $Request = $this->validate($Request, [
+            'geetest_challenge' => 'required|geetest',
+        ], [
+            'geetest' => Config::get('geetest.server_fail_alert')
+        ]);
+        if ($Request) {
+            echo json_decode($Request);
+            exit;
+        }
     	$list = User::checkLog($data);
         if ($list)
         {
@@ -61,6 +69,15 @@ class LoginController extends BaseController
     	$data = $Request->all();
 		unset($data['_token']);
         $email = $data['u_email'];
+        $Request = $this->validate($Request, [
+            'geetest_challenge' => 'required|geetest',
+        ], [
+            'geetest' => Config::get('geetest.server_fail_alert')
+        ]);
+        if ($Request) {
+            echo json_decode($Request);
+            exit;
+        }
         $reslut = User::findOne($data);
         if ($reslut) {
             echo json_encode(500);
@@ -68,14 +85,8 @@ class LoginController extends BaseController
         }
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();
-        $data['u_cid']=$data['type'];
-        unset($data['type']);
-        $res= User::addUser($data);
-
+		$res = User::addUser($data);
     	if ($res) {
-            $user['r_email']=$email;
-            $user['u_id']=$res;
-            Resume::addResume($user);
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
             $rest = Mail::raw($arr['content'], function ($message) use($email) {
                 $to = $email;
