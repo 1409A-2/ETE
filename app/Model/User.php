@@ -74,6 +74,23 @@ class User extends Model
         }
         return $res;
     }
+ /**
+     * 查询一个用户的所欲信息
+     */
+    public static function selOne($u_id)
+    {
+        return self::where('u_id',$u_id)
+            ->select('u_name','u_cid')
+            ->first()->toArray();
+    }
+
+    /**
+     * 修改关联公司
+     */
+    public static function upCompany($c_id)
+    {
+        return self::where('u_id',session('u_id'))->update(['u_cid'=>$c_id]);
+    }
 
     /**
      * 查询一个用户的所欲信息
