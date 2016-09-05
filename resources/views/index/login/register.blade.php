@@ -154,7 +154,7 @@ var youdao_conv_id = 271546;
 							    // 	}
 							    // } else {
 							    // 	window.location.href='register.html';
-							    // }
+							    }
 						    },
 			            	error:function(e){
 			            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {
