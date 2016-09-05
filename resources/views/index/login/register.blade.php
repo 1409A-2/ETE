@@ -142,7 +142,6 @@ var youdao_conv_id = 271546;
 			            	url: 'registerPro',
 			            	dataType:'json',
 		            		success: function(e) {
-		            			alert(e);
 							    if(e) {
 							    	if (e==500) {
 							    		var str = '该邮箱已被注册！';
