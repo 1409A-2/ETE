@@ -13,9 +13,13 @@ class CreateEteRemuseResealeTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_remuse_reseale', function (Blueprint $table) {
+        Schema::create('resume_reseale', function (Blueprint $table) {
+            $table->increments('rere_id');
             $table->integer('r_id');
             $table->integer('re_id');
+            $table->tinyInteger('resume_reseale')->default(0);
+            $table->tinyInteger('read')->default(0);
+            $table->integer('delivery_time');
         });
     }
 
@@ -26,6 +30,6 @@ class CreateEteRemuseResealeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_remuse_reseale');
+        Schema::drop('resume_reseale');
     }
 }

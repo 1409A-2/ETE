@@ -13,7 +13,7 @@ class CreateEteIndustryTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_industry', function (Blueprint $table) {
+        Schema::create('industry', function (Blueprint $table) {
             $table->increments('l_id');
             $table->string('l_name',30);
             $table->integer('l_pid');
@@ -27,6 +27,6 @@ class CreateEteIndustryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_industry');
+        Schema::drop('industry');
     }
 }

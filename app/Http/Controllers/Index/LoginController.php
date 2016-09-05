@@ -29,6 +29,7 @@ class LoginController extends BaseController
     	$data = $Request->all();
 		unset($data['_token']);
 		$data['u_pwd'] = md5($data['u_pwd']);
+
     	$list = User::checkLog($data);
         if ($list)
         {

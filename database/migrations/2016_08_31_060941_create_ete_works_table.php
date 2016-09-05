@@ -13,22 +13,21 @@ class CreateEteWorksTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_works', function (Blueprint $table) {
-            $table->increments('e_id');
+        Schema::create('works', function (Blueprint $table) {
+            $table->increments('w_id');
             $table->string('w_name',50);
             $table->string('w_url',80);
-            $table->string('w_desc',100);
+            $table->string('w_desc',100)->default('');
             $table->integer('r_id');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
      * @return void
      */
     public function down()
     {
-        Schema::drop('ete_works');
+        Schema::drop('works');
     }
 }

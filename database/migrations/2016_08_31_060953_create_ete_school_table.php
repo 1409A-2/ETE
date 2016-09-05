@@ -13,7 +13,7 @@ class CreateEteSchoolTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_school', function (Blueprint $table) {
+        Schema::create('school', function (Blueprint $table) {
             $table->increments('s_id');
             $table->string('s_name',50);
             $table->integer('s_education');
@@ -32,6 +32,6 @@ class CreateEteSchoolTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_enclosure');
+        Schema::drop('school');
     }
 }

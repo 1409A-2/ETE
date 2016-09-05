@@ -11,7 +11,7 @@
                 <dd>
                     <div class="os_step_3"></div>
                     <div class="open_service_success">
-                        <h3>请检查邮箱发送：{{$company_data['c_email']}}</h3><a href="javascript:void(0)" onclick="sendEamil()">发送验证邮件</a>
+                        <h3>请检查邮箱发送：{{$company_data['c_email']}}</h3><button  onclick="sendEamil()"><a style="color: red;" href="javascript:void(0)">发送验证邮件</a></button>
                         <h4>请登录邮箱进入邮件内的链接，验证后即可发布职位</h4>
                         <!-- <div class="emailus">
                             我们已将主题为“开通招聘服务信息确认”邮件发送至邮箱：<a class="f18"></a> <br />
@@ -32,6 +32,7 @@
                 </dd>
             </dl>
         </div>
+        <a rel="nofollow" title="回到顶部" id="backtop" style="display: none;"></a>
     </div>
 
             <!------------------------------------- 弹窗lightbox ----------------------------------------->
@@ -43,13 +44,14 @@
                 <div class="popup" id="resend_success">
                     <p>我们已将激活邮件发送至：<a>{{$company_data['c_email']}}</a>，请进入邮件内的链接完成验证。</p>
                 </div><!--/#resend_success-->
+
             </div>
             <!------------------------------------- end ----------------------------------------->
 
             <script src="style/js/services.min.js" type="text/javascript"></script>
             <div class="clear"></div>
             <input type="hidden" value="de66a3b79bed40df9c0c2a470d356435" id="resubmitToken">
-            <a rel="nofollow" title="回到顶部" id="backtop" style="display: none;"></a>
+
         <!-- end #container -->
     <script>
         function sendEamil(){

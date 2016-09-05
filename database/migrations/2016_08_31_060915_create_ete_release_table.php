@@ -13,17 +13,18 @@ class CreateEteReleaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_release', function (Blueprint $table) {
+        Schema::create('release', function (Blueprint $table) {
             $table->increments('re_id');
             $table->integer('re_time');
             $table->string('re_name',30);
             $table->string('re_depart',30);
             $table->integer('re_salary');
-            $table->tinyInteger('re_education');
+            $table->string('re_education',20);
             $table->text('re_desc');
             $table->string('re_welfare',60);
             $table->string('re_address',100);
-            $table->integer('i_id');
+            $table->string('i_name',20);
+            $table->tinyInteger('re_status');
             $table->integer('c_id');
         });
     }
@@ -35,6 +36,6 @@ class CreateEteReleaseTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_release');
+        Schema::drop('release');
     }
 }
