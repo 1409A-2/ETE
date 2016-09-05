@@ -132,7 +132,7 @@ var youdao_conv_id = 271546;
 			    		$(form).find(":submit").attr("disabled", true);
 			            $.ajax({
 			            	type:'POST',
-			            	data: {u_email:email,u_pwd:password,_token:resubmitToken,type:type},
+			            	data: {u_email:email,u_pwd:password,_token:resubmitToken},
 			            	url: 'registerPro',
 			            	dataType:'json',
 		            		success: function(e) {

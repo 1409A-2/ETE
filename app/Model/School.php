@@ -28,7 +28,12 @@ class School extends Model
 
     public static function sel_One($where)
     {
-        return self::where($where)->first()->toArray();
+       $school=self::where($where)->first();
+        if($school){
+            return $school->toArray();
+        }else{
+            return $school;
+        }
     }
     //添加
     public static function  addSchool($data){

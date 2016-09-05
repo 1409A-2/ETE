@@ -32,20 +32,25 @@ class ResumeController extends BaseController
             if($res['r_img']){
                 $sum+=5;
             }
+
+            if($res['r_desc']){
+                $sum+=5;
+            }
             $sum+=15;
         }
         if($works=Works::sel_All(['r_id'=>$res['r_id']])){
-            $sum+=20;
+            $sum+=25;
         }; //作品
 
         if($porject=Porject::sel_All(['r_id'=>$res['r_id']])){
-            $sum+=20;
+            $sum+=25;
         };//项目
 
 //echo $sum;die;
-         if($school= School::sel_All(['r_id'=>$res['r_id']])){
-             $sum+=20;
+         if($school= School::sel_One(['r_id'=>$res['r_id']])){
+             $sum+=25;
          };//教育背景
+//        print_r($school);die;
 
 
     	return  view('index.resume.resume',[
