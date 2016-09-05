@@ -13,7 +13,7 @@ class CreateEteResumeTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_resume', function (Blueprint $table) {
+        Schema::create('resume', function (Blueprint $table) {
             $table->increments('r_id');
             $table->string('r_name',200);
             $table->tinyInteger('r_sex');
@@ -36,6 +36,6 @@ class CreateEteResumeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_resume');
+        Schema::drop('resume');
     }
 }

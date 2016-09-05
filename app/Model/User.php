@@ -47,7 +47,7 @@ class User extends Model
     public static function selOne($u_id)
     {
         return self::where('u_id',$u_id)
-            ->select('u_name','u_cid')
+            ->select('u_cid')
             ->first()->toArray();
     }
 

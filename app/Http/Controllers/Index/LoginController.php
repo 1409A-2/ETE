@@ -26,8 +26,8 @@ class LoginController extends BaseController
     	$data = $Request->all();
 		unset($data['_token']);
 		$data['u_pwd'] = md5($data['u_pwd']);
-    	$list = User::checkLog($data);
 
+    	$list = User::checkLog($data);
         if ($list)
         {
 			if ($data['status'] != 0) {
@@ -56,6 +56,7 @@ class LoginController extends BaseController
     public function registerPro(Request $Request)
     {
     	$data = $Request->all();
+		print_r($data);die;
 		unset($data['_token']);
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();

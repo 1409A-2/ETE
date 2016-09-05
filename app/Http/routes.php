@@ -72,6 +72,15 @@ Route::group(['middleware' => ['web']], function () {
 
 		Route::post('info1pro','Index\DetailedController@Info1Pro');
 
+		Route::get('detailed_info2','Index\DetailedController@Info2');
+
+		Route::post('info2Pro','Index\DetailedController@info2Pro');
+
+		Route::get('detailed_info3','Index\DetailedController@Info3');
+
+		Route::post('info3Pro','Index\DetailedController@info3Pro');
+
+		Route::get('detailed_info4','Index\DetailedController@Info4');
 	});
 
 	//通过邮箱验证

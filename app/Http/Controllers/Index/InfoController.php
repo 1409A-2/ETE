@@ -125,7 +125,7 @@ class InfoController extends Controller
             $m->to('594513729@qq.com', '校易聘')->subject('激活你的公司');
         });*/
 
-        $rest = Mail::raw("请激活的你的发布招聘的资格,进入此网址进行激活》》 http://www.ete.com/adopt?token=$token", function ($message) use($company_data) {
+        $rest = Mail::raw("请激活的你的发布招聘的资格,进入此网址进行激活》》 ".env('APP_HOST')."/adopt?token=$token", function ($message) use($company_data) {
             $to = $company_data['c_email'];
             $message ->to($to)->subject('校易聘注册认证邮件');
         });

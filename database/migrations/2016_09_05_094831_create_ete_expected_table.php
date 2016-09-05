@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEtePorjectTable extends Migration
+class CreateEteExpectedTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateEtePorjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('porject', function (Blueprint $table) {
-            $table->increments('p_id');
-            $table->string('p_name',50);
-            $table->string('p_duties',30);
-            $table->integer('p_start_time');
-            $table->integer('p_end_time');
-            $table->text('p_desc');
+        //
+        Schema::create('expected', function (Blueprint $table) {
             $table->integer('r_id');
+            $table->string('ex_name',30);
+            $table->tinyInteger('re_salarymin');
+            $table->tinyInteger('re_salarymax');
         });
     }
 
@@ -32,6 +30,6 @@ class CreateEtePorjectTable extends Migration
     public function down()
     {
         //
-        Schema::drop('porject');
+        Schema::drop('expected');
     }
 }
