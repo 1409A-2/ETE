@@ -143,17 +143,18 @@ var youdao_conv_id = 271546;
 			            	dataType:'json',
 		            		success: function(e) {
 							    if(e) {
-							    	if (e==500) {
-							    		var str = '该邮箱已被注册！';
-				            			$('#beError').attr('style','');
-				            			$('#beError').text('');
-				            			$('#beError').append(str);
-							    	} else {
-								    	window.location.href='register.html';
-							    	}
-							    } else {
-							    	window.location.href='register.html';
-							    }
+							    	alert(e);
+							    // 	if (e==500) {
+							    // 		var str = '该邮箱已被注册！';
+				       //      			$('#beError').attr('style','');
+				       //      			$('#beError').text('');
+				       //      			$('#beError').append(str);
+							    // 	} else {
+								   //  	window.location.href='register.html';
+							    // 	}
+							    // } else {
+							    // 	window.location.href='register.html';
+							    // }
 						    },
 			            	error:function(e){
 			            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {
