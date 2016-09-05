@@ -78,6 +78,9 @@ class LoginController extends BaseController
             echo json_decode($Request);
             exit;
         }
+        unset($data['geetest_challenge']);
+        unset($data['geetest_validate']);
+        unset($data['geetest_seccode']);
         $reslut = User::findOne($data);
         if ($reslut) {
             echo json_encode(500);
