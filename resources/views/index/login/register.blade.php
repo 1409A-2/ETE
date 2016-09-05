@@ -163,7 +163,7 @@ var youdao_conv_id = 271546;
 			            			$('#beError').text('');
 			            			$('#beError').append(str);
 			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
-			            			window.location.href='login.html';
+			            			// window.location.href='login.html';
 			            			// var str = '验证码验证失效，请刷新重置！';
 			            			// $('#beError').attr('style','');
 			            			// $('#beError').text('');
