@@ -149,7 +149,7 @@ var youdao_conv_id = 271546;
 				            			$('#beError').text('');
 				            			$('#beError').append(str);
 							    	} else {
-								    	window.location.href='login.html';
+								    	window.location.href='register.html';
 							    	}
 							    } else {
 							    	window.location.href='register.html';
