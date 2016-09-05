@@ -1,7 +1,50 @@
 @extends('index.lar.public')
 @section('title', '通知面试')
 @section('content')
+<script type="text/javascript">
+                                        $(function(){
+                                            $('.r').click(function(){
+                                                $(this).parent().attr('class','read');
+                                            }) 
+                                            $(document).delegate('.resume_notice','click',function(){
+                                                resume_notice=$(this).attr('status');
+                                                resume_no=$(this).html();
+                                                rere_id=$(this).attr('data-deliverid');
+                                                _this=$(this);
+                                                $.ajax({
+                                                    url:'Nndetermined',
+                                                    type:'get',
+                                                    data: {remuse_resele:resume_notice,rere_id:rere_id},
+                                                    success: function(a){
+                                                        if(a==1){
+                                                            _this.parent().parent().parent().remove();
+                                                        }else{
+                                                            alert(resume_no+"失败");
+                                                        }
+                                                    }
+                                                })
+                                            })
 
+                                            $(document).delegate('#resumeInterviewAl','click',function(){
+                                                var str=$(".chec[checked=checked]");
+                                                var val = '';
+                                                resume_notice=$(this).attr('status');
+                                                for(var i=0;i<str.length;i++){
+                                                    val +=','+ str.eq(i).val();
+
+                                                }
+                                                val=val.substr(1);
+                                                $.ajax({
+                                                    url:'Nndetermineds',
+                                                    type:'get',
+                                                    data: {remuse_resele:resume_notice,rere_id:val},
+                                                    success: function(a){
+                                                        location.href='PendingResume';
+                                                    }
+                                                })
+                                            });
+                                        })
+                                    </script>
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
@@ -34,31 +77,44 @@
                             <dl>
                                 <dt>简历状态：</dt>
                                 <dd>
-                                    <a rel="-1" class="current" href="javascript:;">不限</a>
-                                    <a rel="1" href="javascript:;">未阅读</a>
-                                    <a rel="2" href="javascript:;">已阅读</a>
-                                    <a rel="3" href="javascript:;">已转发</a>
-                                    <input type="hidden" value="-1" name="resumeStatus">
+                                <input type="hidden" value="{{$read}}" id="rel">
+                                @if($read==-1) 
+                                    <a class="current"  href="javascript:;">不限</a>
+                                @else
+                                    <a href="haveNoticeResumes?rel=-1&rels={{$ed_name}}">不限</a>
+                                @endif 
+                                 
+                                @if($read==0) 
+                                    <a class="current" href="javascript:;">未阅读</a>
+                                @else
+                                    <a href="haveNoticeResumes?rel=0&rels={{$ed_name}}">未阅读</a>
+                                @endif 
+                                @if($read==1) 
+                                    <a class="current" href="javascript:;">已阅读</a>
+                                @else
+                                    <a href="haveNoticeResumes?rel=1&rels={{$ed_name}}">已阅读</a>
+                                @endif
                                 </dd>
                             </dl>
-                            <dl>
+                            <!-- <dl>
                                 <dt>简历形式：</dt>
                                 <dd>
-                                    <a rel="-1" class="current" href="javascript:;">不限</a>
-                                    <a rel="0" href="javascript:;">附件简历</a>
-                                    <a rel="1" href="javascript:;">在线简历</a>
+                                    <a rel="-1" class="current" href="">不限</a>
+                                    <a rel="0" href="">附件简历</a>
+                                    <a rel="1" href="">在线简历</a>
                                     <input type="hidden" value="-1" name="resumeType">
                                 </dd>
-                            </dl>
+                            </dl> -->
                             <dl>
                                 <dt>最低学历：</dt>
                                 <dd>
-                                    <a rel="-1" class="current" href="javascript:;">不限</a>
-                                    <a rel="1" href="javascript:;">大专及以上</a>
-                                    <a rel="2" href="javascript:;">本科及以上</a>
-                                    <a rel="3" href="javascript:;">硕士及以上</a>
-                                    <a rel="4" href="javascript:;">博士及以上</a>
-                                    <input type="hidden" value="-1" name="eduExp">
+                                    @foreach($education as $v)
+                                @if($ed_name==$v['ed_id']) 
+                                    <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
+                                @else
+                                    <a href="haveNoticeResumes?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
+                                @endif 
+                                @endforeach
                                 </dd>
                             </dl>
                             <input type="hidden" value="0" name="filterStatus" id="filterStatus">
@@ -200,50 +256,7 @@
             </div>
             <!--/#noticeInterview-->
 </div>
-<script type="text/javascript">
-                                        $(function(){
-                                            $('.r').click(function(){
-                                                $(this).parent().attr('class','read');
-                                            }) 
-                                            $(document).delegate('.resume_notice','click',function(){
-                                                resume_notice=$(this).attr('status');
-                                                resume_no=$(this).html();
-                                                rere_id=$(this).attr('data-deliverid');
-                                                _this=$(this);
-                                                $.ajax({
-                                                    url:'Nndetermined',
-                                                    type:'get',
-                                                    data: {remuse_resele:resume_notice,rere_id:rere_id},
-                                                    success: function(a){
-                                                        if(a==1){
-                                                            _this.parent().parent().parent().remove();
-                                                        }else{
-                                                            alert(resume_no+"失败");
-                                                        }
-                                                    }
-                                                })
-                                            })
 
-                                            $(document).delegate('#resumeInterviewAl','click',function(){
-                                                var str=$(".chec[checked=checked]");
-                                                var val = '';
-                                                resume_notice=$(this).attr('status');
-                                                for(var i=0;i<str.length;i++){
-                                                    val +=','+ str.eq(i).val();
-
-                                                }
-                                                val=val.substr(1);
-                                                $.ajax({
-                                                    url:'Nndetermineds',
-                                                    type:'get',
-                                                    data: {remuse_resele:resume_notice,rere_id:val},
-                                                    success: function(a){
-                                                        location.href='PendingResume';
-                                                    }
-                                                })
-                                            });
-                                        })
-                                    </script>
 <script src="style/js/core.min.js" type="text/javascript"></script>
 <script src="style/js/popup.min.js" type="text/javascript"></script>
 

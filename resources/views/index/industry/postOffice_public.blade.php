@@ -3,10 +3,15 @@
     $(function(){
         url=$('#url').val();
         url=url.substr(1)
-        $("a[href="+url+"]").parent().attr("class","current");
+        if(url=='postOffice'){
+
+        }else{
+          $("a[href="+url+"]").parent().attr("class","current");  
+        }
+        
     })
 </script>
-<div class="sidebar">
+    <div class="sidebar">
             <a class="btn_create" href="postOffice">发布新职位</a>
             <dl class="company_center_aside">
                 <dt>我收到的简历</dt>

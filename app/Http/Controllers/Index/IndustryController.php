@@ -25,12 +25,13 @@ class IndustryController extends BaseController
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
+            $data=Company::Sel_Time($company_c_id['u_cid']);
             $c_id['c_id']=$company_c_id['u_cid'];
             // print_r($company_c_id);die;
         	$industry=Industry::Sel();
         	$education=Education::Sel();
         	$company=Company::Sel($c_id);
-        	return view('index.industry.postOffice',['industry'=>$industry,'education'=>$education,'company'=>$company]);
+        	return view('index.industry.postOffice',['industry'=>$industry,'education'=>$education,'company'=>$company,'data'=>$data]);
         }
     }
 
@@ -55,16 +56,48 @@ class IndustryController extends BaseController
         }
         $data['re_time']=time();
 		// print_r($data);die;
-    	$re=Release::Add($data);
-    	if($re){
-    		echo 1;
-    	}else{
-    		echo 0;
-    	}
+        $company_c_id=User::selOne(Session::get('u_id'));
+        $c_id=$company_c_id['u_cid'];
+        $da=Company::Sel_Time($c_id);
+        $date=date('Y-m-d',time());
+        $time=strtotime($date);
+        $my_time=date('Y-m-d',$da['out_time']);
+        $my_time=strtotime($my_time);
+
+        // echo $data['out_num'];
+        if($da['out_num']<5){
+            $out_num['out_num']=$da['out_num']+1;
+            Company::upBase($c_id,$out_num);
+            $re=Release::Add($data);
+            if($re){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }else{
+            if($time==$my_time){
+                echo 2;
+            }else{
+                $out_num['out_num']=1;
+                $out_num['out_time']=time();
+                Company::upBase($c_id,$out_num);
+                $re=Release::Add($data);
+                if($re){
+                    echo 1;
+                }else{
+                    echo 0;
+                }
+            }
+        }
+        
+        // print_r($data);die;
+    	
     }
 
     public function postOffice_issue(){
-    	return view('index.industry.postOffice_issue');
+        $company_c_id=User::selOne(Session::get('u_id'));
+        $data=Company::Sel_Time($company_c_id['u_cid']);
+    	return view('index.industry.postOffice_issue',['data'=>$data]);
     }
 
     //查看发布的职位
@@ -96,16 +129,36 @@ class IndustryController extends BaseController
 
     /*   ------------------------此处分割线----------------------*/
     //公司查看简历   //待处理
-    public function PendingResume(){
+    public function PendingResume(Request $request){
+        $read=$request->input('rel'); 
+        $ed_name=$request->input('rels'); 
     	$company_c_id=User::selOne(Session::get('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=0;
-        	$resume=Release::sel($c_id,$remuse_resele); 
+        	$resume=Release::sel($c_id,$remuse_resele);
+            if(!@isset($ed_name)||$ed_name==1){
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel($c_id,$remuse_resele);                
+                }else{
+                    $resume=Release::Sel_Rel($c_id,$remuse_resele,$read); 
+                }
+                $ed_name=1; 
+            }else{
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel_ed($c_id,$remuse_resele,$ed_name);                
+                }else{
+                    $resume=Release::Sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name);  
+                }
+            } 
+            
+            $education=Education::sel();
         	// print_r($resume);die;   	
-        	return view('index.pendingresume.pendingresume',['resume'=>$resume]);
+        	return view('index.pendingresume.pendingresume',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
@@ -116,16 +169,34 @@ class IndustryController extends BaseController
     }
 
     //查看待定简历
-    public function CanInterviewResumes(){
+    public function CanInterviewResumes(Request $request){
+        $read=$request->input('rel'); 
+        $ed_name=$request->input('rels');       
     	$company_c_id=User::selOne(Session::get('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=2;
-        	$resume=Release::sel($c_id,$remuse_resele); 
+            if(!@isset($ed_name)||$ed_name==1){
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel($c_id,$remuse_resele);                
+                }else{
+                    $resume=Release::Sel_Rel($c_id,$remuse_resele,$read); 
+                }
+                $ed_name=1; 
+            }else{
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel_ed($c_id,$remuse_resele,$ed_name);                
+                }else{
+                    $resume=Release::Sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name);  
+                }
+            }   
+            $education=Education::sel();         
         	// print_r($resume);die;   	
-        	return view('index.pendingresume.CanInterviewResumes',['resume'=>$resume]);
+        	return view('index.pendingresume.CanInterviewResumes',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
     //执行待定与不合适
@@ -177,30 +248,68 @@ class IndustryController extends BaseController
     }
 
     //查看已发送邮件的简历
-    public function haveNoticeResumes(){
+    public function haveNoticeResumes(Request $request){
+        $read=$request->input('rel');
+        $ed_name=$request->input('rels');
     	$company_c_id=User::selOne(Session::get('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=1;
-        	$resume=Release::sel($c_id,$remuse_resele); 
+        	$resume=Release::sel($c_id,$remuse_resele);
+            if(!@isset($ed_name)||$ed_name==1){
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel($c_id,$remuse_resele);                
+                }else{
+                    $resume=Release::Sel_Rel($c_id,$remuse_resele,$read); 
+                }
+                $ed_name=1; 
+            }else{
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel_ed($c_id,$remuse_resele,$ed_name);                
+                }else{
+                    $resume=Release::Sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name);  
+                }
+            }
+            $education=Education::sel(); 
         	// print_r($resume);die;   	
-        	return view('index.pendingresume.haveNoticeResumes',['resume'=>$resume]);
+        	return view('index.pendingresume.haveNoticeResumes',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
     //查看不合适的简历
-    public function haveRefuseResumes(){
+    public function haveRefuseResumes(Request $request){
+        $read=$request->input('rel');
+        $ed_name=$request->input('rels');
     	$company_c_id=User::selOne(Session::get('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
         	$remuse_resele=3;
-        	$resume=Release::sel($c_id,$remuse_resele); 
+        	$resume=Release::sel($c_id,$remuse_resele);
+            if(!@isset($ed_name)||$ed_name==1){
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel($c_id,$remuse_resele);                
+                }else{
+                    $resume=Release::Sel_Rel($c_id,$remuse_resele,$read); 
+                }
+                $ed_name=1; 
+            }else{
+                if(!@isset($read)||$read==-1){
+                    $read=-1;
+                    $resume=Release::sel_ed($c_id,$remuse_resele,$ed_name);                
+                }else{
+                    $resume=Release::Sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name);  
+                }
+            } 
+            $education=Education::sel(); 
         	// print_r($resume);die;   	
-        	return view('index.pendingresume.haveRefuseResumes',['resume'=>$resume]);
+        	return view('index.pendingresume.haveRefuseResumes',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
