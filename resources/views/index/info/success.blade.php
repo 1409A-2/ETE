@@ -12,7 +12,7 @@
             </dt>
             <dd class="c_notice">
                 <h4>恭喜你，您已经成功开通公司</h4>
-                <a class="greylink" href="create.html">完善公司信息，发布职位</a>
+                <a class="greylink" href="detailed">完善公司信息，发布职位</a>
                 <a class="greylink" href="/"> 进入主页</a>
             </dd>
         </dl>

@@ -4,14 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Porject extends Model
+class Works extends Model
 {
     // 用户model
-    protected $table = "porject";
+    protected $table = "works";
 
     protected $guarded = [];
 
-    protected $primaryKey = 'p_id';
+    protected $primaryKey = 'w_id';
 
     protected $hidden = [];
 
@@ -19,35 +19,28 @@ class Porject extends Model
 
     /**
      *
-     * @param  $data 学历的信息
+     * @param  $data 作品的信息
      */
     public static function sel_All($where)
     {
         return self::where($where)->get()->toArray();
     }
 
-    /**
-     * @param $u_id
-     * @return mixed
-     */
-    public  static  function sel_One($where){
-        return self::where($where)->first()->toArray();
-    }
 
-
-    //添加
-    public static function  addProject($data){
+    //添加作品
+    public static function  addWorks($data){
         return self::insert($data);
 
     }
         //修改
-    public  static  function updateProject($data,$where){
+    public  static  function updateWorks($data,$where){
         return self::where($where)->update($data);
     }
 
     //删除
-    public static function delPorject($where){
+    public static function delWorks($where){
         return self::where($where)->delete();
     }
+
 
 }

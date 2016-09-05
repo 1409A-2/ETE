@@ -67,7 +67,17 @@ class Company extends Model
         return self::where('c_id',$c_id)->update($up_data);
     }
 
-    //查询添加时间
+    /**
+     * 修改公司的 ceo 信息
+     * @param  $c_id int 公司的id
+     * @param  $up_data array 修改的信息（一维数组）
+     * @return boolean
+     */
+    public static function upCeo($up_data,$c_id)
+    {
+        return self::where('c_id',$c_id)->update($up_data);
+    }
+	//查询添加时间
     public static function Sel_Time($c_id){
         return self::where('company.c_id','=',$c_id)
         ->first()->toArray();

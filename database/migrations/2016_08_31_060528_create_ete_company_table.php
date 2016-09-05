@@ -13,7 +13,7 @@ class CreateEteCompanyTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_company', function (Blueprint $table) {
+        Schema::create('company', function (Blueprint $table) {
             $table->increments('c_id');
             $table->string('c_name',200);
             $table->string('c_email',30);
@@ -21,7 +21,11 @@ class CreateEteCompanyTable extends Migration
             $table->string('c_ceo',30);
             $table->string('c_website',50);
             $table->string('c_desc',100);
-            $table->string('c_logo',50);
+            $table->string('c_logo',100);
+            $table->tinyInteger('c_status')->default(0);
+            $table->string('c_shorthand',30);
+            $table->string('c_industry',30);
+            $table->text('ceo_desc');
         });
     }
 
@@ -32,7 +36,7 @@ class CreateEteCompanyTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_company');
+        Schema::drop('company');
     }
 
 

@@ -16,7 +16,7 @@ class Industry extends Model
 
     public $timestamps = false;
 	//查询行业数据
-    public static function Sel(){
+    public static function sel(){
     	 $industry=Industry::get()->toArray();
     	 return Industry::level($industry,$i_pid=0,$level=0);
     }

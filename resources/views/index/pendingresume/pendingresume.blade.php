@@ -7,7 +7,7 @@
                                                 $(this).parent().attr('class','read');
                                             }) 
                                             $(document).delegate('.resume_notice','click',function(){
-                                                alert(111);return
+                                                // alert(111);return
                                                 resume_notice=$(this).attr('status');
                                                 resume_no=$(this).html();
                                                 rere_id=$(this).attr('data-deliverid');

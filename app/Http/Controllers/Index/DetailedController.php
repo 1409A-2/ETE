@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\Lable;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -38,7 +39,7 @@ class DetailedController extends Controller
                     if(empty($company_data['c_shorthand'])||empty($company_data['c_website'])||empty($company_data['c_industry'])||empty($company_data['c_logo'])||empty($company_data['c_desc'])){
                         return $this->Info1();
                     }else{
-                        echo 111;
+                        return redirect('postOffice');
                     }
 
                 }
@@ -81,11 +82,73 @@ class DetailedController extends Controller
         $up_data['c_shorthand'] = $request->get('name');
         $up_data['c_website'] = $request->get('website');
         $up_data['c_industry'] = $request->get('select_industry_hidden');
-        $up_data['c_logo'] = env('APP_HOST').$destinationPath.$fileName;
+        $up_data['c_logo'] = $destinationPath.$fileName;
         $up_data['c_desc'] = $request->get('temptation');
         // print_r($up_data);
         if(Company::upBase($user_data['u_cid'],$up_data)){
-            return redirect('/detailed');
+            return redirect('/detailed_info2');
         }
+    }
+
+    /**
+     * 公司标签
+     */
+    public function Info2()
+    {
+        return view('index.detailed.info02');
+    }
+
+    /**
+     * 添加标签
+     */
+    public function info2Pro(Request $request)
+    {
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+        $lable = $request->get('labels');
+        if($lable == ''){
+            echo 1;die;
+        }
+        $lables = explode(',',$lable);
+        $insert_lables = '';
+        foreach($lables as $key=>$val){
+            $insert_lables[$key]['lab_name'] = $val;
+            $insert_lables[$key]['c_id'] = $user_data['u_cid'];
+        }
+        Lable::delCompany($user_data['u_cid']);
+        echo Lable::insertData($insert_lables);
+
+    }
+
+    /**
+     * 创始团队
+     */
+    public function Info3()
+    {
+        return view('index.detailed.info03');
+    }
+
+    /**
+     * 创始团队
+     */
+    public function info3Pro(Request $request)
+    {
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+
+        $up_data['c_ceo'] = $request->get('leaderInfosname');
+        $up_data['ceo_desc'] = $request->get('leaderInfosremark');
+
+        Company::upCeo($up_data,$user_data['u_cid']);
+
+        return redirect('detailed_info4');
+    }
+
+    /**
+     * 产品
+     */
+    public function Info4()
+    {
+        echo "this is four";
     }
 }

@@ -1,14 +1,22 @@
 <?php
+
 namespace App\Model;
+
 use Illuminate\Database\Eloquent\Model;
+
 class Resume extends Model
 {
     // 用户model
     protected $table = "resume";
+
     protected $guarded = [];
+
     protected $primaryKey = 'r_id';
+
     protected $hidden = [];
+
     public $timestamps = false;
+
     /**
      *
      * @param  $data 学历的信息
@@ -17,6 +25,7 @@ class Resume extends Model
     {
         return self::get()->toArray();
     }
+
     /**
      * @param $u_id
      * @return mixed
@@ -24,12 +33,17 @@ class Resume extends Model
     public  static  function sel_One($u_id){
         return self::where('u_id',$u_id)->first()->toArray();
     }
+
+
     //添加
     public static function  addResume($data){
         return self::insert($data);
+
     }
         //修改
     public  static  function updateResume($data,$where){
         return self::where($where)->update($data);
     }
+
+
 }

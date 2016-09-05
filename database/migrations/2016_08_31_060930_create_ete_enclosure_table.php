@@ -13,7 +13,7 @@ class CreateEteEnclosureTable extends Migration
      */
     public function up()
     {
-        Schema::create('ete_enclosure', function (Blueprint $table) {
+        Schema::create('enclosure', function (Blueprint $table) {
             $table->increments('e_id');
             $table->string('e_name',50);
             $table->string('e_path',100);
@@ -28,6 +28,6 @@ class CreateEteEnclosureTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ete_enclosure');
+        Schema::drop('enclosure');
     }
 }
