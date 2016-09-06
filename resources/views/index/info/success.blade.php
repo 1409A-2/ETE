@@ -19,7 +19,5 @@
     </div>
 
     <div class="clear"></div>
-    <input type="hidden" value="" id="resubmitToken">
-    <a rel="nofollow" title="回到顶部" id="backtop"></a>
-</div><!-- end #container -->
+    <input type="hidden" value="" id="resubmitToken"><!-- end #container -->
 @endsection

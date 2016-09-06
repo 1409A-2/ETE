@@ -17,7 +17,7 @@ class CreateEteRemuseResealeTable extends Migration
             $table->increments('rere_id');
             $table->integer('r_id');
             $table->integer('re_id');
-            $table->tinyInteger('resume_reseale')->default(0);
+            $table->tinyInteger('remuse_resele')->default(0);
             $table->tinyInteger('read')->default(0);
             $table->integer('delivery_time');
         });

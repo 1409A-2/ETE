@@ -25,6 +25,9 @@ class CreateEteCompanyTable extends Migration
             $table->tinyInteger('c_status')->default(0);
             $table->string('c_shorthand',30);
             $table->string('c_industry',30);
+            $table->integer('out_time');
+            $table->integer('out_num')->default(0);
+            $table->text('c_intro');
             $table->text('ceo_desc');
         });
     }

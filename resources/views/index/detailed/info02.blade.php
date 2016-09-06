@@ -86,6 +86,5 @@
     <script src="style/js/step2.min.js" type="text/javascript"></script>
     <div class="clear"></div>
     <input type="hidden" value="" id="resubmitToken">
-    <a rel="nofollow" title="回到顶部" id="backtop" style="display: none;"></a>
-    </div><!-- end #container -->
+    <!-- end #container -->
 @endsection

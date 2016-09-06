@@ -14,9 +14,9 @@ class CreateEteIndustryTable extends Migration
     public function up()
     {
         Schema::create('industry', function (Blueprint $table) {
-            $table->increments('l_id');
-            $table->string('l_name',30);
-            $table->integer('l_pid');
+            $table->increments('i_id');
+            $table->string('i_name',30);
+            $table->integer('i_pid');
         });
     }
 

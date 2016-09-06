@@ -18,7 +18,8 @@ class CreateEteReleaseTable extends Migration
             $table->integer('re_time');
             $table->string('re_name',30);
             $table->string('re_depart',30);
-            $table->integer('re_salary');
+            $table->integer('re_salarymin');
+            $table->integer('re_salarymax');
             $table->string('re_education',20);
             $table->text('re_desc');
             $table->string('re_welfare',60);
