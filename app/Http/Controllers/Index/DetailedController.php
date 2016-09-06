@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Lable;
+use App\Model\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -82,7 +83,7 @@ class DetailedController extends Controller
         $up_data['c_shorthand'] = $request->get('name');
         $up_data['c_website'] = $request->get('website');
         $up_data['c_industry'] = $request->get('select_industry_hidden');
-        $up_data['c_logo'] = $destinationPath.$fileName;
+        $up_data['c_logo'] = $destinationPath.'/'.$fileName;
         $up_data['c_desc'] = $request->get('temptation');
         // print_r($up_data);
         if(Company::upBase($user_data['u_cid'],$up_data)){
@@ -149,6 +150,55 @@ class DetailedController extends Controller
      */
     public function Info4()
     {
-        echo "this is four";
+        return view('index.detailed.info04');
     }
+
+    /**
+     * 公司介绍
+     */
+    public function Info5()
+    {
+        return view('index.detailed.info05');
+    }
+
+    /**
+     * 添加产品
+     */
+    public function info4pro(Request $request)
+    {
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+        $data = $request->except(['_token','resubmitToken','companyId','productInfos']);
+        for($i=0;$i<count($data['product']);$i++){
+            if($data['product'][$i] != '' && $data['productUrl'][$i] != '' && $data['myfiles'][$i] != '' && $data['productProfile'][$i] != ''){
+                if ($data['myfiles'][$i]->isValid()){
+                    $destinationPath = "/style/upload/product";
+                    $fileName = $user_data['u_cid'].$i.time()."_product.jpg";
+                    $data['myfiles'][$i]->move($_SERVER['DOCUMENT_ROOT'].$destinationPath, $fileName);;
+                    $up_data['pr_name'] = $data['product'][$i];
+                    $up_data['pr_desc'] = $data['productProfile'][$i];
+                    $up_data['pr_website'] = $data['productUrl'][$i];
+                    $up_data['pr_pic'] = $destinationPath.'/'.$fileName;
+                    $up_data['c_id'] = $user_data['u_cid'];
+                    Product::insertProduct($up_data);
+                }
+            }
+        }
+        return redirect('detailed_info5');
+    }
+
+    /**
+     * 添加简介
+     */
+    public function info5Pro(Request $request)
+    {
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+        $intro = $request->get('companyProfile');
+        if($intro!=''){
+            Company::upIntro($intro,$user_data['u_cid']);
+        }
+        return redirect('postOffice');
+    }
+
 }

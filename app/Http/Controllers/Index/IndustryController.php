@@ -364,6 +364,7 @@ class IndustryController extends BaseController
             $c_id['c_id']=$company_c_id['u_cid'];
             $re_status=0;
             $release=Release::Sel_Pr($c_id['c_id'],$re_status);
+            $count_preview = '';
             foreach ($release as $k => $v) {
                 $count_preview[$v['re_id']]=ResumeReseale::countPreview($v['re_id']);
             }
@@ -381,6 +382,7 @@ class IndustryController extends BaseController
             $c_id['c_id']=$company_c_id['u_cid'];
             $re_status=1;
             $release=Release::Sel_Pr($c_id['c_id'],$re_status);
+            $count_preview = '';
             foreach ($release as $k => $v) {
                 $count_preview[$v['re_id']]=ResumeReseale::countPreview($v['re_id']);
             }
