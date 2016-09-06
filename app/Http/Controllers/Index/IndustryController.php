@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 use Validator;
 use Session;
 use Redirect;
+use DB;
 use App\Model\Industry;
 use App\Model\Education;
 use App\Model\Company;
@@ -25,6 +26,18 @@ class IndustryController extends BaseController
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
+            $da=Company::Sel_Time($company_c_id['u_cid']);
+            $date=date('Y-m-d',time());
+            $time=strtotime($date);
+            $my_time=date('Y-m-d',$da['out_time']);
+            $my_time=strtotime($my_time);
+            if($time!=$my_time){
+                if($da['out_time']!=1){
+                    $out_num['out_time']=1;
+                    $out_num['out_num']=0;
+                    Company::upBase($company_c_id['u_cid'],$out_num);
+                }                
+            }
             $data=Company::Sel_Time($company_c_id['u_cid']);
             $c_id['c_id']=$company_c_id['u_cid'];
             // print_r($company_c_id);die;
@@ -67,8 +80,18 @@ class IndustryController extends BaseController
         // echo $data['out_num'];
         if($da['out_num']<5){
             $out_num['out_num']=$da['out_num']+1;
+            if($da['out_num']==4){
+                $out_num['out_time']=time();
+            }
+        try{
+        DB::beginTransaction();
             Company::upBase($c_id,$out_num);
             $re=Release::Add($data);
+        DB::commit(); 
+        }catch (\Exception $e) {
+                echo "<script>alert('错误');location.href='postOffice'</script>";
+                DB::rollBack(); 
+        } 
             if($re){
                 echo 1;
             }else{
@@ -80,8 +103,15 @@ class IndustryController extends BaseController
             }else{
                 $out_num['out_num']=1;
                 $out_num['out_time']=time();
+            try{
+            DB::beginTransaction();
                 Company::upBase($c_id,$out_num);
                 $re=Release::Add($data);
+            DB::commit(); 
+            }catch (\Exception $e) {
+                    echo "<script>alert('错误');location.href='postOffice'</script>";
+                    DB::rollBack(); 
+            }
                 if($re){
                     echo 1;
                 }else{

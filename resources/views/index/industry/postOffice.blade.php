@@ -197,7 +197,7 @@
                                 <tr>
                                     <td width="25"></td>
                                     <td colspan="2">
-                                        <input type="submit" value="预览" id="jobPreview" class="btn_32">
+                                        <!-- <input type="submit" value="预览" id="jobPreview" class="btn_32"> -->
                                         <input type="button" value="发布" id="formSubmit" class="btn_32">
                                     </td>
                                 </tr>
