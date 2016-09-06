@@ -57,29 +57,29 @@ Route::group(['middleware' => ['web']], function () {
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
-		//完善公司基本信息
+		//完善公司基本信息（必填）
 		Route::get('info','Index\InfoController@checkCompany');
 		Route::get('sendEamil','Index\InfoController@sendMail');
 		Route::post('company1pro','Index\InfoController@company1Pro');
 		Route::post('company2pro','Index\InfoController@company2Pro');
 		//完善公司的信息
-		Route::get('detailed','Index\DetailedController@index');
-		Route::post('info1pro','Index\DetailedController@Info1Pro');
-
-		Route::get('detailed_info2','Index\DetailedController@Info2');
-
+		Route::get('detailed','Index\DetailedController@index');//必填 1
+		Route::post('info1pro','Index\DetailedController@Info1Pro');//提交1
+		Route::get('detailed_info2','Index\DetailedController@Info2');// 可选 2
 		Route::post('info2Pro','Index\DetailedController@info2Pro');
-
-		Route::get('detailed_info3','Index\DetailedController@Info3');
-
+		Route::get('detailed_info3','Index\DetailedController@Info3');// 可选 3
 		Route::post('info3Pro','Index\DetailedController@info3Pro');
+		Route::get('detailed_info4','Index\DetailedController@Info4');// 可选 4
+		Route::post('info4Pro','Index\DetailedController@info4Pro');
+		Route::get('detailed_info5','Index\DetailedController@Info5');// 可选 5
+		Route::post('info5Pro','Index\DetailedController@info5Pro');// 可选 5
 
-		Route::get('detailed_info4','Index\DetailedController@Info4');
 	});
-
+	Route::get('companylist','Index\CompanyController@Index');// 可选 5
 	//通过邮箱验证
 	Route::get('adopt','Index\InfoController@adoptVerify');
-//我的简历
+
+	//我的简历
     Route::get('jianli.html','Index\resumeController@index');
     Route::post('educationPro','Index\resumeController@educationPro');//个人资料
     Route::post('educationUpload','Index\resumeController@educationUpload');//个人头像

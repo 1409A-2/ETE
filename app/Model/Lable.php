@@ -28,12 +28,26 @@ class Lable extends Model
     }
 
     /**
-     * 添加公司的lable
+     * 删除公司的lable
      * @param $c_id int 要删除的公司id
      * @return boolean
      */
     public static function delCompany($c_id)
     {
         return self::where('c_id',$c_id)->delete();
+    }
+
+    /**
+     * 添加公司的lable
+     * @param $c_id int 公司id
+     * @return boolean
+     */
+    public static function selLable($c_id)
+    {
+        $data = self::where('c_id',$c_id)->get();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
     }
 }

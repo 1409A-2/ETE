@@ -77,5 +77,16 @@ class Company extends Model
     {
         return self::where('c_id',$c_id)->update($up_data);
     }
+
+    /**
+     * 修改公司的 intro 信息
+     * @param  $c_id int 公司的id
+     * @param  $intro string 介绍（一维数组）
+     * @return boolean
+     */
+    public static function upIntro($intro,$c_id)
+    {
+        return self::where('c_id',$c_id)->update(['c_intro'=>$intro]);
+    }
 }
 
