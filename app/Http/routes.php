@@ -31,13 +31,19 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('jump','Index\indexController@jump');
 
 
+	// 注册发送邮件
+	Route::get('mail/send','MailController@send');
+
 	//登录注册
 	Route::get('login.html','Index\loginController@login');
 	Route::get('register.html','Index\loginController@register');
 	Route::post('registerPro','Index\loginController@registerPro');
 	Route::post('loginPro','Index\loginController@loginPro');
+	Route::controller('login','Index\loginController');
+	Route::get('email','Index\loginController@email');
+	Route::get('loginOut.html','Index\LoginController@loginOut');
 
-		//这是发布职位控制
+	//这是发布职位控制
 	Route::get('postOffice','Index\industryController@postOffice');
 	Route::post('postOffice_add','Index\industryController@postOffice_add');//发布职位
 	Route::get('postOffice_issue','Index\industryController@postOffice_issue');//发布成功
