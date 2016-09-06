@@ -65,7 +65,5 @@
 
 		<script src="style/js/step3.min.js" type="text/javascript"></script>
 		<div class="clear"></div>
-		<input type="hidden" value="52346c62232045a8ab1d45cb3e0540b7" id="resubmitToken">
-		<a rel="nofollow" title="回到顶部" id="backtop" style="display: inline;"></a>
-	</div><!-- end #container -->
+		<input type="hidden" value="52346c62232045a8ab1d45cb3e0540b7" id="resubmitToken"><!-- end #container -->
 @endsection

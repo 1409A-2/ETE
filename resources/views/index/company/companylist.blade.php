@@ -122,6 +122,5 @@
     </script>
     <div class="clear"></div>
     <input type="hidden" id="resubmitToken" value=""/>
-    <a id="backtop" title="回到顶部" rel="nofollow"></a>
-</div><!-- end #container -->
+
 @endsection

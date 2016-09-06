@@ -30,12 +30,4 @@
                 </dd>
             </dl>
         </div>
-        <a rel="nofollow" title="回到顶部" id="backtop"></a>
-    </div>
-    <div class="dn" id="loadingDiv" style="display: none;"><img width="32" height="32"
-                                                                src="style/images/ajax-loader.gif"></div>
-    <script src="style/js/services.min.js" type="text/javascript"></script>
-    <div class="clear"></div>
-    <input type="hidden" value="3a9b3124ee0a4adca922f2c9756d1ac1" id="resubmitToken">
-
 @endsection

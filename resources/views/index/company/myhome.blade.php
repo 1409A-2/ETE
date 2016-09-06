@@ -402,6 +402,4 @@
 		</script>
 		<div class="clear"></div>
 		<input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
-		<a rel="nofollow" title="回到顶部" id="backtop" style="display: inline;"></a>
-	</div><!-- end #container -->
 @endsection
