@@ -32,6 +32,27 @@
                 </dd>
             </dl>
         </div>
+        <a rel="nofollow" title="回到顶部" id="backtop" style="display: none;"></a>
+    </div>
+
+            <!------------------------------------- 弹窗lightbox ----------------------------------------->
+            <div id="success" style="display:none;">
+                <!--
+                    激活邮箱
+                    验证邮件发送成功弹窗
+                -->
+                <div class="popup" id="resend_success">
+                    <p>我们已将激活邮件发送至：<a>{{$company_data['c_email']}}</a>，请进入邮件内的链接完成验证。</p>
+                </div><!--/#resend_success-->
+
+            </div>
+            <!------------------------------------- end ----------------------------------------->
+
+            <script src="style/js/services.min.js" type="text/javascript"></script>
+            <div class="clear"></div>
+            <input type="hidden" value="de66a3b79bed40df9c0c2a470d356435" id="resubmitToken">
+
+        <!-- end #container -->
     <script>
         function sendEamil(){
             var _success = $('#success');

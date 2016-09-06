@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
 use Request;
 use DB;
+use App\Model\User;
 
 header("content-type:text/html;charset=utf8");
 

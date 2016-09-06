@@ -56,7 +56,7 @@ var youdao_conv_id = 271546;
                 <dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
                 <dd><a href="create.html">我要招人</a></dd>
                 <dd><a href="accountBind.html">帐号设置</a></dd>
-                <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+                <dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
             </dl>
           <?php  }else{?>
             <ul class="loginTop">
