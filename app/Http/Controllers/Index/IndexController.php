@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Index;
+
 use App\Model\Industry;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Session;
 use Request;
 use DB;
+use App\Model\User;
+
 header("content-type:text/html;charset=utf8");
 
 class IndexController extends BaseController
@@ -43,7 +47,9 @@ class IndexController extends BaseController
         }
         unset($industry);
     	//print_r($hid_industry);die
-    	return  view('index.index.test',['count'=>$num,'industry'=>$hid_industry,'nav_industry'=>$new_industry]);
+        $u_id = Session::get('u_id');
+        $u_email = Session::get('u_email');
+    	return  view('index.index.test',['count'=>$num,'industry'=>$hid_industry,'nav_industry'=>$new_industry,'u_id'=>$u_id,'u_email'=>$u_email]);
     }
 
     //跳转职业详情

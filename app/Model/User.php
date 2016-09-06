@@ -9,7 +9,7 @@ class User extends Model
     // 用户model
     protected $table = "users";
 
-    protected $guarded = [];
+    protected $guarded = ['geetest_challenge', 'geetest_validate', 'geetest_seccode'];
 
     protected $primaryKey = 'u_id';
 

@@ -19,8 +19,9 @@ console.log(1);
 <link rel="Shortcut Icon" href="h/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
 <script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
+<script>var $110 = jQuery.noConflict();</script>
 <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
-<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/core.min.js"></script>
+<!-- <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/core.min.js"></script> -->
 <script type="text/javascript">
 var youdao_conv_id = 271546;
 </script>
@@ -49,6 +50,7 @@ var youdao_conv_id = 271546;
             	<input type="text" id="email" name="email" tabindex="1" placeholder="请输入常用邮箱地址" />
                 <span class="error" style="display:none;" id="beError"></span>
                 <input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码" />
+            	{!! Geetest::render() !!}
             	<label class="fl registerJianJu" for="checkbox">
             		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《校易聘用户协议》</a>
            		</label>
@@ -62,23 +64,24 @@ var youdao_conv_id = 271546;
             	<div>已有校易聘帐号</div>
             	<a  href="login.html"  class="registor_now">直接登录</a>
                 <div class="login_others">使用以下帐号直接登录:</div>
-                <a  href="h/ologin/auth/sina.html"  target="_blank" class="icon_wb" title="使用新浪微博帐号登录"></a>
-               	<a  href="h/ologin/auth/qq.html"  class="icon_qq" target="_blank" title="使用腾讯QQ帐号登录" ></a>
+                <div id="hzy_fast_login">
+	                <script type="text/javascript" src="http://open.51094.com/user/myscript/157aac989c4b62.html"></script>            	
+                </div>
             </div>
         </div>
         <div class="login_box_btm"></div>
     </div>
     <script type="text/javascript">    
-    $(document).ready(function(e) {
-    	$('.register_radio li input').click(function(e){
+    $110(document).ready(function(e) {
+    	$110('.register_radio li input').click(function(e){
     		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
     	});
     	
-    	$('#email').focus(function(){
+    	$110('#email').focus(function(){
     		$('#beError').hide();
     	});
     	//验证表单
-	    	 $("#loginForm").validate({
+	    	 $110("#loginForm").validate({
 	    	        rules: {
 	    	        	type:{
 	    	        		required: true
@@ -128,20 +131,44 @@ var youdao_conv_id = 271546;
 			    		var authType = $('#authType').val();
 			    		var signature = $('#signature').val();
 			    		var timestamp = $('#timestamp').val();
-			    		
-			    		$(form).find(":submit").attr("disabled", true);
+			    		var geetest_challenge = $('.geetest_challenge').val();
+			    		var geetest_validate = $('.geetest_validate').val();
+		    			var geetest_seccode = $('.geetest_seccode').val();
+		
+			    		// $(form).find(":submit").attr("disabled", true);
 			            $.ajax({
 			            	type:'POST',
-			            	data: {u_email:email,u_pwd:password,_token:resubmitToken,type:type},
+			            	data: {u_email:email,u_pwd:password,_token:resubmitToken, geetest_seccode:geetest_seccode , geetest_validate:geetest_validate, geetest_challenge:geetest_challenge},
 			            	url: 'registerPro',
 			            	dataType:'json',
 		            		success: function(e) {
 							    if(e) {
-							    	window.location.href='login.html';
+							    	if (e==500) {
+							    		var str = '该邮箱已被注册！';
+				            			$('#beError').attr('style','');
+				            			$('#beError').text('');
+				            			$('#beError').append(str);
+							    	} else {
+								    	window.location.href='login.html';
+							    	}
 							    } else {
 							    	window.location.href='register.html';
 							    }
-						    }
+						    },
+			            	error:function(e){
+			            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {
+			            			var str = '请验证验证码！';
+			            			$('#beError').attr('style','');
+			            			$('#beError').text('');
+			            			$('#beError').append(str);
+			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
+			            			window.location.href='register.html';
+			            			var str = '验证码验证失效，请刷新重置！';
+			            			$('#beError').attr('style','');
+			            			$('#beError').text('');
+			            			$('#beError').append(str);
+			            		}
+			            	}
 			            })
 			        }
 	    	});

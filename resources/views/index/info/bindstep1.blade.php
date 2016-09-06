@@ -49,4 +49,9 @@
 				</dd>
 			</dl>
 		</div>
+		<a rel="nofollow" title="回到顶部" id="backtop"></a>
+	</div>
+	<script src="{{env('APP_HOST')}}/style/js/services.min.js" type="text/javascript"></script>
+	<div class="clear"></div>
+	<input type="hidden" value="a517d13d23f5432eab682688151c3673" id="resubmitToken">
 @endsection
