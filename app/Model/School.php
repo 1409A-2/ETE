@@ -26,6 +26,10 @@ class School extends Model
         return self::where($where)->get()->toArray();
     }
 
+    /**查询
+     * @param $where
+     * @return mixed
+     */
     public static function sel_One($where)
     {
        $school=self::where($where)->first();
@@ -35,12 +39,21 @@ class School extends Model
             return $school;
         }
     }
-    //添加
+
+    /**添加
+     * @param $data
+     * @return mixed
+     */
     public static function  addSchool($data){
         return self::insert($data);
 
     }
-        //修改
+
+    /**修改
+     * @param $data
+     * @param $where
+     * @return mixed
+     */
     public  static  function updateSchool($data,$where){
         return self::where($where)->update($data);
     }

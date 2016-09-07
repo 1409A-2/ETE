@@ -157,7 +157,7 @@
 
                                         <div>
                                             {{$v['r_name']}} / @if($v['r_sex']==0) 男 @else  女  @endif / {{$v['ed_name']}} /  北京 <br>
-                                            {{$v['i_name']}} · {{$v['c_name']}} | {{$v['ed_name']}}  · {{$v['s_name']}}大学
+                                            {{$v['i_name']}} · {{$v['c_name']}} | {{$v['ed_name']}}
                                         </div>
                                         <div class="jdpublisher">
                                             <span>应聘职位：<a title="{{$v['i_name']}}" target="_blank"href="">{{$v['i_name']}}</a></span>

@@ -18,8 +18,8 @@ class Works extends Model
     public $timestamps = false;
 
     /**
-     *
-     * @param  $data 作品的信息
+     *作品的信息
+     * @param  $data
      */
     public static function sel_All($where)
     {
@@ -27,17 +27,29 @@ class Works extends Model
     }
 
 
-    //添加作品
+    /** * 添加作品
+     * @param $data
+     * @return mixed
+     */
+
     public static function  addWorks($data){
         return self::insert($data);
 
     }
-        //修改
+
+    /**   修改
+     * @param $data
+     * @param $where
+     * @return mixed
+     */
     public  static  function updateWorks($data,$where){
         return self::where($where)->update($data);
     }
 
-    //删除
+    /**  删除
+     * @param $where
+     * @return mixed
+     */
     public static function delWorks($where){
         return self::where($where)->delete();
     }

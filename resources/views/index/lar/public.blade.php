@@ -57,7 +57,6 @@
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
-
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="jianli.html">我的简历</a></dd>
 				<dd><a href="collections.html">我收藏的职位</a></dd>

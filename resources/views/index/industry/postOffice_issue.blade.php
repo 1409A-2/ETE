@@ -17,7 +17,7 @@
                             <h2>恭喜你，职位发布成功！</h2>
                             <a target="_blank" href="postOffice_preview">预览职位</a><br>
                                                         <a class="greylink" href="postOffice">继续发布新职位</a><br>
-                                                        <a class="greylink" href=""> 进入我的公司主页</a><br>
+                                                        <a class="greylink" href="companylist"> 进入我的公司主页</a><br>
                         	<div style="float:left;" class="invite_share">
 			                    <!-- JiaThis Button BEGIN -->
 								<div class="jiathis_style_32x32">
