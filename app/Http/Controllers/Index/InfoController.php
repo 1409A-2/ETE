@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Validator;
 use Mail;
 use App\Http\Requests;
@@ -17,15 +18,23 @@ class InfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkCompany()
+    public function checkCompany(Request $request)
     {
         //
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
+        if($request->get('update',0)==1){
+            $company_data = Company::selOne($user_data['u_cid']);
+            if($company_data['c_status']==0){
+                return $this->companyInfo1($request->get('update',0));
+            }else{
+                return redirect('/info');
+            }
+        }
         if($user_data['u_cid']==0){
             return redirect('/');
         }elseif($user_data['u_cid']==1){
-            return $this->companyInfo1();
+            return $this->companyInfo1($request->get('update',0));
         }else{
             $company_data = Company::selOne($user_data['u_cid']);
             if($company_data['c_name']==''){
@@ -45,9 +54,15 @@ class InfoController extends Controller
     /**
      * 公司信息的完善
      */
-    public function companyInfo1()
+    public function companyInfo1($update)
     {
-        return view('index.info.bindstep1');
+        $company_data = '';
+        if($update==1){
+            $u_id = session('u_id');
+            $user_data = User::selOne($u_id);
+            $company_data = Company::selOne($user_data['u_cid']);
+        }
+        return view('index.info.bindstep1',['company_data'=>$company_data]);
     }
 
     /**
@@ -55,6 +70,9 @@ class InfoController extends Controller
      */
     public function company1Pro(Request $request)
     {
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+
         $company_data = $request->except('_token');
 
         $validator = Validator::make($company_data, [
@@ -65,11 +83,15 @@ class InfoController extends Controller
         $insert_data['c_email'] = $company_data['receiveEmail'];
         $insert_data['c_tel'] = $company_data['contact'];
 
-        $c_id = Company::addOne($insert_data);
+        if($company_data['update']==0){
+            $c_id = Company::addOne($insert_data);
 
-        $re = User::upCompany($c_id);
+            $re = User::upCompany($c_id);
+        }else{
+            $re = Company::upEmail($insert_data,$user_data['u_cid']);
+        }
 
-        echo $re;
+        echo 1;
     }
 
     /**

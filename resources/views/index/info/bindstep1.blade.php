@@ -14,11 +14,12 @@
 					<form class="corp_form" id="bindForm">
 						<input type="hidden" value="{{csrf_token()}}" id="resubmitToken">
 						<h3><em class="redstar">*</em>联系电话 <span>（请填写真实有效的电话号码，方便系统校验使用）</span></h3>
-						<input type="text" value="" placeholder="请输入你的手机号码或座机号码" maxlength="49" name="tel" id="tel">
+						<input type="text" value="{{isset($company_data['c_tel']) ? $company_data['c_tel'] : ''}}" placeholder="请输入你的手机号码或座机号码" maxlength="49" name="tel" id="tel">
 						<h3><em class="redstar">*</em>接收简历邮箱 <span>（该邮箱为公司邮箱，审核通过后不可更改）</span></h3>
-						<input type="text" value="" placeholder="请输入你的公司邮箱作为接收简历邮箱" name="email" id="email">
+						<input type="text" value="{{isset($company_data['c_email']) ? $company_data['c_email'] : ''}}" placeholder="请输入你的公司邮箱作为接收简历邮箱" name="email" id="email">
 						<span id="beError" style="display:none;" class="error"></span>
 						<input type="submit" value="下一步" id="bindSubmit">
+						<input type="hidden" id="update" value="{{isset($company_data['c_tel']) ? 1 : 0}}">
 					</form>
 					<div class="contactus">
 						<table>

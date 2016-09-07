@@ -150,35 +150,18 @@
         @endforeach    
     </ul>
     <div class="Pagination myself">
+        <a title="1" href="jump?i_name={{$i_name}}&page={{1}}">首页</a>
 
-        @if($page==1)
-            <span class="disabled" title="首页" >首页 </span>
-            <span class="disabled" title="上一页" >上一页 </span>
-        @else
-            <a title="1" href="jump?i_name={{$i_name}}&page={{1}}">首页</a>
-            <a title="{{$page-1}}" href="jump?i_name={{$i_name}}&page={{$page-1}}">上一页 </a>
-        @endif
-        @for($i=($page-2);$i<=($page+2);$i++)
-            @if($i<1)
-            <?php continue  ?>
-            @endif
-            @if($i>$pages)
-            <?php continue  ?>
-            @endif
+        <span class="disabled" title="上一页">上一页 </span>
+        @for($i=1;$i<=$pages;$i++)
             @if($i==$page)
             <span class="current" title="{{$i}}">{{$i}}</span>
             @else
             <a title="{{$i}}" href="jump?i_name={{$i_name}}&page={{$i}}">{{$i}}</a>
             @endif
         @endfor
-        @if($page==$pages)
-            <span class="disabled" title="下一页" >下一页 </span>
-            <span class="disabled" title="尾页" >尾页 </span>
-        @else
-            <a title="{{$page+1}}" href="jump?i_name={{$i_name}}&page={{$page+1}}">下一页 </a>
-            <a title="30" href="jump?i_name={{$i_name}}&page={{$pages}}">尾页</a>
-        @endif
-        
+        <a title="2" href="jump?i_name={{$i_name}}&page={{$pages}}">下一页 </a>
+        <a title="30" href="jump?i_name={{$i_name}}&page={{$pages}}">尾页</a>
     </div>  
     <div class="Pagination"></div>
 </div>
@@ -187,5 +170,7 @@
 
 <div class="clear"></div>
 <input type="hidden" id="resubmitToken" value="" />
-
+<a id="backtop" title="回到顶部" rel="nofollow"></a>
+</div><!-- end #container -->
+</div><!-- end #body -->
 @endsection

@@ -16,9 +16,10 @@
                     <form method="post" action="info5Pro" id="infoForm">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <input type="hidden" name="companyId" value="25927">
+                        <input type="hidden" name="url" value="{{$url}}" id="url">
 
                         <h3>公司介绍</h3>
-                        <textarea placeholder="请分段详细描述公司简介、企业文化等" name="companyProfile" id="companyProfile"></textarea>
+                        <textarea placeholder="请分段详细描述公司简介、企业文化等" name="companyProfile" id="companyProfile">{{$company_data['c_intro']}}</textarea>
 
                         <div class="word_count">你还可以输入 <span>1000</span> 字</div>
                         <div class="clear"></div>
