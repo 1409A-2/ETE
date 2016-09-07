@@ -22,7 +22,7 @@
                         <h5>没有收到确认邮件，怎么办？</h5>
 
                         <div class="contacttip">
-                            1.邮箱地址填写错误？ <a href="h/corpCenter/bindStep1.html?update=1">重新填写邮箱地址</a> <br>
+                            1.邮箱地址填写错误？ <a href="/info?update=1">重新填写邮箱地址</a> <br>
                             2.看看是否在邮箱的垃圾邮件、广告邮件目录里<br>
                             3.稍等几分钟，若还未收到验证邮件， <a id="resendOpenService" href="javascript:void(0)" onclick="sendEamil()">重新发送验证邮件</a> <br>
                             4.还未收到验证邮件，请联系我们，邮箱：vivi@lagou.com 电话：010-57286997

@@ -20,7 +20,7 @@ class IndexController extends BaseController
     public function index(){
     	//查询所有行业
     	$industry=industry::sel();
-        // print_r($industry);die;
+        //print_r($industry);die;
         $new_industry='';
         $parent=0;
         foreach($industry as $key => $val) {
@@ -66,7 +66,6 @@ class IndexController extends BaseController
         $row = DB::table('release')->where('re_name',$i_name)->count('re_id');
         $length = 6;
         $pages = ceil($row/$length);
-        // print_r($pages);die;
         $page = Request::get('page',1);
         $limit = ($page-1)*$length;
         

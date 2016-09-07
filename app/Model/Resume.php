@@ -31,7 +31,11 @@ class Resume extends Model
      * @return mixed
      */
     public  static  function sel_One($u_id){
-        return self::where('u_id',$u_id)->first()->toArray();
+        $data = self::where('u_id',$u_id)->first();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
     }
 
 

@@ -16,6 +16,7 @@
 					<form method="post" action="info3Pro" id="memberForm" enctype="multipart/form-data">
 						<input type="hidden" value="52346c62232045a8ab1d45cb3e0540b7" name="resubmitToken">
                         <input type="hidden" value="{{csrf_token()}}" name="_token">
+                        <input type="hidden" value="{{$url}}" name="url">
 						<input type="hidden" id="companyId" name="companyId" value="25927">
 						<div id="memberDiv">
 							<div class="formWrapper">
@@ -40,7 +41,7 @@
 
 
 								<h3>创始人姓名</h3>
-								<input type="text" placeholder="请输入创始人姓名" name="leaderInfosname" id="name0" class="s_input1 valid">
+								<input type="text" placeholder="请输入创始人姓名" value="{{$company_data['c_ceo']}}" name="leaderInfosname" id="name0" class="s_input1 valid">
 
 								{{--<h3>当前职位</h3>
 								<input type="text" placeholder="请输入当前职位，如：创始人兼CEO" name="leaderInfos[0].position" id="position0" class="s_input1 valid">
@@ -49,14 +50,16 @@
 								<input type="text" placeholder="请输入创始人新浪微博地址" name="leaderInfos[0].weibo" id="weibo0">--}}
 
 								<h3>创始人简介</h3>
-								<textarea placeholder="请输入该创始人的个人履历等，建议按照时间倒序分条展示" maxlength="1000" name="leaderInfosremark" id="description0"></textarea>
+								<textarea placeholder="请输入该创始人的个人履历等，建议按照时间倒序分条展示" maxlength="1000" name="leaderInfosremark" id="description0">{{$company_data['ceo_desc']}}</textarea>
 								<div class="word_count">你还可以输入 <span>500</span> 字</div>
 							</div>
 						</div>
 						{{--<a id="addMember" class="add_member" href="javascript:void(0)"><i></i>继续添加创始团队</a>--}}
 						<div class="clear"></div>
 						<input type="submit" value="保存，下一步" id="step3Submit" class="btn_big fr">
+						@if($url == '')
 						<a class="btn_cancel fr" href="detailed_info4">跳过</a>
+						@endif
 					</form>
 				</dd>
 			</dl>

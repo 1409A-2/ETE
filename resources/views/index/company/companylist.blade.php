@@ -107,15 +107,15 @@
 
     <input type="hidden" value="" name="userid" id="userid"/>
 
-    <script type="text/javascript" src="style/js/company_list.min.js"></script>
+    {{--<script type="text/javascript" src="style/js/company_list.min.js"></script>--}}
     <script>
         $(function () {
             /*分页 */
             $('.Pagination').pager({
                 currPage: 1,
                 pageNOName: "pn",
-                form: "companyListForm",
-                pageCount: 20,
+                form: "companyList",
+                pageCount: 30,
                 pageSize: 5
             });
         })

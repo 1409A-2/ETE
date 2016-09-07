@@ -38,4 +38,24 @@ class Product extends Model
         }
         return $data;
     }
+
+    /**
+     * 查询一个产品
+     */
+    public static function oneProduct($c_id,$pr_id)
+    {
+        $data = self::where('c_id',$c_id)->where('pr_id',$pr_id)->first();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
+    }
+
+    /**
+     * 添加多条产品
+     */
+    public static function upProduct($up_data,$pr_id)
+    {
+        return self::where('pr_id',$pr_id)->update($up_data);
+    }
 }

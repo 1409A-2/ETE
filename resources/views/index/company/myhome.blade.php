@@ -25,9 +25,8 @@
 					<div class="c_box companyName">
 						<h2 title="{{$company_data['c_shorthand']}}">{{$company_data['c_shorthand']}}</h2>
 
-						<em class="unvalid"></em>
-						<span class="va dn">拉勾未认证企业</span>
-						<a target="_blank" class="applyC">校易聘认证</a>
+						<em class="valid"></em>
+						<span class="va dn">校易聘认证企业</span>
 						<div class="clear"></div>
 
 						<h1 title="{{$company_data['c_name']}}" class="fullname">{{$company_data['c_name']}}</h1>
@@ -46,7 +45,7 @@
 							@foreach($lable_data as $key=>$val)
 							<li><span>{{$val['lab_name']}}</span></li>
 							@endforeach
-							<li class="link">编辑</li>
+							<li style="border: none;"><a href="detailed_info2?url=companylist">编辑</a></li>
 						</ul>
 						<div class="dn" id="addLabels">
 							<a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>
@@ -59,7 +58,7 @@
 							<a id="cancelLabels" class="btn_cancel_s" href="javascript:void(0)">取消</a>
 						</div>
 					</div>
-					<a title="编辑基本信息" class="c_edit" id="editCompanyDetail" href="javascript:void(0);"></a>
+					<a title="编辑基本信息" class="c_edit" href="/detailed?update=1&url=companylist"></a>
 					<div class="clear"></div>
 				</div>
 
@@ -79,7 +78,7 @@
 								<div class="addnew">
 									酒香不怕巷子深已经过时啦！<br>
 									把自己优秀的产品展示出来吸引人才围观吧！<br>
-									<a class="product_edit" href="javascript:void(0)">+添加公司产品</a>
+									<a class="product_edit" href="detailed_info4?url=companylist">+添加公司产品</a>
 								</div>
 							</dd>
 						</dl>
@@ -99,8 +98,8 @@
 
 										<div class="jspContainer" style="width: 260px; height: 140px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 260px;"><div>{{$val['pr_desc']}}</div></div></div></div>
 								</div>
-								<a title="编辑公司产品" class="c_edit product_edit" href="javascript:void(0)"></a>
-								<a title="新增公司产品" class="c_add product_add" href="javascript:void(0)"></a>
+								<a title="编辑公司产品" class="c_edit product_edit" href="detailed_info4?url=companylist&pr_id={{$val['pr_id']}}"></a>
+								<a title="新增公司产品" class="c_add product_add" href="detailed_info4?url=companylist"></a>
 							</dd>
 						</dl>
 						@endforeach
@@ -151,16 +150,18 @@
 
 				<div id="Profile">
 					<div class="profile_wrap">
+
 						@if(!$company_data['c_intro'])
 						<!--无介绍 -->
-						<dl class="c_section dn">
+						<dl class="c_section dn" style="display: block;">
 							<dt>
 							<h2><em></em>公司介绍</h2>
 							</dt>
 							<dd>
 								<div class="addnew">
-									详细公司的发展历程、让求职者更加了解你!<br>
-									<a id="addIntro" href="javascript:void(0)">+添加公司介绍</a>
+									详细公司的发展历程、让求职者更加了解你!
+									<br>
+									<a id="addIntro" href="/detailed_info5?url=companylist">+添加公司介绍</a>
 								</div>
 							</dd>
 						</dl>
@@ -173,26 +174,12 @@
 							</dt>
 							<dd>
 								<div class="c_intro">{{$company_data['c_intro']}}</div>
-								<a title="编辑公司介绍" id="editIntro" class="c_edit" href="javascript:void(0)"></a>
+								<a title="编辑公司介绍" id="editIntro" class="c_edit" href="/detailed_info5?url=companylist"></a>
 							</dd>
 						</dl>
 						@endif
 
 						<!--编辑介绍-->
-						<dl class="c_section newIntro dn">
-							<dt>
-							<h2><em></em>公司介绍</h2>
-							</dt>
-							<dd>
-								<form id="companyDesForm">
-									<textarea placeholder="请分段详细描述公司简介、企业文化等" name="companyProfile" id="companyProfile">该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎</textarea>
-									<div class="word_count fr">你还可以输入 <span>1000</span> 字</div>
-									<div class="clear"></div>
-									<input type="submit" value="保存" id="submitProfile" class="btn_small">
-									<a id="delProfile" class="btn_cancel_s" href="javascript:void(0)">取消</a>
-								</form>
-							</dd>
-						</dl>
 					</div>
 
 				</div><!-- end #Profile -->
@@ -225,7 +212,6 @@
 								</td>
 							</tr>
 							</tbody></table>
-						<a id="editTags" class="c_edit" href="javascript:void(0)"></a>
 					</div>
 					<div id="c_tags_edit" class="c_tags editTags dn">
 						<form id="tagForms">
@@ -288,23 +274,22 @@
 					<dl class="c_section c_member">
 						<dt>
 						<h2><em></em>创始团队</h2>
-						<a title="添加创始人" class="c_add" href="javascript:void(0)"></a>
 						</dt>
 						<dd>
 
 							<div class="member_wrap">
 								@if($company_data['c_ceo']=='' || $company_data['ceo_desc']=='')
 								<!-- 无创始人 -->
-								<div class="member_info addnew_right dn">
+								<div class="member_info addnew_right">
 									展示公司的领导班子，<br>提升诱人指数！<br>
-									<a class="member_edit" href="javascript:void(0)">+添加成员</a>
+									<a class="member_edit" href="detailed_info3?url=companylist">+添加成员</a>
 								</div>
 
 								@else
 
 								<!-- 显示创始人 -->
 								<div class="member_info">
-									<a title="编辑创始人" class="c_edit member_edit" href="javascript:void(0)"></a>
+									<a title="编辑创始人" class="c_edit member_edit" href="detailed_info3?url=companylist"></a>
 									<div class="m_portrait">
 										<div></div>
 										<img width="120" height="120" alt="{{$company_data['c_ceo']}}" src="style/images/leader_default.png">
@@ -320,35 +305,6 @@
 								@endif
 
 								<!-- 编辑创始人 -->
-								<div class="member_info newMember dn">
-									<form class="memberForm">
-										<div class="new_portrait">
-											<div class="portrait_upload dn portraitNo">
-												<span>上传创始人头像</span>
-											</div>
-											<div class="portraitShow">
-												<img width="120" height="120" src="style/images/leader_default.png">
-												<span>更换头像</span>
-											</div>
-											<input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="member_check(this,'http://www.lagou.com/c/upload.json','portraitNo','portraitShow','type','leaderInfos');" name="myfiles" id="profiles0">
-											<input type="hidden" value="7" name="type" class="type">
-											<input type="hidden" value="images/leader_default.png" name="photo" class="leaderInfos">
-											<em>
-												尺寸：120*120px <br>
-												大小：小于5M
-											</em>
-										</div>
-										<input type="text" placeholder="请输入创始人姓名" value="孙泰英" name="name">
-										<input type="text" placeholder="请输入创始人当前职位" value="ceo" name="position">
-										<input type="text" placeholder="请输入创始人新浪微博地址" value="http://weimob.weibo.com" name="weibo">
-										<textarea placeholder="请输入创始人个人简介" maxlength="500" class="s_textarea" name="remark">发放的发达范德萨范德萨范德萨发的复大发大水发生的</textarea>
-										<div class="word_count fr">你还可以输入 <span>500</span> 字</div>
-										<div class="clear"></div>
-										<input type="submit" value="保存" class="btn_small">
-										<a class="btn_cancel_s member_delete" href="javascript:void(0)">删除</a>
-										<input type="hidden" value="11493" class="leader_id">
-									</form>
-								</div>
 
 							</div><!-- end .member_wrap -->
 						</dd>

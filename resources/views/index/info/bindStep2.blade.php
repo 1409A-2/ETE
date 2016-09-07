@@ -23,7 +23,7 @@
                                 type="text" value="" placeholder="请输入与公司营业执照一致的公司全称" name="companyName" id="companyName"
                                 class="valid ui-autocomplete-input" autocomplete="off">
                         <input type="submit" value="提 交" id="bindSubmit">
-                        <a class="goback" href="h/corpCenter/bindStep1.html?update=1">返回修改邮箱地址</a>
+                        <a class="goback" href="/info?update=1">返回修改邮箱地址</a>
                     </form>
                     <div class="contactus">如有问题，请致电：010-57286997或写信给：<a href="mailto:vivi@lagou.com">vivi@lagou.com</a>，我们会尽快为你解决。
                     </div>
