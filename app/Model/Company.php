@@ -93,5 +93,13 @@ class Company extends Model
     {
         return self::where('c_id',$c_id)->update(['c_intro'=>$intro]);
     }
+
+    /**
+     * 修改邮箱
+     */
+    public static function upEmail($insert_data,$c_id)
+    {
+        return self::where('c_id',$c_id)->update($insert_data);
+    }
 }
 

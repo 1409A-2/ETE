@@ -81,6 +81,7 @@ class LoginController extends BaseController
         unset($data['geetest_challenge']);
         unset($data['geetest_validate']);
         unset($data['geetest_seccode']);
+
         $reslut = User::findOne($data);
         if ($reslut) {
             echo json_encode(500);
@@ -88,6 +89,8 @@ class LoginController extends BaseController
         }
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();
+        $data['u_cid'] = $data['type'];
+        unset($data['type']);
 		$res = User::addUser($data);
     	if ($res) {
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
