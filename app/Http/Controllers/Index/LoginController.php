@@ -85,7 +85,7 @@ class LoginController extends BaseController
 
         $reslut = User::findOne($data);
         if ($reslut) {
-            echo json_encode(500);
+            echo 500;
             exit;
         }
 		$data['u_pwd'] = md5($data['u_pwd']);
@@ -94,21 +94,18 @@ class LoginController extends BaseController
         unset($data['type']);
 		$res = User::addUser($data);
     	if ($res) {
-            $user['r_email']=$email;
-            $user['u_id']=$res;
-            Resume::addResume($user);
+            if($data['u_cid']==0){
+                $user['r_email']=$email;
+                $user['u_id']=$res;
+                Resume::addResume($user);
+            }
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
             $rest = Mail::raw($arr['content'], function ($message) use($email) {
                 $to = $email;
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
-            if ($rest) {
-                echo json_encode($rest);
-                exit;
-            } else {
-                echo json_encode($rest);
-                exit;
-            }
+            echo json_encode($res);
+            exit;
     	} else {
     		echo json_encode($res);
             exit;

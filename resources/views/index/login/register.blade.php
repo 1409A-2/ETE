@@ -134,6 +134,7 @@ var youdao_conv_id = 271546;
 			    		var geetest_challenge = $('.geetest_challenge').val();
 			    		var geetest_validate = $('.geetest_validate').val();
 		    			var geetest_seccode = $('.geetest_seccode').val();
+						var _beError = $('#beError');
 		
 			    		// $(form).find(":submit").attr("disabled", true);
 			            $.ajax({
@@ -145,28 +146,28 @@ var youdao_conv_id = 271546;
 							    if(e) {
 							    	if (e==500) {
 							    		var str = '该邮箱已被注册！';
-				            			$('#beError').attr('style','');
-				            			$('#beError').text('');
-				            			$('#beError').append(str);
+										_beError.attr('style','');
+										_beError.text('');
+										_beError.append(str);
 							    	} else {
 								    	window.location.href='login.html';
 							    	}
 							    } else {
-							    	window.location.href='register.html';
+							    	alert('注册失败，请重试');return
 							    }
 						    },
 			            	error:function(e){
 			            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {
 			            			var str = '请验证验证码！';
-			            			$('#beError').attr('style','');
-			            			$('#beError').text('');
-			            			$('#beError').append(str);
+									_beError.attr('style','');
+									_beError.text('');
+									_beError.append(str);
 			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
-			            			window.location.href='register.html';
+			            			//window.location.href='register.html';
 			            			var str = '验证码验证失效，请刷新重置！';
-			            			$('#beError').attr('style','');
-			            			$('#beError').text('');
-			            			$('#beError').append(str);
+									_beError.attr('style','');
+									_beError.text('');
+									_beError.append(str);
 			            		}
 			            	}
 			            })

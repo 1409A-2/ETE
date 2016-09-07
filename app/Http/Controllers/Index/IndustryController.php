@@ -162,13 +162,18 @@ class IndustryController extends BaseController
     }
 
     //职位预览
-    public function postOfficePreview(){
+    public function postOfficePreview(Request $request){
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
-        	$release=Release::sel_Preview($c_id);
+            $put=$request->input();
+            if(isset($put)){
+                $release=Release::selPreviews($put);
+            }else{
+                $release=Release::sel_Preview($c_id);
+            }
         	$company=Company::sel($c_id);
 //        	 print_r($release);die;
         	return view('index.industry.postOffice_preview',['release'=>$release,'company'=>$company]);

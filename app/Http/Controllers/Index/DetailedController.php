@@ -24,25 +24,33 @@ class DetailedController extends Controller
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
         if($user_data['u_cid']==0){
+
             return redirect('/');
         }elseif($user_data['u_cid']==1){
+
             return redirect('/info');
         }else{
             $company_data = Company::selOne($user_data['u_cid']);
             if($company_data['c_name']==''){
+
                 return redirect('/info');
             }else{
                 if($company_data['c_status']==0){
+
                     return redirect('/info');
                 }elseif($company_data['c_status']==1){
+
                     return redirect('/info');
                 }else{
                     if($request->get('update')==1){
+
                         return $this->detailedBase($request->get('url'));
                     }
                     if(empty($company_data['c_shorthand'])||empty($company_data['c_website'])||empty($company_data['c_industry'])||empty($company_data['c_logo'])||empty($company_data['c_desc'])){
+
                         return $this->detailedBase();
                     }else{
+
                         return redirect('postOffice');
                     }
 
@@ -95,8 +103,10 @@ class DetailedController extends Controller
         // print_r($up_data);
         if(Company::upBase($user_data['u_cid'],$up_data)){
             if($request->get('url')!=''){
+
                 return redirect($request->get('url'));
             }
+
             return redirect('/detailed_info2');
         }
     }
@@ -111,6 +121,7 @@ class DetailedController extends Controller
         $user_data = User::selOne($u_id);
         $lab_data = Lable::selLable($user_data['u_cid']);
         //print_r($lab_data);die;
+
         return view('index.detailed.info02',['lab_data'=>$lab_data,'url'=>$url]);
     }
 
@@ -132,6 +143,7 @@ class DetailedController extends Controller
             $insert_lables[$key]['c_id'] = $user_data['u_cid'];
         }
         Lable::delCompany($user_data['u_cid']);
+
         echo Lable::insertData($insert_lables);
 
     }
@@ -167,6 +179,7 @@ class DetailedController extends Controller
         if($request->get('url','')!=''){
             return redirect($request->get('url',''));
         }
+
         return redirect('detailed_info4');
     }
 
@@ -180,6 +193,7 @@ class DetailedController extends Controller
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
         $product_data = Product::oneProduct($user_data['u_cid'],$pr_id);
+
         return view('index.detailed.info04',[
             'product_data' => $product_data,
             'url' => $url
@@ -195,6 +209,7 @@ class DetailedController extends Controller
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
         $company_data = Company::selOne($user_data['u_cid']);
+
         return view('index.detailed.info05',[
             'company_data' => $company_data,
             'url' => $url
@@ -245,8 +260,10 @@ class DetailedController extends Controller
             }
         }
         if($request->get('url','')!=''){
+
             return redirect($request->get('url',''));
         }
+
         return redirect('detailed_info5');
     }
 
@@ -263,8 +280,10 @@ class DetailedController extends Controller
             Company::upIntro($intro,$user_data['u_cid']);
         }
         if($url != ''){
+
             return redirect($url);
         }
+
         return redirect('postOffice');
     }
 
