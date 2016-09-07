@@ -875,6 +875,8 @@
                     <a target="_blank" href="collections.html">我收藏的职位</a>
                     <br>
                     <a target="_blank" href="subscribe.html">我订阅的职位</a>
+                    <br/>
+                    <a target="_blank" href="{{url('remuseShow')}}">已投递的简历</a>
                 </div>
                 <!--end #myInfo-->
 

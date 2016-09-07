@@ -10,6 +10,7 @@ use App\Model\School;
 use App\Model\User;
 use App\Model\Works;
 use DB;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -93,7 +94,8 @@ class ResumeController extends BaseController
     public  function  educationPro(Request $request){
 
         //自带表单验证
-                $validator=$this->validate($request,[
+
+                $validator=Validator::make($request->all(),[
                         'name'=>'required',
                         'sex'=>'required',
                         'highestEducation'=>'required',
@@ -169,7 +171,7 @@ class ResumeController extends BaseController
         $u_id= $request->session()->get('u_id');
 
         //拼接图片地址
-        $data['r_img']='uploads/'.session('u_email').'.jpg';
+        $data['r_img']='uploads/'.session('u_email').'jpg';
 
         //判断图片是否存在,进行删除替换
         if(file_exists($data['r_img'])){
@@ -192,7 +194,7 @@ class ResumeController extends BaseController
      */
     public  function schoolPro(Request $request){
          //自带表单的验证
-            $validator=$this->validate($request,[
+            $validator=Validator::make($request->all(),[
                 'schoolName'=>'required',
                 'education'=>'required',
                 'professional'=>'required',
@@ -229,7 +231,7 @@ class ResumeController extends BaseController
         $data['s_major']=$request->input('professional');
         $data['s_start_time']=strtotime($request->input('startYear'));
         $data['s_end_time']=strtotime($request->input('endYear'));
-        $res=Resume::sel_One(session('u_id'));
+        $res=Resume::sel_One(['u_id'=>session('u_id')]);
         $data['r_id']=$res['r_id'];
 
         $school=School::sel_One(['r_id'=>$res['r_id']]);
@@ -258,8 +260,8 @@ class ResumeController extends BaseController
      */
     public  function  educationDesc(Request $request){
             //表单自带验证
-            $validator=$this->validate($request,[
-                'myRemark'=>'required',
+             $validator=Validator::make($request->all(),[
+            'myRemark'=>'required',
             ]);
             if ($validator->fails())
             {
@@ -286,8 +288,9 @@ class ResumeController extends BaseController
      */
     public  function  worksAdd(Request $request){
             //表单自带验证
-            $validator=$this->validate($request,[
-                'url'=>'required',
+
+            $validator=Validator::make($request->all(),[
+                    'url'=>'required',
                 'workName'=>'required',
                 'wsid'=>'required',
             ]);
@@ -329,7 +332,8 @@ class ResumeController extends BaseController
      */
     public  function  porjectAdd(Request $request){
             //表单自带验证
-            $validator=$this->validate($request,[
+
+             $validator=Validator::make($request->all(),[
                     'projectName'=>'required',
                     'positionName'=>'required',
                     'startYear'=>'required',
@@ -380,16 +384,15 @@ class ResumeController extends BaseController
      */
     public  function  expectedAdd(Request $request){
             //自带验证
-            $validator=$this->validate($request,[
-                'positionName'=>'required',
-                'salaryMin'=>'required',
-                'salaryMax'=>'required',
-            ]);
-            if ($validator->fails())
-            {
-                return redirect()->back()->withErrors($validator->errors());
-
-            }
+        $validator=Validator::make($request->all(),[
+            'positionName'=>'required',
+            'salaryMin'=>'required',
+            'salaryMax'=>'required',
+        ]);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors());
+        }
         //接收表单的值
         $data['ex_name']=$request->input('positionName');
         $data['re_salarymin']=$request->input('salaryMin');
@@ -435,7 +438,7 @@ class ResumeController extends BaseController
            $res= ResumeReseale::Re_Add($data);
                 if($res==1)
                 {
-                    return redirect('remuseList');
+                    return redirect('remuseShow');
                 }
                 else
                 {
@@ -447,7 +450,7 @@ class ResumeController extends BaseController
     /**已投递简历状态
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public  function  remuseList(){
+    public  function  remuseShow(){
 
          $resume= Resume::sel_One(['u_id'=>session('u_id')]);
          $re_all= ResumeReseale::Sel_All(['r_id'=>$resume['r_id']]);

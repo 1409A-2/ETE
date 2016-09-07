@@ -22,7 +22,7 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
+Route::get('adminIndex','Admin\adminController@adminIndex');
 Route::group(['middleware' => ['web']], function () {
     //前台
     Route::get('/','Index\indexController@index');
@@ -45,18 +45,18 @@ Route::group(['middleware' => ['web']], function () {
 
 	//这是发布职位控制
 	Route::get('postOffice','Index\industryController@postOffice');
-	Route::post('postOffice_add','Index\industryController@postOffice_add');//发布职位
-	Route::get('postOffice_issue','Index\industryController@postOffice_issue');//发布成功
-	Route::get('postOffice_list','Index\industryController@postOffice_list');//预览职位
-	Route::get('postOffice_preview','Index\industryController@postOffice_preview');//
+	Route::post('postOffice_add','Index\industryController@postOfficeAdd');//发布职位
+	Route::get('postOffice_issue','Index\industryController@postOfficeIssue');//发布成功
+	Route::get('postOffice_list','Index\industryController@postOfficeList');//预览职位
+	Route::get('postOffice_preview','Index\industryController@postOfficePreview');//
 
 		//公司查看简历
-	Route::get('PendingResume','Index\industryController@PendingResume');
-	Route::get('Nndetermined','Index\industryController@Nndetermined');//查看公司简历的状态
-	Route::get('CanInterviewResumes','Index\industryController@CanInterviewResumes');//查看待定简历
-	Route::get('Nndetermineds','Index\industryController@Nndetermineds');//执行待定与不合适
-	Route::get('NndeterminedsEmail','Index\industryController@NndeterminedsEmail');//面试成功和发送邮件
-	Route::get('NndeterminedEmail','Index\industryController@NndeterminedEmail');//面试成功和发送邮件haveNoticeResumes
+	Route::get('pendingResume','Index\industryController@pendingResume');
+	Route::get('nndetermined','Index\industryController@nndetermined');//查看公司简历的状态
+	Route::get('canInterviewResumes','Index\industryController@canInterviewResumes');//查看待定简历
+	Route::get('nndetermineds','Index\industryController@nndetermineds');//执行待定与不合适
+	Route::get('nndeterminedsEmail','Index\industryController@nndeterminedsEmail');//面试成功和发送邮件
+	Route::get('nndeterminedEmail','Index\industryController@nndeterminedEmail');//面试成功和发送邮件haveNoticeResumes
 	Route::get('haveNoticeResumes','Index\industryController@haveNoticeResumes');//查看已发送邮件的简历
 	Route::get('haveRefuseResumes','Index\industryController@haveRefuseResumes');//查看不合适的简历
 	Route::get('preview','Index\industryController@preview');//公司查看简历详情   
@@ -71,20 +71,19 @@ Route::group(['middleware' => ['web']], function () {
 		//完善公司基本信息（必填）
 		Route::get('info','Index\InfoController@checkCompany');
 		Route::get('sendEamil','Index\InfoController@sendMail');
-		Route::post('company1pro','Index\InfoController@company1Pro');
-		Route::post('company2pro','Index\InfoController@company2Pro');
+		Route::post('company1pro','Index\InfoController@companyEmail');
+		Route::post('company2pro','Index\InfoController@companyName');
 		//完善公司的信息
 		Route::get('detailed','Index\DetailedController@index');//必填 1
-		Route::post('info1pro','Index\DetailedController@Info1Pro');//提交1
-		Route::get('detailed_info2','Index\DetailedController@Info2');// 可选 2
-		Route::post('info2Pro','Index\DetailedController@info2Pro');
-		Route::get('detailed_info3','Index\DetailedController@Info3');// 可选 3
-		Route::post('info3Pro','Index\DetailedController@info3Pro');
-		Route::get('detailed_info4','Index\DetailedController@Info4');// 可选 4
-		Route::post('info4Pro','Index\DetailedController@info4Pro');
-		Route::get('detailed_info5','Index\DetailedController@Info5');// 可选 5
-		Route::post('info5Pro','Index\DetailedController@info5Pro');// 可选 5
-
+		Route::post('info1pro','Index\DetailedController@BasePro');//提交1
+		Route::get('detailed_info2','Index\DetailedController@detailedLable');// 可选 2
+		Route::post('info2Pro','Index\DetailedController@lablePro');
+		Route::get('detailed_info3','Index\DetailedController@detailedTeam');// 可选 3
+		Route::post('info3Pro','Index\DetailedController@teamPro');
+		Route::get('detailed_info4','Index\DetailedController@detailedProduct');// 可选 4
+		Route::post('info4Pro','Index\DetailedController@productPro');
+		Route::get('detailed_info5','Index\DetailedController@detailedIntro');// 可选 5
+		Route::post('info5Pro','Index\DetailedController@introPro');// 可选 5
 	});
 	Route::get('companylist','Index\CompanyController@Index');// 可选 5
 
@@ -113,7 +112,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //投递简历
     Route::get('remusePro/{id}','Index\resumeController@remusePro');//投递简历添加
-    Route::get('remuseList','Index\resumeController@remuseList');//投递简历和对应状况查看
+    Route::get('remuseShow','Index\resumeController@remuseShow');//投递简历和对应状况查看
 
 
 });

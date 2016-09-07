@@ -2,7 +2,7 @@
 @section('content')
     <div id="previewWrapper">
         <div class="preview_header">
-            <h1 title="jason的简历">jason的简历</h1>
+            <h1 title="{{$resume['r_name']}}的简历">{{$resume['r_name']}}的简历</h1>
             @if(isset($re_re))
             <a title="下载简历" class="inline cboxElement" href="#downloadOnlineResume">下载该简历</a>
             @endif

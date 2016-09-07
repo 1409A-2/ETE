@@ -36,7 +36,7 @@ class Education extends Model
     public  static  function updateEducation($data,$u_id){
         return self::where('u_id',$u_id)->update($data);
     }
-  public static function Sel(){
+  public static function sel_Tion(){
     	return Education::get()->toArray();
     }
 

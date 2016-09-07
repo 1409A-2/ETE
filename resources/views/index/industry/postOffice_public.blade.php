@@ -16,10 +16,10 @@
             <dl class="company_center_aside">
                 <dt>我收到的简历</dt>
                 <dd>
-                    <a href="PendingResume">待处理简历</a>
+                    <a href="pendingResume">待处理简历</a>
                 </dd>
                 <dd>
-                    <a href="CanInterviewResumes">待定简历</a>
+                    <a href="canInterviewResumes">待定简历</a>
                 </dd>
                 <dd>
                     <a href="haveNoticeResumes">已通知面试简历</a>

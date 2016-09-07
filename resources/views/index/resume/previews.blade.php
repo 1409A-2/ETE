@@ -26,7 +26,7 @@
 <body>
     <div id="previewWrapper">
         <div class="preview_header">
-            <h1 title="jason的简历">{{$resume['r_name']}}的简历</h1>
+            <h1 title="{{$resume['r_name']}}的简历">{{$resume['r_name']}}的简历</h1>
         </div>
         <!--end .preview_header-->
 
@@ -71,8 +71,7 @@
             @if($porject)
                 @foreach($porject as $v)
                 <div class="projectShow">
-                    <ul class="plist clearfix">
-                        <li class="noborder">
+
                             <div class="projectList">
                                 <div class="f16 mb10">{{$v['p_name']}},{{$v['p_duties']}}
 		            						<span class="c9">
@@ -81,8 +80,7 @@
                                 </div>
                                 <div class="dl1"></div>
                             </div>
-                        </li>
-                    </ul>
+
                 </div>
                     @endforeach
                 @endif
@@ -94,8 +92,7 @@
                 <h2>教育背景</h2>
                 @if($school)
                 <div class="educationalShow">
-                    <ul class="elist clearfix">
-                        <li class="clear">
+
                             <span class="c9">{{date('Y',$school['s_start_time'])}}-{{date('Y',$school['s_end_time'])}}</span>
 
                             <div>
@@ -104,8 +101,7 @@
                                         大专@elseif($resume['r_education']==2)本科@elseif($resume['r_education']==3)
                                         硕士@elseif($resume['r_education']==4)博士@elseif($resume['r_education']==5)其他@endif </h4>
                             </div>
-                        </li>
-                    </ul>
+
                 </div>
                 @endif
             </div>
@@ -128,15 +124,13 @@
                 @if($works)
                     @foreach($works as $v)
                 <div class="workShow">
-                    <ul class="slist clearfix">
-                        <li class="noborder">
+
                             <div class="workList c7">
                                 <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
                                 </div>
                                 <p>{{$v['w_desc']}} </p>
                             </div>
-                        </li>
-                    </ul>
+
                 </div>
                     @endforeach
             @endif

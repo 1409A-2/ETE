@@ -12,7 +12,7 @@
                                                 rere_id=$(this).attr('data-deliverid');
                                                 _this=$(this);
                                                 $.ajax({
-                                                    url:'Nndetermined',
+                                                    url:'nndetermined',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                                                     success: function(a){
@@ -35,11 +35,11 @@
                                                 }
                                                 val=val.substr(1);
                                                 $.ajax({
-                                                    url:'Nndetermineds',
+                                                    url:'nndetermineds',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:val},
                                                     success: function(a){
-                                                        location.href='PendingResume';
+                                                        location.href='pendingResume';
                                                     }
                                                 })
                                             });

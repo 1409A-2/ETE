@@ -19,7 +19,7 @@
 						<h3>公司全称 <span>{{$company_data['c_name']}}</span></h3>
 
 						<h3>公司简称</h3> <!--非必填-->
-						<input type="text" placeholder="请输入公司简称，如:校易聘" value="" name="name" id="name" class="valid">
+						<input type="text" placeholder="请输入公司简称，如:校易聘" value="{{empty($url) ? '': $company_data['c_shorthand']}}" name="name" id="name" class="valid">
 
 						<h3>公司LOGO</h3> <!--非必填改必填-->
 						<div class="c_logo c_logo_pos">
@@ -40,19 +40,19 @@
 								尺寸：190*190px  大小：小于5M
 							</div>
 							<div id="productShow0" class="product_upload dn productShow">
-								<img width="380" height="220" src="">
+								<img width="380" height="220" src="{{empty($url) ? '': env('APP_HOST').$company_data['c_logo']}}">
 								<span>更换产品图片<br>380*220px 小于5M</span>
 							</div>
 							<input type="file" title="支持jpg、jpeg、gif、png格式，文件小于5M" name="myfiles" id="myfiles0">
 						</div>
 
 						<h3>公司网址</h3>
-						<input type="text" placeholder="请输入公司网址" value="" name="website" id="website">
+						<input type="text" placeholder="请输入公司网址" value="{{empty($url) ? '': $company_data['c_website']}}" name="website" id="website">
 
 						<h3>行业领域</h3>
 						<div>
 							<input type="hidden" value="" name="select_industry_hidden" id="select_industry_hidden">
-							<input type="button" value="请选择行业领域" name="select_industry" id="select_industry" class="select">
+							<input type="button" value="{{empty($url) ? '': $company_data['c_industry']}}" name="select_industry" id="select_industry" class="select">
 							<div class="dn" id="box_industry" style="display: none;">
 								<ul class="reset">
 									<li>移动互联网</li>
@@ -85,11 +85,12 @@
 						</div>
 
 						<h3>一句话介绍</h3>
-						<input type="text" placeholder="一句话概括公司亮点，如公司愿景、领导团队等，限50字" maxlength="50" name="temptation" id="temptation">
+						<input type="text" value="{{empty($url) ? '': $company_data['c_desc']}}" placeholder="一句话概括公司亮点，如公司愿景、领导团队等，限50字" maxlength="50" name="temptation" id="temptation">
 						<span style="display:none;" class="error" id="beError"></span>
 						<input type="hidden" id="companyId" name="companyId" value="{{$company_data['c_id']}}">
 						<input type="hidden" id="companyName" name="companyName" value="{{$company_data['c_name']}}">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
+						<input type="hidden" name="url" value="{{$url}}">
 						<input type="submit" value="保存，下一步" id="stepBtn" class="btn_big fr">
 					</form>
 				</dd>
