@@ -1,21 +1,21 @@
 @extends('index.lar.public')
-@section('title', '拉勾网-最专业的互联网招聘平台')
+@section('title', '校易聘-最专业的互联网招聘平台')
 @section('content')
     <div id="container">
         <div id="sidebar">
-    <div class="mainNavs">
+        <div class="mainNavs">
         @for($i=0;$i<$count; $i++)
             <div class="menu_box">
                 <div class="menu_main">
                     @foreach($nav_industry as $key => $val)
                         <h2>{{$val['i_name']}} <span></span></h2>
-                        @foreach($val['son'] as $k => $v)
+                        @foreach($two_industry[$key] as $k => $v)
                             <a href="{{url('jump')}}?i_name={{$v['i_name']}}">{{$v['i_name']}} </a>
                         @endforeach
                         <?php unset($nav_industry[$key]);break;?>
                     @endforeach
                 </div>
-                <div class="menu_sub">
+                <div class="menu_sub dn">
                     @foreach($industry as $key => $val)
                         <dl class="reset">
                             @if($val['level']==1)
@@ -41,11 +41,11 @@
             </div>
         @endfor
 
-    </div>
-    <a class="subscribe" href="subscribe.html" target="_blank">订阅职位</a>
+        </div>
+        <a class="subscribe" href="subscribe.html" target="_blank">订阅职位</a>
             </div>
 
-    <div class="content">
+        <div class="content">
         <div id="search_box">
             <ul id="searchType">
                 <li data-searchtype="1" class="type_selected">职位</li>
@@ -275,7 +275,8 @@
                 </dd>
             </dl>
         </div>
+        </div>
+        <input type="hidden" value="" name="userid" id="userid" />
+        @endsection
     </div>
-    <input type="hidden" value="" name="userid" id="userid" />
-    </div>
-@endsection
+
