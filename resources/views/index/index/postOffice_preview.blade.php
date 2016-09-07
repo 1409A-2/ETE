@@ -1,5 +1,5 @@
 @extends('index.lar.public')
-@section('title', '预览')
+@section('title', '职位详情')
 @section('content')
     <div id="container">
 	
@@ -14,6 +14,7 @@
             <dd class="job_request">
                 <p>
                     <span class="red">{{$release['re_salarymin']}}k-{{$release['re_salarymax']}}k</span>
+                    <a target="_blank" href="{{url('remusePro')}}/{{$$release['re_id']}}">投个简历</a>
                     <span>北京</span>
                     <span>{{$release['re_education']}}及以上</span>
                     <span>全职</span>

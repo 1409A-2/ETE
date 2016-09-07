@@ -89,6 +89,11 @@ class Release extends Model
         return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
     }
 
+    //用户查看的职位详情
+    public static function selPreviews($c_id){
+        return Release::where($c_id)->first()->toArray();
+    }
+
     //查看各个职位的简历
     public static function sel_Pr($c_id,$re_status){
         return Release::Join('company', 'release.c_id', '=', 'company.c_id')

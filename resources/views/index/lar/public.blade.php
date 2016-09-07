@@ -1,3 +1,4 @@
+<?php use App\Model\User;?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -27,6 +28,9 @@
 		var youdao_conv_id = 271546;
 	</script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/conv.js"></script>
+	<?php
+	$user_data = User::selOne(session('u_id'));
+	?>
 </head>
 <body>
 <div id="body">
@@ -38,8 +42,11 @@
 			<ul class="reset" id="navheader">
 				<li class="current"><a href="/">首页</a></li>
 				<li ><a href="companylist" >公司</a></li>
+				@if($user_data['u_cid']==0)
 				<li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
+				@else
 				<li ><a href="detailed" rel="nofollow">发布职位</a></li>
+				@endif
 			</ul>
 			<?php
 			if(session('u_email')){
@@ -50,10 +57,14 @@
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
+
+				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="jianli.html">我的简历</a></dd>
 				<dd><a href="collections.html">我收藏的职位</a></dd>
 				<dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
-				<dd><a href="create.html">我要招人</a></dd>
+				@else
+				<dd><a href="detailed">我要招人</a></dd>
+				@endif
 				<dd><a href="accountBind.html">帐号设置</a></dd>
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Industry;
+use App\Model\Release;
+use App\Model\Company;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -77,5 +79,24 @@ class IndexController extends BaseController
         $arr=json_decode($str,true);
           // print_r($arr);die;
         return view('index.index.ShowList',['arr'=>$arr,'i_name'=>$i_name,'pages'=>$pages,'page'=>$page]);
+    }
+
+    //职位详情
+    public function postPreview(){
+        $company_c_id=User::selOne(session('u_id'));
+        if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
+            return Redirect::to('/info');
+        }else{
+            $c_id['c_id']=$company_c_id['u_cid'];
+            $put=Request::input();
+            if(isset($put)){
+                $release=Release::selPreviews($put);
+            }else{
+                $release=Release::sel_Preview($c_id);
+            }
+            $company=Company::sel($c_id);
+            // print_r($release);die;
+            return view('index.index.postOffice_preview',['release'=>$release,'company'=>$company]);
+        }
     }
 }

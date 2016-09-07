@@ -117,7 +117,7 @@
         <li class="odd clearfix">
             <div class="hot_pos_l">
                 <div class="mb10">
-                    <a href="" title="前端开发" target="_blank">{{$v['re_name']}}</a>
+                    <a href="postPreview?re_id={{$v['re_id']}}" title="{{$v['re_name']}}" target="_blank">{{$v['re_name']}}</a>
                     &nbsp;
                     <span class="c9">{{$v['re_address']}}</span>
                 </div>

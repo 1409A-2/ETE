@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use \Illuminate\Http\Request;
+use App\Model\User;
+use App\Model\Company;
 
-
-class LoginMiddleware
+class CompanyMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,9 +18,12 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if(!session('u_id')){
-            return redirect('login.html');
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+        if($user_data['u_cid']==0){
+            return redirect('/');
+        }elseif($user_data['u_cid']==1){
+            return redirect('/info');
         }
 
         return $next($request);
