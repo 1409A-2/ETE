@@ -12,7 +12,7 @@
                                                 rere_id=$(this).attr('data-deliverid');
                                                 _this=$(this);
                                                 $.ajax({
-                                                    url:'Nndetermined',
+                                                    url:'nndetermined',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                                                     success: function(a){
@@ -35,11 +35,11 @@
                                                 }
                                                 val=val.substr(1);
                                                 $.ajax({
-                                                    url:'Nndetermineds',
+                                                    url:'nndetermineds',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:val},
                                                     success: function(a){
-                                                        location.href='CanInterviewResumes';
+                                                        location.href='canInterviewResumes';
                                                     }
                                                 })
                                             });
@@ -58,11 +58,11 @@
                                                 }
                                                 val=val.substr(1);
                                                 $.ajax({
-                                                    url:'NndeterminedsEmail',
+                                                    url:'nndeterminedsEmail',
                                                     type:'get',
                                                     data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:val},
                                                     success: function(a){
-                                                        location.href='CanInterviewResumes';
+                                                        location.href='canInterviewResumes';
                                                     }
                                                 })
                                             });
@@ -76,7 +76,7 @@
                                                 r_name=$('.r_name').attr('r');
                                                 i_name=$('.i_name').attr('i');
                                                 $.ajax({
-                                                    url:'NndeterminedEmail',
+                                                    url:'nndeterminedEmail',
                                                     type:'get',
                                                     data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:rere_id},
                                                     success: function(a){
@@ -128,18 +128,18 @@
                                 @if($read==-1) 
                                     <a class="current"  href="javascript:;">不限</a>
                                 @else
-                                    <a href="CanInterviewResumes?rel=-1&rels={{$ed_name}}">不限</a>
+                                    <a href="canInterviewResumes?rel=-1&rels={{$ed_name}}">不限</a>
                                 @endif 
                                  
                                 @if($read==0) 
                                     <a class="current" href="javascript:;">未阅读</a>
                                 @else
-                                    <a href="CanInterviewResumes?rel=0&rels={{$ed_name}}">未阅读</a>
+                                    <a href="canInterviewResumes?rel=0&rels={{$ed_name}}">未阅读</a>
                                 @endif 
                                 @if($read==1) 
                                     <a class="current" href="javascript:;">已阅读</a>
                                 @else
-                                    <a href="CanInterviewResumes?rel=1&rels={{$ed_name}}">已阅读</a>
+                                    <a href="canInterviewResumes?rel=1&rels={{$ed_name}}">已阅读</a>
                                 @endif    
                                    
                                    
@@ -163,7 +163,7 @@
                                 @if($ed_name==$v['ed_id']) 
                                     <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
                                 @else
-                                    <a href="CanInterviewResumes?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
+                                    <a href="canInterviewResumes?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
                                 @endif 
                                 @endforeach
                                 </dd>

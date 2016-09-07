@@ -13,7 +13,7 @@
                                                 rere_id=$(this).attr('data-deliverid');
                                                 _this=$(this);
                                                 $.ajax({
-                                                    url:'Nndetermined',
+                                                    url:'nndetermined',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                                                     success: function(a){
@@ -36,11 +36,11 @@
                                                 }
                                                 val=val.substr(1);
                                                 $.ajax({
-                                                    url:'Nndetermineds',
+                                                    url:'nndetermineds',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:val},
                                                     success: function(a){
-                                                        location.href='PendingResume';
+                                                        location.href='pendingResume';
                                                     }
                                                 })
                                             });
@@ -81,18 +81,18 @@
                                 @if($read==-1) 
                                     <a class="current"  href="javascript:;">不限</a>
                                 @else
-                                    <a href="PendingResume?rel=-1&rels={{$ed_name}}">不限</a>
+                                    <a href="pendingResume?rel=-1&rels={{$ed_name}}">不限</a>
                                 @endif 
                                  
                                 @if($read==0) 
                                     <a class="current" href="javascript:;">未阅读</a>
                                 @else
-                                    <a href="PendingResume?rel=0&rels={{$ed_name}}">未阅读</a>
+                                    <a href="pendingResume?rel=0&rels={{$ed_name}}">未阅读</a>
                                 @endif 
                                 @if($read==1) 
                                     <a class="current" href="javascript:;">已阅读</a>
                                 @else
-                                    <a href="PendingResume?rel=1&rels={{$ed_name}}">已阅读</a>
+                                    <a href="pendingResume?rel=1&rels={{$ed_name}}">已阅读</a>
                                 @endif
                                 </dd>
                             </dl>
@@ -103,7 +103,7 @@
                                 @if($ed_name==$v['ed_id']) 
                                     <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
                                 @else
-                                    <a href="PendingResume?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
+                                    <a href="pendingResume?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
                                 @endif 
                                 @endforeach
 

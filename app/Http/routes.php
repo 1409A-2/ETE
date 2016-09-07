@@ -51,12 +51,12 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('postOffice_preview','Index\industryController@postOffice_preview');//
 
 		//公司查看简历
-	Route::get('PendingResume','Index\industryController@PendingResume');
-	Route::get('Nndetermined','Index\industryController@Nndetermined');//查看公司简历的状态
-	Route::get('CanInterviewResumes','Index\industryController@CanInterviewResumes');//查看待定简历
-	Route::get('Nndetermineds','Index\industryController@Nndetermineds');//执行待定与不合适
-	Route::get('NndeterminedsEmail','Index\industryController@NndeterminedsEmail');//面试成功和发送邮件
-	Route::get('NndeterminedEmail','Index\industryController@NndeterminedEmail');//面试成功和发送邮件haveNoticeResumes
+	Route::get('pendingResume','Index\industryController@pendingResume');
+	Route::get('nndetermined','Index\industryController@nndetermined');//查看公司简历的状态
+	Route::get('canInterviewResumes','Index\industryController@canInterviewResumes');//查看待定简历
+	Route::get('nndetermineds','Index\industryController@nndetermineds');//执行待定与不合适
+	Route::get('nndeterminedsEmail','Index\industryController@nndeterminedsEmail');//面试成功和发送邮件
+	Route::get('nndeterminedEmail','Index\industryController@nndeterminedEmail');//面试成功和发送邮件haveNoticeResumes
 	Route::get('haveNoticeResumes','Index\industryController@haveNoticeResumes');//查看已发送邮件的简历
 	Route::get('haveRefuseResumes','Index\industryController@haveRefuseResumes');//查看不合适的简历
 	Route::get('preview','Index\industryController@preview');//公司查看简历详情   

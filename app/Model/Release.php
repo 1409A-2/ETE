@@ -15,7 +15,7 @@ class Release extends Model
     protected $hidden = [];
 
     public $timestamps = false;
-    public static function Sel($c_id,$remuse_resele){    	
+    public static function sel_As($c_id,$remuse_resele){    	
     	return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -29,7 +29,7 @@ class Release extends Model
         ->toArray();
     }
 
-    public static function Sel_Rel($c_id,$remuse_resele,$read){       
+    public static function sel_Rel($c_id,$remuse_resele,$read){       
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -44,7 +44,7 @@ class Release extends Model
         ->toArray();
     }
 
-    public static function Sel_ed($c_id,$remuse_resele,$ed_name){       
+    public static function sel_Ed($c_id,$remuse_resele,$ed_name){       
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -59,7 +59,7 @@ class Release extends Model
         ->toArray();
     }
 
-    public static function Sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name){       
+    public static function sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name){       
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -75,22 +75,22 @@ class Release extends Model
         ->toArray();
     }
     //添加发布职位
-    public static function Add($data){
+    public static function add_Bacs($data){
     	return Release::insertGetId($data);
     }
 
     //查看发布职位
-    public static function Sel_List($c_id){
+    public static function sel_List($c_id){
         return Release::where($c_id)->get()->toArray();
     }
 
     //预览职位
-    public static function Sel_Preview($c_id){
+    public static function sel_Preview($c_id){
         return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
     }
 
     //查看各个职位的简历
-    public static function Sel_Pr($c_id,$re_status){
+    public static function sel_Pr($c_id,$re_status){
         return Release::Join('company', 'release.c_id', '=', 'company.c_id')
         ->where('release.c_id','=',$c_id)
         ->where('release.re_status','=',$re_status)
@@ -99,12 +99,12 @@ class Release extends Model
     }
 
     //修改职位上下线问题
-    public static function Up_re_status($data){
+    public static function up_Re_Status($data){
          return Release::where('re_id','=',$data['re_id'])->update($data);
     }
 
     //删除职位
-    public static function Del($data){
+    public static function del_Release($data){
        return Release::where('re_id','=',$data['re_id'])->delete(); 
     }
 }
