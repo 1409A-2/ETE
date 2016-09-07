@@ -23,6 +23,60 @@ class ResumeReseale extends Model
     	}    	
     }
 
+
+    /**查询
+     * @param $where
+     * @return mixed
+     */
+    public static function Sel_Re($where){
+        $res=self::join('resume','resume_reseale.r_id','=','resume.r_id')
+            ->join('release','resume_reseale.re_id','=','release.re_id')
+            ->join('education','release.re_education','=','education.ed_id')
+            ->join('company','release.c_id','=','company.c_id')
+            ->where($where)->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+
+    }
+
+
+    public  static  function Sel_One($where){
+        $res=self::where($where)->select('r_id')->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+    }
+
+
+    /**查询所有 个人
+     * @param $where
+     * @return mixed
+     */
+    public static function Sel_All($where){
+        $res=self::where($where)->get();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+
+    }
+
+    /**添加
+     * @param $data
+     * @return mixed
+     */
+    public static  function Re_Add($data){
+        return self::insert($data);
+    }
+
+
+
     //查询信息
     public static function sel_Email($data){
     	return ResumeReseale::Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')->where('rere_id','=',$data['rere_id'])->first()->toArray();
@@ -35,13 +89,16 @@ class ResumeReseale extends Model
 
     //查看投递到的简历
     public static function selAll($data){
-        return ResumeReseale::join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
+        $res=ResumeReseale::join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
         ->join('enclosure', 'resume.r_id', '=', 'enclosure.r_id')
-        ->join('school', 'enclosure.r_id', '=', 'school.r_id')
         ->join('expected', 'resume_reseale.r_id', '=', 'expected.r_id')
-        ->join('education', 'school.ed_id', '=', 'education.ed_id')
         ->join('users', 'resume.u_id', '=', 'users.u_id')
-        ->where('rere_id','=',$data['rere_id'])->first()->toArray();
+        ->where('rere_id','=',$data['rere_id'])->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
     }
     //查看简历中项目经验
     public static function selAlls($data){
