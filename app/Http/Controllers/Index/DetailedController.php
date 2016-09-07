@@ -38,10 +38,10 @@ class DetailedController extends Controller
                     return redirect('/info');
                 }else{
                     if($request->get('update')==1){
-                        return $this->Info1($request->get('url'));
+                        return $this->detailedBase($request->get('url'));
                     }
                     if(empty($company_data['c_shorthand'])||empty($company_data['c_website'])||empty($company_data['c_industry'])||empty($company_data['c_logo'])||empty($company_data['c_desc'])){
-                        return $this->Info1();
+                        return $this->detailedBase();
                     }else{
                         return redirect('postOffice');
                     }
@@ -54,7 +54,7 @@ class DetailedController extends Controller
     /**
      * 公司的详细信息
      */
-    public function Info1($url='')
+    public function detailedBase($url='')
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -66,7 +66,7 @@ class DetailedController extends Controller
     /**
      * 第一个递交
      */
-    public function Info1Pro(Request $request)
+    public function BasePro(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -104,7 +104,7 @@ class DetailedController extends Controller
     /**
      * 公司标签
      */
-    public function Info2(Request $request)
+    public function detailedLable(Request $request)
     {
         $url = $request->get('url','');
         $u_id = session('u_id');
@@ -117,7 +117,7 @@ class DetailedController extends Controller
     /**
      * 添加标签
      */
-    public function info2Pro(Request $request)
+    public function lablePro(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -139,7 +139,7 @@ class DetailedController extends Controller
     /**
      * 创始团队
      */
-    public function Info3(Request $request)
+    public function detailedTeam(Request $request)
     {
         $url = $request->get('url','');
         $u_id = session('u_id');
@@ -154,7 +154,7 @@ class DetailedController extends Controller
     /**
      * 创始团队
      */
-    public function info3Pro(Request $request)
+    public function teamPro(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -173,7 +173,7 @@ class DetailedController extends Controller
     /**
      * 产品
      */
-    public function Info4(Request $request)
+    public function detailedProduct(Request $request)
     {
         $url = $request->get('url','');
         $pr_id = $request->get('pr_id','');
@@ -189,7 +189,7 @@ class DetailedController extends Controller
     /**
      * 公司介绍
      */
-    public function Info5(Request $request)
+    public function detailedIntro(Request $request)
     {
         $url = $request->get('url','');
         $u_id = session('u_id');
@@ -204,7 +204,7 @@ class DetailedController extends Controller
     /**
      * 添加产品
      */
-    public function info4pro(Request $request)
+    public function productPro(Request $request)
     {
         $pr_id = $request->get('pr_id');
         if($pr_id != ''){
@@ -253,7 +253,7 @@ class DetailedController extends Controller
     /**
      * 添加简介
      */
-    public function info5Pro(Request $request)
+    public function introPro(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);

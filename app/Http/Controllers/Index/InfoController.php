@@ -26,7 +26,7 @@ class InfoController extends Controller
         if($request->get('update',0)==1){
             $company_data = Company::selOne($user_data['u_cid']);
             if($company_data['c_status']==0){
-                return $this->companyInfo1($request->get('update',0));
+                return $this->companyTel($request->get('update',0));
             }else{
                 return redirect('/info');
             }
@@ -34,16 +34,16 @@ class InfoController extends Controller
         if($user_data['u_cid']==0){
             return redirect('/');
         }elseif($user_data['u_cid']==1){
-            return $this->companyInfo1($request->get('update',0));
+            return $this->companyTel($request->get('update',0));
         }else{
             $company_data = Company::selOne($user_data['u_cid']);
             if($company_data['c_name']==''){
-                return $this->companyInfo2();
+                return $this->companyFullname();
             }else{
                 if($company_data['c_status']==0){
-                    return $this->companyInfo3();
+                    return $this->companySend();
                 }elseif($company_data['c_status']==1){
-                    return $this->Success();
+                    return $this->success();
                 }else{
                     return redirect('/');
                 }
@@ -54,7 +54,7 @@ class InfoController extends Controller
     /**
      * 公司信息的完善
      */
-    public function companyInfo1($update)
+    public function companyTel($update)
     {
         $company_data = '';
         if($update==1){
@@ -68,7 +68,7 @@ class InfoController extends Controller
     /**
      * 公司详细信息
      */
-    public function company1Pro(Request $request)
+    public function companyEmail(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -97,7 +97,7 @@ class InfoController extends Controller
     /**
      * 填写公司的名称
      */
-    public function companyInfo2()
+    public function companyFullname()
     {
         return view('index.info.bindstep2');
     }
@@ -105,7 +105,7 @@ class InfoController extends Controller
     /**
      * 公司的名称
      */
-    public function company2Pro(Request $request)
+    public function companyName(Request $request)
     {
         $company_data = $request->except('_token');
 
@@ -123,7 +123,7 @@ class InfoController extends Controller
     /**
      * 验证邮箱
      */
-    public function companyInfo3()
+    public function companySend()
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -175,7 +175,7 @@ class InfoController extends Controller
     /**
      * 成功创建公司
      */
-    public function Success()
+    public function success()
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
