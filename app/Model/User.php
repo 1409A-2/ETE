@@ -75,7 +75,7 @@ class User extends Model
         return $res;
     }
  /**
-     * 查询一个用户的所欲信息
+     * 查询一个用户的所有信息
      */
     public static function selOne($u_id)
     {

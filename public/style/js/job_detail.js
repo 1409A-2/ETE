@@ -693,7 +693,7 @@ function file_check(obj,action_url,id)
 	$('#loadingImg').css("visibility","visible");
 	var obj = $('#' + id);
 	var userId = $('#userid').val();
-	
+
 	this.AllowExt='.doc,.docx,.pdf,.ppt,.pptx,.txt,.wps';
 	this.FileExt=obj.val().substr(obj.val().lastIndexOf(".")).toLowerCase();
 
@@ -741,21 +741,21 @@ function file_check(obj,action_url,id)
 						$.colorbox({inline:true, href:$("div#uploadFileSuccess"),title:"上传附件简历"});
 					}
 				}else{
-					//issac 加判断 
-					
+					//issac 加判断
+
 					if(json.code==-1){
 						$.colorbox({inline:true, href:$("div#fileResumeUpload"),title:"附件简历上传失败"});
 					}else if(json.code==-2){
 						$.colorbox({inline:true, href:$("div#fileResumeUploadSize"),title:"附件简历上传失败"});
 					}else{
 						errorTips("简历上传失败，请重新上传");
-					}				
-				} 
+					}
+				}
 			},
 			error:function(err){
 				errorTips("简历上传失败，请重新上传");
 			}
 		})//end of ajax
-		
+
 	}
 } 

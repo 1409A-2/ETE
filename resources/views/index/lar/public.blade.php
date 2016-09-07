@@ -33,13 +33,13 @@ var youdao_conv_id = 271546;
 	<div id="header">
     	<div class="wrapper">
     		<a href="index.html" class="logo">
-    			<img src="style/images/logo.png" width="229" height="43" alt="校易聘-专注互联网招聘" />
+    			<img src="{{env('APP_HOST')}}/style/images/logo.png" width="229" height="43" alt="校易聘-专注互联网招聘" />
     		</a>
     		<ul class="reset" id="navheader">
     			<li class="current"><a href="/">首页</a></li>
     			<li ><a href="companylist" >公司</a></li>
     			<li ><a href="h/toForum.html" target="_blank">论坛</a></li>
-    				    			<li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
+    				    			<li ><a href="{{url('resumeList')}}" rel="nofollow">我的简历</a></li>
 	    							    			<li ><a href="postOffice" rel="nofollow">发布职位</a></li>
 	    		    		</ul>
                 <?php
@@ -51,7 +51,7 @@ var youdao_conv_id = 271546;
                     <span class="red dn" id="noticeDot-0"></span>
                     <i></i>
                 </dt>
-                <dd><a rel="nofollow" href="jianli.html">我的简历</a></dd>
+                <dd><a rel="nofollow" href="{{url('resumeList')}}">我的简历</a></dd>
                 <dd><a href="collections.html">我收藏的职位</a></dd>
                 <dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
                 <dd><a href="create.html">我要招人</a></dd>

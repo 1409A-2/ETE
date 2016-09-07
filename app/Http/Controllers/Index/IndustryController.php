@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Index;
+use App\Model\Expected;
+use App\Model\Porject;
+use App\Model\Resume;
+use App\Model\School;
+use App\Model\Works;
 use Validator;
 use Session;
 use Redirect;
@@ -67,6 +72,19 @@ class IndustryController extends BaseController
             return redirect('postOffice')
                         ->withErrors($validator);
         }
+
+        if($data['re_education']=="大专"){
+            $data['re_education']=1;
+        }elseif($data['re_education']=="本科"){
+            $data['re_education']=2;
+        }elseif($data['re_education']=="硕士"){
+            $data['re_education']=3;
+        }elseif($data['re_education']=="博士"){
+            $data['re_education']=4;
+        }elseif($data['re_education']=="其他"){
+            $data['re_education']=5;
+        }
+
         $data['re_time']=time();
 		// print_r($data);die;
         $company_c_id=User::selOne(Session::get('u_id'));
@@ -152,7 +170,7 @@ class IndustryController extends BaseController
             $c_id['c_id']=$company_c_id['u_cid'];
         	$release=Release::Sel_Preview($c_id);
         	$company=Company::Sel($c_id);
-        	// print_r($release);die;
+//        	 print_r($release);die;
         	return view('index.industry.postOffice_preview',['release'=>$release,'company'=>$company]);
         }
     }
@@ -168,11 +186,12 @@ class IndustryController extends BaseController
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=0;
-        	$resume=Release::sel($c_id,$remuse_resele);
+//        	$resume=Release::Sels($c_id,$remuse_resele);
+//            print_r($resume);die;
             if(!@isset($ed_name)||$ed_name==1){
                 if(!@isset($read)||$read==-1){
                     $read=-1;
-                    $resume=Release::sel($c_id,$remuse_resele);                
+                    $resume=Release::sel($c_id,$remuse_resele);
                 }else{
                     $resume=Release::Sel_Rel($c_id,$remuse_resele,$read); 
                 }
@@ -187,7 +206,7 @@ class IndustryController extends BaseController
             } 
             
             $education=Education::sel();
-        	// print_r($resume);die;   	
+
         	return view('index.pendingresume.pendingresume',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
@@ -345,14 +364,42 @@ class IndustryController extends BaseController
 
     //公司查看简历
     public function preview(Request $request){
-        $data=$request->input();
-        $data['read']=1;
-        ResumeReseale::Up($data);
-        $res=ResumeReseale::SelAll($data);
-        $porject=ResumeReseale::SelAlls($data);
-        $works=ResumeReseale::SelAllw($data);
-        // print_r($porject);die;
-        return view('index.pendingresume.preview',['res'=>$res,'porject'=>$porject,'works'=>$works]);
+        $arr=$request->input();
+        $arr['read']=1;
+
+        ResumeReseale::Up($arr);
+
+        $data['re_re']=$arr;
+        $r_id=ResumeReseale::Sel_One(['rere_id'=>$arr['rere_id']]);
+        /**
+         * 个人简历
+         */
+        $data['resume']=Resume::sel_One(['r_id'=>$r_id['r_id']]);
+        /**
+         * 作品
+         */
+        $data['works']=Works::sel_All(['r_id'=>$r_id['r_id']]);
+
+        /**
+         * 项目
+         */
+        $data['porject']=Porject::sel_All(['r_id'=>$r_id['r_id']]);
+
+        /**
+         * 期望工作
+         */
+        $data['expected']=Expected::Sel_One(['r_id'=>$r_id['r_id']]);
+
+
+
+        /**
+         * 教育背景
+         */
+        $data['school']= School::sel_One(['r_id'=>$r_id['r_id']]);
+
+
+        return view('index.resume.preview',$data);
+
     }
 
     //查看有效职位  positions
@@ -408,7 +455,6 @@ class IndustryController extends BaseController
         $fp =fopen("./".$data['rere_id'].".html",'w');
         $content=self::previews($data);
         fwrite($fp, $content);
-        
         $fps =file_get_contents("./".$data['rere_id'].".html");
         print_r($fps);
         if($data['type']==1){
@@ -427,15 +473,41 @@ class IndustryController extends BaseController
     }
 
     //公司查看简历
-    public static function previews($data){
-        $res=ResumeReseale::SelAll($data);
-        $porject=ResumeReseale::SelAlls($data);
-        $works=ResumeReseale::SelAllw($data);
-        // print_r($porject);die;
-        if($data['type']!=2){
-            return view('index.pendingresume.previews',['res'=>$res,'porject'=>$porject,'works'=>$works]);
+    public static function previews($arr){
+
+        $r_id=ResumeReseale::Sel_One(['rere_id'=>$arr['rere_id']]);
+//        print_r($r_id);die;
+        /**
+         * 个人简历
+         */
+        $data['resume']=Resume::sel_One(['r_id'=>$r_id['r_id']]);
+        /**
+         * 作品
+         */
+        $data['works']=Works::sel_All(['r_id'=>$r_id['r_id']]);
+
+        /**
+         * 项目
+         */
+        $data['porject']=Porject::sel_All(['r_id'=>$r_id['r_id']]);
+
+        /**
+         * 期望工作
+         */
+        $data['expected']=Expected::Sel_One(['r_id'=>$r_id['r_id']]);
+
+
+
+        /**
+         * 教育背景
+         */
+        $data['school']= School::sel_One(['r_id'=>$r_id['r_id']]);
+
+//        print_r($data);die;
+        if($arr['type']!=2){
+            return view('index.resume.previews',$data);
         }else{
-            return view('index.pendingresume.preview',['res'=>$res,'porject'=>$porject,'works'=>$works]);
+            return view('index.resume.preview',$data);
         }
     }
 }

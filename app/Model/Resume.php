@@ -17,30 +17,41 @@ class Resume extends Model
 
     public $timestamps = false;
 
-    /**
-     *
-     * @param  $data 学历的信息
+    /**简历的信息
+     * @return mixed
      */
     public static function sel_All()
     {
         return self::get()->toArray();
     }
 
-    /**
-     * @param $u_id
+    /**查询
+     * @param $where
      * @return mixed
      */
-    public  static  function sel_One($u_id){
-        return self::where('u_id',$u_id)->first()->toArray();
+    public  static  function sel_One($where){
+        $res=self::where($where)->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
     }
 
-
-    //添加
+    /**添加
+     * @param $data
+     * @return mixed
+     */
     public static function  addResume($data){
         return self::insert($data);
 
     }
-        //修改
+
+    /**修改
+     * @param $data
+     * @param $where
+     * @return mixed
+     */
     public  static  function updateResume($data,$where){
         return self::where($where)->update($data);
     }

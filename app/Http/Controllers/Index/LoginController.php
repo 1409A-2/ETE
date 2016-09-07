@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\Resume;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -90,6 +91,9 @@ class LoginController extends BaseController
 		$data['u_resign'] = time();
 		$res = User::addUser($data);
     	if ($res) {
+            $user['r_email']=$email;
+            $user['u_id']=$res;
+            Resume::addResume($user);
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
             $rest = Mail::raw($arr['content'], function ($message) use($email) {
                 $to = $email;
@@ -108,7 +112,9 @@ class LoginController extends BaseController
     	}
     }
 
-    // 邮箱验证
+    /**邮箱验证
+     * @param Request $Request
+     */
     public function email(Request $Request)
     {
         $email = $Request->input('email');
@@ -120,6 +126,9 @@ class LoginController extends BaseController
         }
     }
 
+    /**退出
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function loginOut()
     {
         Session::forget('u_id');
