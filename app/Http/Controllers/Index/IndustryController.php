@@ -22,7 +22,7 @@ class IndustryController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function postOffice(){    	
-        $company_c_id=User::selOne(Session::get('u_id'));
+        $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -69,7 +69,7 @@ class IndustryController extends BaseController
         }
         $data['re_time']=time();
 		// print_r($data);die;
-        $company_c_id=User::selOne(Session::get('u_id'));
+        $company_c_id=User::selOne(session('u_id'));
         $c_id=$company_c_id['u_cid'];
         $da=Company::sel_Time($c_id);
         $date=date('Y-m-d',time());
@@ -125,14 +125,14 @@ class IndustryController extends BaseController
     }
 
     public function postOffice_issue(){
-        $company_c_id=User::selOne(Session::get('u_id'));
+        $company_c_id=User::selOne(session('u_id'));
         $data=Company::sel_Time($company_c_id['u_cid']);
     	return view('index.industry.postOffice_issue',['data'=>$data]);
     }
 
     //查看发布的职位
     public function postOffice_list(){
-    	$company_c_id=User::selOne(Session::get('u_id'));
+    	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -145,7 +145,7 @@ class IndustryController extends BaseController
 
     //职位预览
     public function postOffice_preview(){
-    	$company_c_id=User::selOne(Session::get('u_id'));
+    	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -162,7 +162,7 @@ class IndustryController extends BaseController
     public function pendingResume(Request $request){
         $read=$request->input('rel'); 
         $ed_name=$request->input('rels'); 
-    	$company_c_id=User::selOne(Session::get('u_id'));
+    	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -202,7 +202,7 @@ class IndustryController extends BaseController
     public function canInterviewResumes(Request $request){
         $read=$request->input('rel'); 
         $ed_name=$request->input('rels');       
-    	$company_c_id=User::selOne(Session::get('u_id'));
+    	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -281,7 +281,7 @@ class IndustryController extends BaseController
     public function haveNoticeResumes(Request $request){
         $read=$request->input('rel');
         $ed_name=$request->input('rels');
-    	$company_c_id=User::selOne(Session::get('u_id'));
+    	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -314,7 +314,7 @@ class IndustryController extends BaseController
     public function haveRefuseResumes(Request $request){
         $read=$request->input('rel');
         $ed_name=$request->input('rels');
-    	$company_c_id=User::selOne(Session::get('u_id'));
+    	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -357,7 +357,7 @@ class IndustryController extends BaseController
 
     //查看有效职位  positions
     public function positions(){
-        $company_c_id=User::selOne(Session::get('u_id'));
+        $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
@@ -375,7 +375,7 @@ class IndustryController extends BaseController
 
     //查看下线职位  positionsdown
     public function positionsdown(){
-        $company_c_id=User::selOne(Session::get('u_id'));
+        $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
