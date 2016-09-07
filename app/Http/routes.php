@@ -106,8 +106,8 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('porjectDel/{id}','Index\resumeController@porjectDel');//删除项目
 
 			//投递简历
-			    Route::get('remusePro/{id}','Index\resumeController@remusePro');//投递简历添加
-			    Route::get('remuseShow','Index\resumeController@remuseShow');//投递简历和对应状况查看
+			Route::get('remusePro/{id}','Index\resumeController@remusePro');//投递简历添加
+			Route::get('remuseShow','Index\resumeController@remuseShow');//投递简历和对应状况查看
   
 		});
 	});
