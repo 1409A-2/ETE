@@ -41,9 +41,9 @@ class IndustryController extends BaseController
             $data=Company::sel_Time($company_c_id['u_cid']);
             $c_id['c_id']=$company_c_id['u_cid'];
             // print_r($company_c_id);die;
-        	$industry=Industry::Sel();
+        	$industry=Company::sel();
         	$education=Education::sel_Tion();
-        	$company=Company::Sel($c_id);
+        	$company=Company::sel($c_id);
         	return view('index.industry.postOffice',['industry'=>$industry,'education'=>$education,'company'=>$company,'data'=>$data]);
         }
     }
@@ -151,7 +151,7 @@ class IndustryController extends BaseController
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
         	$release=Release::sel_Preview($c_id);
-        	$company=Company::Sel($c_id);
+        	$company=Company::sel($c_id);
         	// print_r($release);die;
         	return view('index.industry.postOffice_preview',['release'=>$release,'company'=>$company]);
         }

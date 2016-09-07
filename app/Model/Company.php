@@ -16,7 +16,7 @@ class Company extends Model
     protected $hidden = [];
 
     public $timestamps = false;
-    public static function Sel($c_id){
+    public static function sel($c_id){
     	
     	return Company::where($c_id)->first()->toArray();
     }
