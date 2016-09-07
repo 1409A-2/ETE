@@ -45,10 +45,10 @@ Route::group(['middleware' => ['web']], function () {
 
 	//这是发布职位控制
 	Route::get('postOffice','Index\industryController@postOffice');
-	Route::post('postOffice_add','Index\industryController@postOffice_add');//发布职位
-	Route::get('postOffice_issue','Index\industryController@postOffice_issue');//发布成功
-	Route::get('postOffice_list','Index\industryController@postOffice_list');//预览职位
-	Route::get('postOffice_preview','Index\industryController@postOffice_preview');//
+	Route::post('postOffice_add','Index\industryController@postOfficeAdd');//发布职位
+	Route::get('postOffice_issue','Index\industryController@postOfficeIssue');//发布成功
+	Route::get('postOffice_list','Index\industryController@postOfficeList');//预览职位
+	Route::get('postOffice_preview','Index\industryController@postOfficePreview');//
 
 		//公司查看简历
 	Route::get('pendingResume','Index\industryController@pendingResume');

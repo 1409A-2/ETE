@@ -41,7 +41,7 @@ class IndustryController extends BaseController
             $data=Company::sel_Time($company_c_id['u_cid']);
             $c_id['c_id']=$company_c_id['u_cid'];
             // print_r($company_c_id);die;
-        	$industry=Company::sel();
+        	$industry=Industry::sel();
         	$education=Education::sel_Tion();
         	$company=Company::sel($c_id);
         	return view('index.industry.postOffice',['industry'=>$industry,'education'=>$education,'company'=>$company,'data'=>$data]);
@@ -49,7 +49,7 @@ class IndustryController extends BaseController
     }
 
     //发布成功后添加入库
-    public function postOffice_add(Request $request){
+    public function postOfficeAdd(Request $request){
     	$data = $request->except('_token');
     	$validator=Validator::make($data, [
 		    'i_name' => 'required',
@@ -124,14 +124,14 @@ class IndustryController extends BaseController
     	
     }
 
-    public function postOffice_issue(){
+    public function postOfficeIssue(){
         $company_c_id=User::selOne(session('u_id'));
         $data=Company::sel_Time($company_c_id['u_cid']);
     	return view('index.industry.postOffice_issue',['data'=>$data]);
     }
 
     //查看发布的职位
-    public function postOffice_list(){
+    public function postOfficeList(){
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
@@ -144,7 +144,7 @@ class IndustryController extends BaseController
     }
 
     //职位预览
-    public function postOffice_preview(){
+    public function postOfficePreview(){
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
