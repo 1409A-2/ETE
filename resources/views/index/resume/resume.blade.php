@@ -188,9 +188,9 @@
                     <input type="hidden" id="nameVal" value="{{$res['r_name']}}">
                     <input type="hidden" id="genderVal" value="@if($res['r_sex']==0)男@else女@endif">
                     <input type="hidden" id="topDegreeVal"
-                           value="@if($res['r_education']==1)大专@elseif($res['r_education']==2)本科@elseif($res['r_education']==3)硕士@elseif($res['r_education']==4)博士@elseif($res['r_education']==5)其他@endif">
+                           value="@if($res['r_education']==1)大专@elseif($res['r_education']==2)本科@elseif($res['r_education']==3)硕士@elseif($res['r_education']==4)博士@elseif($res['r_education']==5)其他@else--请选择--@endif">
                     <input type="hidden" id="currentStateVal"
-                           value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@endif">
+                           value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@else--请选择--@endif">
                     <input type="hidden" id="emailVal" value="{{$res['r_email']}}">
                     <input type="hidden" id="telVal" value="{{$res['r_photo']}}">
                     <input type="hidden" id="pageType" value="1">

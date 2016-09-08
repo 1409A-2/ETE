@@ -88,7 +88,7 @@ class ResumeController extends BaseController
      * @param Request $request
      * @return mixed
      */
-    public  function  educationPro(Request $request){
+    public function educationPro(Request $request){
 
         //自带表单验证
 
@@ -163,7 +163,7 @@ class ResumeController extends BaseController
     /** 上传头像
      * @param Request $request
      */
-    public  function educationUpload(Request $request){
+    public function educationUpload(Request $request){
         //获取用户id
         $u_id= $request->session()->get('u_id');
 
@@ -258,7 +258,7 @@ class ResumeController extends BaseController
      * @param Request $request
      * @return $this
      */
-    public  function  educationDesc(Request $request){
+    public function educationDesc(Request $request){
             //表单自带验证
              $validator=Validator::make($request->all(),[
             'myRemark'=>'required',
@@ -286,7 +286,7 @@ class ResumeController extends BaseController
      * @param Request $request
      * @return array|string
      */
-    public  function  worksAdd(Request $request){
+    public function worksAdd(Request $request){
             //表单自带验证
 
             $validator=Validator::make($request->all(),[
@@ -316,7 +316,7 @@ class ResumeController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public  function worksDel($id){
+    public function worksDel($id){
         $res= Works::delWorks(['w_id'=>$id]);
             if($res==1){
                 return redirect('resumeList');
@@ -330,7 +330,7 @@ class ResumeController extends BaseController
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public  function  porjectAdd(Request $request){
+    public function porjectAdd(Request $request){
             //表单自带验证
 
              $validator=Validator::make($request->all(),[
@@ -366,7 +366,7 @@ class ResumeController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public  function porjectDel($id){
+    public function porjectDel($id){
         $res= Porject::delPorject(['p_id'=>$id]);
             if($res==1)
             {
@@ -382,7 +382,7 @@ class ResumeController extends BaseController
      * @param Request $request
      * @return mixed
      */
-    public  function  expectedAdd(Request $request){
+    public function expectedAdd(Request $request){
             //自带验证
         $validator=Validator::make($request->all(),[
             'positionName'=>'required',
@@ -413,7 +413,7 @@ class ResumeController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public  function  expectedDel($id){
+    public function expectedDel($id){
         $res=Expected::expectedDel(['r_id'=>$id]);
             if($res==1)
             {
@@ -430,7 +430,7 @@ class ResumeController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function  remusePro($id){
+    public function remusePro($id){
            $resume= Resume::sel_One(['u_id'=>session('u_id')]);
             $data['r_id']=$resume['r_id'];//简历的id
             $data['re_id']=$id; //职位id
@@ -450,7 +450,7 @@ class ResumeController extends BaseController
     /**已投递简历状态
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public  function  remuseShow(){
+    public function remuseShow(){
 
          $resume= Resume::sel_One(['u_id'=>session('u_id')]);
          $re_all= ResumeReseale::Sel_All(['r_id'=>$resume['r_id']]);
@@ -500,7 +500,7 @@ class ResumeController extends BaseController
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public  function  previewList($id){
+    public function previewList($id){
 
         //个人简历信息查询
         $data['resume']=Resume::sel_One(['r_id'=>$id]);
