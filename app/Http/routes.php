@@ -112,6 +112,6 @@ Route::group(['middleware' => ['web']], function () {
 		});
 	});
 
-	Route::get('companylist','Index\CompanyController@Index');// 可选 5
-	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5
+	Route::get('companylist','Index\CompanyController@Index');// 公司页
+	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 验证邮件
 });
