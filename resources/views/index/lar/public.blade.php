@@ -50,7 +50,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				<li @if($url=='') class="current" @endif><a href="/">首页</a></li>
 				<li @if($url=='companylist') class="current" @endif ><a href="companylist" >公司</a></li>
 				@if($user_data['u_cid']==0)
-				<li ><a href="resumeList" rel="nofollow">我的简历</a></li>
+				<li @if($url=='resumeList') class="current" @endif  ><a href="resumeList" rel="nofollow">我的简历</a></li>
 				@else
 				<li @if($url=='detailed' || $url=='postOffice') class="current" @endif><a href="detailed" rel="nofollow">发布职位</a></li>
 				@endif
