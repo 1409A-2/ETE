@@ -74,7 +74,7 @@ class DetailedController extends Controller
     /**
      * 第一个递交
      */
-    public function BasePro(Request $request)
+    public function basePro(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
@@ -114,7 +114,7 @@ class DetailedController extends Controller
     /**
      * 公司标签
      */
-    public function detailedLable(Request $request)
+    public function detailedLabel(Request $request)
     {
         $url = $request->get('url','');
         $u_id = session('u_id');
@@ -128,7 +128,7 @@ class DetailedController extends Controller
     /**
      * 添加标签
      */
-    public function lablePro(Request $request)
+    public function labelPro(Request $request)
     {
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);

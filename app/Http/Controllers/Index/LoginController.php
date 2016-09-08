@@ -133,6 +133,7 @@ class LoginController extends BaseController
     {
         Session::forget('u_id');
         Session::forget('u_email');
+
         return redirect('/');
     }
 }

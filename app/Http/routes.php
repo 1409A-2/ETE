@@ -26,7 +26,7 @@ Route::get('adminIndex','Admin\adminController@adminIndex');
 Route::group(['middleware' => ['web']], function () {
 	//前台
 	Route::get('/','Index\indexController@index');
-	Route::get('indexs','Index\indexController@indexs');
+
 	Route::get('postPreview','Index\indexController@postPreview');//查看职位详情
 	//跳转职业详情
 	Route::get('jump','Index\indexController@jump');
@@ -59,16 +59,16 @@ Route::group(['middleware' => ['web']], function () {
 
 			//公司查看简历
 			Route::get('pendingResume','Index\industryController@pendingResume');
-			Route::get('nndetermined','Index\industryController@nndetermined');//查看公司简历的状态
+			Route::get('nndetermined','Index\industryController@unDetermined');//查看公司简历的状态
 			Route::get('canInterviewResumes','Index\industryController@canInterviewResumes');//查看待定简历
-			Route::get('nndetermineds','Index\industryController@nndetermineds');//执行待定与不合适
-			Route::get('nndeterminedsEmail','Index\industryController@nndeterminedsEmail');//面试成功和发送邮件
-			Route::get('nndeterminedEmail','Index\industryController@nndeterminedEmail');//面试成功和发送邮件haveNoticeResumes
+			Route::get('nndetermineds','Index\industryController@deterMined');//执行待定与不合适
+			Route::get('nndeterminedsEmail','Index\industryController@deterMinedEmail');//面试成功和发送邮件
+			Route::get('nndeterminedEmail','Index\industryController@unDeterminedEmail');//面试成功和发送邮件haveNoticeResumes
 			Route::get('haveNoticeResumes','Index\industryController@haveNoticeResumes');//查看已发送邮件的简历
 			Route::get('haveRefuseResumes','Index\industryController@haveRefuseResumes');//查看不合适的简历
 			Route::get('preview','Index\industryController@preview');//公司查看简历详情
 			Route::get('positions','Index\industryController@positions');//查看有效职位  positions
-			Route::get('positionsdown','Index\industryController@positionsdown');//查看有效职位  positionsdown
+			Route::get('positionsdown','Index\industryController@positionsDown');//查看有效职位  positionsdown
 			Route::get('positionsType','Index\industryController@positionsType');//职位上下线管理	positionsType
 			Route::get('positionsDel','Index\industryController@positionsDel');//删除职位   positionsDel
 			Route::get('downloadResume','Index\industryController@downloadResume');//下载简历   	downloadResume
@@ -80,9 +80,9 @@ Route::group(['middleware' => ['web']], function () {
 			Route::post('company2pro','Index\InfoController@companyName');
 			//完善公司的信息
 			Route::get('detailed','Index\DetailedController@index');//必填 1
-			Route::post('info1pro','Index\DetailedController@BasePro');//提交1
-			Route::get('detailed_info2','Index\DetailedController@detailedLable');// 可选 2
-			Route::post('info2Pro','Index\DetailedController@lablePro');
+			Route::post('info1pro','Index\DetailedController@basePro');//提交1
+			Route::get('detailed_info2','Index\DetailedController@detailedLabel');// 可选 2
+			Route::post('info2Pro','Index\DetailedController@labelPro');
 			Route::get('detailed_info3','Index\DetailedController@detailedTeam');// 可选 3
 			Route::post('info3Pro','Index\DetailedController@teamPro');
 			Route::get('detailed_info4','Index\DetailedController@detailedProduct');// 可选 4

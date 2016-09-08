@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
-use Request;
+use Illuminate\Http\Request;
 use DB;
 use App\Model\User;
 
@@ -63,12 +63,12 @@ class IndexController extends BaseController
     }
 
     //跳转职业详情
-    public function jump(){
-        $i_name=Request::input('i_name');
+    public function jump(Request $request){
+        $i_name = $request->input('i_name');
         $row = DB::table('release')->where('re_name',$i_name)->count('re_id');
         $length = 6;
         $pages = ceil($row/$length);
-        $page = Request::get('page',1);
+        $page = $request->get('page',1);
         $limit = ($page-1)*$length;
 
         $list=DB::table('release')
@@ -82,11 +82,11 @@ class IndexController extends BaseController
     }
 
     //职位详情
-    public function postPreview(){
+    public function postPreview(Request $request){
 
 
 
-        $put=Request::input();
+        $put=$request->input();
         $release=Release::selPreviews($put);
 
         $company=Company::sel(['c_id'=>$release['c_id']]);
