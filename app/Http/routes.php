@@ -107,10 +107,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('admin','Admin\AdminController@admin');
      //登录
 	 Route::post('adminLogin','Admin\AdminController@adminLogin');
-    Route::group(['middleware'=>'admin'],function(){
-
-	    //后台首页
-	    Route::get('adminIndex','Admin\AdminController@adminIndex');
+     Route::group(['middleware'=>'admin'],function(){
+	 //后台首页
+	 Route::get('adminIndex','Admin\AdminController@adminIndex');
+	 
     });
  
 });

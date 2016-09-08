@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use \Illuminate\Http\Request;
-use App\Model\Admin;
+use App\Model\User;
+use App\Model\Company;
 
-class AdminMiddleware
+class CompanyMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,11 +18,14 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $u_id = session('u_id');
+        $user_data = User::selOne($u_id);
+        if($user_data['u_cid']==0){
+            return redirect('/');
+        }elseif($user_data['u_cid']==1){
+            return redirect('/info');
+        }
 
-        if(!session('uid')){
-            return redirect('admin');
-        }  
-        
         return $next($request);
     }
 }

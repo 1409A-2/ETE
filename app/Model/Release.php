@@ -19,8 +19,6 @@ class Release extends Model
     	return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
-        ->Join('school', 'resume.r_id', '=', 'school.r_id')
-        ->Join('users', 'resume.u_id', '=', 'users.u_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)        
         ->where('resume_reseale.remuse_resele','=',$remuse_resele)
@@ -33,8 +31,6 @@ class Release extends Model
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
-        ->Join('school', 'resume.r_id', '=', 'school.r_id')
-        ->Join('users', 'resume.u_id', '=', 'users.u_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)
         ->where('resume_reseale.read','=',$read)
@@ -48,8 +44,6 @@ class Release extends Model
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
-        ->Join('school', 'resume.r_id', '=', 'school.r_id')
-        ->Join('users', 'resume.u_id', '=', 'users.u_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)
         ->where('resume.r_education','=',$ed_name)        
@@ -63,8 +57,6 @@ class Release extends Model
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
-        ->Join('school', 'resume.r_id', '=', 'school.r_id')
-        ->Join('users', 'resume.u_id', '=', 'users.u_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)
         ->where('resume_reseale.read','=',$read)
@@ -87,6 +79,11 @@ class Release extends Model
     //预览职位
     public static function sel_Preview($c_id){
         return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
+    }
+
+    //用户查看的职位详情
+    public static function selPreviews($c_id){
+        return Release::where($c_id)->first()->toArray();
     }
 
     //查看各个职位的简历

@@ -75,13 +75,18 @@ class User extends Model
         return $res;
     }
  /**
-     * 查询一个用户的所欲信息
+     * 查询一个用户的所有信息
      */
     public static function selOne($u_id)
     {
-        return self::where('u_id',$u_id)
+        $data =  self::where('u_id',$u_id)
             ->select('u_cid')
-            ->first()->toArray();
+            ->first();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
+
     }
 
     /**

@@ -20,6 +20,7 @@ class AdminController extends Controller
      */
     public function admin()
     {
+        //print_r(session('uid'));die;
         //Session::forget('uid');
         return view('admin.login.login'); 
     }
@@ -31,7 +32,7 @@ class AdminController extends Controller
     	$re=new Admin();
     	if($arr=$re->checkLog($data)){
     		unset($arr['upwd']);
-    		session('uid',$arr);
+    		Session::put('uid',$arr);
     		return redirect('adminIndex');
     	}else{
     		return redirect('admin');
