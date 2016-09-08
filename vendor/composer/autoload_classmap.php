@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateEteAdminTable' => $baseDir . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
     'CreateEteCompanyTable' => $baseDir . '/database/migrations/2016_08_31_060528_create_ete_company_table.php',
     'CreateEteEducationTable' => $baseDir . '/database/migrations/2016_08_31_060721_create_ete_education_table.php',
     'CreateEteEnclosureTable' => $baseDir . '/database/migrations/2016_08_31_060930_create_ete_enclosure_table.php',
@@ -13,6 +14,7 @@ return array(
     'CreateEteIndustryTable' => $baseDir . '/database/migrations/2016_08_31_061026_create_ete_industry_table.php',
     'CreateEteLableTable' => $baseDir . '/database/migrations/2016_08_31_060528_create_ete_lable_table.php',
     'CreateEtePorjectTable' => $baseDir . '/database/migrations/2016_08_31_061005_create_ete_porject_table.php',
+    'CreateEteProductTable' => $baseDir . '/database/migrations/2016_08_31_060528_create_ete_product_table.php',
     'CreateEteReleaseTable' => $baseDir . '/database/migrations/2016_08_31_060915_create_ete_release_table.php',
     'CreateEteRemuseResealeTable' => $baseDir . '/database/migrations/2016_08_31_063930_create_ete_remuse_reseale_table.php',
     'CreateEteResumeTable' => $baseDir . '/database/migrations/2016_08_31_061035_create_ete_resume_table.php',

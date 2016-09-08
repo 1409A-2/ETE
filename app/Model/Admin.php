@@ -8,10 +8,10 @@ class Admin extends Model
 {
 	protected $table = 'admin';
 
-	protected $guarded = ['uid'];
+	protected $guarded = ['a_id'];
 
 	public function checkLog(array $UserData){
-		$arr=$this->where($UserData)->select('uid','uname')->first();
+		$arr=$this->where($UserData)->select('a_id','a_name')->first();
 		if($arr){
 			return $arr->toArray();
 		}else{

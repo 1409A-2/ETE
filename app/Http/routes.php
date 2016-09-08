@@ -125,4 +125,13 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::get('companylist','Index\CompanyController@Index');// 可选 5
 	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5
+
+	//后台
+    Route::get('admin','Admin\AdminController@admin');
+     	//登录
+		Route::post('adminLogin','Admin\AdminController@adminLogin');
+    Route::group(['middleware'=>'admin'],function(){
+		//后台首页
+		Route::get('adminIndex','Admin\AdminController@adminIndex');
+	});
 });

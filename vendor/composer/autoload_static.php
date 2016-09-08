@@ -272,6 +272,7 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
     );
 
     public static $classMap = array (
+        'CreateEteAdminTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
         'CreateEteCompanyTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060528_create_ete_company_table.php',
         'CreateEteEducationTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060721_create_ete_education_table.php',
         'CreateEteEnclosureTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060930_create_ete_enclosure_table.php',
@@ -279,6 +280,7 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
         'CreateEteIndustryTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_061026_create_ete_industry_table.php',
         'CreateEteLableTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060528_create_ete_lable_table.php',
         'CreateEtePorjectTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_061005_create_ete_porject_table.php',
+        'CreateEteProductTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060528_create_ete_product_table.php',
         'CreateEteReleaseTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060915_create_ete_release_table.php',
         'CreateEteRemuseResealeTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_063930_create_ete_remuse_reseale_table.php',
         'CreateEteResumeTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_061035_create_ete_resume_table.php',
