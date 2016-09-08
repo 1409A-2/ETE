@@ -1,4 +1,11 @@
-<?php use App\Model\User;?>
+<?php
+use App\Model\User;
+if(strpos($_SERVER['REQUEST_URI'],'?')){
+	$url = substr($_SERVER['REQUEST_URI'],1,strpos($_SERVER['REQUEST_URI'],'?')-1);
+}else{
+	$url = substr($_SERVER['REQUEST_URI'],1);
+}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -40,12 +47,12 @@
 				<img src="style/images/logo.png" width="229" height="43" alt="校易聘-专注互联网招聘" />
 			</a>
 			<ul class="reset" id="navheader">
-				<li class="current"><a href="/">首页</a></li>
-				<li ><a href="companylist" >公司</a></li>
+				<li @if($url=='') class="current" @endif><a href="/">首页</a></li>
+				<li @if($url=='companylist') class="current" @endif ><a href="companylist" >公司</a></li>
 				@if($user_data['u_cid']==0)
-				<li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
+				<li @if($url=='resumeList') class="current" @endif  ><a href="resumeList" rel="nofollow">我的简历</a></li>
 				@else
-				<li ><a href="detailed" rel="nofollow">发布职位</a></li>
+				<li @if($url=='detailed' || $url=='postOffice') class="current" @endif><a href="detailed" rel="nofollow">发布职位</a></li>
 				@endif
 			</ul>
 			<?php
@@ -58,7 +65,7 @@
 					<i></i>
 				</dt>
 				@if($user_data['u_cid']==0)
-				<dd><a rel="nofollow" href="jianli.html">我的简历</a></dd>
+				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collections.html">我收藏的职位</a></dd>
 				<dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
 				@else

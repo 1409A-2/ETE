@@ -23,7 +23,7 @@ class CompanyMiddleware
         if($user_data['u_cid']==0){
             return redirect('/');
         }elseif($user_data['u_cid']==1){
-            return redirect('/info');
+            return redirect('info');
         }
 
         return $next($request);

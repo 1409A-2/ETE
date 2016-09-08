@@ -4,45 +4,39 @@
     <div id="container">
         <div id="sidebar">
         <div class="mainNavs">
-        @for($i=0;$i<$count; $i++)
+        @foreach($nav_industry as $key => $val)
             <div class="menu_box">
-                <div class="menu_main">
-                    @foreach($nav_industry as $key => $val)
-                        <h2>{{$val['i_name']}} <span></span></h2>
-                        @foreach($two_industry[$key] as $k => $v)
-                            <a href="{{url('jump')}}?i_name={{$v['i_name']}}">{{$v['i_name']}} </a>
-                        @endforeach
-                        <?php unset($nav_industry[$key]);break;?>
-                    @endforeach
+                <div class="menu_main">                    
+                    <h2>{{$val['i_name']}} <span></span></h2>
+                    @foreach($two_industry[$key] as $k => $v)
+                        <a href="{{url('jump')}}?i_name={{$v['i_name']}}">{{$v['i_name']}} </a>
+                    @endforeach                   
                 </div>
                 <div class="menu_sub dn">
-                    @foreach($industry as $key => $val)
+                    @foreach($industry as $key => $vals)
                         <dl class="reset">
-                            @if($val['level']==1)
+                            @if($vals['i_pid']==$val['i_id'])
                                 <dt>
-                                    <a href="{{url('jump')}}?i_name={{$v['i_name']}}">
-                                        {{$val['i_name']}}
+                                    <a href="{{url('jump')}}?i_name={{$vals['i_name']}}">
+                                        {{$vals['i_name']}}
                                     </a>
                                 </dt>
                                 <dd>
-                                    @foreach($val['son'] as $v)
-                                        <a href="{{url('jump')}}?i_name={{$v['i_name']}}">{{$v['i_name']}}</a>
-                                    @endforeach
+                                      @foreach($industry as $key => $va)
+                                        @if($va['i_pid']==$vals['i_id'])
+                                            <a href="{{url('jump')}}?i_name={{$va['i_name']}}">{{$va['i_name']}}</a>
+                                        @endif
+                                      @endforeach  
                                 </dd>
-                            @endif
-                            <?php unset($industry[$key])?>
-
-                            @if((isset($industry[$key+1])) && ($industry[$key+1]['i_pid'] != $val['i_pid']))
-                                <?php break;?>
-                            @endif
+                            @endif                            
                         </dl>
                     @endforeach
                 </div>
             </div>
-        @endfor
+        @endforeach
 
         </div>
-        <a class="subscribe" href="subscribe.html" target="_blank">订阅职位</a>
+        <span class="subscribe" href="#" >订阅职位</span>
             </div>
 
         <div class="content">

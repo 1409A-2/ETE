@@ -6,7 +6,7 @@ use Closure;
 use \Illuminate\Http\Request;
 use App\Model\User;
 
-class UserMiddleware
+class ResumeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,6 +17,10 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
+        if(!session('u_id')){
+            return redirect('login.html');
+        }
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
         if($user_data['u_cid']!=0){

@@ -9,14 +9,13 @@ use App\Model\ResumeReseale;
 use App\Model\School;
 use App\Model\User;
 use App\Model\Works;
-use DB;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Session;
+//use Illuminate\Support\Facades\Session;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\Education;
 
@@ -28,13 +27,11 @@ class ResumeController extends BaseController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function index(){
-
         //$sum是判断简历能给打多少分
         $sum='';
 
         //查询出学历表所有数据
         $education= Education::sel_All();
-
          $u_id=session('u_id'); //用户Id
          $user=User::selOne($u_id);
         if($user['u_cid']!=0){
@@ -170,22 +167,25 @@ class ResumeController extends BaseController
         //获取用户id
         $u_id= $request->session()->get('u_id');
 
+        $resume=Resume::sel_One(['u_id'=>$u_id]);
+
         //拼接图片地址
-        $data['r_img']='uploads/'.session('u_email').'jpg';
+        $data['r_img']='uploads/'.session('u_email').rand(0,999).'.jpg';
 
         //判断图片是否存在,进行删除替换
-        if(file_exists($data['r_img'])){
-            unlink($data['r_img']);
+        if(file_exists($resume['r_img'])){
+            unlink($resume['r_img']);
         };
 
-        move_uploaded_file($_FILES['headPic']['tmp_name'],$data['r_img']);
-        $res=Resume::updateResume($data,['u_id'=>$u_id]);
+         move_uploaded_file($_FILES['headPic']['tmp_name'],$data['r_img']);
+        $res= Resume::updateResume($data,['u_id'=>$u_id]);
 
         if($res){
             echo $data['r_img'];
         }else{
-            echo 0;
+            echo $data['r_img'];
         }
+
     }
 
     /**  教育背景的添加

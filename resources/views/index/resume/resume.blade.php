@@ -8,7 +8,7 @@
             <div class="content_l">
                 <div class="fl" id="resume_name">
                     <div class="nameShow fl">
-                        <h1 title="{{$res['r_name']}}的简历">{{$res['r_name']}}的简历</h1>
+                        <h1 title="@if($res['r_name']){{$res['r_name']}} @else 匿名 @endif 的简历">@if($res['r_name']){{$res['r_name']}} @else 匿名 @endif 的简历</h1>
                         | <a href="{{url('previewList')}}/{{$res['r_id']}}">预览</a>
                     </div>
 
@@ -30,23 +30,39 @@
                     <span class="c_edit"></span>
 
                     <div class="basicShow">
-            			            			<span>{{$res['r_name']}} |  @if($res['r_sex']==0)男@else女@endif
+            			            			<span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif|  @if($res['r_sex']==0)男@else女@endif
                                                     |
+                                                    @if($res['r_education'])
                                                     @if($res['r_education']==1)大专@elseif($res['r_education']==2)
                                                         本科@elseif($res['r_education']==3)
                                                         硕士@elseif($res['r_education']==4)
                                                         博士@elseif($res['r_education']==5)其他@endif
+                                                        @else
+                                                        学历
+                                                        @endif
+                                                    <br>
+                                                    @if($res['r_photo'])
+                                                    {{$res['r_photo']}}
+                                                    @else
+                                                        手机号
+                                                        @endif
+                                                    @if($res['r_email'])
+                                                        {{$res['r_email']}}
+                                                    @else
+                                                        邮箱
+                                                    @endif
+
+
 
                                                     <br>
-                                                    {{$res['r_photo']}} | {{$res['r_email']}}<br>
             			</span>
 
                         <div class="m_portrait">
                             <div></div>
                             @if($res['r_img'])
-                                <img width="120" height="120" alt="jason" src="{{$res['r_img']}}">
+                                <img width="120" height="120" alt="jason" src="{{env('APP_HOST')}}/{{$res['r_img']}}">
                             @else
-                                <img width="120" height="120" alt="jason" src="style/images/default_headpic.png">
+                                <img width="120" height="120" alt="jason" src="{{env('APP_HOST')}}/style/images/default_headpic.png">
                             @endif
 
                         </div>
@@ -172,9 +188,9 @@
                     <input type="hidden" id="nameVal" value="{{$res['r_name']}}">
                     <input type="hidden" id="genderVal" value="@if($res['r_sex']==0)男@else女@endif">
                     <input type="hidden" id="topDegreeVal"
-                           value="@if($res['r_education']==1)大专@elseif($res['r_education']==2)本科@elseif($res['r_education']==3)硕士@elseif($res['r_education']==4)博士@elseif($res['r_education']==5)其他@endif">
+                           value="@if($res['r_education']==1)大专@elseif($res['r_education']==2)本科@elseif($res['r_education']==3)硕士@elseif($res['r_education']==4)博士@elseif($res['r_education']==5)其他@else--请选择--@endif">
                     <input type="hidden" id="currentStateVal"
-                           value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@endif">
+                           value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@else--请选择--@endif">
                     <input type="hidden" id="emailVal" value="{{$res['r_email']}}">
                     <input type="hidden" id="telVal" value="{{$res['r_photo']}}">
                     <input type="hidden" id="pageType" value="1">
@@ -813,8 +829,9 @@
 
                 <div class="profile_box" id="worksShow">
                     <h2>作品展示</h2>
-                    <span class="c_add"></span>
+
                     @if($works)
+                        <span class="c_add"></span>
                         @foreach($works as $v)
                             <div class="workShow">
 
@@ -826,7 +843,36 @@
                             </div>
                         @endforeach
 
+                            <div class="workEdit dn">
+                                <form class="workForm">
+                                    <input type="hidden" value="{{csrf_token()}}" id="token_work"/>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" placeholder="请输入作品链接" name="workLink" class="workLink">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            <textarea maxlength="100" class="workDescription s_textarea"
+                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
 
+                                                <div class="word_count">你还可以输入 <span>100</span> 字</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="submit" value="保 存" class="btn_profile_save">
+                                                <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" class="showId" value="">
+                                </form>
+                                <!--end .workForm-->
+                            </div>
                     @else
                         <div class="workEdit dn">
                             <form class="workForm">
@@ -1185,6 +1231,7 @@
 </div></body></html>
 <script>
     function img_check(a, b, c) {
+        var myimg=$('#myimg');
         var a = $("#" + c);
         var _token = $("#resubmitToken").val();
         this.AllowExt = ".jpg,.gif,.jpeg,.png,.pjpeg", this.FileExt = a.val().substr(a.val().lastIndexOf(".")).toLowerCase(), 0 != this.AllowExt && -1 == this.AllowExt.indexOf(this.FileExt) ? errorTips("只支持jpg、gif、png、jpeg格式，请重新上传", "上传头像") : ($("#" + c + "_error").text("").hide(), $.ajaxFileUpload({
@@ -1195,17 +1242,17 @@
             dataType: "json",
             success: function (msg) {
                 if (msg != 0) {
-                    alert("{{ env('APP_HOST') }}" + msg);
-//                        $('#myimg').attr('src', msg);
+
+                    myimg.attr('src', msg.responseText);
                 } else {
-                    location.href = 'jianli.html'
+                    location.href = 'resumeList'
                 }
             },
             error: function (msg) {
                 if (msg != 0) {
-                    $('#myimg').attr('src', msg.responseText);
+                    myimg.attr('src', msg.responseText);
                 } else {
-                    location.href = 'jianli.html';
+                    location.href = 'resumeList';
                 }
             }
         }))

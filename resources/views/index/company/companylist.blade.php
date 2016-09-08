@@ -12,9 +12,10 @@
                 <input type="hidden" id="ol" name="ol" value=""/>
                 <dl class="hc_tag">
                     <dd>
-                        <dl>
+                        <dl id="industry">
                     <dt>行业领域：</dt>
                     <dd>
+                        <a href="companylist?page=1" @if($industry=='')class="current"@endif>全部</a>
                         <a href="javascript:void(0)">移动互联网</a>
                         <a href="javascript:void(0)">电子商务</a>
                         <a href="javascript:void(0)">社交</a>
@@ -40,6 +41,7 @@
                         <a href="javascript:void(0)">智能电视</a>
                         <a href="javascript:void(0)">分类信息</a>
                         <a href="javascript:void(0)">招聘</a>
+
                     </dd>
                 </dl>
                 </dd>
@@ -146,8 +148,19 @@
         $(function(){
             $('dl dd a').click(function () {
                 var industry = $(this).html();
+                if(industry=='全部'){
+                    return
+                }
                 location.href='companylist?industry='+industry;
             });
+
+            var industry=$('#industry dd a');
+            var _industry="{{$industry}}";
+            for(var i=0;i<industry.length;i++){
+                if(industry.eq(i).html()==_industry){
+                    industry.eq(i).attr('class','current');
+                }
+            }
         })
     </script>
 @endsection
