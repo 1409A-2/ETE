@@ -47,6 +47,6 @@ class AdminController extends Controller
     	
     }
     public function adminIndex(){
-        echo 123;
+        return view("admin.admin.index");
     }
 }

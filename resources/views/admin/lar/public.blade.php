@@ -18,7 +18,7 @@
 
 <body>
 <div class="lefter">
-    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" alt="后台管理系统" /></a></div>
+    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" width="20" height="20" alt="后台管理系统" /></a></div>
 </div>
 <div class="righter nav-navicon" id="admin-nav">
     <div class="mainer">
