@@ -24,7 +24,9 @@
 */
 Route::get('adminIndex','Admin\adminController@adminIndex');
 Route::group(['middleware' => ['web']], function () {
-	//前台
+
+
+//前台
 	Route::get('/','Index\indexController@index');
 
 	Route::get('postPreview','Index\indexController@postPreview');//查看职位详情
@@ -49,6 +51,10 @@ Route::group(['middleware' => ['web']], function () {
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
 		//这是发布职位控制
+        Route::get('info','Index\InfoController@checkCompany');
+        Route::get('sendEamil','Index\InfoController@sendMail');
+        Route::post('company1pro','Index\InfoController@companyEmail');
+        Route::post('company2pro','Index\InfoController@companyName');
 		Route::group(['middleware' => 'company'], function () {
 
 			Route::get('postOffice','Index\industryController@postOffice');
@@ -74,10 +80,8 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('downloadResume','Index\industryController@downloadResume');//下载简历   	downloadResume
 
 			//完善公司基本信息（必填）
-			Route::get('info','Index\InfoController@checkCompany');
-			Route::get('sendEamil','Index\InfoController@sendMail');
-			Route::post('company1pro','Index\InfoController@companyEmail');
-			Route::post('company2pro','Index\InfoController@companyName');
+
+
 			//完善公司的信息
 			Route::get('detailed','Index\DetailedController@index');//必填 1
 			Route::post('info1pro','Index\DetailedController@basePro');//提交1
@@ -91,27 +95,33 @@ Route::group(['middleware' => ['web']], function () {
 			Route::post('info5Pro','Index\DetailedController@introPro');// 可选 5
 
 		});
+    });
 
-		Route::group(['middleware' => 'user'], function () {
+//我的简历
+    Route::group(['middleware' => 'resume'], function () {
+        Route::get('resumeList', 'Index\resumeController@index');
+        Route::post('educationPro', 'Index\resumeController@educationPro');//个人资料
+        Route::post('educationUpload', 'Index\resumeController@educationUpload');//个人头像
+        Route::post('educationDesc', 'Index\resumeController@educationDesc');//自我描述
 
-			//我的简历
-			Route::get('jianli.html','Index\resumeController@index');
-			Route::post('educationPro','Index\resumeController@educationPro');//个人资料
-			Route::post('educationUpload','Index\resumeController@educationUpload');//个人头像
-			Route::post('schoolPro','Index\resumeController@schoolPro');//教育背景
-			Route::post('educationDesc','Index\resumeController@educationDesc');//自我描述
-			Route::post('worksAdd','Index\resumeController@worksAdd');//添加作品
-			Route::get('worksDel/{id}','Index\resumeController@worksDel');//删除作品
-			Route::post('porjectAdd','Index\resumeController@porjectAdd');//添加项目
-			Route::get('porjectDel/{id}','Index\resumeController@porjectDel');//删除项目
+        Route::post('schoolPro', 'Index\resumeController@schoolPro');//教育背景
 
-			//投递简历
-			Route::get('remusePro/{id}','Index\resumeController@remusePro');//投递简历添加
-			Route::get('remuseShow','Index\resumeController@remuseShow');//投递简历和对应状况查看
-  
-		});
-	});
+        Route::post('worksAdd', 'Index\resumeController@worksAdd');//添加作品
+        Route::get('worksDel/{id}', 'Index\resumeController@worksDel');//删除作品
 
-	Route::get('companylist','Index\CompanyController@Index');// 公司页
-	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 验证邮件
+        Route::post('porjectAdd', 'Index\resumeController@porjectAdd');//添加项目
+        Route::get('porjectDel/{id}', 'Index\resumeController@porjectDel');//删除项目
+
+        Route::post('expectedAdd', 'Index\resumeController@expectedAdd');//添加(修改)期望工作
+        Route::get('expectedDel/{id}', 'Index\resumeController@expectedDel');//删除期望工作
+
+
+        Route::get('previewList/{id}', 'Index\resumeController@previewList');//简历预览
+
+        //投递简历
+        Route::get('remusePro/{id}', 'Index\resumeController@remusePro');//投递简历添加
+        Route::get('remuseShow', 'Index\resumeController@remuseShow');//投递简历和对应状况查看
+    });
+    Route::get('companylist','Index\CompanyController@Index');// 可选 5
+	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5
 });

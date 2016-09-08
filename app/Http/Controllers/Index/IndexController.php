@@ -43,23 +43,8 @@ class IndexController extends BaseController
                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
             }
         }
-        // print_r($two_industry);die;
-        $i=0;
-        foreach($industry as $key => $val) {
-            if ($val['level']==1){
-                $hid_industry[$i] = $val;
-                $parent = $i;
-                $i++;
-            }
-            if($val['level']==2){
-                $hid_industry[$parent]['son'][] = $val;
-            }
-        }
-        unset($industry);
-        //print_r($hid_industry);die
-        $u_id = Session::get('u_id');
-        $u_email = Session::get('u_email');
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$hid_industry,'nav_industry'=>$new_industry,'u_id'=>$u_id,'u_email'=>$u_email]);
+
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry]);
     }
 
     //跳转职业详情
@@ -77,7 +62,7 @@ class IndexController extends BaseController
             ->limit($length)->offset($limit)->get();
         $str=json_encode($list);
         $arr=json_decode($str,true);
-        // print_r($arr);die;
+
         return view('index.index.ShowList',['arr'=>$arr,'i_name'=>$i_name,'pages'=>$pages,'page'=>$page]);
     }
 
