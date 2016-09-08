@@ -7,8 +7,9 @@ use Validator;
 use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Model\User;
+use App\Model\Admin;
 use App\Model\Company;
+use Session;
 
 class AdminController extends Controller
 {
@@ -17,8 +18,27 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adminIndex()
+    public function admin()
     {
+        //Session::forget('uid');
         return view('admin.login.login'); 
+    }
+
+    public function adminLogin(Request $request){
+    	$data=$request->all();
+    	$data['upwd']=md5($data['upwd']);
+    	unset($data['_token']);
+    	$re=new Admin();
+    	if($arr=$re->checkLog($data)){
+    		unset($arr['upwd']);
+    		session('uid',$arr);
+    		return redirect('adminIndex');
+    	}else{
+    		return redirect('admin');
+    	}
+    	
+    }
+    public function adminIndex(){
+        echo 123;
     }
 }
