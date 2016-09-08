@@ -101,25 +101,5 @@ class Company extends Model
     {
         return self::where('c_id',$c_id)->update($insert_data);
     }
-
-    /**
-     * 查询全部的公司
-     */
-    public static function selAll($industry,$length,$limit)
-    {
-        $data = self::where('c_industry','like','%'.$industry.'%')->select('c_id','c_shorthand','c_logo','c_industry')->limit($length)->offset($limit)->get();
-        if($data){
-            return $data->toArray();
-        }
-        return $data;
-    }
-
-    /**
-     * 查询总条数
-     */
-    public static function selCount($industry)
-    {
-        return self::where('c_industry','like','%'.$industry.'%')->count('c_id');
-    }
 }
 

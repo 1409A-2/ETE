@@ -79,14 +79,9 @@ class User extends Model
      */
     public static function selOne($u_id)
     {
-        $data =  self::where('u_id',$u_id)
+        return self::where('u_id',$u_id)
             ->select('u_cid')
-            ->first();
-        if($data){
-            return $data->toArray();
-        }
-        return $data;
-
+            ->first()->toArray();
     }
 
     /**

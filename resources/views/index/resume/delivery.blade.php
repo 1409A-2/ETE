@@ -39,7 +39,7 @@
                                         <li>
                                             <div class="d_item">
                                                 <h2 title="{{$v['re_name']}}">
-                                                    <a target="_blank" href="postPreview?re_id={{$v['re_id']}}">
+                                                    <a target="_blank" href="{{url('jump')}}?i_name={{$v['re_name']}}">
                                                         <em>{{$v['re_name']}}</em>
                                                         <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
                                                         <!--  -->
@@ -48,10 +48,10 @@
 
                                                 <div class="clear"></div>
                                                 <a title="公司名称" class="d_jobname" target="_blank"
-                                                   href="">
+                                                   href="http://www.lagou.com/c/25927.html">
                                                     {{$v['c_name']}} <span>[北京]</span>
                                                 </a>
-                                                <span class="d_time">{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
+                                                <span class="d_time">2014-07-01 17:15</span>
 
                                                 <div class="clear"></div>
 

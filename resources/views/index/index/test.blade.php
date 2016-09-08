@@ -52,7 +52,7 @@
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow"></div>
-            <input type="text" id="search_input" style="height: 37px;" name = "kd"  tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="text" id="search_input" name = "kd"  tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
 
             <input type="button" id="search_button" value="搜索" />
         </div>

@@ -45,65 +45,34 @@
                 </dd>
                 </dl>
                 <ul class="hc_list reset">
-                    @foreach($company_data as $key=>$val)
-                    <li @if($key%3==0)style="clear:both;"@endif>
-                        <a href="companyinfo?c_id={{$val['c_id']}}" target="_blank">
-                            <h3 title="{{$val['c_shorthand']}}">{{$val['c_shorthand']}}</h3>
+                    <li style="clear:both;">
+                        <a href="h/c/25829.html" target="_blank">
+                            <h3 title="CCIC">CCIC</h3>
 
                             <div class="comLogo">
-                                <img src="{{env("APP_HOST").$val['c_logo']}}" width="190" height="190" alt="CCIC"/>
+                                <img src="style/images/logo_default.png" width="190" height="190" alt="CCIC"/>
                                 <ul>
-                                    @foreach($val['industry'] as $vv)
-                                    <li>{{$vv}}</li>
-                                    @endforeach
+                                    <li>安全</li>
+                                    <li>深圳，D轮及以上</li>
                                 </ul>
                             </div>
                         </a>
                         <a href="h/jobs/148928.html" target="_blank"> 环境监测工程师</a>
                         <a href="h/jobs/148919.html" target="_blank"> 电学校准工程师</a>
                         <a href="h/jobs/148931.html" target="_blank"> 能源管理项目经理</a>
-
                         <ul class="reset ctags">
-                            @foreach($val['lable_data'] as $vv)
-                            <li>{{$vv['lab_name']}}</li>
-                            @endforeach
+                            <li>D轮及以上</li>
+                            <li>安全</li>
+                            <li>年终分红</li>
+                            <li>绩效奖金</li>
+                            <li>五险一金</li>
+                            <li>交通补助</li>
                         </ul>
-
                     </li>
-                    @endforeach
                 </ul>
 
                 <div class="Pagination"></div>
             </form>
-            <div class="Pagination myself">
-                @if($page==1)
-                    <span class="disabled" title="首页" >首页 </span>
-                    <span class="disabled" title="上一页" >上一页 </span>
-                @else
-                    <a title="1" href="companylist?page={{1}}&industry={{$industry}}">首页</a>
-                    <a title="{{$page-1}}" href="companylist?page={{$page-1}}&industry={{$industry}}">上一页 </a>
-                @endif
-                @for($i=($page-2);$i<=($page+2);$i++)
-                    @if($i<1)
-                        <?php continue  ?>
-                    @endif
-                    @if($i>$pages)
-                        <?php continue  ?>
-                    @endif
-                    @if($i==$page)
-                        <span class="current" title="{{$i}}">{{$i}}</span>
-                    @else
-                        <a title="{{$i}}" href="companylist?page={{$i}}&industry={{$industry}}">{{$i}}</a>
-                    @endif
-                @endfor
-                @if($page==$pages)
-                    <span class="disabled" title="下一页" >下一页 </span>
-                    <span class="disabled" title="尾页" >尾页 </span>
-                @else
-                    <a title="{{$page+1}}" href="companylist?page={{$page+1}}&industry={{$industry}}">下一页 </a>
-                    <a title="30" href="companylist?page={{$pages}}&industry={{$industry}}">尾页</a>
-                @endif
-            </div>
         </div>
         <div class="content_r">
             <div class="subscribe_side">
@@ -139,15 +108,19 @@
     <input type="hidden" value="" name="userid" id="userid"/>
 
     {{--<script type="text/javascript" src="style/js/company_list.min.js"></script>--}}
-
-    <div class="clear"></div>
-    <input type="hidden" id="resubmitToken" value=""/>
     <script>
-        $(function(){
-            $('dl dd a').click(function () {
-                var industry = $(this).html();
-                location.href='companylist?industry='+industry;
+        $(function () {
+            /*分页 */
+            $('.Pagination').pager({
+                currPage: 1,
+                pageNOName: "pn",
+                form: "companyList",
+                pageCount: 30,
+                pageSize: 5
             });
         })
     </script>
+    <div class="clear"></div>
+    <input type="hidden" id="resubmitToken" value=""/>
+
 @endsection

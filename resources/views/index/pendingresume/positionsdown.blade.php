@@ -18,7 +18,7 @@
                     @foreach($release as $v)
                             <li data-id="{{$v['re_id']}}">
                                 <h3>
-                                    <a target="_blank" title="{{$v['i_name']}}" href="postOffice_preview?re_id={{$v['re_id']}}">{{$v['i_name']}}</a>
+                                    <a target="_blank" title="随便写" href="">{{$v['i_name']}}</a>
                                     <span>[北京]</span>
                                 </h3>
                                 <span class="receivedResumeNo">

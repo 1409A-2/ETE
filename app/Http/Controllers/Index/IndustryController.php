@@ -162,18 +162,13 @@ class IndustryController extends BaseController
     }
 
     //职位预览
-    public function postOfficePreview(Request $request){
+    public function postOfficePreview(){
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
-            $put=$request->input();
-            if(isset($put)){
-                $release=Release::selPreviews($put);
-            }else{
-                $release=Release::sel_Preview($c_id);
-            }
+        	$release=Release::sel_Preview($c_id);
         	$company=Company::sel($c_id);
 //        	 print_r($release);die;
         	return view('index.industry.postOffice_preview',['release'=>$release,'company'=>$company]);
@@ -187,7 +182,6 @@ class IndustryController extends BaseController
         $ed_name=$request->input('rels'); 
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-
             return Redirect::to('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
@@ -212,13 +206,12 @@ class IndustryController extends BaseController
             
             $education=Education::sel_Tion();
 //        print_r($resume);die;
-
         	return view('index.pendingresume.pendingresume',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
     //修改公司查看简历后状态
-    public function unDetermined(Request $request){
+    public function nndetermined(Request $request){
     	$data=$request->input();
     	echo ResumeReseale::up_Resumereseale($data);
     }
@@ -229,7 +222,6 @@ class IndustryController extends BaseController
         $ed_name=$request->input('rels');       
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-
             return Redirect::to('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
@@ -251,13 +243,12 @@ class IndustryController extends BaseController
                 }
             }   
             $education=Education::sel_Tion();         
-        	// print_r($resume);die;
-
+        	// print_r($resume);die;   	
         	return view('index.pendingresume.CanInterviewResumes',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
     //执行待定与不合适
-    public function deterMined(Request $request){
+    public function nndetermineds(Request $request){
     	$data=$request->input();
     	$rere_id=explode(',',$data['rere_id']);
     	// print_r($rere_id);die;
@@ -270,7 +261,7 @@ class IndustryController extends BaseController
     }
 
     //面试成功和发送邮件
-    public function deterMinedEmail(Request $request){
+    public function nndeterminedsEmail(Request $request){
 		$data=$request->input();
 		$rere_id=explode(',',$data['rere_id']);
 		for($i=0;$i<count($rere_id);$i++){
@@ -290,7 +281,7 @@ class IndustryController extends BaseController
 		
     }
     //面试成功和发送邮件
-    public function unDeterminedEmail(Request $request){
+    public function nndeterminedEmail(Request $request){
     	$data=$request->input();
     	$email=$data['email'];
     	$content = $data['r_name']."您好，\n感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们会在7个工作日内处理您的简历。通知你面试";
@@ -332,8 +323,7 @@ class IndustryController extends BaseController
                 }
             }
             $education=Education::sel_Tion(); 
-        	// print_r($resume);die;
-
+        	// print_r($resume);die;   	
         	return view('index.pendingresume.haveNoticeResumes',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
@@ -366,8 +356,7 @@ class IndustryController extends BaseController
                 }
             } 
             $education=Education::sel_Tion(); 
-        	// print_r($resume);die;
-
+        	// print_r($resume);die;   	
         	return view('index.pendingresume.haveRefuseResumes',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
@@ -431,7 +420,7 @@ class IndustryController extends BaseController
     }
 
     //查看下线职位  positionsdown
-    public function positionsDown(){
+    public function positionsdown(){
         $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return Redirect::to('/info');
@@ -515,10 +504,8 @@ class IndustryController extends BaseController
 
 //        print_r($data);die;
         if($arr['type']!=2){
-
             return view('index.resume.previews',$data);
         }else{
-
             return view('index.resume.preview',$data);
         }
     }

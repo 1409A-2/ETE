@@ -44,14 +44,14 @@
                     </span>
                         </div>
                     </div>
-
+                </div>
             </dd>
 
       
-
+            <!-- 职位发布者 end -->
 
             
         </dl>
-        @endsection
-</div>
 
+</div>
+@endsection
