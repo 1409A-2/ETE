@@ -22,23 +22,23 @@
         <div class="xs6 xm4 xs3-move xm4-move">
             <br /><br />
             <div class="media media-y">
-                <a href="#" target="_blank"><img src="images/logo.png" class="radius" alt="后台管理系统" /></a>
+                <a href="#" target="_blank"><strong><img src="/images/logo.png" class="radius" alt="后台管理系统" /></strong></a>
             </div>
             <br /><br />
-            <form action="index.html" method="post">
+            <form action="adminLogin" method="post">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <div class="panel">
                 <div class="panel-head"><strong>校易聘后台管理系统</strong></div>
                 <div class="panel-body" style="padding:30px;">
                     <div class="form-group">
                         <div class="field field-icon-right">
-                            <input type="text" class="input" name="admin" placeholder="登录账号" data-validate="required:请填写账号,length#>=5:账号长度不符合要求" />
+                            <input type="text" class="input" name="uname" placeholder="登录账号" data-validate="required:请填写账号,length#>=5:账号长度不符合要求" />
                             <span class="icon icon-user"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="field field-icon-right">
-                            <input type="password" class="input" name="password" placeholder="登录密码" data-validate="required:请填写密码,length#>=8:密码长度不符合要求" />
+                            <input type="password" class="input" name="upwd" placeholder="登录密码" data-validate="required:请填写密码,length#>=6:密码长度不符合要求" />
                             <span class="icon icon-key"></span>
                         </div>
                     </div>

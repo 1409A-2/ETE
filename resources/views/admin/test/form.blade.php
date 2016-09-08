@@ -2,9 +2,6 @@
 @section('title_admin', '测试')
 @section('content_admin')
 
-
-
-
 <div class="tab">
       <div class="tab-head">
         <strong>系统设置</strong>

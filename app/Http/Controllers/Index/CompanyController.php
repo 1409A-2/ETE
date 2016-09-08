@@ -26,6 +26,7 @@ class CompanyController extends Controller
         $page = $request->get('page',1);
         $industry = $request->get('industry','');
         if(!$u_id){
+
             return $this->companyList($page,$industry);
         }
 
@@ -34,6 +35,7 @@ class CompanyController extends Controller
         if($user_data['u_cid']==0){
             return $this->companyList($page,$industry);
         }elseif($user_data['u_cid']==1){
+
             return redirect('/info');
         }else{
             $company_data = Company::selOne($user_data['u_cid']);
@@ -41,11 +43,14 @@ class CompanyController extends Controller
                 return redirect('/info');
             }else{
                 if($company_data['c_status']==0){
+
                     return redirect('/info');
                 }elseif($company_data['c_status']==1){
+
                     return redirect('/info');
                 }else{
                     if(empty($company_data['c_shorthand'])||empty($company_data['c_website'])||empty($company_data['c_industry'])||empty($company_data['c_logo'])||empty($company_data['c_desc'])){
+                        
                         return redirect('detailed');
                     }else{
                         return $this->companyInfo();
