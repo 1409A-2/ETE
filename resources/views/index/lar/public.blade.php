@@ -64,7 +64,7 @@
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
-				<dd><a href="accountBind.html">帐号设置</a></dd>
+				<dd><a href="#">帐号设置</a></dd>
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>

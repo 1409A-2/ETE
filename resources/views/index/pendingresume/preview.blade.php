@@ -38,9 +38,9 @@
             <div class="basicShow">
                    <span>{{$res['r_name']}} |  @if($res['u_sex']==0) 男 @else  女  @endif |{{$res['ed_name']}} |广州<br>
                      {{$res['ed_name']}}· {{$res['s_name']}}<br>
-                                                {{$res['r_photo']}} | {{$res['r_email']}}<br>
-                        
-                    </span>
+            			            			{{$res['r_photo']}} | {{$res['r_email']}}<br>
+            			
+            		</span>
 
                 <div class="m_portrait">
                     <img width="120" height="120" alt="jason" src="style/images/default_headpic.png">
