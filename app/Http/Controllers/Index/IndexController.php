@@ -68,9 +68,6 @@ class IndexController extends BaseController
 
     //职位详情
     public function postPreview(Request $request){
-
-
-
         $put=$request->input();
         $release=Release::selPreviews($put);
 

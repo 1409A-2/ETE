@@ -50,11 +50,13 @@ Route::group(['middleware' => ['web']], function () {
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
-		//这是发布职位控制
+		//完善公司基本信息（必填）
         Route::get('info','Index\InfoController@checkCompany');
         Route::get('sendEamil','Index\InfoController@sendMail');
         Route::post('company1pro','Index\InfoController@companyEmail');
         Route::post('company2pro','Index\InfoController@companyName');
+
+		//这是发布职位控制
 		Route::group(['middleware' => 'company'], function () {
 
 			Route::get('postOffice','Index\industryController@postOffice');
@@ -79,7 +81,6 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('positionsDel','Index\industryController@positionsDel');//删除职位   positionsDel
 			Route::get('downloadResume','Index\industryController@downloadResume');//下载简历   	downloadResume
 
-			//完善公司基本信息（必填）
 
 
 			//完善公司的信息
