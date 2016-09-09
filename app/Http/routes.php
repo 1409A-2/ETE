@@ -22,8 +22,9 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-Route::get('adminIndex','Admin\adminController@adminIndex');
 Route::group(['middleware' => ['web']], function () {
+	// 验证公司邮箱
+	Route::get('adopt','Index\InfoController@adoptVerify');
     //前台
     Route::get('/','Index\indexController@index');
 	Route::get('indexs','Index\indexController@indexs');

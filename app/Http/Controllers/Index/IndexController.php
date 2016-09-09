@@ -19,8 +19,8 @@ class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(Request $Request){
-    	//查询所有行业
-    	$industry=industry::sel();
+        //查询所有行业
+        $industry=industry::sel();
         //print_r($industry);die;
         $new_industry='';
         $parent=0;
@@ -37,26 +37,11 @@ class IndexController extends BaseController
         // print_r($new_industry);die;
         $num = count($new_industry);
         $two_industry='';
-        for($i=1;$i<=$num;$i++){            
-                for($k=0;$k<10;$k++){
-                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
-                }
-        }
-        // print_r($two_industry);die;
-        $i=0;
-        foreach($industry as $key => $val) {
-            if ($val['level']==1){
-                $hid_industry[$i] = $val;
-                $parent = $i;
-                $i++;
-            }
-            if($val['level']==2){
-                $hid_industry[$parent]['son'][] = $val;
+        for($i=1;$i<=$num;$i++){
+            for($k=0;$k<10;$k++){
+                $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
             }
         }
-        unset($industry);
-    	//print_r($hid_industry);die;
-        // 接收微信第三方的openid
         $userKey = $Request->input('user');
         if (!empty($userKey)) {
             $checkRest = User::checkOnly($userKey);
@@ -69,19 +54,19 @@ class IndexController extends BaseController
                 return view('index.index.WeixinRegister',['userKey'=>$userKey]);
             }
         }
-        $u_id = session('u_id');
-        $u_email = session('u_email');
-    	return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$hid_industry,'nav_industry'=>$new_industry,'u_id'=>$u_id,'u_email'=>$u_email]);
+
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry]);
     }
 
     //跳转职业详情
-    public function jump(Request $Request){
-        $i_name=$Request->input('i_name');
+    public function jump(Request $request){
+        $i_name = $request->input('i_name');
         $row = DB::table('release')->where('re_name',$i_name)->count('re_id');
         $length = 6;
         $pages = ceil($row/$length);
-        $page = $Request->get('page',1);
+        $page = $request->get('page',1);
         $limit = ($page-1)*$length;
+
         $list=DB::table('release')
             ->where('re_name',$i_name)
             ->join('company','release.c_id','=','company.c_id')
