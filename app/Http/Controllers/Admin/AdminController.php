@@ -49,4 +49,7 @@ class AdminController extends Controller
     public function adminIndex(){
         return view("admin.admin.index");
     }
+    public function adminUser(){
+        return view("admin.admin.index");
+    }
 }

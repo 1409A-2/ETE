@@ -493,62 +493,31 @@
             <div class="content_r">
                 <div class="mycenterR" id="myInfo">
                     <h2>我的信息</h2>
-                    <a href="collections.html">我收藏的职位</a>
+                    <a href="resumeList">我的简历</a>
                     <br>
-                    <a href="toudi.html" target="_blank">我投递的职位<span id="noticeNoPage"
+                    <!-- <a href="toudi.html" target="_blank">我投递的职位<span id="noticeNoPage"
                                                                      class="red dn">&nbsp;(0)</span></a>
                     <br>
                     <a target="_blank" href="subscribe.html">我订阅的职位</a>
                     <br>
-                    <a target="_blank" href="mList.html">我的职位推荐</a>
+                    <a target="_blank" href="mList.html">我的职位推荐</a> -->
                 </div>
                 <!--end #myInfo-->
                 <div class="mycenterR" id="myRecommend">
                     <h2>可能适合你的职位 <i>匹配度</i></h2>
                     <ul class="reset">
-                        <li>
+                    <li><center>暂无</center></li>
+                       <!--  <li>
                             <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
                                 <span class="f16">产品经理</span>
                                 <span class="c7">广州百田</span>
                                 <em>92%</em>
                             </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">
-                                <span class="f16">产品经理</span>
-                                <span class="c7">短讯神州</span>
-                                <em>92%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">
-                                <span class="f16">产品经理</span>
-                                <span class="c7">爱拍</span>
-                                <em>89%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/99307.html">
-                                <span class="f16">产品经理</span>
-                                <span class="c7">一彩票</span>
-                                <em>88%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/147510.html">
-                                <span class="f16">产品经理</span>
-                                <span class="c7">林安集团</span>
-                                <em>88%</em>
-                            </a>
-                        </li>
+                        </li> -->
                     </ul>
-                    <a target="_blank" class="more" href="mList.html">更多推荐职位&gt;&gt;</a>
+                    <!-- <a target="_blank" class="more" href="mList.html">更多推荐职位&gt;&gt;</a> -->
                 </div>
-                <!--end #myRecommend-->
-                <div class="greybg qrcode mt20">
-                    <img width="242" height="242" alt="拉勾微信公众号二维码" src="style/images/qr_delivery.png">
-                    <span class="c7">扫描拉勾二维码，微信轻松搜工作</span>
-                </div>
+
             </div>
         </div>
         <input type="hidden" id="userid" name="userid" value="314873">

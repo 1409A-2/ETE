@@ -40,5 +40,12 @@ class Expected extends Model
         return self::where($where)->delete();
     }
 
+    /**删除
+     * @param $id
+     * @return 1
+     */
+    public static function userDel($id){
+        return self::whereIn('r_id',$id)->delete();
+    }
 
 }

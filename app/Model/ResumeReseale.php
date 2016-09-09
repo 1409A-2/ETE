@@ -113,5 +113,13 @@ class ResumeReseale extends Model
         ->join('works', 'resume_reseale.r_id', '=', 'works.r_id')
         ->where('rere_id','=',$data['rere_id'])->get()->toArray();
     }
+
+    /**删除
+     * @param $id
+     * @return 1
+     */
+    public static function userDel($id){
+        return self::whereIn('r_id',$id)->delete();
+    }
     
 }

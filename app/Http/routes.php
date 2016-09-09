@@ -134,5 +134,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'admin'],function(){
 		//后台首页
 		Route::get('adminIndex','Admin\AdminController@adminIndex');
+
+
+
+		//用户模块
+		Route::get('adminUser','Admin\UserController@adminUser');//用户的主菜单页面
+		Route::get('adminUserList','Admin\UserController@adminUserList');//用户列表 后台管理用户  adminUserList
+		Route::get('adminUserDel','Admin\UserController@adminUserDel');//删除用户  adminUserDel
 	});
 });

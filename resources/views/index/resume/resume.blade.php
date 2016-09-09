@@ -14,7 +14,14 @@
 
                 </div>
                 <!--end #resume_name-->
-                <div class="fr c5" id="lastChangedTime">最后一次更新：<span>{{date('Y-m-d H:i:s',$res['r_time'])}}</span></div>
+                <div class="fr c5" id="lastChangedTime">最后一次更新：<span>
+                @if($res['r_time'])
+                    {{date('Y-m-d H:i:s',$res['r_time'])}}
+                @else
+                    暂无
+                @endif
+                
+                </span></div>
                 <!--end #lastChangedTime-->
                 <div id="resumeScore">
                     <div class="score fl">
@@ -918,10 +925,10 @@
             <div class="content_r">
                 <div class="mycenterR" id="myInfo">
                     <h2>我的信息</h2>
-                    <a target="_blank" href="collections.html">我收藏的职位</a>
+                   <!--  <a target="_blank" href="collections.html">我收藏的职位</a>
                     <br>
                     <a target="_blank" href="subscribe.html">我订阅的职位</a>
-                    <br/>
+                    <br/> -->
                     <a target="_blank" href="{{url('remuseShow')}}">已投递的简历</a>
                 </div>
                 <!--end #myInfo-->
@@ -966,10 +973,7 @@
                 <!--end #myShare-->
 
 
-                <div class="greybg qrcode mt20">
-                    <img width="242" height="242" alt="拉勾微信公众号二维码" src="style/images/qr_resume.png">
-                    <span class="c7">微信扫一扫，轻松找工作</span>
-                </div>
+               
             </div>
             <!--end .content_r-->
         </div>
