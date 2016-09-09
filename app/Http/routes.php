@@ -27,7 +27,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('adopt','Index\InfoController@adoptVerify');
     //前台
     Route::get('/','Index\indexController@index');
-	Route::get('indexs','Index\indexController@indexs');
+	Route::get('postPreview','Index\indexController@postPreview');//查看职位详情
 	// 微信用户整合
 	Route::get('registerWeixin.html','Index\indexController@registerWeixin');
 	Route::post('registerProne','Index\indexController@registerProne');

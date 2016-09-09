@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Model\User;
+use App\Model\Release;
+use App\Model\Company;
+use App\Model\Resume;
 use Mail;
 use DB;
 
@@ -98,6 +101,11 @@ class IndexController extends BaseController
         unset($data['type']);
         $res = User::addUser($data);
         if ($res) {
+            if($data['u_cid']==0){
+                $user['r_email']=$email;
+                $user['u_id']=$res;
+                Resume::addResume($user);
+            }
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
             $rest = Mail::raw($arr['content'], function ($message) use($email) {
                 $to = $email;
