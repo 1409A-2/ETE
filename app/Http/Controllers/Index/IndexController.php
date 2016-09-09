@@ -3,23 +3,25 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Industry;
-use App\Model\Release;
-use App\Model\Company;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use DB;
 use App\Model\User;
+use App\Model\Release;
+use App\Model\Company;
+use App\Model\Resume;
+use Mail;
+use DB;
 
 header("content-type:text/html;charset=utf8");
 
 class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public function index(){
+    public function index(Request $Request){
         //查询所有行业
         $industry=industry::sel();
         //print_r($industry);die;
@@ -41,6 +43,18 @@ class IndexController extends BaseController
         for($i=1;$i<=$num;$i++){
             for($k=0;$k<10;$k++){
                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
+            }
+        }
+        $userKey = $Request->input('user');
+        if (!empty($userKey)) {
+            $checkRest = User::checkOnly($userKey);
+            if (!empty($checkRest)) {
+                Session::put('u_id', $checkRest['u_id']);
+                Session::put('u_email', $checkRest['u_email']);
+            } else {
+                Session::put('u_id','0');
+                Session::put('u_email', $userKey);
+                return view('index.index.WeixinRegister',['userKey'=>$userKey]);
             }
         }
 
@@ -66,6 +80,49 @@ class IndexController extends BaseController
         return view('index.index.ShowList',['arr'=>$arr,'i_name'=>$i_name,'pages'=>$pages,'page'=>$page]);
     }
 
+    // 第三方登陆整合
+    public function registerWeixin(){
+        return view('index.index.WeixinRegister');
+    }
+
+    // ajax第三方整合验证
+    public function registerProne(Request $Request){
+        $data = $Request->all();
+        unset($data['_token']);
+        $email = $data['u_email'];
+        $reslut = User::findOne($data);
+        if ($reslut) {
+            echo json_encode(500);
+            exit;
+        }
+        $data['u_pwd'] = md5($data['u_pwd']);
+        $data['u_resign'] = time();
+        $data['u_cid'] = $data['type'];
+        unset($data['type']);
+        $res = User::addUser($data);
+        if ($res) {
+            if($data['u_cid']==0){
+                $user['r_email']=$email;
+                $user['u_id']=$res;
+                Resume::addResume($user);
+            }
+            $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
+            $rest = Mail::raw($arr['content'], function ($message) use($email) {
+                $to = $email;
+                $message ->to($to)->subject('校易聘注册认证邮件');
+            });
+            if ($rest) {
+                echo json_encode($data['r_openid']);
+                exit;
+            } else {
+                echo json_encode($rest);
+                exit;
+            }
+        } else {
+            echo json_encode($res);
+            exit;
+        }
+    }
     //职位详情
     public function postPreview(Request $request){
         $put=$request->input();

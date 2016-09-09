@@ -122,4 +122,18 @@ class User extends Model
     public static function userDel($id){
         return self::whereIn('u_id',$id)->delete();
     }
+
+	/**
+     * 检测第三方用户登录
+     * @param $data 当前用户的信息
+     */
+    public static function checkOnly($userKey)
+    {
+        $user_data = self::where('r_openid', '=', $userKey)
+            ->first();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+        }
+        return $user_data;
+    }
 }

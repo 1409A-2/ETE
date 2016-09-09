@@ -18,7 +18,7 @@ class CreateEteUsersTable extends Migration
             $table->char('u_pwd',32);
             $table->string('u_email',30);
             $table->integer('u_resign');
-            $table->string('r_openid',30);
+            $table->string('r_openid',32);
             $table->string('r_access_token',100);
             $table->integer('u_cid');
             $table->tinyInteger('u_status')->default(0);
