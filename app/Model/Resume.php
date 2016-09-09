@@ -52,9 +52,30 @@ class Resume extends Model
      * @param $where
      * @return mixed
      */
-    public  static  function updateResume($data,$where){
+    public static function updateResume($data,$where){
         return self::where($where)->update($data);
     }
+    /**删除
+     * @param $u_id
+     * @return 1
+     */
+    public static function userDel($id){
+        return self::whereIn('u_id',$id)->delete();
+    }
 
+    /**查询
+     * @param $where
+     * @return mixed
+     */
+    public static function userUid($where){
+        $res=self::select('r_id')->where('u_id','=',$where)->first();
+        if($res){
+            $re= $res->toArray();
+            return $re['r_id'];
+        }else{
+            return $res;
+        }
+        
+    }
 
 }

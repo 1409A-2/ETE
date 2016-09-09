@@ -1,5 +1,8 @@
+
+
 <!DOCTYPE html>
 <html lang="zh-cn">
+<input type="hidden" id="url" value="{{$_SERVER['REQUEST_URI']}}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,10 +18,18 @@
     <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
     <link href="/favicon.ico" rel="bookmark icon" />
 </head>
-
+<script>
+    $(function(){
+        url=$('#url').val();
+        url=url.substr(1)
+        $("a[href="+url+"]").parent().attr("class","active");  
+        
+        
+    })
+</script>
 <body>
 <div class="lefter">
-    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" width="20" height="20" alt="后台管理系统" /></a></div>
+    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" height="45px" alt="后台管理系统" /></a></div>
 </div>
 <div class="righter nav-navicon" id="admin-nav">
     <div class="mainer">
@@ -28,17 +39,22 @@
                 <a class="button button-little bg-yellow" href="login.html">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
-                <li class="active"><a href="index.html" class="icon-home"> 开始</a>
+            
+                <li><a href="adminIndex" class="icon-home"> 开始</a>
                     <ul><li><a href="system.html">系统设置</a></li><li><a href="content.html">内容管理</a></li><li><a href="#">订单管理</a></li><li class="active"><a href="#">会员管理</a></li><li><a href="#">文件管理</a></li><li><a href="#">栏目管理</a></li></ul>
                 </li>
+          
                 <li><a href="system.html" class="icon-cog"> 系统</a>
-            		<ul><li><a href="#">全局设置</a></li><li class="active"><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
+            		<ul><li><a href="#">全局设置</a></li><li><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
                 </li>
                 <li><a href="content.html" class="icon-file-text"> 内容</a>
 					<ul><li><a href="#">添加内容</a></li><li class="active"><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
                 </li>
+
                 <li><a href="#" class="icon-shopping-cart"> 订单</a></li>
-                <li><a href="#" class="icon-user"> 会员</a></li>
+                <li><a href="adminUser" class="icon-user"> 用户管理</a>
+                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                </li>
                 <li><a href="#" class="icon-file"> 文件</a></li>
                 <li><a href="#" class="icon-th-list"> 栏目</a></li>
             </ul>
