@@ -24,14 +24,14 @@
 */
 Route::get('adminIndex','Admin\adminController@adminIndex');
 Route::group(['middleware' => ['web']], function () {
-
-
-//前台
-	Route::get('/','Index\indexController@index');
-
-	Route::get('postPreview','Index\indexController@postPreview');//查看职位详情
-	//跳转职业详情
-	Route::get('jump','Index\indexController@jump');
+    //前台
+    Route::get('/','Index\indexController@index');
+	Route::get('indexs','Index\indexController@indexs');
+	// 微信用户整合
+	Route::get('registerWeixin.html','Index\indexController@registerWeixin');
+	Route::post('registerProne','Index\indexController@registerProne');
+    //跳转职业详情
+    Route::get('jump','Index\indexController@jump');
 
 
 	// 注册发送邮件

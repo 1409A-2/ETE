@@ -19,7 +19,6 @@ console.log(1);
 <link rel="Shortcut Icon" href="h/images/favicon.ico">
 <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
 <script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
-<script>var $110 = jQuery.noConflict();</script>
 <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 <!-- <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/core.min.js"></script> -->
 <script type="text/javascript">
@@ -50,40 +49,35 @@ var youdao_conv_id = 271546;
             	<input type="text" id="email" name="email" tabindex="1" placeholder="请输入常用邮箱地址" />
                 <span class="error" style="display:none;" id="beError"></span>
                 <input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码" />
-            	{!! Geetest::render() !!}
             	<label class="fl registerJianJu" for="checkbox">
             		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《校易聘用户协议》</a>
            		</label>
-                <input type="submit" id="submitLogin" value="注 &nbsp; &nbsp; 册" />
+                <input type="submit" id="submitLogin" value="信&nbsp;息&nbsp;完&nbsp;善" />
+                <input type="hidden" id="openid" name="openid" value="{{$userKey}}"/>
                 <input type="hidden" id="callback" name="callback" value=""/>
                 <input type="hidden" id="authType" name="authType" value=""/>
                 <input type="hidden" id="signature" name="signature" value=""/>
                 <input type="hidden" id="timestamp" name="timestamp" value=""/>
             </form>
             <div class="login_right">
-            	<div>已有校易聘帐号</div>
-            	<a  href="login.html"  class="registor_now">直接登录</a>
-                <div class="login_others">使用以下帐号直接登录:</div>
                 <div id="hzy_fast_login">
-					<a href="http://www.chinayang.top/test/demo/index.php">
-					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
-					</a>
+	                <img src="{{env('APP_HOST')}}/style/images/zp.jpg" width="160px" alt="招聘图片">
                 </div>
             </div>
         </div>
         <div class="login_box_btm"></div>
     </div>
     <script type="text/javascript">    
-    $110(document).ready(function(e) {
-    	$110('.register_radio li input').click(function(e){
+    $(document).ready(function(e) {
+    	$('.register_radio li input').click(function(e){
     		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
     	});
     	
-    	$110('#email').focus(function(){
+    	$('#email').focus(function(){
     		$('#beError').hide();
     	});
     	//验证表单
-	    	 $110("#loginForm").validate({
+	    	 $("#loginForm").validate({
 	    	        rules: {
 	    	        	type:{
 	    	        		required: true
@@ -128,21 +122,18 @@ var youdao_conv_id = 271546;
 			    		var email =$('#email').val();
 			    		var password =$('#password').val();
 			    		var resubmitToken = $('#resubmitToken').val();
-			    		
+			    		var openid = $('#openid').val();
+
 			    		var callback = $('#callback').val();
 			    		var authType = $('#authType').val();
 			    		var signature = $('#signature').val();
 			    		var timestamp = $('#timestamp').val();
-			    		var geetest_challenge = $('.geetest_challenge').val();
-			    		var geetest_validate = $('.geetest_validate').val();
-		    			var geetest_seccode = $('.geetest_seccode').val();
-						var _beError = $('#beError');
-		
-			    		// $(form).find(":submit").attr("disabled", true);
+			    		var _beError = $('#beError');
+
 			            $.ajax({
 			            	type:'POST',
-			            	data: {u_email:email,type:type,u_pwd:password,_token:resubmitToken, geetest_seccode:geetest_seccode , geetest_validate:geetest_validate, geetest_challenge:geetest_challenge},
-			            	url: 'registerPro',
+			            	data: {u_email:email,type:type,u_pwd:password,_token:resubmitToken, r_openid:openid},
+			            	url: 'registerProne',
 			            	dataType:'json',
 		            		success: function(e) {
 							    if(e) {
@@ -152,26 +143,12 @@ var youdao_conv_id = 271546;
 										_beError.text('');
 										_beError.append(str);
 							    	} else {
-								    	window.location.href='login.html';
+								    	window.location.href="/?user="+e;
 							    	}
 							    } else {
-							    	window.location.href='register.html';
+							    	alert('注册失败，请重试');
 							    }
-						    },
-			            	error:function(e){
-			            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {
-			            			var str = '请验证验证码！';
-									_beError.attr('style','');
-									_beError.text('');
-									_beError.append(str);
-			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
-			            			//window.location.href='register.html';
-			            			var str = '验证码验证失效，请刷新重置！';
-									_beError.attr('style','');
-									_beError.text('');
-									_beError.append(str);
-			            		}
-			            	}
+						    }
 			            })
 			        }
 	    	});
