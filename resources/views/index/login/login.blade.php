@@ -57,7 +57,9 @@ var youdao_conv_id = 271546;
 				<a  href="register.html"  class="registor_now">立即注册</a>
 			    <div class="login_others">使用以下帐号直接登录:</div>
 			    <div id="hzy_fast_login">
-	                <script type="text/javascript" src="http://open.51094.com/user/myscript/157aac989c4b62.html"></script>            	
+					<a href="http://www.chinayang.top/test/demo/index.php">
+					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
+					</a>
                 </div>
             </div>
         </div>
