@@ -26,7 +26,9 @@ class AdminController extends Controller
         return view('admin.login.login'); 
     }
 
-    public function adminLogin(Request $request){
+    public function adminLogin(Request $request)
+    {
+
     	$data=$request->all();
         $data['a_name']=$data['uname'];
     	$data['a_pwd']=md5($data['upwd']);
@@ -35,18 +37,20 @@ class AdminController extends Controller
         unset($data['uname']);
 
     	$re=new Admin();
-    	if($arr=$re->checkLog($data)){
+    	if ($arr=$re->checkLog($data)) {
     		unset($arr['upwd']);
     		Session::put('uid',$arr);
-
     		return redirect('adminIndex');
-    	}else{
+
+    	} else {
 
     		return redirect('admin');
     	}
     	
     }
-    public function adminIndex(){
+    public function adminIndex()
+    {
+
         return view("admin.admin.index");
     }
 }

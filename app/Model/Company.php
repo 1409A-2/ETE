@@ -103,14 +103,16 @@ class Company extends Model
     }
 
     /**
-     * 查询全部的公司
+     * 搜索查询全部的公司
      */
     public static function selAll($industry,$length,$limit)
     {
         $data = self::where('c_industry','like','%'.$industry.'%')->select('c_id','c_shorthand','c_logo','c_industry')->limit($length)->offset($limit)->get();
-        if($data){
+        if ($data) {
+
             return $data->toArray();
         }
+
         return $data;
     }
 
@@ -120,6 +122,21 @@ class Company extends Model
     public static function selCount($industry)
     {
         return self::where('c_industry','like','%'.$industry.'%')->count('c_id');
+    }
+
+
+    /**
+     * 查询全部的公司
+     */
+    public static function companyAll()
+    {
+        $data = self::get();
+
+        if ($data) {
+
+            return $data->toArray();
+        }
+        return $data;
     }
 }
 

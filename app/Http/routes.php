@@ -122,6 +122,13 @@ Route::group(['middleware' => ['web']], function () {
         //投递简历
         Route::get('remusePro/{id}', 'Index\resumeController@remusePro');//投递简历添加
         Route::get('remuseShow', 'Index\resumeController@remuseShow');//投递简历和对应状况查看
+
+
+
+        //一拍
+        Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
+        Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍
+
     });
     Route::get('companylist','Index\CompanyController@Index');// 可选 5
 	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5
@@ -133,5 +140,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'admin'],function(){
 		//后台首页
 		Route::get('adminIndex','Admin\AdminController@adminIndex');
+
+
+        //企业管理
+        Route::get('enterpriseIndex','Admin\EnterpriseController@enterpriseIndex');
+        Route::get('enterpriseList','Admin\EnterpriseController@enterpriseList');//企业列表
 	});
 });

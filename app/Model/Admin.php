@@ -11,10 +11,14 @@ class Admin extends Model
 	protected $guarded = ['a_id'];
 
 	public function checkLog(array $UserData){
+
 		$arr=$this->where($UserData)->select('a_id','a_name')->first();
-		if($arr){
+
+		if ($arr) {
+
 			return $arr->toArray();
-		}else{
+		} else {
+
 			return false;
 		}
 	}

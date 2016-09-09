@@ -54,6 +54,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				@else
 				<li @if($url=='detailed' || $url=='postOffice') class="current" @endif><a href="detailed" rel="nofollow">发布职位</a></li>
 				@endif
+                <li><a href="{{url('beatIndex')}}">一拍</a></li>
 			</ul>
 			<?php
 			if(session('u_email')){

@@ -1,0 +1,348 @@
+#backtop {
+    display: none;
+    background: url(/yi/backtop.png) left top no-repeat;
+    width: 28px;
+    height: 64px;
+    position: fixed;
+    bottom: 140px;
+    margin-left: 548px;
+    cursor: pointer
+}
+
+#backtop:hover {
+    background-position: right top !important
+}
+
+#footer {
+    background-color: #fff;
+    clear: both;
+    height: 67px;
+    border-top: 1px solid #ebebeb;
+    position: relative;
+    z-index: 1001
+}
+
+#footer .wrapper {
+    width: 1024px;
+    margin: 0 auto;
+    position: relative
+}
+
+#footer .footer_lagou_icon {
+    position: absolute;
+    left: 0;
+    top: 9px;
+    display: block;
+    background: url(/yi/footer_lagou_icon.png) no-repeat;
+    width: 198px;
+    height: 19px
+}
+
+#footer .inner_wrapper {
+    float: left;
+    padding-top: 12px;
+    padding-left: 240px;
+    width: 860px;
+    height: 14px;
+    line-height: 14px
+}
+
+#footer .inner_wrapper a, #footer .inner_wrapper span.tel {
+    float: left;
+    margin-right: 15px;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none
+}
+
+#footer span em {
+    font-size: 13px;
+    font-style: normal
+}
+
+.footer_qr {
+    position: relative
+}
+
+.footer_qr i {
+    display: none;
+    border: 3px solid #0D9572;
+    background: url(/yi/qrcode.jpg) no-repeat;
+    width: 242px;
+    height: 242px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    z-index: 1001
+}
+
+#footer .inner_wrapper .footer_app {
+    position: relative;
+    display: block;
+    padding-right: 25px
+}
+
+.footer_app i {
+    display: none;
+    border: 3px solid #0D9572;
+    background: url(/yi/qrcode_v2.jpg) no-repeat;
+    width: 256px;
+    height: 256px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    z-index: 1001
+}
+
+.footer_app span {
+    position: absolute;
+    left: 64px;
+    top: -1px;
+    display: block;
+    background: url(/yi/new_v1_534bcc8.png) no-repeat;
+    width: 30px;
+    height: 16px;
+    margin-left: 3px;
+    vertical-align: text-top
+}
+
+#footer .copy {
+    clear: both;
+    height: 12px;
+    margin: 0 auto;
+    padding-top: 15px;
+    padding-bottom: 14px;
+    color: #d5d5d5;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center
+}
+
+#footer .copy a {
+    padding-right: 0;
+    font-size: 12px;
+    color: #d5d5d5
+}
+
+#footer .copy em {
+    font-family: Arial
+}
+
+#product-fk {
+    width: 50px;
+    *width: 55px;
+    height: 50px;
+    position: fixed;
+    bottom: 80px;
+    margin-left: 1050px;
+    cursor: pointer;
+    z-index: 21
+}
+
+#feedback-icon {
+    position: relative
+}
+
+#feedback-icon span {
+    font-size: 12px;
+    color: #555
+}
+
+#feedback-icon .fb-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background: url(/yi/feedback.png) left center no-repeat;
+    background-position: 0 0
+}
+
+#feedback-icon .fb-icon:hover {
+    background-position: 0 -31px
+}
+
+#feedback-con {
+    width: 382px;
+    position: fixed;
+    bottom: 80px;
+    background-color: #fefef2;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    box-shadow: 2px 4px 7px #ecebeb;
+    -webkit-box-shadow: 2px 4px 7px #ecebeb;
+    -moz-box-shadow: 2px 4px 7px #ecebeb;
+    -o-box-shadow: 2px 4px 7px #ecebeb;
+    -ms-box-shadow: 2px 4px 7px #ecebeb;
+    margin-left: 718px;
+    display: none;
+    z-index: 21
+}
+
+#feedback-con .pfb-pho {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: -25px;
+    left: 50%;
+    margin-left: -30px;
+    background: url(/yi/feedback.png) no-repeat;
+    background-position: 0 -65px
+}
+
+#feedback-con .pfb-close {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    cursor: pointer;
+    background: url(/yi/close_notice.png) no-repeat
+}
+
+#feedback-con .error {
+    width: 190px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    top: 135px;
+    left: 150px;
+    background-color: #555;
+    color: #fafafa
+}
+
+#feedback-con .error i {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border: 5px solid #555;
+    border-color: #555 #555 transparent transparent;
+    position: absolute;
+    top: 30px;
+    left: 120px
+}
+
+#feedback-con .error i.txt {
+    border: 5px solid #555;
+    border-color: transparent transparent #555 #555;
+    position: absolute;
+    top: -10px;
+    left: 20px
+}
+
+#feedback-icon .error {
+    width: 350px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: -45px;
+    left: -275px;
+    color: #fff;
+    background-color: #555
+}
+
+#feedback-icon .fk-suc {
+    width: 110px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: -45px;
+    left: -35px;
+    color: #fff;
+    background-color: #555
+}
+
+#feedback-icon .error i {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border: 5px solid #555;
+    border-color: #555 #555 transparent transparent;
+    position: absolute;
+    top: 30px;
+    left: 280px
+}
+
+#product-fb {
+    margin: 44px 13px 0
+}
+
+#product-fb textarea {
+    width: 332px;
+    height: 114px;
+    margin: 0;
+    padding: 5px 11px;
+    border: 1px solid #f1f3e9;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    font: 14px/22px Arial, "Hiragino Sans GB", "微软雅黑", "宋体";
+    overflow: hidden
+}
+
+#product-fb textarea:focus {
+    border: 1px solid #32dbb3;
+    transition: border 0s ease-in 0s
+}
+
+#product-fb .pfb-email {
+    margin-top: 5px;
+    margin-left: 0;
+    padding: 0
+}
+
+#product-fb input {
+    *position: relative;
+    *left: -15px;
+    float: left;
+    width: 260px;
+    height: 37px;
+    margin: 0;
+    padding: 0 11px;
+    border: 1px solid #f1f3e9;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    font: 14px/32px Arial, "Hiragino Sans GB", "微软雅黑", "宋体"
+}
+
+#product-fb input:focus {
+    border: 1px solid #32dbb3;
+    transition: border 0s ease-in 0s
+}
+
+#product-fb .ensure {
+    width: 65px;
+    *width: 59px;
+    height: 37px;
+    text-align: center;
+    line-height: 37px;
+    float: right;
+    background-color: #00b88d;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    cursor: pointer;
+    margin: 0
+}
+
+#product-fb .ensure:hover {
+    background: #00a57f
+}
+
+.pro-opa {
+    opacity: 0
+}
