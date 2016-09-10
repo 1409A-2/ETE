@@ -1,46 +1,48 @@
 ﻿@extends('index.lar.public')
 @section('title','前端开发全国-职位搜索-拉勾网-最专业的互联网招聘平台')
 @section('content')
+<script>
+    $(function(){
+        $('.moery').click(function(){
+            k=$(this).html();
+            education=$('#education').val();
+            i_name=$('#i_name').val();
+            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+        })
+        $('.education').click(function(){
+             education=$(this).html();
+            k=$('#k').val();
+            i_name=$('#i_name').val();
+            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+        })
+    })
+</script>
+<input type="hidden" value="{{$i_name}}" id="i_name">
+<input type="hidden" value="{{$education}}" id="education">
+<input type="hidden" value="{{$k}}" id="k">
     <div id="container">
         <div id="sidebar">
 <div id="options" class="greybg">
-    <dl>
-        <dt>月薪范围 <em ></em></dt>
-        <dd >
-            <div>2k以下</div>
-            <div>2k-5k</div>
-            <div>5k-10k</div>
-            <div>10k-15k</div>
-            <div>15k-25k</div>
-            <div>25k-50k</div>
-            <div>50k以上</div>
+    <dl class="slideUp">
+        <dt>月薪范围 <em class="transform"></em></dt>
+        <dd style="display: none;">
+            <div class="moery">2k以下</div>
+            <div class="moery">2k-5k</div>
+            <div class="moery">5k-10k</div>
+            <div class="moery">10k-15k</div>
+            <div class="moery">15k-25k</div>
+            <div class="moery">25k-50k</div>
+            <div class="moery">50k以上</div>
         </dd>
     </dl>
-    <dl >
-        <dt>最低学历 <em ></em></dt>
-        <dd >
-            <div>不限</div>
-            <div>大专</div>
-            <div>本科</div>
-            <div>硕士</div>
-            <div>博士</div>
-        </dd>
-    </dl>
-    <dl >
-        <dt>工作性质 <em ></em></dt>
-        <dd >
-            <div>全职</div>
-            <div>兼职</div>
-            <div>实习</div>
-        </dd>
-    </dl>
-    <dl >
-        <dt>发布时间 <em ></em></dt>
-        <dd >
-            <div>今天</div>
-            <div>3天内</div>
-            <div>一周内</div>
-            <div>一月内</div>
+    <dl class="slideUp">
+        <dt>最低学历 <em class="transform"></em></dt>
+        <dd style="display: none;">
+            <div class="education">不限</div>
+            <div class="education">大专</div>
+            <div class="education">本科</div>
+            <div class="education">硕士</div>
+            <div class="education">博士</div>
         </dd>
     </dl>
 </div>
@@ -157,8 +159,8 @@
             <span class="disabled" title="首页" >首页 </span>
             <span class="disabled" title="上一页" >上一页 </span>
         @else
-            <a title="1" href="jump?i_name={{$i_name}}&page={{1}}">首页</a>
-            <a title="{{$page-1}}" href="jump?i_name={{$i_name}}&page={{$page-1}}">上一页 </a>
+            <a title="1" href="jump?i_name={{$i_name}}&page={{1}}&k={{$k}}">首页</a>
+            <a title="{{$page-1}}" href="jump?i_name={{$i_name}}&page={{$page-1}}&k={{$k}}">上一页 </a>
         @endif
         @for($i=($page-2);$i<=($page+2);$i++)
             @if($i<1)
@@ -170,15 +172,15 @@
             @if($i==$page)
             <span class="current" title="{{$i}}">{{$i}}</span>
             @else
-            <a title="{{$i}}" href="jump?i_name={{$i_name}}&page={{$i}}">{{$i}}</a>
+            <a title="{{$i}}" href="jump?i_name={{$i_name}}&page={{$i}}&k={{$k}}">{{$i}}</a>
             @endif
         @endfor
         @if($page==$pages)
             <span class="disabled" title="下一页" >下一页 </span>
             <span class="disabled" title="尾页" >尾页 </span>
         @else
-            <a title="{{$page+1}}" href="jump?i_name={{$i_name}}&page={{$page+1}}">下一页 </a>
-            <a title="30" href="jump?i_name={{$i_name}}&page={{$pages}}">尾页</a>
+            <a title="{{$page+1}}" href="jump?i_name={{$i_name}}&page={{$page+1}}&k={{$k}}">下一页 </a>
+            <a title="30" href="jump?i_name={{$i_name}}&page={{$pages}}&k={{$k}}">尾页</a>
         @endif
         
     </div>  

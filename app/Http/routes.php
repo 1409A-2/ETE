@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::post('registerProne','Index\indexController@registerProne');
     //跳转职业详情
     Route::get('jump','Index\indexController@jump');
-
+    Route::get('jumpSearch','Index\indexController@jumpSearch');  //跳转查询职位详情
 
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
