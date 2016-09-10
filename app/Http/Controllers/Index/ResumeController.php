@@ -458,7 +458,7 @@ class ResumeController extends BaseController
              if($re_all){
                     foreach($re_all as $k=> $v){
                         //查询出当前投递的简历
-                        $arr[]=ResumeReseale::Sel_Re(['resume_reseale.rere_id'=>$v['rere_id']]);
+                        $arr[]=ResumeReseale::selRes(['resume_reseale.rere_id'=>$v['rere_id']]);
                     }
 
                     foreach($arr as $ke=>$ve){
@@ -489,7 +489,7 @@ class ResumeController extends BaseController
              }else{
                 $reList[]='';
              }
-
+            // print_r($arr);die;
         return view('index.resume.delivery',[
             'reList'=>$reList
         ]);
