@@ -73,16 +73,23 @@ class IndustryController extends BaseController
                         ->withErrors($validator);
         }
 
-        if($data['re_education']=="大专"){
-            $data['re_education']=1;
-        }elseif($data['re_education']=="本科"){
-            $data['re_education']=2;
-        }elseif($data['re_education']=="硕士"){
-            $data['re_education']=3;
-        }elseif($data['re_education']=="博士"){
-            $data['re_education']=4;
-        }elseif($data['re_education']=="其他"){
-            $data['re_education']=5;
+        switch($highestEducation)
+        {
+            case "大专":
+                $data['r_education']=1;
+                break;
+            case "本科":
+                $data['r_education']=2;
+                break;
+            case "硕士":
+                $data['r_education']=3;
+                break;
+            case "博士":
+                $data['r_education']=4;
+                break;
+            case "其他":
+                $data['r_education']=5;
+                break;
         }
 
         $data['re_time']=time();
