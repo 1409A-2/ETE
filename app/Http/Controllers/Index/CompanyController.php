@@ -19,7 +19,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function Index(Request $request)
+    public function index(Request $request)
     {
         //
         $u_id = session('u_id');

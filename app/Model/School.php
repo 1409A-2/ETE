@@ -44,7 +44,7 @@ class School extends Model
      * @param $data
      * @return mixed
      */
-    public static function  addSchool($data){
+    public static function addSchool($data){
         return self::insert($data);
 
     }
@@ -54,7 +54,7 @@ class School extends Model
      * @param $where
      * @return mixed
      */
-    public  static  function updateSchool($data,$where){
+    public static function updateSchool($data,$where){
         return self::where($where)->update($data);
     }
 

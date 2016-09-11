@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\Carousel;
 use App\Model\Industry;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -21,6 +22,7 @@ header("content-type:text/html;charset=utf8");
 class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     public function index(Request $Request){
         //查询所有行业
         $industry=industry::sel();
@@ -58,7 +60,9 @@ class IndexController extends BaseController
             }
         }
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry]);
+        $carousel = Carousel::selCarousel();
+
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel]);
     }
 
     //跳转职业详情

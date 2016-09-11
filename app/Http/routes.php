@@ -124,7 +124,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('remusePro/{id}', 'Index\resumeController@remusePro');//投递简历添加
         Route::get('remuseShow', 'Index\resumeController@remuseShow');//投递简历和对应状况查看
     });
-    Route::get('companylist','Index\CompanyController@Index');// 可选 5
+    Route::get('companylist','Index\CompanyController@index');// 可选 5
 	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5
 
 	//后台
@@ -134,5 +134,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'admin'],function(){
 		//后台首页
 		Route::get('adminIndex','Admin\AdminController@adminIndex');
+		Route::get('adminMaterial','Admin\MaterialController@carousel');
+		Route::post('adminMaterialPro','Admin\MaterialController@carouselPro');
+		Route::get('upcarousel','Admin\MaterialController@upCarousel');
+		Route::post('upCarouselPro','Admin\MaterialController@upCarouselPro');
+		Route::get('delcarousel','Admin\MaterialController@delCarousel');
+		Route::post('batchDelCarousel','Admin\MaterialController@batchDelCarousel');
+
 	});
 });

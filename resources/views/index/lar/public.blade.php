@@ -43,7 +43,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <div id="body">
 	<div id="header">
 		<div class="wrapper">
-			<a href="index.html" class="logo">
+			<a href="/" class="logo">
 				<img src="style/images/logo.png" width="229" height="43" alt="校易聘-专注互联网招聘" />
 			</a>
 			<ul class="reset" id="navheader">

@@ -1,3 +1,10 @@
+<?php
+if(strpos($_SERVER['REQUEST_URI'],'?')){
+    $url = substr($_SERVER['REQUEST_URI'],1,strpos($_SERVER['REQUEST_URI'],'?')-1);
+}else{
+    $url = substr($_SERVER['REQUEST_URI'],1);
+}
+?>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -14,6 +21,34 @@
     <script src="{{env('APP_HOST')}}/styles/js/admin.js"></script>
     <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
     <link href="/favicon.ico" rel="bookmark icon" />
+    <script>
+        $(function () {
+            var url = "{{$url}}";
+            var _actionContent = $("a[href='"+url+"']").html();
+            var _action = $("a[href='"+url+"']").parent();
+            var _bread = '<li><a href="javascript:void(0);" class="'+_action.parents('li').children('a').attr('class')+'"> '+_action.parents('li').children('a').html()+'</a></li><li>'+_actionContent+'</li>';
+            $('.bread').html(_bread);
+            _action.attr('class','active');
+            _action.parents('li').attr('class','active');
+
+            $(document).delegate("a[class^='icon-']",'click',function(){
+                var _this=$(this);
+
+                _this.parent().siblings().removeAttr('class');
+
+                _this.parent().attr('class','active');
+
+                if(_this.parent().html()==_action.parents('li').html()){
+                    var str = '<li><a href="javascript:void(0);" class="'+_this.attr('class')+'"> '+_this.html()+'</a></li><li>'+_actionContent+'</li>';
+                }else{
+                    var str='<li><a href="javascript:void(0);" class="'+_this.attr('class')+'"> '+_this.html()+'</a></li>';
+                }
+
+                $('.bread').html(str);
+            });
+        });
+
+    </script>
 </head>
 
 <body>
@@ -28,33 +63,42 @@
                 <a class="button button-little bg-yellow" href="login.html">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
-                <li class="active"><a href="index.html" class="icon-home"> 开始</a>
-                    <ul><li><a href="system.html">系统设置</a></li><li><a href="content.html">内容管理</a></li><li><a href="#">订单管理</a></li><li class="active"><a href="#">会员管理</a></li><li><a href="#">文件管理</a></li><li><a href="#">栏目管理</a></li></ul>
+                <li><a href="javascript:void(0);" class="icon-home"> 开始</a>
+                    <ul>
+                        <li><a href="adminIndex">系统设置</a></li>
+                        <li><a href="#">内容管理</a></li>
+                        <li><a href="#">订单管理</a></li>
+                        <li><a href="#">会员管理</a></li>
+                        <li><a href="#">文件管理</a></li>
+                        <li><a href="#">栏目管理</a></li>
+                    </ul>
                 </li>
-                <li><a href="system.html" class="icon-cog"> 系统</a>
-            		<ul><li><a href="#">全局设置</a></li><li class="active"><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
+                <li><a href="javascript:void(0);" class="icon-cog"> 系统</a>
+                    <ul><li><a href="#">全局设置</a></li><li><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
                 </li>
-                <li><a href="content.html" class="icon-file-text"> 内容</a>
-					<ul><li><a href="#">添加内容</a></li><li class="active"><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                <li><a href="javascript:void(0);" class="icon-file-text"> 内容</a>
+                    <ul><li><a href="#">添加内容</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
                 </li>
-                <li><a href="#" class="icon-shopping-cart"> 订单</a></li>
-                <li><a href="#" class="icon-user"> 会员</a></li>
-                <li><a href="#" class="icon-file"> 文件</a></li>
-                <li><a href="#" class="icon-th-list"> 栏目</a></li>
+                <li><a href="javascript:void(0);" class="icon-shopping-cart"> 订单</a></li>
+                <li><a href="javascript:void(0);" class="icon-user"> 会员</a></li>
+                <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
+                <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
+                    <ul><li><a href="adminMaterial">轮播管理</a></li></ul>
+                </li>
             </ul>
         </div>
         <div class="admin-bread">
             <span>您好，admin，欢迎您的光临。</span>
             <ul class="bread">
                 <li><a href="index.html" class="icon-home"> 开始</a></li>
-                <li>后台首页</li>
+
             </ul>
         </div>
     </div>
 </div>
 
 <div class="admin">
-	@yield('content_admin')
+    @yield('content_admin')
 </div>
 
 
