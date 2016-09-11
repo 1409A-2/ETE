@@ -61,7 +61,7 @@
         </style>
         <script type="text/javascript" src="style/js/search.min.js"></script>
         <dl class="hotSearch">
-            <dt>热门搜索：</dt>
+           <!--  <dt>热门搜索：</dt>
             <dd><a href="list.htmlJava?labelWords=label&city=">Java</a></dd>
             <dd><a href="list.htmlPHP?labelWords=label&city=">PHP</a></dd>
             <dd><a href="list.htmlAndroid?labelWords=label&city=">Android</a></dd>
@@ -71,7 +71,7 @@
             <dd><a href="list.htmlUI?labelWords=label&city=">UI</a></dd>
             <dd><a href="list.html运营?labelWords=label&city=">运营</a></dd>
             <dd><a href="list.htmlBD?labelWords=label&city=">BD</a></dd>
-            <dd><a href="list.html?gx=实习&city=">实习</a></dd>
+            <dd><a href="list.html?gx=实习&city=">实习</a></dd> -->
         </dl>
         <div id="home_banner">
             <ul class="banner_bg">
@@ -110,7 +110,7 @@
 
         <ul id="da-thumbs" class="da-thumbs">
             <li >
-                <a href="h/c/1650.html" target="_blank">
+                <a href="#">
                     <img src="style/images/a254b11ecead45bda166afa8aaa9c8bc.jpg" width="113" height="113" alt="联想" />
                     <div class="hot_info">
                         <h2 title="联想">联想</h2>
@@ -122,7 +122,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/9725.html" target="_blank">
+                <a href="#">
                     <img src="style/images/c75654bc2ab141df8218983cfe5c89f9.jpg" width="113" height="113" alt="淘米" />
                     <div class="hot_info">
                         <h2 title="淘米">淘米</h2>
@@ -134,7 +134,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/1914.html" target="_blank">
+                <a href="#">
                     <img src="style/images/2bba2b71d0b0443eaea1774f7ee17c9f.png" width="113" height="113" alt="优酷土豆" />
                     <div class="hot_info">
                         <h2 title="优酷土豆">优酷土豆</h2>
@@ -146,7 +146,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/6630.html" target="_blank">
+                <a href="#">
                     <img src="style/images/f4822a445a8b495ebad81fcfad3e40e2.jpg" width="113" height="113" alt="思特沃克" />
                     <div class="hot_info">
                         <h2 title="思特沃克">思特沃克</h2>
@@ -158,7 +158,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/2700.html" target="_blank">
+                <a href="#">
                     <img src="style/images/5caf8f9631114bf990f87bb11360653e.png" width="113" height="113" alt="奇猫" />
                     <div class="hot_info">
                         <h2 title="奇猫">奇猫</h2>
@@ -170,7 +170,7 @@
                 </a>
             </li>
             <li  class="last" >
-                <a href="h/c/1335.html" target="_blank">
+                <a href="#">
                     <img src="style/images/c0052c69ef4546c3b7d08366d0744974.jpg" width="113" height="113" alt="堆糖网" />
                     <div class="hot_info">
                         <h2 title="堆糖网">堆糖网</h2>
@@ -192,21 +192,20 @@
                 <li class="clearfix">
                     <div class="hot_pos_l">
                         <div class="mb10">
-                            <a href="h/jobs/147822.html" target="_blank">运营总监</a>
+                            <a href="h/jobs/147822.html" target="_blank">{{$hot['re_name']}}</a>
                             &nbsp;
                             <span class="c9">[北京]</span>
                         </div>
-                        <span><em class="c7">月薪： </em>15k-20k</span>
-                        <span><em class="c7">经验：</em> 3-5年</span>
-                        <span><em class="c7">最低学历： </em>本科</span>
+                        <span><em class="c7">月薪： </em>{{$hot['re_salarymin']}}k-{{$hot['re_salarymax']}}k</span>
+                        <span><em class="c7">最低学历： </em>{{$hot['re_education']}}</span>
                         <br />
-                        <span><em class="c7">职位诱惑：</em>发展前景</span>
+                        <span><em class="c7">职位诱惑：</em>{{$hot['re_welfare']}}</span>
                         <br />
-                        <span>1天前发布</span>
+                        <span>{{ceil((time()-$hot['re_time'])/86400)}}天以前发布</span>
                         <!-- <a  class="wb">分享到微博</a> -->
                     </div>
                     <div class="hot_pos_r">
-                        <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>
+                        <!-- <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>
                         <span><em class="c7">领域：</em> 移动互联网</span>
                         <span><em class="c7">创始人：</em>陈桦</span>
                         <br />
@@ -216,11 +215,11 @@
                             <li>移动互联网</li>
                             <li>五险一金</li>
                             <li>扁平管理</li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                 </li>
-                <a href="list.html" class="btn fr" target="_blank">查看更多</a>
+                <!-- <a href="list.html" class="btn fr" target="_blank">查看更多</a> -->
             </ul>
         
         </div>

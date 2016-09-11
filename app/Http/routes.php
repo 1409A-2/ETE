@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::post('registerProne','Index\indexController@registerProne');
     //跳转职业详情
     Route::get('jump','Index\indexController@jump');
-
+    Route::get('jumpSearch','Index\indexController@jumpSearch');  //跳转查询职位详情
 
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
@@ -140,6 +140,10 @@ Route::group(['middleware' => ['web']], function () {
 		Route::post('upCarouselPro','Admin\MaterialController@upCarouselPro');
 		Route::get('delcarousel','Admin\MaterialController@delCarousel');
 		Route::post('batchDelCarousel','Admin\MaterialController@batchDelCarousel');
+		//用户模块
+		Route::get('adminUser','Admin\UserController@adminUser');//用户的主菜单页面
+		Route::get('adminUserList','Admin\UserController@adminUserList');//用户列表 后台管理用户  adminUserList
+		Route::get('adminUserDel','Admin\UserController@adminUserDel');//删除用户  adminUserDel
 
 	});
 });

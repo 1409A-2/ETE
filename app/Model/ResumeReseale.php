@@ -42,6 +42,23 @@ class ResumeReseale extends Model
 
     }
 
+    /**查询
+     * @param $where
+     * @return mixed
+     */
+    public static function selRes($where){
+        $res=self::join('resume','resume_reseale.r_id','=','resume.r_id')
+            ->join('release','resume_reseale.re_id','=','release.re_id')
+            ->join('company','release.c_id','=','company.c_id')
+            ->where($where)->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+
+    }
+
 
     public  static  function Sel_One($where){
         $res=self::where($where)->select('r_id')->first();
@@ -112,6 +129,14 @@ class ResumeReseale extends Model
         return ResumeReseale::select('w_url','w_name')
         ->join('works', 'resume_reseale.r_id', '=', 'works.r_id')
         ->where('rere_id','=',$data['rere_id'])->get()->toArray();
+    }
+
+    /**删除
+     * @param $id
+     * @return 1
+     */
+    public static function userDel($id){
+        return self::whereIn('r_id',$id)->delete();
     }
     
 }

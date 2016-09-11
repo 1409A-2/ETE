@@ -19,18 +19,18 @@
                             @foreach($release as $v)
                                 <li data-id="{{$v['re_id']}}">
                                     <h3>
-                                        <a target="_blank" title="随便写" href="">{{$v['i_name']}}</a>
+                                        <a target="_blank" title="{{$v['i_name']}}" href="postOffice_preview?re_id={{$v['re_id']}}">{{$v['i_name']}}</a>
                                         <span>[北京]</span>
                                     </h3>
                                 <span class="receivedResumeNo">
-                                    <a href="">应聘简历（
+                                    应聘简历（
                                         @foreach($count as $k=>$s)
                                             @if($v['re_id'] == $k)
                                                 {{$s}}
                                             @endif
                                         @endforeach
                                         ）
-                                    </a>
+                                    
                                 </span>
 
                                     <div>全职 / {{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k / {{$v['re_education']}}以上</div>

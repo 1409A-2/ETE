@@ -80,7 +80,9 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                     <ul><li><a href="#">添加内容</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-shopping-cart"> 订单</a></li>
-                <li><a href="javascript:void(0);" class="icon-user"> 会员</a></li>
+                <li><a href="javascript:void(0);" class="icon-user"> 用户管理</a>
+                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                </li
                 <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
                 <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
                     <ul><li><a href="adminMaterial">轮播管理</a></li></ul>

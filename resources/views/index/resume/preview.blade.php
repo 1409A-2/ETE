@@ -1,5 +1,12 @@
-﻿@extends('index.lar.public')
-@section('content')
+﻿<link rel="Shortcut Icon" href="h/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/external.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/popup.css"/>
+    <script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
+    <script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
+
     <div id="previewWrapper">
         <div class="preview_header">
             <h1 title="{{$resume['r_name']}}的简历">{{$resume['r_name']}}的简历</h1>
@@ -162,8 +169,7 @@
 
         <!--/#downloadOnlineResume-->
     </div>  @endif
-    <!------------------------------------- end ----------------------------------------->
-@endsection
+
 
 
 
