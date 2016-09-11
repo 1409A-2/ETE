@@ -27,7 +27,7 @@ class Expected extends Model
     }
 
     //查看期望工作
-    public static function Sel_One($where){
+    public static function selOne($where){
        $res=self::where($where)->first();
         if($res){
             return $res->toArray();

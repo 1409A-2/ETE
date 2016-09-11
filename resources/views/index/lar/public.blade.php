@@ -43,7 +43,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <div id="body">
 	<div id="header">
 		<div class="wrapper">
-			<a href="index.html" class="logo">
+			<a href="/" class="logo">
 				<img src="style/images/logo.png" width="229" height="43" alt="校易聘-专注互联网招聘" />
 			</a>
 			<ul class="reset" id="navheader">
@@ -66,8 +66,8 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				</dt>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
-				<dd><a href="collections.html">我收藏的职位</a></dd>
-				<dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
+				<dd><a href="#">我收藏的职位</a></dd>
+				<dd class="btm"><a href="#">我的订阅</a></dd>
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
@@ -141,8 +141,8 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 </div><!-- end #body -->
 <div id="footer">
 	<div class="wrapper">
-		<a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
-		<a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+		<a href="#" target="_blank" rel="nofollow">联系我们</a>
+		<a href="#" target="_blank">互联网公司导航</a>
 		<a href="http://weibo.com/u/5570236185" target="_blank" rel="nofollow">校易聘微博</a>
 		<div class="copyright">&copy;2016-2016 xiaoyipin <a target="_blank" href="http://www.ete.com">京ICP备14023790号-2</a></div>
 	</div>

@@ -37,7 +37,7 @@ class AdminController extends Controller
     	$re=new Admin();
     	if($arr=$re->checkLog($data)){
     		unset($arr['upwd']);
-    		Session::put('uid',$arr);
+    		session()->put('uid',$arr);
 
     		return redirect('adminIndex');
     	}else{
@@ -46,6 +46,7 @@ class AdminController extends Controller
     	}
     	
     }
+
     public function adminIndex(){
         return view("admin.admin.index");
     }

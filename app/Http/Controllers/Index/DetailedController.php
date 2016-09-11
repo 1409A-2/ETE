@@ -81,15 +81,15 @@ class DetailedController extends Controller
         $company_data = Company::selOne($user_data['u_cid']);
         //上传logo
         $document = $_SERVER['DOCUMENT_ROOT'];
-        $destinationPath = "/style/upload/logo";
-        $fileName = $request->get('name').'_logo_'.time().'.png';
+        $destination_path = "/style/upload/logo";
+        $file_name = $request->get('name').'_logo_'.time().'.png';
 //        $gbk_filename = iconv ($fileName , 'UTF-8', 'GBK' );
-        $gbk_filename = mb_convert_encoding ( $fileName,'GBK','UTF-8');
+        $gbk_filename = mb_convert_encoding ( $file_name,'GBK','UTF-8');
         if ($request->hasFile('myfiles')) {
             if ($request->file('myfiles')->isValid()){
                 $file = "";
                 @unlink($document.$company_data['c_logo']);
-                $request->file('myfiles')->move($document.$destinationPath, $gbk_filename);
+                $request->file('myfiles')->move($document.$destination_path, $gbk_filename);
             }
         }
 
@@ -97,7 +97,7 @@ class DetailedController extends Controller
         $up_data['c_website'] = $request->get('website');
         $up_data['c_industry'] = $request->get('select_industry_hidden');
         if(isset($file)){
-            $up_data['c_logo'] = $destinationPath.'/'.$fileName;
+            $up_data['c_logo'] = $destination_path.'/'.$file_name;
         }
         $up_data['c_desc'] = $request->get('temptation');
         // print_r($up_data);
@@ -234,13 +234,13 @@ class DetailedController extends Controller
             if($data['product'][$i] != '' && $data['productUrl'][$i] != '' && $data['myfiles'][$i] != '' && $data['productProfile'][$i] != ''){
                 if ($data['myfiles'][$i]->isValid()){
 
-                    $destinationPath = "/style/upload/product";
-                    $fileName = $user_data['u_cid'].$i.time()."_product.jpg";
-                    $data['myfiles'][$i]->move($_SERVER['DOCUMENT_ROOT'].$destinationPath, $fileName);;
+                    $destination_path = "/style/upload/product";
+                    $file_name = $user_data['u_cid'].$i.time()."_product.jpg";
+                    $data['myfiles'][$i]->move($_SERVER['DOCUMENT_ROOT'].$destination_path, $file_name);;
                     $up_data['pr_name'] = $data['product'][$i];
                     $up_data['pr_desc'] = $data['productProfile'][$i];
                     $up_data['pr_website'] = $data['productUrl'][$i];
-                    $up_data['pr_pic'] = $destinationPath.'/'.$fileName;
+                    $up_data['pr_pic'] = $destination_path.'/'.$file_name;
                     $up_data['c_id'] = $user_data['u_cid'];
                     if($pr_id != ''){
                         @unlink($_SERVER['DOCUMENT_ROOT'].$company_data['pr_pic']);
@@ -251,7 +251,6 @@ class DetailedController extends Controller
                 }
             }else{
                 if($pr_id != ''){
-                    $fileName = $user_data['u_cid'].$i.time()."_product.jpg";
                     $up_data['pr_name'] = $data['product'][$i];
                     $up_data['pr_desc'] = $data['productProfile'][$i];
                     $up_data['pr_website'] = $data['productUrl'][$i];

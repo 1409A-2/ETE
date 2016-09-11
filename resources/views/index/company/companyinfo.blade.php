@@ -31,21 +31,12 @@
 
 						<h1 title="{{$company_data['c_name']}}" class="fullname">{{$company_data['c_name']}}</h1>
 
-						<form class="clear editDetail dn" id="editDetailForm">
-							<input type="text" placeholder="请输入公司简称" maxlength="15" value="平潭协创进出口贸易有限公司" name="companyShortName" id="companyShortName">
-							<input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="测试的发打发打发大范德萨发" name="companyFeatures" id="companyFeatures">
-							<input type="hidden" value="25927" id="companyId" name="companyId">
-							<input type="submit" value="保存" id="saveDetail" class="btn_small">
-							<a id="cancelDetail" class="btn_cancel_s" >取消</a>
-						</form>
-
 						<div class="clear oneword"><img width="17" height="15" src="style/images/quote_l.png">&nbsp; <span>{{$company_data['c_desc']}}</span> &nbsp;<img width="17" height="15" src="style/images/quote_r.png"></div>
 						<h3 class="dn">已选择标签</h3>
 						<ul style="overflow:auto" id="hasLabels" class="reset clearfix">
 							@foreach($lable_data as $key=>$val)
 							<li><span>{{$val['lab_name']}}</span></li>
 							@endforeach
-							<li style="border: none;"><a href="detailed_info2?url=companylist">编辑</a></li>
 						</ul>
 						<div class="dn" id="addLabels">
 							<a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>
@@ -58,7 +49,6 @@
 							<a id="cancelLabels" class="btn_cancel_s" href="javascript:void(0)">取消</a>
 						</div>
 					</div>
-					<a title="编辑基本信息" class="c_edit" href="/detailed?update=1&url=companylist"></a>
 					<div class="clear"></div>
 				</div>
 
@@ -68,22 +58,6 @@
 
 					<div class="product_wrap">
 
-						@if(!$product_data)
-						<!--无产品 -->
-						<dl class="c_section">
-							<dt>
-							<h2><em></em>公司产品</h2>
-							</dt>
-							<dd>
-								<div class="addnew">
-									酒香不怕巷子深已经过时啦！<br>
-									把自己优秀的产品展示出来吸引人才围观吧！<br>
-									<a class="product_edit" href="detailed_info4?url=companylist">+添加公司产品</a>
-								</div>
-							</dd>
-						</dl>
-
-						@else
 						<!--有产品-->
 						@foreach($product_data as $val)
 						<dl class="c_product">
@@ -98,13 +72,10 @@
 
 										<div class="jspContainer" style="width: 260px; height: 140px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 260px;"><div>{{$val['pr_desc']}}</div></div></div></div>
 								</div>
-								<a title="编辑公司产品" class="c_edit product_edit" href="detailed_info4?url=companylist&pr_id={{$val['pr_id']}}"></a>
-								<a title="新增公司产品" class="c_add product_add" href="detailed_info4?url=companylist"></a>
 							</dd>
 						</dl>
 						@endforeach
 
-						@endif
 						<!--产品编辑-->
 						<dl id="newProduct" class="newProduct dn">
 							<dt>
@@ -151,22 +122,6 @@
 				<div id="Profile">
 					<div class="profile_wrap">
 
-						@if(!$company_data['c_intro'])
-						<!--无介绍 -->
-						<dl class="c_section dn" style="display: block;">
-							<dt>
-							<h2><em></em>公司介绍</h2>
-							</dt>
-							<dd>
-								<div class="addnew">
-									详细公司的发展历程、让求职者更加了解你!
-									<br>
-									<a id="addIntro" href="/detailed_info5?url=companylist">+添加公司介绍</a>
-								</div>
-							</dd>
-						</dl>
-						@else
-
 						<!--有介绍-->
 						<dl class="c_section">
 							<dt>
@@ -174,10 +129,8 @@
 							</dt>
 							<dd>
 								<div class="c_intro">{{$company_data['c_intro']}}</div>
-								<a title="编辑公司介绍" id="editIntro" class="c_edit" href="/detailed_info5?url=companylist"></a>
 							</dd>
 						</dl>
-						@endif
 
 						<!--编辑介绍-->
 					</div>
@@ -278,30 +231,21 @@
 						<dd>
 
 							<div class="member_wrap">
-								@if($company_data['c_ceo']=='' || $company_data['ceo_desc']=='')
-								<!-- 无创始人 -->
-								<div class="member_info addnew_right">
-									展示公司的领导班子，<br>提升诱人指数！<br>
-									<a class="member_edit" href="detailed_info3?url=companylist">+添加成员</a>
-								</div>
-
-								@else
 
 								<!-- 显示创始人 -->
 								<div class="member_info">
-									<a title="编辑创始人" class="c_edit member_edit" href="detailed_info3?url=companylist"></a>
 									<div class="m_portrait">
 										<div></div>
 										<img width="120" height="120" alt="{{$company_data['c_ceo']}}" src="style/images/leader_default.png">
 									</div>
 									<div class="m_name">
 										{{$company_data['c_ceo']}}
+										
 									</div>
 									<div class="m_position">ceo</div>
 									<div class="m_intro">{{$company_data['ceo_desc']}}</div>
 								</div>
 
-								@endif
 
 								<!-- 编辑创始人 -->
 

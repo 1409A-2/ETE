@@ -14,7 +14,7 @@ class MailController extends BaseController
     // 发送邮件测试
 	public function send()
 	{
-	    $name = '杨先生';
+	    $name = '校易聘';
 	    $flag = Mail::send('emails.test',['name'=>$name],function($message){
 	        $to = '616859204@qq.com';
 	        $message ->to($to)->subject('我的天，邮件测试');
