@@ -23,9 +23,9 @@
     <div id="container">
         <div id="sidebar">
 <div id="options" class="greybg">
-    <dl class="slideUp">
-        <dt>月薪范围 <em class="transform"></em></dt>
-        <dd style="display: none;">
+    <dl class="">
+        <dt>月薪范围 <em class=""></em></dt>
+        <dd style="display: block;">
             <div class="moery">2k以下</div>
             <div class="moery">2k-5k</div>
             <div class="moery">5k-10k</div>
@@ -35,9 +35,9 @@
             <div class="moery">50k以上</div>
         </dd>
     </dl>
-    <dl class="slideUp">
-        <dt>最低学历 <em class="transform"></em></dt>
-        <dd style="display: none;">
+    <dl class="">
+        <dt>最低学历 <em class=""></em></dt>
+        <dd style="display: block;">
             <div class="education">不限</div>
             <div class="education">大专</div>
             <div class="education">本科</div>
@@ -77,16 +77,14 @@
 </div>
 <div class="content">
     <div id="search_box">
-        <form id="searchForm" name="searchForm" action="list.html" method="get">
             <ul id="searchType">
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow"></div>
-            <input type="text" id="search_input" name = "kd"  tabindex="1" value="前端开发"  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="text" id="search_input" name = "kd"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
 
             <input type="submit" id="search_button" value="搜索" />
-        </form>
     </div>
     <style>
         .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}
@@ -96,7 +94,7 @@
     </style>
     <script type="text/javascript" src="style/js/search.min.js"></script>
     <dl class="hotSearch">
-        <dt>热门搜索：</dt>
+        {{--<dt>热门搜索：</dt>
         <dd><a href="list.htmlJava?labelWords=label&city=全国">Java</a></dd>
         <dd><a href="list.htmlPHP?labelWords=label&city=全国">PHP</a></dd>
         <dd><a href="list.htmlAndroid?labelWords=label&city=全国">Android</a></dd>
@@ -106,7 +104,7 @@
         <dd><a href="list.htmlUI?labelWords=label&city=全国">UI</a></dd>
         <dd><a href="list.html运营?labelWords=label&city=全国">运营</a></dd>
         <dd><a href="list.htmlBD?labelWords=label&city=全国">BD</a></dd>
-        <dd><a href="list.html?gx=实习&city=全国">实习</a></dd>
+        <dd><a href="list.html?gx=实习&city=全国">实习</a></dd>--}}
     </dl>
 
     <div id="tip_didi" class="dn">

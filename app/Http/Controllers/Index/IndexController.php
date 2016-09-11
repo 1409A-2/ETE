@@ -63,7 +63,7 @@ class IndexController extends BaseController
 
 		$carousel = Carousel::selCarousel();
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry],'carousel'=>$carousel]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
         
     }
 
@@ -79,20 +79,32 @@ class IndexController extends BaseController
             $where=array('re_education'=>$education);
         }
         if(empty($k)){
-            $row = DB::table('release')->where('re_name',$i_name)->where($where)->count('re_id');
+            if(empty($education)){
+                $row = DB::table('release')->where('re_name',$i_name)->count('re_id');
+            }else{
+                $row = DB::table('release')->where('re_name',$i_name)->where($where)->count('re_id');
+            }
             $length = 6;
             $pages = ceil($row/$length);
             $page = $request->get('page',1);
             $limit = ($page-1)*$length;
+            if(empty($education)){
+                $list=DB::table('release')
+                    ->where('re_name',$i_name)
+                    ->join('company','release.c_id','=','company.c_id')
+                    ->limit($length)->offset($limit)->get();
+            }else{
+                $list=DB::table('release')
+                    ->where($where)->where('re_name',$i_name)
+                    ->join('company','release.c_id','=','company.c_id')
+                    ->limit($length)->offset($limit)->get();
+            }
 
-            $list=DB::table('release')
-                ->where($where)->where('re_name',$i_name)
-                ->join('company','release.c_id','=','company.c_id')
-                ->limit($length)->offset($limit)->get();
             $str=json_encode($list);
             $data=json_decode($str,true);
             $k='';
-        }else{
+        }
+        else{
             if(strpos($k, '-')){
                     $ks=explode('-',$k);
                 for($i=0;$i<count($ks);$i++){

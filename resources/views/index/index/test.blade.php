@@ -46,7 +46,9 @@
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow"></div>
-            <input type="text" id="search_input" style="height: 37px;" name = "kd"  tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="text" id="search_input" style="height: 37px;"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="hidden" value="" id="education">
+            <input type="hidden" value="" id="k">
 
             <input type="button" id="search_button" value="搜索" />
         </div>
@@ -192,7 +194,7 @@
                 <li class="clearfix">
                     <div class="hot_pos_l">
                         <div class="mb10">
-                            <a href="h/jobs/147822.html" target="_blank">{{$hot['re_name']}}</a>
+                            <a href="postPreview?re_id={{$hot['re_id']}}" target="_blank">{{$hot['re_name']}}</a>
                             &nbsp;
                             <span class="c9">[北京]</span>
                         </div>

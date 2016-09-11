@@ -31,7 +31,7 @@ class ResumeController extends BaseController
         $sum='';
 
         //查询出学历表所有数据
-        $education= Education::sel_All();
+        $education= Education::selAll();
          $u_id=session('u_id'); //用户Id
          $user=User::selOne($u_id);
         if($user['u_cid']!=0){
@@ -52,22 +52,22 @@ class ResumeController extends BaseController
         }
 
         //根据简历Id查询出所有作品
-        if($works=Works::sel_All(['r_id'=>$res['r_id']])){
+        if($works=Works::selAll(['r_id'=>$res['r_id']])){
             $sum+=20;
         };
 
        //根据简历Id查询出所有项目
-        if($porject=Porject::sel_All(['r_id'=>$res['r_id']])){
+        if($porject=Porject::selAll(['r_id'=>$res['r_id']])){
             $sum+=20;
         };
 
        //根据简历id查询出期望的工作
-        if($expected=Expected::Sel_One(['r_id'=>$res['r_id']])){
+        if($expected=Expected::SelOne(['r_id'=>$res['r_id']])){
             $sum+=15;
         }
 
        //根据简历id查询出教育背景
-         if($school= School::sel_One(['r_id'=>$res['r_id']])){
+         if($school= School::selOne(['r_id'=>$res['r_id']])){
              $sum+=20;
          };
 
@@ -234,7 +234,7 @@ class ResumeController extends BaseController
         $res=Resume::sel_One(['u_id'=>session('u_id')]);
         $data['r_id']=$res['r_id'];
 
-        $school=School::sel_One(['r_id'=>$res['r_id']]);
+        $school=School::selOne(['r_id'=>$res['r_id']]);
 
         //判断是修改还是添加
         if($school){
@@ -398,7 +398,7 @@ class ResumeController extends BaseController
         $data['re_salarymin']=$request->input('salaryMin');
         $data['re_salarymax']=$request->input('salaryMax');
         $data['r_id']=$request->input('id');
-        $res=Expected::Sel_One(['r_id'=>$data['r_id']]);
+        $res=Expected::SelOne(['r_id'=>$data['r_id']]);
             if($res)
             {
                 return   Expected::expectedUp(['r_id'=>$data['r_id']],$data);
@@ -435,7 +435,7 @@ class ResumeController extends BaseController
             $data['r_id']=$resume['r_id'];//简历的id
             $data['re_id']=$id; //职位id
             $data['delivery_time']=time();
-           $res= ResumeReseale::Re_Add($data);
+           $res= ResumeReseale::reAdd($data);
                 if($res==1)
                 {
                     return redirect('remuseShow');
@@ -453,7 +453,7 @@ class ResumeController extends BaseController
     public function remuseShow(){
 
          $resume= Resume::sel_One(['u_id'=>session('u_id')]);
-         $re_all= ResumeReseale::Sel_All(['r_id'=>$resume['r_id']]);
+         $re_all= ResumeReseale::selWhole(['r_id'=>$resume['r_id']]);
 
              if($re_all){
                     foreach($re_all as $k=> $v){
@@ -506,16 +506,16 @@ class ResumeController extends BaseController
         $data['resume']=Resume::sel_One(['r_id'=>$id]);
 
         // 作品查询
-        $data['works']=Works::sel_All(['r_id'=>$id]);
+        $data['works']=Works::selAll(['r_id'=>$id]);
 
         // 项目查询
-        $data['porject']=Porject::sel_All(['r_id'=>$id]);
+        $data['porject']=Porject::selAll(['r_id'=>$id]);
 
         //工作查询
-        $data['expected']=Expected::Sel_One(['r_id'=>$id]);
+        $data['expected']=Expected::SelOne(['r_id'=>$id]);
 
         //教育背景查询
-        $data['school']= School::sel_One(['r_id'=>$id]);
+        $data['school']= School::selOne(['r_id'=>$id]);
 
         return view('index.resume.preview',$data);
     }

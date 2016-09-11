@@ -21,7 +21,7 @@ class Education extends Model
      *
      * @param  $data ѧ������Ϣ
      */
-    public static function sel_All()
+    public static function selAll()
     {
         return self::get()->toArray();
     }
@@ -36,7 +36,7 @@ class Education extends Model
     public  static  function updateEducation($data,$u_id){
         return self::where('u_id',$u_id)->update($data);
     }
-    public static function sel_Tion(){
+    public static function selTion(){
         return Education::get()->toArray();
     }
 

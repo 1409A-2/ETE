@@ -129,10 +129,10 @@
                 <span class="c7">扫描拉勾二维码，微信轻松搜工作</span>
             </div>
             <!-- <a href="h/speed/speed3.html" target="_blank" class="adSpeed"></a> -->
-            <a href="h/subject/jobguide.html" target="_blank" class="eventAd">
+            <a href="#" target="" class="eventAd">
                 <img src="style/images/subject280.jpg" width="280" height="135"/>
             </a>
-            <a href="h/subject/risingPrice.html" target="_blank" class="eventAd">
+            <a href="#" target="" class="eventAd">
                 <img src="style/images/rising280.png" width="280" height="135"/>
             </a>
         </div>
