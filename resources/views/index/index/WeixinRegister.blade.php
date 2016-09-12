@@ -75,7 +75,7 @@ var youdao_conv_id = 271546;
     $(document).ready(function(){
     	// 页面退出友情提示
     	$(window).bind('beforeunload',function(){
-        	return '您输入的内容尚未保存，确定离开此页面吗？';
+        	return '您的登陆信息尚未保存，是否以游客身份进入主页？';
     	});
 
     	// 显示密码
