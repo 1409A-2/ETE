@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Education extends Model
 {
-    // ï¿½Ã»ï¿½model
+    // ÓÃ»§model
     protected $table = "education";
 
     protected $guarded = [];
@@ -19,7 +19,7 @@ class Education extends Model
 
     /**
      *
-     * @param  $data Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+     * @param  $data Ñ§ÀúµÄÐÅÏ¢
      */
     public static function selAll()
     {
@@ -27,17 +27,17 @@ class Education extends Model
     }
 
 
-    //ï¿½ï¿½ï¿½
-    public static function addEducation($data){
+    //Ìí¼Ó
+    public static function  addEducation($data){
         return self::insert($data);
 
     }
-    //ï¿½Þ¸ï¿½
+        //ÐÞ¸Ä
     public  static  function updateEducation($data,$u_id){
         return self::where('u_id',$u_id)->update($data);
     }
     public static function selTion(){
-        return Education::get()->toArray();
+    	return Education::get()->toArray();
     }
 
 }

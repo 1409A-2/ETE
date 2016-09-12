@@ -73,6 +73,25 @@ class IndustryController extends BaseController
                         ->withErrors($validator);
         }
 
+        switch($highestEducation)
+        {
+            case "大专":
+                $data['r_education']=1;
+                break;
+            case "本科":
+                $data['r_education']=2;
+                break;
+            case "硕士":
+                $data['r_education']=3;
+                break;
+            case "博士":
+                $data['r_education']=4;
+                break;
+            case "其他":
+                $data['r_education']=5;
+                break;
+        }
+
         $data['re_time']=time();
 		// print_r($data);die;
         $company_c_id=User::selOne(session('u_id'));

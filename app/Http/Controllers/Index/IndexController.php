@@ -52,11 +52,11 @@ class IndexController extends BaseController
         if (!empty($userKey)) {
             $checkRest = User::checkOnly($userKey);
             if (!empty($checkRest)) {
-                Session::put('u_id', $checkRest['u_id']);
-                Session::put('u_email', $checkRest['u_email']);
+                session()->put('u_id', $checkRest['u_id']);
+                session()->put('u_email', $checkRest['u_email']);
             } else {
-                Session::put('u_id','0');
-                Session::put('u_email', $userKey);
+                session()->put('u_id','0');
+                session()->put('u_email', $userKey);
                 return view('index.index.WeixinRegister',['userKey'=>$userKey]);
             }
         }
