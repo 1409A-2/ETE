@@ -15,7 +15,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-//use Illuminate\Support\Facades\Session;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\Education;
 
@@ -489,7 +488,7 @@ class ResumeController extends BaseController
              }else{
                 $reList[]='';
              }
-            // print_r($arr);die;
+
         return view('index.resume.delivery',[
             'reList'=>$reList
         ]);

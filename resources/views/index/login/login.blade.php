@@ -42,7 +42,7 @@ var youdao_conv_id = 271546;
 				{!! Geetest::render() !!}
 			    <label class="fl" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin" /> 记住我</label>
 			    <a href="#" class="fr" target="_blank">忘记密码？</a>
-			    
+			    <!-- reset.html -->
 				<!--<input type="submit" id="submitLogin" value="登 &nbsp; &nbsp; 录" />-->
 				<button style="color:#fff;"  class="submitLogin" title="登 &nbsp; &nbsp; 录"/>登 &nbsp; &nbsp; 录</button>
 
@@ -128,11 +128,12 @@ $(function(){
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
 	            		} else if (e.responseText =='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
+	            			var str = '验证码验证失效，请刷新重置！';
+	            			$('#beError').attr('style','');
+	            			$('#beError').text('');
+	            			$('#beError').append(str);
+	            		} else {
 	            			window.location.href='login.html';
-	            			// var str = '验证码验证失效，请刷新重置！';
-	            			// $('#beError').attr('style','');
-	            			// $('#beError').text('');
-	            			// $('#beError').append(str);
 	            		}
 	            	}
 	            })

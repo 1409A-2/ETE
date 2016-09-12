@@ -138,5 +138,5 @@ class ResumeReseale extends Model
     public static function userDel($id){
         return self::whereIn('r_id',$id)->delete();
     }
-    
+
 }
