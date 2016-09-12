@@ -135,16 +135,14 @@
                     <a href="{{url('remusePro')}}/{{$v['re_id']}}" target="_blank">投个简历</a>
 
                 </div>
-                <div class="mb10"><a href="h/c/1712.html" title="" target="_blank">{{$v['re_name']}}</a></div>
-                <span><em class="c7">领域： </em>移动互联网 ,健康医疗</span>
-                <span><em class="c7">创始人：</em> Lu</span>
+                <div class="mb10"><a href="companylist?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_shorthand']}}</a></div>
+                <span><em class="c7">领域： </em>{{$v['c_industry']}}</span>
+                <span><em class="c7">创始人：</em> {{$v['c_ceo']}}</span>
                 <br />
-                <span><em class="c7">阶段： </em>成长型(A轮)</span>
-                <span><em class="c7">规模： </em>15-50人</span>
                 <ul class="companyTags reset">
-                    <li>五险一金</li>
-                    <li>股票期权</li>
-                    <li>年度旅游</li>
+                    @foreach($v['label'] as $label)
+                    <li>{{$label['lab_name']}}</li>
+                    @endforeach
                 </ul>
             </div>
                      <div class="hot_pos_l"> 
