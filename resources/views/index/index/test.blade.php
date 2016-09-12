@@ -270,7 +270,7 @@
                     <a href="https://www.teambition.com/" target="_blank" >Teambition</a>
                     <a href="http://oupeng.com/" target="_blank" >欧朋浏览器</a><span>|</span>
                     <a href="http://iwebad.com/" target="_blank">网络广告人社区</a>
-                    <a href="h/af/flink.html" target="_blank" class="more">更多</a>
+                    <a href="#" class="more">更多</a>
                 </dd>
             </dl>
         </div>
