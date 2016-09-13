@@ -41,8 +41,8 @@ var youdao_conv_id = 271546;
 				<span class="error" style="display:none;" id="beError"></span>
 				{!! Geetest::render() !!}
 			    <label class="fl" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin" /> 记住我</label>
-			    <a href="reset.html" class="fr" target="_blank">忘记密码？</a>
-			    
+			    <a href="#" class="fr" target="_blank">忘记密码？</a>
+			    <!-- reset.html -->
 				<!--<input type="submit" id="submitLogin" value="登 &nbsp; &nbsp; 录" />-->
 				<button style="color:#fff;"  class="submitLogin" title="登 &nbsp; &nbsp; 录"/>登 &nbsp; &nbsp; 录</button>
 
@@ -57,7 +57,9 @@ var youdao_conv_id = 271546;
 				<a  href="register.html"  class="registor_now">立即注册</a>
 			    <div class="login_others">使用以下帐号直接登录:</div>
 			    <div id="hzy_fast_login">
-	                <script type="text/javascript" src="http://open.51094.com/user/myscript/157aac989c4b62.html"></script>            	
+					<a href="http://www.chinayang.top/test/demo/index.php">
+					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
+					</a>
                 </div>
             </div>
         </div>
@@ -126,11 +128,12 @@ $(function(){
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
 	            		} else if (e.responseText =='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
+	            			var str = '验证码验证失效，请刷新重置！';
+	            			$('#beError').attr('style','');
+	            			$('#beError').text('');
+	            			$('#beError').append(str);
+	            		} else {
 	            			window.location.href='login.html';
-	            			// var str = '验证码验证失效，请刷新重置！';
-	            			// $('#beError').attr('style','');
-	            			// $('#beError').text('');
-	            			// $('#beError').append(str);
 	            		}
 	            	}
 	            })

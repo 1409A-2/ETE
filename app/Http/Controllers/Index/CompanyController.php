@@ -19,7 +19,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function Index(Request $request)
+    public function index(Request $request)
     {
         //
         $u_id = session('u_id');
@@ -116,7 +116,7 @@ class CompanyController extends Controller
         $all_data['lable_data'] = Lable::selLable($c_id);
         /*$all_data['industry_data'] = explode(',',$all_data['company_data']['c_industry']);
         unset($all_data['company_data']['c_industry']);*/
-//        print_r($all_data);die;
+        //print_r($all_data);die;
         return view('index.company.companyinfo',$all_data);
     }
 }

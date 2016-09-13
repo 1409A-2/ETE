@@ -21,7 +21,7 @@ class Works extends Model
      *作品的信息
      * @param  $data
      */
-    public static function sel_All($where)
+    public static function selAll($where)
     {
         return self::where($where)->get()->toArray();
     }

@@ -10,17 +10,19 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Session;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\User;
 use Mail;
-
+header("Access-Control-Allow-Origin:*");
 class LoginController extends BaseController
 {
     use CaptchaGeetest;
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     // 登陆
     public function login(){
+        if (!empty(session('u_id'))&&!empty(session('u_email'))) {
+            return redirect('/');
+        }
     	return  view('index.login.login');
     }
 
@@ -44,13 +46,13 @@ class LoginController extends BaseController
         {
 			if ($data['status'] == 1) {
 				//使用put方法直接创建Session变量
-			    Session::put('u_id', $list['u_id']);
-			    Session::put('u_email', $list['u_email']);
+			    session()->put('u_id', $list['u_id']);
+			    session()->put('u_email', $list['u_email']);
 			    echo "0";
 			} else {
 				//使用put方法直接创建Session变量
-			    Session::put('u_id', $list['u_id'], 3600*24*7 );
-			    Session::put('u_email', $list['u_email'], 3600*24*7 );
+			    session()->put('u_id', $list['u_id'], 3600*24*7 );
+			    session()->put('u_email', $list['u_email'], 3600*24*7 );
 			    echo "1";
 			}
 			
@@ -104,6 +106,9 @@ class LoginController extends BaseController
                 $to = $email;
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
+            session()->put('u_id', $res);
+            session()->put('u_email', $data['u_email']);
+            session()->save();
             echo json_encode($res);
             exit;
     	} else {
@@ -131,8 +136,8 @@ class LoginController extends BaseController
      */
     public function loginOut()
     {
-        Session::forget('u_id');
-        Session::forget('u_email');
+        session()->forget('u_id');
+        session()->forget('u_email');
 
         return redirect('/');
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Release extends Model
 {
-	protected $table = "release";
+    protected $table = "release";
 
     protected $guarded = [];
 
@@ -15,8 +15,8 @@ class Release extends Model
     protected $hidden = [];
 
     public $timestamps = false;
-    public static function sel_As($c_id,$remuse_resele){    	
-    	return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
+    public static function selAs($c_id,$remuse_resele){
+        return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
@@ -27,7 +27,7 @@ class Release extends Model
         ->toArray();
     }
 
-    public static function sel_Rel($c_id,$remuse_resele,$read){       
+    public static function selRel($c_id,$remuse_resele,$read){
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -40,7 +40,7 @@ class Release extends Model
         ->toArray();
     }
 
-    public static function sel_Ed($c_id,$remuse_resele,$ed_name){       
+    public static function selEd($c_id,$remuse_resele,$ed_name){
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -53,7 +53,7 @@ class Release extends Model
         ->toArray();
     }
 
-    public static function sel_Rel_ed($c_id,$remuse_resele,$read,$ed_name){       
+    public static function selReled($c_id,$remuse_resele,$read,$ed_name){
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
@@ -66,28 +66,28 @@ class Release extends Model
         ->get()        
         ->toArray();
     }
-    //æ·»åŠ å‘å¸ƒèŒä½
-    public static function add_Bacs($data){
-    	return Release::insertGetId($data);
+    //Ìí¼Ó·¢²¼Ö°Î»
+    public static function addBacs($data){
+        return Release::insertGetId($data);
     }
 
-    //æŸ¥çœ‹å‘å¸ƒèŒä½
-    public static function sel_List($c_id){
+    //²é¿´·¢²¼Ö°Î»
+    public static function selList($c_id){
         return Release::where($c_id)->get()->toArray();
     }
 
-    //é¢„è§ˆèŒä½
-    public static function sel_Preview($c_id){
+    //Ô¤ÀÀÖ°Î»
+    public static function selPreview($c_id){
         return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
     }
 
-    //ç”¨æˆ·æŸ¥çœ‹çš„èŒä½è¯¦æƒ…
+    //ÓÃ»§²é¿´µÄÖ°Î»ÏêÇé
     public static function selPreviews($c_id){
         return Release::where($c_id)->first()->toArray();
     }
 
-    //æŸ¥çœ‹å„ä¸ªèŒä½çš„ç®€åŽ†
-    public static function sel_Pr($c_id,$re_status){
+    //²é¿´¸÷¸öÖ°Î»µÄ¼òÀú
+    public static function selPr($c_id,$re_status){
         return Release::Join('company', 'release.c_id', '=', 'company.c_id')
         ->where('release.c_id','=',$c_id)
         ->where('release.re_status','=',$re_status)
@@ -95,13 +95,38 @@ class Release extends Model
         ->toArray();
     }
 
-    //ä¿®æ”¹èŒä½ä¸Šä¸‹çº¿é—®é¢˜
-    public static function up_Re_Status($data){
+    //ÐÞ¸ÄÖ°Î»ÉÏÏÂÏßÎÊÌâ
+    public static function upReStatus($data){
          return Release::where('re_id','=',$data['re_id'])->update($data);
     }
 
-    //åˆ é™¤èŒä½
-    public static function del_Release($data){
+    //É¾³ýÖ°Î»
+    public static function delRelease($data){
        return Release::where('re_id','=',$data['re_id'])->delete(); 
+    }
+
+    //Ö÷Ò³ÈÈÃÅËÑË÷Ö°Î»
+    public static function hotRelease(){
+        $re=Release::get()->toArray();
+        return $re[rand(0,count($re)-1)];
+    }
+    
+
+    //Ö÷Ò³ÈÈÃÅÐ½×ÊËÑË÷Ö°Î»
+    public static function moery($where,$i_name,$min,$max){
+        if($where==1){
+            return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+        }else{
+        return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+        }
+    }
+
+    //Ö÷Ò³ÈÈÃÅÐ½×ÊËÑË÷Ö°Î»·ÖÒ³²éÑ¯
+    public static function moerys($where,$i_name,$min,$max,$limit,$length){
+        if($where==1){
+            return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+        }else{
+            return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->get()->toArray();
+        }
     }
 }

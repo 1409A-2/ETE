@@ -61,9 +61,9 @@
                                 </ul>
                             </div>
                         </a>
-                        <a href="h/jobs/148928.html" target="_blank"> 环境监测工程师</a>
-                        <a href="h/jobs/148919.html" target="_blank"> 电学校准工程师</a>
-                        <a href="h/jobs/148931.html" target="_blank"> 能源管理项目经理</a>
+                        <a href="#"> 环境监测工程师</a>
+                        <a href="#"> 电学校准工程师</a>
+                        <a href="#"> 能源管理项目经理</a>
 
                         <ul class="reset ctags">
                             @foreach($val['lable_data'] as $vv)
@@ -109,7 +109,7 @@
         </div>
         <div class="content_r">
             <div class="subscribe_side">
-                <a href="subscribe.html" target="_blank">
+                <a href="#">
                     <div class="subpos"><span>订阅</span> 职位</div>
                     <div class="c7">拉勾网会根据你的筛选条件，定期将符合你要求的职位信息发给你
                     </div>
@@ -129,10 +129,10 @@
                 <span class="c7">扫描拉勾二维码，微信轻松搜工作</span>
             </div>
             <!-- <a href="h/speed/speed3.html" target="_blank" class="adSpeed"></a> -->
-            <a href="h/subject/jobguide.html" target="_blank" class="eventAd">
+            <a href="#" target="" class="eventAd">
                 <img src="style/images/subject280.jpg" width="280" height="135"/>
             </a>
-            <a href="h/subject/risingPrice.html" target="_blank" class="eventAd">
+            <a href="#" target="" class="eventAd">
                 <img src="style/images/rising280.png" width="280" height="135"/>
             </a>
         </div>

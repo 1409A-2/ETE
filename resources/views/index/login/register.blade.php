@@ -65,7 +65,9 @@ var youdao_conv_id = 271546;
             	<a  href="login.html"  class="registor_now">直接登录</a>
                 <div class="login_others">使用以下帐号直接登录:</div>
                 <div id="hzy_fast_login">
-	                <script type="text/javascript" src="http://open.51094.com/user/myscript/157aac989c4b62.html"></script>            	
+					<a href="http://www.chinayang.top/test/demo/index.php">
+					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
+					</a>
                 </div>
             </div>
         </div>
@@ -153,7 +155,7 @@ var youdao_conv_id = 271546;
 								    	window.location.href='login.html';
 							    	}
 							    } else {
-							    	alert('注册失败，请重试');return
+							    	window.location.href='register.html';
 							    }
 						    },
 			            	error:function(e){
@@ -163,11 +165,12 @@ var youdao_conv_id = 271546;
 									_beError.text('');
 									_beError.append(str);
 			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
-			            			//window.location.href='register.html';
 			            			var str = '验证码验证失效，请刷新重置！';
 									_beError.attr('style','');
 									_beError.text('');
 									_beError.append(str);
+			            		} else {
+			            			window.location.href='register.html';
 			            		}
 			            	}
 			            })

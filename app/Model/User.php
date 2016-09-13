@@ -96,4 +96,44 @@ class User extends Model
     {
         return self::where('u_id',session('u_id'))->update(['u_cid'=>$c_id]);
     }
+
+    /**
+     * 查询全部用户信息
+     */
+    public static function selAll(){
+        $user_data = self::where('u_cid','=',0)->count();
+        return $user_data;
+    }
+
+    /**
+     * 查询分页数据
+     */
+    public static function selPage($len,$off){
+        $user_data = self::where('u_cid','=',0)->skip($off)->take($len)->get();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+        }
+        return $user_data;
+    }
+
+    /**
+     * 删除用户信息
+     */
+    public static function userDel($id){
+        return self::whereIn('u_id',$id)->delete();
+    }
+
+	/**
+     * 检测第三方用户登录
+     * @param $data 当前用户的信息
+     */
+    public static function checkOnly($userKey)
+    {
+        $user_data = self::where('r_openid', '=', $userKey)
+            ->first();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+        }
+        return $user_data;
+    }
 }

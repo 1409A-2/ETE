@@ -21,7 +21,7 @@ class School extends Model
      *
      * @param  $data 教育背景的信息
      */
-    public static function sel_All($where)
+    public static function selAll($where)
     {
         return self::where($where)->get()->toArray();
     }
@@ -30,7 +30,7 @@ class School extends Model
      * @param $where
      * @return mixed
      */
-    public static function sel_One($where)
+    public static function selOne($where)
     {
        $school=self::where($where)->first();
         if($school){
@@ -44,7 +44,7 @@ class School extends Model
      * @param $data
      * @return mixed
      */
-    public static function  addSchool($data){
+    public static function addSchool($data){
         return self::insert($data);
 
     }
@@ -54,7 +54,7 @@ class School extends Model
      * @param $where
      * @return mixed
      */
-    public  static  function updateSchool($data,$where){
+    public static function updateSchool($data,$where){
         return self::where($where)->update($data);
     }
 

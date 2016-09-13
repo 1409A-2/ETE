@@ -16,7 +16,7 @@
                     @foreach($industry as $key => $vals)
                         <dl class="reset">
                             @if($vals['i_pid']==$val['i_id'])
-                                <dt>
+                                <dt style="width: 90px;">
                                     <a href="{{url('jump')}}?i_name={{$vals['i_name']}}">
                                         {{$vals['i_name']}}
                                     </a>
@@ -41,14 +41,18 @@
 
         <div class="content">
         <div id="search_box">
+            <form action="jump" method="get">
             <ul id="searchType">
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow"></div>
-            <input type="text" id="search_input" style="height: 37px;" name = "kd"  tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="text" id="search_input" style="height: 37px;" name="i_name"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="hidden" value="" id="education">
+            <input type="hidden" value="" id="k">
 
-            <input type="button" id="search_button" value="搜索" />
+            <input type="submit" id="search_button" value="搜索" />
+            </form>
         </div>
       
       
@@ -61,7 +65,7 @@
         </style>
         <script type="text/javascript" src="style/js/search.min.js"></script>
         <dl class="hotSearch">
-            <dt>热门搜索：</dt>
+           <!--  <dt>热门搜索：</dt>
             <dd><a href="list.htmlJava?labelWords=label&city=">Java</a></dd>
             <dd><a href="list.htmlPHP?labelWords=label&city=">PHP</a></dd>
             <dd><a href="list.htmlAndroid?labelWords=label&city=">Android</a></dd>
@@ -71,42 +75,46 @@
             <dd><a href="list.htmlUI?labelWords=label&city=">UI</a></dd>
             <dd><a href="list.html运营?labelWords=label&city=">运营</a></dd>
             <dd><a href="list.htmlBD?labelWords=label&city=">BD</a></dd>
-            <dd><a href="list.html?gx=实习&city=">实习</a></dd>
+            <dd><a href="list.html?gx=实习&city=">实习</a></dd> -->
         </dl>
         <div id="home_banner">
             <ul class="banner_bg">
-                <li  class="banner_bg_1 current" >
-                    <a href="h/subject/s_buyfundation.html?utm_source=DH__lagou&utm_medium=banner&utm_campaign=haomai" target="_blank"><img src="style/images/d05a2cc6e6c94bdd80e074eb05e37ebd.jpg" width="612" height="160" alt="好买基金——来了就给100万" /></a>
+                @foreach($carousel as $key => $val)
+                <li  class="banner_bg_{{$key+1}}" >
+                    <a href="{{$val['car_url']}}" target="_blank"><img src="{{env('APP_HOST').$val['car_img']}}" width="612" height="160" alt="{{$val['car_name']}}" /></a>
                 </li>
-                <li  class="banner_bg_2" >
+                @endforeach
+                {{--<li  class="banner_bg_2" >
                     <a href="h/subject/s_worldcup.html?utm_source=DH__lagou&utm_medium=home&utm_campaign=wc" target="_blank"><img src="style/images/c9d8a0756d1442caa328adcf28a38857.jpg" width="612" height="160" alt="世界杯放假看球，老板我也要！" /></a>
                 </li>
                 <li  class="banner_bg_3" >
                     <a href="h/subject/s_xiamen.html?utm_source=DH__lagou&utm_medium=home&utm_campaign=xiamen" target="_blank"><img src="style/images/d03110162390422bb97cebc7fd2ab586.jpg" width="612" height="160" alt="出北京记——第一站厦门" /></a>
-                </li>
+                </li>--}}
             </ul>
             <div class="banner_control">
                 <em></em>
                 <ul class="thumbs">
-                    <li  class="thumbs_1 current" >
+                    @foreach($carousel as $key => $val)
+                    <li  class="thumbs_{{$key+1}}" >
                         <i></i>
-                        <img src="style/images/4469b1b83b1f46c7adec255c4b1e4802.jpg" width="113" height="42" />
+                        <img src="{{env('APP_HOST').$val['car_img']}}" style="width:113px; height:42px;" />
                     </li>
-                    <li  class="thumbs_2" >
+                    @endforeach
+                    {{--<li  class="thumbs_2" >
                         <i></i>
                         <img src="style/images/381b343557774270a508206b3a725f39.jpg" width="113" height="42" />
                     </li>
                     <li  class="thumbs_3" >
                         <i></i>
                         <img src="style/images/354d445c5fd84f1990b91eb559677eb5.jpg" width="113" height="42" />
-                    </li>
+                    </li>--}}
                 </ul>
             </div>
         </div><!--/#main_banner-->
 
         <ul id="da-thumbs" class="da-thumbs">
             <li >
-                <a href="h/c/1650.html" target="_blank">
+                <a href="#">
                     <img src="style/images/a254b11ecead45bda166afa8aaa9c8bc.jpg" width="113" height="113" alt="联想" />
                     <div class="hot_info">
                         <h2 title="联想">联想</h2>
@@ -118,7 +126,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/9725.html" target="_blank">
+                <a href="#">
                     <img src="style/images/c75654bc2ab141df8218983cfe5c89f9.jpg" width="113" height="113" alt="淘米" />
                     <div class="hot_info">
                         <h2 title="淘米">淘米</h2>
@@ -130,7 +138,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/1914.html" target="_blank">
+                <a href="#">
                     <img src="style/images/2bba2b71d0b0443eaea1774f7ee17c9f.png" width="113" height="113" alt="优酷土豆" />
                     <div class="hot_info">
                         <h2 title="优酷土豆">优酷土豆</h2>
@@ -142,7 +150,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/6630.html" target="_blank">
+                <a href="#">
                     <img src="style/images/f4822a445a8b495ebad81fcfad3e40e2.jpg" width="113" height="113" alt="思特沃克" />
                     <div class="hot_info">
                         <h2 title="思特沃克">思特沃克</h2>
@@ -154,7 +162,7 @@
                 </a>
             </li>
             <li >
-                <a href="h/c/2700.html" target="_blank">
+                <a href="#">
                     <img src="style/images/5caf8f9631114bf990f87bb11360653e.png" width="113" height="113" alt="奇猫" />
                     <div class="hot_info">
                         <h2 title="奇猫">奇猫</h2>
@@ -166,7 +174,7 @@
                 </a>
             </li>
             <li  class="last" >
-                <a href="h/c/1335.html" target="_blank">
+                <a href="#">
                     <img src="style/images/c0052c69ef4546c3b7d08366d0744974.jpg" width="113" height="113" alt="堆糖网" />
                     <div class="hot_info">
                         <h2 title="堆糖网">堆糖网</h2>
@@ -188,21 +196,20 @@
                 <li class="clearfix">
                     <div class="hot_pos_l">
                         <div class="mb10">
-                            <a href="h/jobs/147822.html" target="_blank">运营总监</a>
+                            <a href="postPreview?re_id={{$hot['re_id']}}" target="_blank">{{$hot['re_name']}}</a>
                             &nbsp;
                             <span class="c9">[北京]</span>
                         </div>
-                        <span><em class="c7">月薪： </em>15k-20k</span>
-                        <span><em class="c7">经验：</em> 3-5年</span>
-                        <span><em class="c7">最低学历： </em>本科</span>
+                        <span><em class="c7">月薪： </em>{{$hot['re_salarymin']}}k-{{$hot['re_salarymax']}}k</span>
+                        <span><em class="c7">最低学历： </em>{{$hot['re_education']}}</span>
                         <br />
-                        <span><em class="c7">职位诱惑：</em>发展前景</span>
+                        <span><em class="c7">职位诱惑：</em>{{$hot['re_welfare']}}</span>
                         <br />
-                        <span>1天前发布</span>
+                        <span>{{ceil((time()-$hot['re_time'])/86400)}}天以前发布</span>
                         <!-- <a  class="wb">分享到微博</a> -->
                     </div>
                     <div class="hot_pos_r">
-                        <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>
+                        <!-- <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>
                         <span><em class="c7">领域：</em> 移动互联网</span>
                         <span><em class="c7">创始人：</em>陈桦</span>
                         <br />
@@ -212,11 +219,11 @@
                             <li>移动互联网</li>
                             <li>五险一金</li>
                             <li>扁平管理</li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                 </li>
-                <a href="list.html" class="btn fr" target="_blank">查看更多</a>
+                <!-- <a href="list.html" class="btn fr" target="_blank">查看更多</a> -->
             </ul>
         
         </div>
@@ -265,12 +272,11 @@
                     <a href="https://www.teambition.com/" target="_blank" >Teambition</a>
                     <a href="http://oupeng.com/" target="_blank" >欧朋浏览器</a><span>|</span>
                     <a href="http://iwebad.com/" target="_blank">网络广告人社区</a>
-                    <a href="h/af/flink.html" target="_blank" class="more">更多</a>
+                    <a href="#" class="more">更多</a>
                 </dd>
             </dl>
         </div>
         </div>
         <input type="hidden" value="" name="userid" id="userid" />
         @endsection
-    </div>
-
+</div>

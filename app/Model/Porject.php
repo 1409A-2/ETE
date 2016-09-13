@@ -21,7 +21,7 @@ class Porject extends Model
      *
      * @param  $data 学历的信息
      */
-    public static function sel_All($where)
+    public static function selAll($where)
     {
         return self::where($where)->get()->toArray();
     }
@@ -30,7 +30,7 @@ class Porject extends Model
      * @param $u_id
      * @return mixed
      */
-    public  static  function sel_One($where){
+    public  static  function selOne($where){
         return self::where($where)->first()->toArray();
     }
 
@@ -50,4 +50,11 @@ class Porject extends Model
         return self::where($where)->delete();
     }
 
+    /**删除
+     * @param $id
+     * @return 1
+     */
+    public static function userDel($id){
+        return self::whereIn('r_id',$id)->delete();
+    }
 }

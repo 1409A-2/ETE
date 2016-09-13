@@ -296,7 +296,6 @@
 									</div>
 									<div class="m_name">
 										{{$company_data['c_ceo']}}
-										<a target="_blank" class="weibo" href="http://weimob.weibo.com"></a>
 									</div>
 									<div class="m_position">ceo</div>
 									<div class="m_intro">{{$company_data['ceo_desc']}}</div>

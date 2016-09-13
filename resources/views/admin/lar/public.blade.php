@@ -1,16 +1,16 @@
 <?php
-if (strpos($_SERVER['REQUEST_URI'], '?')) {
-    $url = substr($_SERVER['REQUEST_URI'], 1, strpos($_SERVER['REQUEST_URI'], '?') - 1);
-} else {
-    $url = substr($_SERVER['REQUEST_URI'], 1);
+if(strpos($_SERVER['REQUEST_URI'],'?')){
+    $url = substr($_SERVER['REQUEST_URI'],1,strpos($_SERVER['REQUEST_URI'],'?')-1);
+}else{
+    $url = substr($_SERVER['REQUEST_URI'],1);
 }
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title>@yield('title_admin','校易聘后台')</title>
     <link rel="stylesheet" href="{{env('APP_HOST')}}/styles/css/pintuer.css">
@@ -19,29 +19,29 @@ if (strpos($_SERVER['REQUEST_URI'], '?')) {
     <script src="{{env('APP_HOST')}}/styles/js/pintuer.js"></script>
     <script src="{{env('APP_HOST')}}/styles/js/respond.js"></script>
     <script src="{{env('APP_HOST')}}/styles/js/admin.js"></script>
-    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon"/>
-    <link href="/favicon.ico" rel="bookmark icon"/>
+    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
+    <link href="/favicon.ico" rel="bookmark icon" />
     <script>
         $(function () {
             var url = "{{$url}}";
-            var _actionContent = $("a[href='" + url + "']").html();
-            var _action = $("a[href='" + url + "']").parent();
-            var _bread = '<li><a href="javascript:void(0);" class="' + _action.parents('li').children('a').attr('class') + '"> ' + _action.parents('li').children('a').html() + '</a></li><li>' + _actionContent + '</li>';
+            var _actionContent = $("a[href='"+url+"']").html();
+            var _action = $("a[href='"+url+"']").parent();
+            var _bread = '<li><a href="javascript:void(0);" class="'+_action.parents('li').children('a').attr('class')+'"> '+_action.parents('li').children('a').html()+'</a></li><li>'+_actionContent+'</li>';
             $('.bread').html(_bread);
-            _action.attr('class', 'active');
-            _action.parents('li').attr('class', 'active');
+            _action.attr('class','active');
+            _action.parents('li').attr('class','active');
 
-            $(document).delegate("a[class^='icon-']", 'click', function () {
-                var _this = $(this);
+            $(document).delegate("a[class^='icon-']",'click',function(){
+                var _this=$(this);
 
                 _this.parent().siblings().removeAttr('class');
 
-                _this.parent().attr('class', 'active');
+                _this.parent().attr('class','active');
 
-                if (_this.parent().html() == _action.parents('li').html()) {
-                    var str = '<li><a href="javascript:void(0);" class="' + _this.attr('class') + '"> ' + _this.html() + '</a></li><li>' + _actionContent + '</li>';
-                } else {
-                    var str = '<li><a href="javascript:void(0);" class="' + _this.attr('class') + '"> ' + _this.html() + '</a></li>';
+                if(_this.parent().html()==_action.parents('li').html()){
+                    var str = '<li><a href="javascript:void(0);" class="'+_this.attr('class')+'"> '+_this.html()+'</a></li><li>'+_actionContent+'</li>';
+                }else{
+                    var str='<li><a href="javascript:void(0);" class="'+_this.attr('class')+'"> '+_this.html()+'</a></li>';
                 }
 
                 $('.bread').html(str);
@@ -53,8 +53,7 @@ if (strpos($_SERVER['REQUEST_URI'], '?')) {
 
 <body>
 <div class="lefter">
-    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" width="20"
-                                                       height="20" alt="后台管理系统"/></a></div>
+    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" width="20" height="20" alt="后台管理系统" /></a></div>
 </div>
 <div class="righter nav-navicon" id="admin-nav">
     <div class="mainer">
@@ -66,50 +65,34 @@ if (strpos($_SERVER['REQUEST_URI'], '?')) {
             <ul class="nav nav-inline admin-nav">
                 <li><a href="javascript:void(0);" class="icon-home"> 开始</a>
                     <ul>
-                        <li><a href="#" class="hover">系统设置</a></li>
-                        <li><a href="#" class="hover">内容管理</a></li>
-                        <li><a href="#" class="hover">订单管理</a></li>
-                        <li><a href="#" class="hover">会员管理</a></li>
-                        <li><a href="#" class="hover">文件管理</a></li>
-                        <li><a href="#" class="hover">栏目管理</a></li>
+                        <li><a href="adminIndex">系统设置</a></li>
+                        <li><a href="#">内容管理</a></li>
+                        <li><a href="#">订单管理</a></li>
+                        <li><a href="#">会员管理</a></li>
+                        <li><a href="#">文件管理</a></li>
+                        <li><a href="#">栏目管理</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-cog"> 系统</a>
-                    <ul>
-                        <li><a href="#" class="hover">全局设置</a></li>
-                        <li><a href="#" class="hover">系统设置</a></li>
-                        <li><a href="#" class="hover">会员设置</a></li>
-                        <li><a href="#" class="hover">积分设置</a></li>
-                    </ul>
+                    <ul><li><a href="#">全局设置</a></li><li><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-file-text"> 内容</a>
-                    <ul>
-                        <li><a href="#" class="hover">添加内容</a></li>
-                        <li><a href="#" class="hover">内容管理</a></li>
-                        <li><a href="#" class="hover">分类设置</a></li>
-                        <li><a href="#" class="hover">链接管理</a></li>
-                    </ul>
+                    <ul><li><a href="#">添加内容</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-shopping-cart"> 订单</a></li>
-                <li><a href="javascript:void(0);" class="icon-user"> 会员</a></li>
+                <li><a href="javascript:void(0);" class="icon-user"> 用户管理</a>
+                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                </li>
                 <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
-                <li>
-                    <a href="javascript:void(0);" class="icon-th-list"> 企业管理</a>
-                    <ul>
-                        <li><a href="{{url('enterpriseList')}}" class="hover">企业列表</a></li>
-                        <li><a href="#" class="hover">企业审核</a></li>
-                        <li><a href="#" class="hover">订单管理</a></li>
-                        <li><a href="#" class="hover">会员管理</a></li>
-                        <li><a href="#" class="hover">文件管理</a></li>
-                        <li><a href="#" class="hover">栏目管理</a></li>
-                    </ul>
+                <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
+                    <ul><li><a href="adminMaterial">轮播管理</a></li></ul>
                 </li>
             </ul>
         </div>
         <div class="admin-bread">
             <span>您好，admin，欢迎您的光临。</span>
             <ul class="bread">
-                <li><a href="{{url('adminIndex')}}" class="icon-home"> 开始</a></li>
+                <li><a href="index.html" class="icon-home"> 开始</a></li>
 
             </ul>
         </div>
@@ -123,11 +106,3 @@ if (strpos($_SERVER['REQUEST_URI'], '?')) {
 
 </body>
 </html>
-<script>
-    $(function () {
-        $('.hover').hover(function () {
-            $(this).parent('li').addClass('active')
-            $(this).parent('li').siblings('li').removeClass('active')
-        })
-    })
-</script>
