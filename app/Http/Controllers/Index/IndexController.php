@@ -92,9 +92,9 @@ class IndexController extends BaseController
         }
         if(empty($k)){
             if(empty($education)){
-                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->count('re_id');
+                $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->count('re_id');
             }else{
-                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
+                $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
             }
             $length = 6;
             $pages = ceil($row/$length);
@@ -102,12 +102,12 @@ class IndexController extends BaseController
             $limit = ($page-1)*$length;
             if(empty($education)){
                 $list=DB::table('release')
-                    ->where('re_name','like','%'.$i_name.'%')
+                    ->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')
                     ->join('company','release.c_id','=','company.c_id')
                     ->limit($length)->offset($limit)->get();
             }else{
                 $list=DB::table('release')
-                    ->where($where)->where('re_name','like','%'.$i_name.'%')
+                    ->where('re_status','=','0')->where($where)->where('re_name','like','%'.$i_name.'%')
                     ->join('company','release.c_id','=','company.c_id')
                     ->limit($length)->offset($limit)->get();
             }
