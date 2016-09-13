@@ -6,12 +6,18 @@
         $('.moery').click(function(){
             k=$(this).html();
             education=$('#education').val();
+            if(k=='全部'){
+                k='';
+            }
             i_name=$('#i_name').val();
             location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
         })
         $('.education').click(function(){
              education=$(this).html();
             k=$('#k').val();
+            if(education=='不限'){
+                education='';
+            }
             i_name=$('#i_name').val();
             location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
         })
@@ -26,7 +32,12 @@
     <dl class="">
         <dt>月薪范围 <em class=""></em></dt>
         <dd style="display: block;">
-            <div class="moery active">2k以下</div>
+        @if($k=='')
+            <div class="moery" style="background:#91cebe;color:white;">全部</div>
+        @else
+            <div class="moery">全部</div>
+        @endif
+            <div class="moery">2k以下</div>
             <div class="moery">2k-5k</div>
             <div class="moery">5k-10k</div>
             <div class="moery">10k-15k</div>
@@ -38,7 +49,6 @@
     <script>
     $(function(){
         var k = "{{$k}}";
-
         moery = $('.moery');
         for(var i=0;i<moery.length;i++){
             if(moery.eq(i).html()==k){
@@ -61,7 +71,11 @@
     <dl class="">
         <dt>最低学历 <em class=""></em></dt>
         <dd style="display: block;">
+            @if($education=='')
+            <div class="education" style="background:#91cebe;color:white;">不限</div>
+        @else
             <div class="education">不限</div>
+        @endif
             <div class="education">大专</div>
             <div class="education">本科</div>
             <div class="education">硕士</div>
