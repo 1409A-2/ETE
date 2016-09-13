@@ -111,7 +111,15 @@
         <span>亲，“嘀嘀打车”已更名为“滴滴打车”了哦，我们已帮您自动跳转~</span>
         <a href="javascript:;">我知道了</a>
     </div>
-
+    @if(empty($arr))
+        <center>
+            <div class="txt" style="margin-top:200px">
+                <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
+                <br/>
+                <span style="color:#91cebe;font-size:22px">请重新修改搜索条件后再进行搜索</span>
+            </div>
+        </center>
+    @else
     <ul class="hot_pos reset">
      @foreach($arr as $v)
         <li class="odd clearfix">
@@ -179,7 +187,8 @@
             <a title="30" href="jump?i_name={{$i_name}}&page={{$pages}}&k={{$k}}">尾页</a>
         @endif
         
-    </div>  
+    </div>
+    @endif
     <div class="Pagination"></div>
 </div>
 
