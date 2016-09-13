@@ -1127,29 +1127,29 @@
             </div>
         </div>
         <script>
-            $(function () {
-                $.ajax({
-                    url: ctx + "/mycenter/showQRCode",
-                    type: "GET",
-                    async: false
-                }).done(function (data) {
-                    if (data.success) {
-                        $('#qr_cloud_resume img').attr("src", data.content);
-                    }
-                });
-                var sessionId = "resumeQR" + 314873;
-                if (!$.cookie(sessionId)) {
-                    $.cookie(sessionId, 0, {expires: 1});
-                }
-                if ($.cookie(sessionId) &amp;&amp; $.cookie(sessionId) != 5) {
-                    $('#qr_cloud_resume').removeClass('dn');
-                }
-                $('#qr_cloud_resume .close').click(function () {
-                    $('#qr_cloud_resume').fadeOut(200);
-                    resumeQR = parseInt($.cookie(sessionId)) + 1;
-                    $.cookie(sessionId, resumeQR, {expires: 1});
-                });
-            });
+            // $(function () {
+            //     $.ajax({
+            //         url: ctx + "/mycenter/showQRCode",
+            //         type: "GET",
+            //         async: false
+            //     }).done(function (data) {
+            //         if (data.success) {
+            //             $('#qr_cloud_resume img').attr("src", data.content);
+            //         }
+            //     });
+            //     var sessionId = "resumeQR" + 314873;
+            //     if (!$.cookie(sessionId)) {
+            //         $.cookie(sessionId, 0, {expires: 1});
+            //     }
+            //     if ($.cookie(sessionId) &amp;&amp; $.cookie(sessionId) != 5) {
+            //         $('#qr_cloud_resume').removeClass('dn');
+            //     }
+            //     $('#qr_cloud_resume .close').click(function () {
+            //         $('#qr_cloud_resume').fadeOut(200);
+            //         resumeQR = parseInt($.cookie(sessionId)) + 1;
+            //         $.cookie(sessionId, resumeQR, {expires: 1});
+            //     });
+            // });
         </script>
         <div class="clear"></div>
         <input type="hidden" value="{{csrf_token()}}" id="resubmitToken">
@@ -1201,7 +1201,7 @@
             };
         }
     };
-    CallCenter.init(url);
+    // CallCenter.init(url);
 </script>
 
 <div id="cboxOverlay" style="display: none;"></div>

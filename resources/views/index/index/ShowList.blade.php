@@ -35,6 +35,29 @@
             <div class="moery">50k以上</div>
         </dd>
     </dl>
+    <script>
+    $(function(){
+        var k = "{{$k}}";
+
+        moery = $('.moery');
+        for(var i=0;i<moery.length;i++){
+            if(moery.eq(i).html()==k){
+                moery.eq(i).css('background','#91cebe');
+                moery.eq(i).css('color','white');
+            }
+        }
+
+        var education = "{{$education}}";
+
+        educations = $('.education');
+        for(var i=0;i<educations.length;i++){
+            if(educations.eq(i).html()==education){
+                educations.eq(i).css('background','#91cebe');
+                educations.eq(i).css('color','white');
+            }
+        }
+    });
+    </script>
     <dl class="">
         <dt>最低学历 <em class=""></em></dt>
         <dd style="display: block;">
