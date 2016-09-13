@@ -92,9 +92,9 @@ class IndexController extends BaseController
         }
         if(empty($k)){
             if(empty($education)){
-                $row = DB::table('release')->join('company','release.c_id','=','company.c_id')->join('company','release.c_id','=','company.c_id')->where('re_name','like','%'.$i_name.'%')->count('re_id');
+                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->count('re_id');
             }else{
-                $row = DB::table('release')->join('company','release.c_id','=','company.c_id')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
+                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
             }
             $length = 6;
             $pages = ceil($row/$length);
