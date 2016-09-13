@@ -26,7 +26,7 @@
     <dl class="">
         <dt>月薪范围 <em class=""></em></dt>
         <dd style="display: block;">
-            <div class="moery">2k以下</div>
+            <div class="moery active">2k以下</div>
             <div class="moery">2k-5k</div>
             <div class="moery">5k-10k</div>
             <div class="moery">10k-15k</div>
@@ -81,7 +81,7 @@
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
-            <div class="searchtype_arrow"></div>
+            <div class="searchtype_arrow" style="z-index: 1;"></div>
             <input type="text" id="search_input" name = "kd"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
 
             <input type="submit" id="search_button" value="搜索" />
@@ -135,7 +135,7 @@
                     <a href="{{url('remusePro')}}/{{$v['re_id']}}" target="_blank">投个简历</a>
 
                 </div>
-                <div class="mb10"><a href="companylist?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_shorthand']}}</a></div>
+                <div class="mb10"><a href="companyinfo?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_shorthand']}}</a></div>
                 <span><em class="c7">领域： </em>{{$v['c_industry']}}</span>
                 <span><em class="c7">创始人：</em> {{$v['c_ceo']}}</span>
                 <br />

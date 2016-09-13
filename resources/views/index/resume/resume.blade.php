@@ -968,7 +968,7 @@
 
                 <div class="mycenterR" id="myShare">
                     <h2>当前每日投递量：10个</h2>
-                    <a target="_blank" href="h/share/invite.html">邀请好友，提升投递量</a>
+                    <a target="_blank" href="#">邀请好友，提升投递量</a>
                 </div>
                 <!--end #myShare-->
 

@@ -41,7 +41,7 @@ return [
 	| Here you can config your geetest url for ajax validation.
 	|
 	*/
-	'geetest_url' => '/login/geetest',
+	'geetest_url' => env('APP_HOST').'/login/geetest',
 
 	/*
 	|--------------------------------------------------------------------------

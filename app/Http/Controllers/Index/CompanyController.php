@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Model\Lable;
 use App\Model\Product;
+use App\Model\Release;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -79,6 +80,8 @@ class CompanyController extends Controller
             $company_data[$key]['industry'] = explode(',',$val['c_industry']);
             unset($company_data[$key]['c_industry']);
             $company_data[$key]['lable_data'] = Lable::selLable($val['c_id']);
+            $company_data[$key]['release_data'] = Release::selList(['c_id'=>$val['c_id']]);
+
         }
 
         return view('index.company.companylist',[
