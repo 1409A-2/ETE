@@ -45,7 +45,7 @@
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
-            <div class="searchtype_arrow"></div>
+            <div class="searchtype_arrow" style="z-index: 1;"></div>
             <input type="text" id="search_input" style="height: 37px;"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
             <input type="hidden" value="" id="education">
             <input type="hidden" value="" id="k">
@@ -270,7 +270,7 @@
                     <a href="https://www.teambition.com/" target="_blank" >Teambition</a>
                     <a href="http://oupeng.com/" target="_blank" >欧朋浏览器</a><span>|</span>
                     <a href="http://iwebad.com/" target="_blank">网络广告人社区</a>
-                    <a href="h/af/flink.html" target="_blank" class="more">更多</a>
+                    <a href="#" class="more">更多</a>
                 </dd>
             </dl>
         </div>

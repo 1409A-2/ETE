@@ -29,9 +29,9 @@ class IndustryController extends BaseController
     public function postOffice(){    	
         $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
-            $da=Company::sel_Time($company_c_id['u_cid']);
+            $da=Company::selTime($company_c_id['u_cid']);
             $date=date('Y-m-d',time());
             $time=strtotime($date);
             $my_time=date('Y-m-d',$da['out_time']);
@@ -43,7 +43,7 @@ class IndustryController extends BaseController
                     Company::upBase($company_c_id['u_cid'],$out_num);
                 }                
             }
-            $data=Company::sel_Time($company_c_id['u_cid']);
+            $data=Company::selTime($company_c_id['u_cid']);
             $c_id['c_id']=$company_c_id['u_cid'];
             // print_r($company_c_id);die;
         	$industry=Industry::sel();
@@ -72,30 +72,12 @@ class IndustryController extends BaseController
             return redirect('postOffice')
                         ->withErrors($validator);
         }
-        // switch($data['re_education'])
-        // {
-        //     case "大专":
-        //         $data['re_education']=1;
-        //         break;
-        //     case "本科":
-        //         $data['re_education']=2;
-        //         break;
-        //     case "硕士":
-        //         $data['re_education']=3;
-        //         break;
-        //     case "博士":
-        //         $data['re_education']=4;
-        //         break;
-        //     case "其他":
-        //         $data['re_education']=5;
-        //         break;
-        // }
 
         $data['re_time']=time();
 		// print_r($data);die;
         $company_c_id=User::selOne(session('u_id'));
         $c_id=$company_c_id['u_cid'];
-        $da=Company::sel_Time($c_id);
+        $da=Company::selTime($c_id);
         $date=date('Y-m-d',time());
         $time=strtotime($date);
         $my_time=date('Y-m-d',$da['out_time']);
@@ -150,7 +132,7 @@ class IndustryController extends BaseController
 
     public function postOfficeIssue(){
         $company_c_id=User::selOne(session('u_id'));
-        $data=Company::sel_Time($company_c_id['u_cid']);
+        $data=Company::selTime($company_c_id['u_cid']);
     	return view('index.industry.postOffice_issue',['data'=>$data]);
     }
 
@@ -158,7 +140,7 @@ class IndustryController extends BaseController
     public function postOfficeList(){
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];;
         	$release=Release::selList($c_id);
@@ -171,7 +153,7 @@ class IndustryController extends BaseController
     public function postOfficePreview(Request $request){
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
             $put=$request->input();
@@ -194,7 +176,7 @@ class IndustryController extends BaseController
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
 
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=0;
@@ -236,7 +218,7 @@ class IndustryController extends BaseController
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
 
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=2;
@@ -316,7 +298,7 @@ class IndustryController extends BaseController
         $ed_name=$request->input('rels');
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele=1;
@@ -350,7 +332,7 @@ class IndustryController extends BaseController
         $ed_name=$request->input('rels');
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
         	$remuse_resele=3;
@@ -422,7 +404,7 @@ class IndustryController extends BaseController
     public function positions(){
         $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
             $re_status=0;
@@ -440,7 +422,7 @@ class IndustryController extends BaseController
     public function positionsDown(){
         $company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
-            return Redirect::to('/info');
+            return redirect('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
             $re_status=1;

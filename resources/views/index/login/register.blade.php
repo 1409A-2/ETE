@@ -30,7 +30,7 @@ var youdao_conv_id = 271546;
 <body id="login_bg">
 	<div class="login_wrapper">
 		<div class="login_header">
-        	<a href="h/"><img src="{{env('APP_HOST')}}/style/images/logo_white.png" width="285" height="62" alt="校易聘招聘" /></a>
+        	<a href="{{env('APP_HOST')}}"><img src="{{env('APP_HOST')}}/style/images/logo_white.png" width="285" height="62" alt="校易聘招聘" /></a>
             <div id="cloud_s"><img src="{{env('APP_HOST')}}/style/images/cloud_s.png" width="81" height="52" alt="cloud" /></div>
             <div id="cloud_m"><img src="{{env('APP_HOST')}}/style/images/cloud_m.png" width="136" height="95"  alt="cloud" /></div>
         </div> 
@@ -40,7 +40,7 @@ var youdao_conv_id = 271546;
         		<ul class="register_radio clearfix">
 		            <li>
 		            	找工作
-		              	<input type="radio" value="0" name="type" /> 
+		              	<input type="radio" value="0" name="type" />
 		            </li>
 		            <li>
             	        招人
@@ -50,6 +50,10 @@ var youdao_conv_id = 271546;
             	<input type="text" id="email" name="email" tabindex="1" placeholder="请输入常用邮箱地址" />
                 <span class="error" style="display:none;" id="beError"></span>
                 <input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码" />
+            	<p>
+					鼠标移到眼睛，看一看我的密码
+	            	<img id="eye" src="{{env('APP_HOST')}}/style/images/eye.jpg" style="width:20px" alt="显示密码">
+				</p>
             	{!! Geetest::render() !!}
             	<label class="fl registerJianJu" for="checkbox">
             		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《校易聘用户协议》</a>
@@ -75,6 +79,16 @@ var youdao_conv_id = 271546;
     </div>
     <script type="text/javascript">    
     $110(document).ready(function(e) {
+    	// 显示密码
+    	$(function(){
+			$("#eye").mouseover(function(){
+				$("#password").attr('type','text');
+			});
+			$("#eye").mouseout(function(){
+				$("#password").attr('type','password');
+			});
+		});
+		
     	$110('.register_radio li input').click(function(e){
     		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
     	});
@@ -165,11 +179,12 @@ var youdao_conv_id = 271546;
 									_beError.text('');
 									_beError.append(str);
 			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
-			            			//window.location.href='register.html';
 			            			var str = '验证码验证失效，请刷新重置！';
 									_beError.attr('style','');
 									_beError.text('');
 									_beError.append(str);
+			            		} else {
+			            			window.location.href='register.html';
 			            		}
 			            	}
 			            })

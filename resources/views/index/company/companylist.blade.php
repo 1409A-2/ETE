@@ -52,7 +52,7 @@
                         <a href="companyinfo?c_id={{$val['c_id']}}" target="_blank">
                             <h3 title="{{$val['c_shorthand']}}">{{$val['c_shorthand']}}</h3>
 
-                            <div class="comLogo">
+                            <div class="comLogo" style="height: 190px;width: 190px;">
                                 <img src="{{env("APP_HOST").$val['c_logo']}}" width="190" height="190" alt="CCIC"/>
                                 <ul>
                                     @foreach($val['industry'] as $vv)
@@ -61,9 +61,11 @@
                                 </ul>
                             </div>
                         </a>
-                        <a href="h/jobs/148928.html" target="_blank"> 环境监测工程师</a>
-                        <a href="h/jobs/148919.html" target="_blank"> 电学校准工程师</a>
-                        <a href="h/jobs/148931.html" target="_blank"> 能源管理项目经理</a>
+                        @if($val['release_data'])
+                            @foreach($val['release_data'] as $release)
+                        <a href="postPreview?re_id={{$release['re_id']}}" target="_blank"> {{$release['re_name']}}</a>
+                            @endforeach
+                        @endif
 
                         <ul class="reset ctags">
                             @foreach($val['lable_data'] as $vv)

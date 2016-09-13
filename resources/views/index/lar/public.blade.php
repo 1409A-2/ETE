@@ -151,8 +151,9 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <script type="text/javascript" src="style/js/core.min.js"></script>
 <script type="text/javascript" src="style/js/popup.min.js"></script>
 
-<!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>
- -->
-
+<!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script> -->
+<div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 1243px; top: 250px;">
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+</div>
 </body>
 </html> 

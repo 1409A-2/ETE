@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Model\Carousel;
 use App\Model\Industry;
+use App\Model\Lable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -47,7 +48,7 @@ class IndexController extends BaseController
                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
             }
         }
-        for($i=1;$i<=$num;$i++){
+ for($i=1;$i<=$num;$i++){
             $temp='';
             foreach ($two_industry[$i] as $v){
                 $v=$v['i_name'];
@@ -60,25 +61,22 @@ class IndexController extends BaseController
                 }
             }
         }
-
         $hot=Release::hotRelease();
         $userKey = $Request->input('user');
         if (!empty($userKey)) {
             $checkRest = User::checkOnly($userKey);
             if (!empty($checkRest)) {
-                Session::put('u_id', $checkRest['u_id']);
-                Session::put('u_email', $checkRest['u_email']);
+                session()->put('u_id', $checkRest['u_id']);
+                session()->put('u_email', $checkRest['u_email']);
             } else {
-                Session::put('u_id','0');
-                Session::put('u_email', $userKey);
                 return view('index.index.WeixinRegister',['userKey'=>$userKey]);
             }
         }
 
-		$carousel = Carousel::selCarousel();
+        $carousel = Carousel::selCarousel();
 
         return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
-        
+
     }
 
     //跳转职业详情
@@ -94,9 +92,9 @@ class IndexController extends BaseController
         }
         if(empty($k)){
             if(empty($education)){
-                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->count('re_id');
+                $row = DB::table('release')->join('company','release.c_id','=','company.c_id')->join('company','release.c_id','=','company.c_id')->where('re_name','like','%'.$i_name.'%')->count('re_id');
             }else{
-                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
+                $row = DB::table('release')->join('company','release.c_id','=','company.c_id')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
             }
             $length = 6;
             $pages = ceil($row/$length);
@@ -117,30 +115,36 @@ class IndexController extends BaseController
             $str=json_encode($list);
             $data=json_decode($str,true);
             $k='';
+            foreach($data as $key => $v) {
+                $data[$key]['label'] = Lable::selLable($v['c_id']);
+            }
+
         }
         else{
             if(strpos($k, '-')){
-                    $ks=explode('-',$k);
+                $ks=explode('-',$k);
                 for($i=0;$i<count($ks);$i++){
                     $arr[$i]=substr($ks[$i],0,strpos($ks[$i],'k'));
-                    }
-                } else {
-                    $arr[0]=substr($k,0, strpos($k, 'k'));
-                    if($arr[0]==2){
-                        $arr[1]=$arr[0];
-                        $arr[0]=0;
-                    }else{
-                        $arr[1]=100;
-                    }
                 }
-                
-                    $moery = Release::moery($where,$i_name,$arr[0],$arr[1]);
-                    $row = count($moery);
-                    $length = 6;
-                    $pages = ceil($row/$length);
-                    $page = $request->get('page',1);
-                    $limit = ($page-1)*$length;
-                    $data=Release::moerys($where,$i_name,$arr[0],$arr[1],$limit,$length);
+            } else {
+                $arr[0]=substr($k,0, strpos($k, 'k'));
+                if($arr[0]==2){
+                    $arr[1]=$arr[0];
+                    $arr[0]=0;
+                }else{
+                    $arr[1]=100;
+                }
+            }
+            $moery = Release::moery($where,$i_name,$arr[0],$arr[1]);
+            $row = count($moery);
+            $length = 6;
+            $pages = ceil($row/$length);
+            $page = $request->get('page',1);
+            $limit = ($page-1)*$length;
+            $data=Release::moerys($where,$i_name,$arr[0],$arr[1],$limit,$length);
+            foreach($data as $key => $v) {
+                $data[$key]['label'] = Lable::selLable($v['c_id']);
+            }
         }
         // print_r($data);die;
         return view('index.index.ShowList',[
@@ -149,7 +153,7 @@ class IndexController extends BaseController
             'k'=>$k,'i_name'=>$i_name,
             'pages'=>$pages,
             'page'=>$page
-            ]);
+        ]);
     }
 
     // 第三方登陆整合

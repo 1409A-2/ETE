@@ -16,9 +16,14 @@ class Company extends Model
     protected $hidden = [];
 
     public $timestamps = false;
-    public static function sel($c_id){
+    public static function sel($c_id)
+    {
     	
-    	return Company::where($c_id)->first()->toArray();
+    	$data = Company::where($c_id)->first();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
     }
     /**
      * 添加一条公司的信息
@@ -78,7 +83,7 @@ class Company extends Model
         return self::where('c_id',$c_id)->update($up_data);
     }
 	//查询添加时间
-    public static function sel_Time($c_id){
+    public static function selTime($c_id){
         return self::where('company.c_id','=',$c_id)
         ->first()->toArray();
     }
@@ -107,7 +112,7 @@ class Company extends Model
      */
     public static function selAll($industry,$length,$limit)
     {
-        $data = self::where('c_industry','like','%'.$industry.'%')->select('c_id','c_shorthand','c_logo','c_industry')->limit($length)->offset($limit)->get();
+        $data = self::where('c_industry','like','%'.$industry.'%')->where('c_email','!=','')->where('c_tel','!=','')->where('c_name','!=','')->where('c_shorthand','!=','')->select('c_id','c_shorthand','c_logo','c_industry')->limit($length)->offset($limit)->get();
         if($data){
             return $data->toArray();
         }
@@ -119,7 +124,7 @@ class Company extends Model
      */
     public static function selCount($industry)
     {
-        return self::where('c_industry','like','%'.$industry.'%')->count('c_id');
+        return self::where('c_industry','like','%'.$industry.'%')->where('c_email','!=','')->where('c_tel','!=','')->where('c_name','!=','')->where('c_shorthand','!=','')->where('c_tel','!=','')->count('c_id');
     }
 }
 
