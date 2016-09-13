@@ -108,7 +108,7 @@ class InfoController extends Controller
      */
     public function companyFullname()
     {
-        return view('index.info.bindstep2');
+        return view('index.info.bindStep2');
     }
 
     /**

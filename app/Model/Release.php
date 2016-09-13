@@ -126,7 +126,7 @@ class Release extends Model
         if($where==1){
             return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->join('company','release.c_id','=','company.c_id')->get()->toArray();
         }else{
-            return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+            return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->get()->toArray();
         }
     }
 }
