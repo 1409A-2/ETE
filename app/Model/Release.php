@@ -115,18 +115,46 @@ class Release extends Model
     //主页热门薪资搜索职位
     public static function moery($where,$i_name,$min,$max){
         if($where==1){
-            return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->get()->toArray();      
+            return Release::where('re_name','like','%'.$i_name.'%')
+            ->where(function ($query) use($min,$max) {
+                $query->orWhere('re_salarymax','=',$min)
+                ->orWhere('re_salarymin','=',$max)
+                ->orWhere('re_salarymin','>=',$min)
+                ->where('re_salarymax','<=',$max);
+            })
+            ->get()->toArray();      
         }else{
-        return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->get()->toArray();                  
+            return Release::where($where)->where('re_name','like','%'.$i_name.'%')
+            ->where(function ($query) use($min,$max) {
+                    $query->orWhere('re_salarymax','=',$min)
+                    ->orWhere('re_salarymin','=',$max)
+                    ->orWhere('re_salarymin','>=',$min)
+                    ->where('re_salarymax','<=',$max);
+                })
+            ->get()->toArray();                  
         }
     }
 
     //主页热门薪资搜索职位分页查询
     public static function moerys($where,$i_name,$min,$max,$limit,$length){
         if($where==1){
-            return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->get()->toArray();      
+            return Release::where('re_name','like','%'.$i_name.'%')
+            ->where(function ($query) use($min,$max) {
+                $query->orWhere('re_salarymax','=',$min)
+                ->orWhere('re_salarymin','=',$max)
+                ->orWhere('re_salarymin','>=',$min)
+                ->where('re_salarymax','<=',$max);
+            })
+            ->skip($limit)->take($length)->get()->toArray();      
         }else{
-            return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->get()->toArray();      
+            return Release::where($where)->where('re_name','like','%'.$i_name.'%')
+            ->where(function ($query) use($min,$max) {
+                $query->orWhere('re_salarymax','=',$min)
+                ->orWhere('re_salarymin','=',$max)
+                ->orWhere('re_salarymin','>=',$min)
+                ->where('re_salarymax','<=',$max);
+            })
+            ->skip($limit)->take($length)->get()->toArray();      
         }
     }
 }

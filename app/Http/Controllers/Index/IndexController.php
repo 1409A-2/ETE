@@ -47,6 +47,20 @@ class IndexController extends BaseController
                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
             }
         }
+        for($i=1;$i<=$num;$i++){
+            $temp='';
+            foreach ($two_industry[$i] as $v){
+                $v=$v['i_name'];
+                $temp[]=$v;
+            }
+            $temp=array_unique($temp);//去掉重复的字符串,也就是重复的一维数组
+            foreach ($temp as $k => $v){
+                if($two_industry[$i][$k]['i_name']==$v){
+                    $there_industry[$i][$k]=$two_industry[$i][$k];
+                }
+            }
+        }
+
         $hot=Release::hotRelease();
         $userKey = $Request->input('user');
         if (!empty($userKey)) {
@@ -80,9 +94,9 @@ class IndexController extends BaseController
         }
         if(empty($k)){
             if(empty($education)){
-                $row = DB::table('release')->where('re_name',$i_name)->count('re_id');
+                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->count('re_id');
             }else{
-                $row = DB::table('release')->where('re_name',$i_name)->where($where)->count('re_id');
+                $row = DB::table('release')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
             }
             $length = 6;
             $pages = ceil($row/$length);
@@ -90,12 +104,12 @@ class IndexController extends BaseController
             $limit = ($page-1)*$length;
             if(empty($education)){
                 $list=DB::table('release')
-                    ->where('re_name',$i_name)
+                    ->where('re_name','like','%'.$i_name.'%')
                     ->join('company','release.c_id','=','company.c_id')
                     ->limit($length)->offset($limit)->get();
             }else{
                 $list=DB::table('release')
-                    ->where($where)->where('re_name',$i_name)
+                    ->where($where)->where('re_name','like','%'.$i_name.'%')
                     ->join('company','release.c_id','=','company.c_id')
                     ->limit($length)->offset($limit)->get();
             }
@@ -119,6 +133,7 @@ class IndexController extends BaseController
                         $arr[1]=100;
                     }
                 }
+                
                     $moery = Release::moery($where,$i_name,$arr[0],$arr[1]);
                     $row = count($moery);
                     $length = 6;
