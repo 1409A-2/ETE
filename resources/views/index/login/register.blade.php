@@ -50,6 +50,10 @@ var youdao_conv_id = 271546;
             	<input type="text" id="email" name="email" tabindex="1" placeholder="请输入常用邮箱地址" />
                 <span class="error" style="display:none;" id="beError"></span>
                 <input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码" />
+            	<p>
+					鼠标移到眼睛，看一看我的密码
+	            	<img id="eye" src="{{env('APP_HOST')}}/style/images/eye.jpg" style="width:20px" alt="显示密码">
+				</p>
             	{!! Geetest::render() !!}
             	<label class="fl registerJianJu" for="checkbox">
             		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《校易聘用户协议》</a>
@@ -75,6 +79,16 @@ var youdao_conv_id = 271546;
     </div>
     <script type="text/javascript">    
     $110(document).ready(function(e) {
+    	// 显示密码
+    	$(function(){
+			$("#eye").mouseover(function(){
+				$("#password").attr('type','text');
+			});
+			$("#eye").mouseout(function(){
+				$("#password").attr('type','password');
+			});
+		});
+		
     	$110('.register_radio li input').click(function(e){
     		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
     	});

@@ -56,8 +56,6 @@ class IndexController extends BaseController
                 session()->put('u_id', $checkRest['u_id']);
                 session()->put('u_email', $checkRest['u_email']);
             } else {
-                session()->put('u_id','0');
-                session()->put('u_email', $userKey);
                 return view('index.index.WeixinRegister',['userKey'=>$userKey]);
             }
         }
