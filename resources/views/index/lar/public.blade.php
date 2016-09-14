@@ -51,10 +51,11 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				<li @if($url=='companylist') class="current" @endif ><a href="companylist" >公司</a></li>
 				@if($user_data['u_cid']==0)
 				<li @if($url=='resumeList') class="current" @endif  ><a href="resumeList" rel="nofollow">我的简历</a></li>
+                    <li><a href="{{url('beatIndex')}}">一拍</a></li>
 				@else
 				<li @if($url=='detailed' || $url=='postOffice') class="current" @endif><a href="detailed" rel="nofollow">发布职位</a></li>
 				@endif
-                <li><a href="{{url('beatIndex')}}">一拍</a></li>
+
 			</ul>
 			<?php
 			if(session('u_email')){

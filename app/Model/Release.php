@@ -78,12 +78,12 @@ class Release extends Model
 
     //预览职位
     public static function selPreview($c_id){
-        return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
+        return Release::where($c_id)->orderBy('re_id','desc')->first()->toArray();
     }
 
     //用户查看的职位详情
     public static function selPreviews($c_id){
-        return Release::where($c_id)->first()->toArray();
+        return Release::where($c_id)->orderBy('re_id','desc')->first()->toArray();
     }
 
     //查看各个职位的简历
