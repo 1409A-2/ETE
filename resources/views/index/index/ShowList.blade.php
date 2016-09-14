@@ -12,6 +12,7 @@
             i_name=$('#i_name').val();
             location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
         })
+
         $('.education').click(function(){
              education=$(this).html();
             k=$('#k').val();
@@ -32,11 +33,11 @@
     <dl class="">
         <dt>月薪范围 <em class=""></em></dt>
         <dd style="display: block;">
-        @if($k=='')
-            <div class="moery" style="background:#91cebe;color:white;">全部</div>
-        @else
-            <div class="moery">全部</div>
-        @endif
+            @if($k=='')
+                <div class="moery" style="background:#91cebe;color:white;">全部</div>
+            @else
+                <div class="moery">全部</div>
+            @endif
             <div class="moery">2k以下</div>
             <div class="moery">2k-5k</div>
             <div class="moery">5k-10k</div>
@@ -47,35 +48,35 @@
         </dd>
     </dl>
     <script>
-    $(function(){
-        var k = "{{$k}}";
-        moery = $('.moery');
-        for(var i=0;i<moery.length;i++){
-            if(moery.eq(i).html()==k){
-                moery.eq(i).css('background','#91cebe');
-                moery.eq(i).css('color','white');
+        $(function(){
+            var k = "{{$k}}";
+            moery = $('.moery');
+            for(var i=0;i<moery.length;i++){
+                if(moery.eq(i).html()==k){
+                    moery.eq(i).css('background','#91cebe');
+                    moery.eq(i).css('color','white');
+                }
             }
-        }
 
-        var education = "{{$education}}";
+            var education = "{{$education}}";
 
-        educations = $('.education');
-        for(var i=0;i<educations.length;i++){
-            if(educations.eq(i).html()==education){
-                educations.eq(i).css('background','#91cebe');
-                educations.eq(i).css('color','white');
+            educations = $('.education');
+            for(var i=0;i<educations.length;i++){
+                if(educations.eq(i).html()==education){
+                    educations.eq(i).css('background','#91cebe');
+                    educations.eq(i).css('color','white');
+                }
             }
-        }
-    });
+        });
     </script>
     <dl class="">
         <dt>最低学历 <em class=""></em></dt>
         <dd style="display: block;">
             @if($education=='')
-            <div class="education" style="background:#91cebe;color:white;">不限</div>
-        @else
-            <div class="education">不限</div>
-        @endif
+                <div class="education" style="background:#91cebe;color:white;">不限</div>
+            @else
+                <div class="education">不限</div>
+            @endif
             <div class="education">大专</div>
             <div class="education">本科</div>
             <div class="education">硕士</div>
@@ -118,7 +119,7 @@
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
-            <div class="searchtype_arrow" style="z-index: 1;"></div>
+            <div class="searchtype_arrow"  style="z-index: 1;"></div>
             <input type="text" id="search_input" name = "kd"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
 
             <input type="submit" id="search_button" value="搜索" />
@@ -148,7 +149,15 @@
         <span>亲，“嘀嘀打车”已更名为“滴滴打车”了哦，我们已帮您自动跳转~</span>
         <a href="javascript:;">我知道了</a>
     </div>
-
+    @if(empty($arr))
+        <center>
+            <div class="txt" style="margin-top:200px">
+                <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
+                <br/>
+                <span style="color:#91cebe;font-size:22px">请重新修改搜索条件后再进行搜索</span>
+            </div>
+        </center>
+    @else
     <ul class="hot_pos reset">
      @foreach($arr as $v)
         <li class="odd clearfix">
@@ -216,7 +225,8 @@
             <a title="30" href="jump?i_name={{$i_name}}&page={{$pages}}&k={{$k}}">尾页</a>
         @endif
         
-    </div>  
+    </div>
+    @endif
     <div class="Pagination"></div>
 </div>
 

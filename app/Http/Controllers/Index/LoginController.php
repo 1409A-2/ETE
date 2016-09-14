@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\User;
 use Mail;
-
+header("Access-Control-Allow-Origin:*");
 class LoginController extends BaseController
 {
     use CaptchaGeetest;

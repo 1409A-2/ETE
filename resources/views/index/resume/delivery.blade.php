@@ -15,11 +15,11 @@
                     <h1><em></em>已投递简历状态</h1>
                     <a class="d_refresh" href="javascript:;">刷新</a>
                     </dt>
-                    <dd>;
+                    <dd>
                         <div class="delivery_tabs">
 
                             <ul class="reset" id="tab">
-                                <li class="cur   rent"><a href="javascript:;">全部</a></li>
+                                <li class="current"><a href="javascript:;">全部</a></li>
                                 <li><a href="javascript:;">投递成功</a></li>
                                 <li><a href="javascript:;">被查看</a></li>
                                 <li><a href="javascript:;">通过初筛</a></li>
@@ -59,19 +59,19 @@
                                                     @if($v['remuse_resele']==0)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             被查看
-                                                            <i></i></a>
+                                                            </a>
                                                     @elseif($v['remuse_resele']==1)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             通知面试
-                                                            <i></i></a>
+                                                            </a>
                                                     @elseif($v['remuse_resele']==2)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             初试通过
-                                                            <i></i></a>
+                                                            </a>
                                                     @elseif($v['remuse_resele']==3)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             不合适
-                                                            <i></i></a>
+                                                            </a>
                                                     @endif
 
                                                 @else
@@ -79,19 +79,19 @@
                                                     @if($v['remuse_resele']==0)
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         投递成功
-                                                        <i></i></a>
+                                                       </a>
                                                     @elseif($v['remuse_resele']==1)
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         通知面试
-                                                        <i></i></a>
+                                                       </a>
                                                     @elseif($v['remuse_resele']==2)
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         初试通过
-                                                        <i></i></a>
+                                                        </a>
                                                     @elseif($v['remuse_resele']==3)
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         不合适
-                                                        <i></i></a>
+                                                        </a>
                                                     @endif
 
                                                   @endif
@@ -172,7 +172,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         投递成功
-                                                        <i></i></a>
+                                                        </a>
                                                 </div>
 
                                             </li>
@@ -212,7 +212,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         被查看
-                                                        <i></i></a>
+                                                        </a>
                                                 </div>
                                                 <div class="progress_status	dn">
                                                     <ul class="status_steps">
@@ -286,7 +286,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         初试通过
-                                                        <i></i></a>
+                                                        </a>
 
                                                 </div>
                                                 <div class="progress_status	dn">
@@ -362,7 +362,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         通知面试
-                                                        <i></i></a>
+                                                        </a>
 
                                                 </div>
                                                 <div class="progress_status	dn">
@@ -436,7 +436,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         不合适
-                                                        <i></i></a>
+                                                        </a>
 
                                                 </div>
                                                 <div class="progress_status	dn">
@@ -592,7 +592,7 @@
                                         <div id="showName" class="f14 c7">
                                             <label class="checkbox">
                                                 <input type="checkbox">
-                                                <i></i>
+                                                
                                             </label>
                                             匿名提交
                                         </div>

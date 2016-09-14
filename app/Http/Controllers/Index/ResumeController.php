@@ -228,8 +228,8 @@ class ResumeController extends BaseController
                 break;
         }
         $data['s_major']=$request->input('professional');
-        $data['s_start_time']=strtotime($request->input('startYear'));
-        $data['s_end_time']=strtotime($request->input('endYear'));
+        $data['s_start_time']=strtotime($request->input('startYear').'-01-01');
+        $data['s_end_time']=strtotime($request->input('endYear').'-01-01');
         $res=Resume::sel_One(['u_id'=>session('u_id')]);
         $data['r_id']=$res['r_id'];
 

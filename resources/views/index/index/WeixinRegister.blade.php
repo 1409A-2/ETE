@@ -49,10 +49,10 @@ var youdao_conv_id = 271546;
             	<input type="text" id="email" name="email" tabindex="1" placeholder="请输入常用邮箱地址" />
                 <span class="error" style="display:none;" id="beError"></span>
                 <input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码" />
-				<p>
-					鼠标移到眼睛，看一看我的密码
-	            	<img id="eye" src="{{env('APP_HOST')}}/style/images/eye.jpg" style="width:20px" alt="显示密码">
-				</p>
+                <p>
+                    鼠标移到眼睛，看一看我的密码
+                    <img id="eye" src="{{env('APP_HOST')}}/style/images/eye.jpg" style="width:20px" alt="显示密码">
+                </p>
             	<label class="fl registerJianJu" for="checkbox">
             		<input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《校易聘用户协议》</a>
            		</label>
@@ -72,32 +72,32 @@ var youdao_conv_id = 271546;
         <div class="login_box_btm"></div>
     </div>
     <script type="text/javascript">
-    $(document).ready(function(){
-    	// 页面退出友情提示
-    	$(window).bind('beforeunload',function(){
-        	return '您的登陆信息尚未保存，是否以游客身份进入主页？';
-    	});
+        $(document).ready(function(){
+            // 页面退出友情提示
+            $(window).bind('beforeunload',function(){
+                return '您的登陆信息尚未保存，是否以游客身份进入主页？';
+            });
 
-    	// 显示密码
-    	$(function(){
-			$("#eye").mouseover(function(){
-				$("#password").attr('type','text');
-			});
-			$("#eye").mouseout(function(){
-				$("#password").attr('type','password');
-			});
-		});
-    });
-    $(document).ready(function(e) {
-    	$('.register_radio li input').click(function(e){
-    		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
-    	});
+            // 显示密码
+            $(function(){
+                $("#eye").mouseover(function(){
+                    $("#password").attr('type','text');
+                });
+                $("#eye").mouseout(function(){
+                    $("#password").attr('type','password');
+                });
+            });
+        });
+        $(document).ready(function(e) {
+            $('.register_radio li input').click(function(e){
+                $(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
+            });
 
-    	$('#email').focus(function(){
-    		$('#beError').hide();
-    	});
+            $('#email').focus(function(){
+                $('#beError').hide();
+            });
     	//验证表单
-	    	$("#loginForm").validate({
+	    	 $("#loginForm").validate({
 	    	        rules: {
 	    	        	type:{
 	    	        		required: true
@@ -163,7 +163,7 @@ var youdao_conv_id = 271546;
 										_beError.text('');
 										_beError.append(str);
 							    	} else {
-										$(window).unbind('beforeunload');
+                                        $(window).unbind('beforeunload');
 								    	window.location.href="/?user="+e;
 							    	}
 							    } else {
