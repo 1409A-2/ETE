@@ -123,6 +123,11 @@ Route::group(['middleware' => ['web']], function () {
         //投递简历
         Route::get('remusePro/{id}', 'Index\ResumeController@remusePro');//投递简历添加
         Route::get('remuseShow', 'Index\ResumeController@remuseShow');//投递简历和对应状况查看
+
+        //一拍
+        Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
+        Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍
+        Route::post('beatPro', 'Index\beatController@beatPro');//一拍
     });
     Route::get('companylist','Index\CompanyController@index');// 可选 5
 	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5

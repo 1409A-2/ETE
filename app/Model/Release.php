@@ -66,27 +66,27 @@ class Release extends Model
         ->get()        
         ->toArray();
     }
-    //Ìí¼Ó·¢²¼Ö°Î»
+    //æ·»åŠ å‘å¸ƒèŒä½
     public static function addBacs($data){
         return Release::insertGetId($data);
     }
 
-    //²é¿´·¢²¼Ö°Î»
+    //æŸ¥çœ‹å‘å¸ƒèŒä½
     public static function selList($c_id){
         return Release::where($c_id)->get()->toArray();
     }
 
-    //Ô¤ÀÀÖ°Î»
+    //é¢„è§ˆèŒä½
     public static function selPreview($c_id){
         return Release::orderBy('re_id','desc')->where($c_id)->first()->toArray();
     }
 
-    //ÓÃ»§²é¿´µÄÖ°Î»ÏêÇé
+    //ç”¨æˆ·æŸ¥çœ‹çš„èŒä½è¯¦æƒ…
     public static function selPreviews($c_id){
         return Release::where($c_id)->first()->toArray();
     }
 
-    //²é¿´¸÷¸öÖ°Î»µÄ¼òÀú
+    //æŸ¥çœ‹å„ä¸ªèŒä½çš„ç®€åŽ†
     public static function selPr($c_id,$re_status){
         return Release::Join('company', 'release.c_id', '=', 'company.c_id')
         ->where('release.c_id','=',$c_id)
@@ -95,38 +95,70 @@ class Release extends Model
         ->toArray();
     }
 
-    //ÐÞ¸ÄÖ°Î»ÉÏÏÂÏßÎÊÌâ
+//ä¿®æ”¹èŒä½ä¸Šä¸‹çº¿é—®é¢˜
     public static function upReStatus($data){
          return Release::where('re_id','=',$data['re_id'])->update($data);
     }
 
-    //É¾³ýÖ°Î»
+    //åˆ é™¤èŒä½
     public static function delRelease($data){
        return Release::where('re_id','=',$data['re_id'])->delete(); 
     }
 
-    //Ö÷Ò³ÈÈÃÅËÑË÷Ö°Î»
+    //ä¸»é¡µçƒ­é—¨æœç´¢èŒä½
     public static function hotRelease(){
         $re=Release::get()->toArray();
         return $re[rand(0,count($re)-1)];
     }
-    
 
-    //Ö÷Ò³ÈÈÃÅÐ½×ÊËÑË÷Ö°Î»
+
+    //ä¸»é¡µçƒ­é—¨è–ªèµ„æœç´¢èŒä½
     public static function moery($where,$i_name,$min,$max){
         if($where==1){
-            return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+            return Release::join('company','release.c_id','=','company.c_id')
+                ->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')
+                ->where(function ($query) use($min,$max) {
+                    $query->orWhere('re_salarymax','=',$min)
+                        ->orWhere('re_salarymin','=',$max)
+                        ->orWhere('re_salarymin','>=',$min)
+                        ->where('re_salarymax','<=',$max);
+                })
+                ->get()->toArray();
         }else{
-        return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+            return Release::join('company','release.c_id','=','company.c_id')
+                ->where('re_status','=','0')->where($where)->where('re_name','like','%'.$i_name.'%')
+                ->where(function ($query) use($min,$max) {
+                    $query->orWhere('re_salarymax','=',$min)
+                        ->orWhere('re_salarymin','=',$max)
+                        ->orWhere('re_salarymin','>=',$min)
+                        ->where('re_salarymax','<=',$max);
+                })
+                ->get()->toArray();
         }
     }
 
-    //Ö÷Ò³ÈÈÃÅÐ½×ÊËÑË÷Ö°Î»·ÖÒ³²éÑ¯
+    //ä¸»é¡µçƒ­é—¨è–ªèµ„æœç´¢èŒä½åˆ†é¡µæŸ¥è¯¢
     public static function moerys($where,$i_name,$min,$max,$limit,$length){
         if($where==1){
-            return Release::where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->join('company','release.c_id','=','company.c_id')->get()->toArray();
+            return Release::join('company','release.c_id','=','company.c_id')
+                ->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')
+                ->where(function ($query) use($min,$max) {
+                    $query->orWhere('re_salarymax','=',$min)
+                        ->orWhere('re_salarymin','=',$max)
+                        ->orWhere('re_salarymin','>=',$min)
+                        ->where('re_salarymax','<=',$max);
+                })
+                ->skip($limit)->take($length)->get()->toArray();
         }else{
-            return Release::where($where)->where('re_name','=',$i_name)->where('re_salarymin','>=',$min)->where('re_salarymax','<=',$max)->skip($limit)->take($length)->get()->toArray();
+            return Release::join('company','release.c_id','=','company.c_id')
+                ->where('re_status','=','0')->where($where)->where('re_name','like','%'.$i_name.'%')
+                ->where(function ($query) use($min,$max) {
+                    $query->orWhere('re_salarymax','=',$min)
+                        ->orWhere('re_salarymin','=',$max)
+                        ->orWhere('re_salarymin','>=',$min)
+                        ->where('re_salarymax','<=',$max);
+                })
+                ->skip($limit)->take($length)->get()->toArray();
         }
     }
 }

@@ -74,8 +74,8 @@ class IndexController extends BaseController
         }
 
         $carousel = Carousel::selCarousel();
-
- 		return view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
+ 		//return view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
     }
 
     //跳转职业详情
@@ -91,9 +91,9 @@ class IndexController extends BaseController
         }
         if(empty($k)){
             if(empty($education)){
-                $row = DB::table('release')->where('re_name',$i_name)->count('re_id');
+                $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->count('re_id');
             }else{
-                $row = DB::table('release')->where('re_name',$i_name)->where($where)->count('re_id');
+                $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
             }
             $length = 6;
             $pages = ceil($row/$length);
@@ -106,7 +106,7 @@ class IndexController extends BaseController
                     ->limit($length)->offset($limit)->get();
             }else{
                 $list=DB::table('release')
-                    ->where($where)->where('re_name',$i_name)
+                    ->where('re_status','=','0')->where($where)->where('re_name','like','%'.$i_name.'%')
                     ->join('company','release.c_id','=','company.c_id')
                     ->limit($length)->offset($limit)->get();
             }

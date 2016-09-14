@@ -6,12 +6,19 @@
         $('.moery').click(function(){
             k=$(this).html();
             education=$('#education').val();
+            if(k=='全部'){
+                k='';
+            }
             i_name=$('#i_name').val();
             location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
         })
+
         $('.education').click(function(){
              education=$(this).html();
             k=$('#k').val();
+            if(education=='不限'){
+                education='';
+            }
             i_name=$('#i_name').val();
             location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
         })
@@ -26,6 +33,11 @@
     <dl class="">
         <dt>月薪范围 <em class=""></em></dt>
         <dd style="display: block;">
+            @if($k=='')
+                <div class="moery" style="background:#91cebe;color:white;">全部</div>
+            @else
+                <div class="moery">全部</div>
+            @endif
             <div class="moery">2k以下</div>
             <div class="moery">2k-5k</div>
             <div class="moery">5k-10k</div>
@@ -35,10 +47,36 @@
             <div class="moery">50k以上</div>
         </dd>
     </dl>
+    <script>
+        $(function(){
+            var k = "{{$k}}";
+            moery = $('.moery');
+            for(var i=0;i<moery.length;i++){
+                if(moery.eq(i).html()==k){
+                    moery.eq(i).css('background','#91cebe');
+                    moery.eq(i).css('color','white');
+                }
+            }
+
+            var education = "{{$education}}";
+
+            educations = $('.education');
+            for(var i=0;i<educations.length;i++){
+                if(educations.eq(i).html()==education){
+                    educations.eq(i).css('background','#91cebe');
+                    educations.eq(i).css('color','white');
+                }
+            }
+        });
+    </script>
     <dl class="">
         <dt>最低学历 <em class=""></em></dt>
         <dd style="display: block;">
-            <div class="education">不限</div>
+            @if($education=='')
+                <div class="education" style="background:#91cebe;color:white;">不限</div>
+            @else
+                <div class="education">不限</div>
+            @endif
             <div class="education">大专</div>
             <div class="education">本科</div>
             <div class="education">硕士</div>
@@ -81,7 +119,7 @@
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
-            <div class="searchtype_arrow"></div>
+            <div class="searchtype_arrow"  style="z-index: 1;"></div>
             <input type="text" id="search_input" name = "kd"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
 
             <input type="submit" id="search_button" value="搜索" />
@@ -143,7 +181,7 @@
                     <a href="{{url('remusePro')}}/{{$v['re_id']}}" target="_blank">投个简历</a>
 
                 </div>
-                <div class="mb10"><a href="companylist?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_shorthand']}}</a></div>
+                <div class="mb10"><a href="companyinfo?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_shorthand']}}</a></div>
                 <span><em class="c7">领域： </em>{{$v['c_industry']}}</span>
                 <span><em class="c7">创始人：</em> {{$v['c_ceo']}}</span>
                 <br />
