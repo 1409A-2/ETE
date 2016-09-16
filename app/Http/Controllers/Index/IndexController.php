@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Carousel;
+use App\Model\FriendShip;
 use App\Model\Industry;
 use App\Model\Lable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -74,7 +75,9 @@ class IndexController extends BaseController
         }
 
         $carousel = Carousel::selCarousel();
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
+        $friend = FriendShip::selFriendLink();
+
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
  		//return view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
     }
 
