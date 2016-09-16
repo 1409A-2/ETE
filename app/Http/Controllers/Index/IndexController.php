@@ -76,6 +76,7 @@ class IndexController extends BaseController
 
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
+        unset($there_industry);
 
         return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
     }
