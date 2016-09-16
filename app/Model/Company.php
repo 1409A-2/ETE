@@ -126,5 +126,26 @@ class Company extends Model
     {
         return self::where('c_industry','like','%'.$industry.'%')->where('c_email','!=','')->where('c_tel','!=','')->where('c_name','!=','')->where('c_shorthand','!=','')->where('c_tel','!=','')->count('c_id');
     }
+
+    /**
+     * 查询搜索的总条数
+     */
+    public static function searchCount($c_name,$industry){
+        return self::where('c_name','like','%'.$c_name.'%')
+        ->where('c_industry','like','%'.$industry.'%')->count('c_id');
+    }
+
+    /**
+     * 查询搜索公司数据
+     */
+    public static function searchAll($c_name,$industry,$length,$limit){
+        $data = self::where('c_name','like','%'.$c_name.'%')
+        ->where('c_industry','like','%'.$industry.'%')
+        ->select('c_id','c_shorthand','c_logo','c_industry')->limit($length)->offset($limit)->get();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
+    }
 }
 
