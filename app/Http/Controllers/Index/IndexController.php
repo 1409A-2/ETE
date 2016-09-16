@@ -75,15 +75,15 @@ class IndexController extends BaseController
 
         $carousel = Carousel::selCarousel();
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
 
     }
 
     //跳转职业详情
     public function jump(Request $request){
 
-
-        if(0){
+        $type_selected=$request->input('type_selected');
+        if($type_selected=="公司"){
             $c_name=$request->get('c_name','');
             $industry=$request->get('industry','');
             $rows = Company::searchCount($c_name,$industry);

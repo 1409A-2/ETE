@@ -1,9 +1,42 @@
 @extends('index.lar.public')
 @section('title', '公司列表-校易聘')
 @section('content')<!-- end #header -->
-<div id="container">
+<div id="container" style="padding-left:320px">
+
     <div class="clearfix">
         <div class="content_l">
+        <div id="search_box">
+            <ul id="searchType">
+                <li data-searchtype="1" class="type_selected">职位</li>
+                <li data-searchtype="4">公司</li>
+            </ul>
+            <div class="searchtype_arrow" style="z-index: 1;"></div>
+            <input type="text" id="search_input" style="height: 20px;" name="i_name"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="hidden" value="" id="education">
+            <input type="hidden" value="" id="k">
+            <input type="submit" id="search_button" value="搜索" />
+           
+        </div>
+        <style>
+            .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}
+            .ui-autocomplete-category{font-size:16px;color:#999;width:50px;position: absolute;z-index:11; right: 0px;/*top: 6px; */text-align:center;border-top: 1px dashed #e5e5e5;padding:5px 0;}
+            .ui-menu-item{ *width:439px;vertical-align: middle;position: relative;margin: 0px;margin-right: 50px !important;background:#fff;border-right: 1px dashed #ededed;}
+            .ui-menu-item a{display:block;overflow:hidden;}
+        </style>
+        <dl class="hotSearch">
+           <!--  <dt>热门搜索：</dt>
+            <dd><a href="list.htmlJava?labelWords=label&city=">Java</a></dd>
+            <dd><a href="list.htmlPHP?labelWords=label&city=">PHP</a></dd>
+            <dd><a href="list.htmlAndroid?labelWords=label&city=">Android</a></dd>
+            <dd><a href="list.htmliOS?labelWords=label&city=">iOS</a></dd>
+            <dd><a href="list.html前端?labelWords=label&city=">前端</a></dd>
+            <dd><a href="list.html产品经理?labelWords=label&city=">产品经理</a></dd>
+            <dd><a href="list.htmlUI?labelWords=label&city=">UI</a></dd>
+            <dd><a href="list.html运营?labelWords=label&city=">运营</a></dd>
+            <dd><a href="list.htmlBD?labelWords=label&city=">BD</a></dd>
+            <dd><a href="list.html?gx=实习&city=">实习</a></dd> -->
+        </dl>
+        <script type="text/javascript" src="style/js/search.min.js"></script>
             <form method="get" action="jump">
                 <input type="hidden" id="city" name="city" value="全国"/>
                 <input type="hidden" id="fs" name="fs" value=""/>
@@ -108,35 +141,7 @@
                 @endif
             </div>
         </div>
-        <div class="content_r">
-            <div class="subscribe_side">
-                <a href="subscribe.html" target="_blank">
-                    <div class="subpos"><span>订阅</span> 职位</div>
-                    <div class="c7">拉勾网会根据你的筛选条件，定期将符合你要求的职位信息发给你
-                    </div>
-                    <div class="count">已有
-                        <em>3</em>
-                        <em>4</em>
-                        <em>2</em>
-                        <em>1</em>
-                        <em>0</em>
-                        人订阅
-                    </div>
-                    <i>我也要订阅职位</i>
-                </a>
-            </div>
-            <div class="greybg qrcode mt20">
-                <img src="style/images/companylist_qr.png" width="242" height="242" alt="拉勾微信公众号二维码"/>
-                <span class="c7">扫描拉勾二维码，微信轻松搜工作</span>
-            </div>
-            <!-- <a href="h/speed/speed3.html" target="_blank" class="adSpeed"></a> -->
-            <a href="#" target="" class="eventAd">
-                <img src="style/images/subject280.jpg" width="280" height="135"/>
-            </a>
-            <a href="#" target="" class="eventAd">
-                <img src="style/images/rising280.png" width="280" height="135"/>
-            </a>
-        </div>
+      
     </div>
 
     <input type="hidden" value="" name="userid" id="userid"/>

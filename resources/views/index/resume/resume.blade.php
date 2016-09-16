@@ -8,7 +8,8 @@
             <div class="content_l">
                 <div class="fl" id="resume_name">
                     <div class="nameShow fl">
-                        <h1 title="@if($res['r_name']){{$res['r_name']}} @else 匿名 @endif 的简历">@if($res['r_name']){{$res['r_name']}} @else 匿名 @endif 的简历</h1>
+                        <h1 title="@if($res['r_name']){{$res['r_name']}} @else 匿名 @endif 的简历">@if($res['r_name']){{$res['r_name']}} @else
+                                匿名 @endif 的简历</h1>
                         | <a href="{{url('previewList')}}/{{$res['r_id']}}">预览</a>
                     </div>
 
@@ -16,10 +17,10 @@
                 <!--end #resume_name-->
                 <div class="fr c5" id="lastChangedTime">最后一次更新：<span>
                 @if($res['r_time'])
-                    {{date('Y-m-d H:i:s',$res['r_time'])}}
-                @else
-                    暂无
-                @endif
+                            {{date('Y-m-d H:i:s',$res['r_time'])}}
+                        @else
+                            暂无
+                        @endif
                 
                 </span></div>
                 <!--end #lastChangedTime-->
@@ -37,22 +38,23 @@
                     <span class="c_edit"></span>
 
                     <div class="basicShow">
-            			            			<span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif|  @if($res['r_sex']==0)男@else女@endif
+            			            			<span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
+                                                    |  @if($res['r_sex']==0)男@else女@endif
                                                     |
                                                     @if($res['r_education'])
-                                                    @if($res['r_education']==1)大专@elseif($res['r_education']==2)
-                                                        本科@elseif($res['r_education']==3)
-                                                        硕士@elseif($res['r_education']==4)
-                                                        博士@elseif($res['r_education']==5)其他@endif
-                                                        @else
+                                                        @if($res['r_education']==1)大专@elseif($res['r_education']==2)
+                                                            本科@elseif($res['r_education']==3)
+                                                            硕士@elseif($res['r_education']==4)
+                                                            博士@elseif($res['r_education']==5)其他@endif
+                                                    @else
                                                         学历
-                                                        @endif
+                                                    @endif
                                                     <br>
                                                     @if($res['r_photo'])
-                                                    {{$res['r_photo']}}
+                                                        {{$res['r_photo']}}
                                                     @else
                                                         手机号
-                                                        @endif
+                                                    @endif
                                                     @if($res['r_email'])
                                                         {{$res['r_email']}}
                                                     @else
@@ -69,7 +71,8 @@
                             @if($res['r_img'])
                                 <img width="120" height="120" alt="jason" src="{{env('APP_HOST')}}/{{$res['r_img']}}">
                             @else
-                                <img width="120" height="120" alt="jason" src="{{env('APP_HOST')}}/style/images/default_headpic.png">
+                                <img width="120" height="120" alt="jason"
+                                     src="{{env('APP_HOST')}}/style/images/default_headpic.png">
                             @endif
 
                         </div>
@@ -211,9 +214,10 @@
                         <span class="c_edit"></span>
 
                         <div class="expectShow">
-                            <span>  北京，全职，月薪{{$expected['re_salarymin']}}k-{{$expected['re_salarymax']}}
-                                k，{{$expected['ex_name']}}</span>
-                            <br/> <a href="{{url('expectedDel')}}/{{$expected['r_id']}}" style="font-size: 25px;">删除</a>
+                            <span>  北京，全职，月薪{{$expected['re_salarymin']}}k-{{$expected['re_salarymax']}}k，职位(<font
+                                        color="red">{{$expected['ex_name']}}</font>)</span>
+                            <br/> <a href="{{url('expectedDel')}}/{{$expected['r_id']}}"
+                                     style="font-size: 18px;color:red">删除</a>
                         </div><!--end .expectShow-->
 
                         <div class="expectEdit dn">
@@ -223,14 +227,16 @@
 
                                     <tr>
                                         <td>
-                                            <input type="text" placeholder="期望职位，如：产品经理" value="" name="expectPosition"
+                                            <input type="text" name="expectPosition"
                                                    id="expectPosition">
                                         </td>
                                         <td>
-                                            <input type="text" placeholder="最低月薪" value="" id="salaryMin"
+                                            <input type="text" placeholder="最低月薪" value="{{$expected['re_salarymin']}}"
+                                                   id="salaryMin"
                                                    name="salaryMin">
                                             <span>k</span>
-                                            <input type="text" placeholder="最高月薪" value="" id="salaryMax"
+                                            <input type="text" placeholder="最高月薪" value="{{$expected['re_salarymax']}}"
+                                                   id="salaryMax"
                                                    name="salaryMax">
                                             <span>k</span>
                                         </td>
@@ -286,7 +292,7 @@
                     <input type="hidden" id="expectJobVal" value="">
                     <input type="hidden" id="expectCityVal" value="">
                     <input type="hidden" id="typeVal" value="">
-                    <input type="hidden" id="expectPositionVal" value="">
+                    <input type="hidden" id="expectPositionVal" value="{{$expected['ex_name']}}">
                     <input type="hidden" id="expectSalaryVal" value="">
                 </div>
 
@@ -308,7 +314,8 @@
                                         结束时间: <b> {{date('Y-m',$v['p_end_time']) }}</b>
                                         描述: <b>  {{$v['p_desc']}}</b>
                                     </li>
-                                    <a href="{{url('porjectDel')}}/{{$v['p_id']}}">删除</a>
+                                    <a style="color: red;font-size: 18px;" href="{{url('porjectDel')}}/{{$v['p_id']}}">删除</a>
+                                    <hr/>
                                 </ul>
                             @endforeach
                         </div><!--end .projectShow-->
@@ -414,7 +421,6 @@
                                             <textarea class="projectDescription s_textarea" name="projectDescription"
                                                       placeholder="项目描述"></textarea>
 
-                                            <div class="word_count">你还可以输入 <span>500</span> 字</div>
                                         </td>
                                     </tr>
 
@@ -533,8 +539,6 @@
                                         <td colspan="3">
                                             <textarea class="projectDescription s_textarea" name="projectDescription"
                                                       placeholder="项目描述"></textarea>
-
-                                            <div class="word_count">你还可以输入 <span>500</span> 字</div>
                                         </td>
                                     </tr>
 
@@ -562,7 +566,7 @@
 
                 <div class="profile_box" id="educationalBackground">
                     <h2>教育背景<span>（投递简历时必填）</span></h2>
-                    <span class="c_edit dn"></span>
+
 
                     @if($school)
 
@@ -587,17 +591,20 @@
                                         </td>
                                         <td>
                                             <input type="text" placeholder="学校名称" value="{{$school['s_name']}}"
-                                                   name="schoolName" class="schoolName">
+                                                   name="schoolName">
                                         </td>
                                         <td valign="top">
                                             <span class="redstar">*</span>
                                         </td>
                                         <td>
-                                            <input type="hidden" class="degree" value="" name="degree">
-                                            <input type="button" value="学历"
+                                            <input type="hidden" class="degree" value="
+
+                                                    " name="degree">
+
+                                            <input type="button" value=" "
                                                    class="profile_select_287 profile_select_normal select_degree">
 
-                                            <div class="box_degree boxUpDown boxUpDown_287 dn" style="display: none;">
+                                            <div class="box_degree boxUpDown boxUpDown_287" style="display: none;">
                                                 <ul>
                                                     @foreach($education as $v)
                                                         @if($school['ed_id']==$v['ed_id'])
@@ -615,23 +622,28 @@
                                         </td>
                                         <td>
                                             <input type="text" placeholder="专业名称" value="{{$school['s_major']}}"
-                                                   name="professionalName" class="professionalName">
+                                                   name="professionalName">
                                         </td>
                                         <td valign="top">
                                             <span class="redstar">*</span>
                                         </td>
                                         <td>
                                             <div class="fl">
-                                                <input type="hidden" class="schoolYearStart" value=""
+                                                <input type="hidden" class="schoolYearStart"
+                                                       value="{{date('Y',$school['s_start_time'])}}"
                                                        name="schoolYearStart">
-                                                <input type="button" value="开始年份"
+                                                <input type="button" value="{{date('Y',$school['s_start_time'])}}"
+
                                                        class="profile_select_139 profile_select_normal select_schoolYearStart">
 
                                                 <div class="box_schoolYearStart boxUpDown boxUpDown_139 dn"
                                                      style="display: none;">
                                                     <ul>
                                                         @for($i=2016;$i>1969;$i--)
-                                                            <li>{{$i}}</li>
+                                                            <li>
+
+                                                                {{$i}}
+                                                            </li>
                                                         @endfor
                                                     </ul>
                                                 </div>
@@ -639,7 +651,8 @@
                                             <div class="fl">
                                                 <input type="hidden" class="schoolYearEnd" value=""
                                                        name="schoolYearEnd">
-                                                <input type="button" value="结束年份"
+                                                <input type="button" value=" {{date('Y',$school['s_end_time'])}}
+                                                                    "
                                                        class="profile_select_139 profile_select_normal select_schoolYearEnd">
 
                                                 <div class="box_schoolYearEnd  boxUpDown boxUpDown_139 dn"
@@ -688,8 +701,8 @@
                                         </td>
                                         <td>
                                             <input type="hidden" class="degree" value="" name="degree">
-                                            <input type="button" value="学历"
-                                                   class="profile_select_287 profile_select_normal select_degree">
+                                            <input type="button" value="学历" class="profile_select_287 profile_select_normal select_degree">
+
 
                                             <div class="box_degree boxUpDown boxUpDown_287 dn" style="display: none;">
                                                 <ul>
@@ -786,7 +799,6 @@
                                             <textarea class="selfDescription s_textarea" name="selfDescription"
                                                       placeholder=""></textarea>
 
-                                            <div class="word_count">你还可以输入 <span>500</span> 字</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -810,7 +822,6 @@
                                             <textarea class="selfDescription s_textarea" name="selfDescription"
                                                       placeholder=""></textarea>
 
-                                            <div class="word_count">你还可以输入 <span>500</span> 字</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -839,47 +850,48 @@
 
                     @if($works)
                         <span class="c_add"></span>
+                        <div class="workShow">
                         @foreach($works as $v)
-                            <div class="workShow">
+
 
                                 <ul class="slist clearfix">
                                     地址—— <b>{{$v['w_url']}}</b> <br/>
                                     描述—— <b>{{$v['w_desc']}}</b>
                                 </ul>
-                                <a style="font-size: 25px;" href="{{url('worksDel')}}/{{$v['w_id']}}">删除</a>
-                            </div>
+                                <a style="font-size: 18px; color:red;" href="{{url('worksDel')}}/{{$v['w_id']}}">删除</a>
+                                <hr/>
                         @endforeach
-
-                            <div class="workEdit dn">
-                                <form class="workForm">
-                                    <input type="hidden" value="{{csrf_token()}}" id="token_work"/>
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="text" placeholder="请输入作品链接" name="workLink" class="workLink">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
+                        </div>
+                        <div class="workEdit dn">
+                            <form class="workForm">
+                                <input type="hidden" value="{{csrf_token()}}" id="token_work"/>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="请输入作品链接" name="workLink" class="workLink">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
                                                       name="workDescription" placeholder="请输入说明文字"></textarea>
 
-                                                <div class="word_count">你还可以输入 <span>100</span> 字</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="submit" value="保 存" class="btn_profile_save">
-                                                <a class="btn_profile_cancel" href="javascript:;">取 消</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <input type="hidden" class="showId" value="">
-                                </form>
-                                <!--end .workForm-->
-                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" class="showId" value="">
+                            </form>
+                            <!--end .workForm-->
+                        </div>
                     @else
                         <div class="workEdit dn">
                             <form class="workForm">
@@ -896,7 +908,6 @@
                                             <textarea maxlength="100" class="workDescription s_textarea"
                                                       name="workDescription" placeholder="请输入说明文字"></textarea>
 
-                                            <div class="word_count">你还可以输入 <span>100</span> 字</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -925,10 +936,10 @@
             <div class="content_r">
                 <div class="mycenterR" id="myInfo">
                     <h2>我的信息</h2>
-                   <!--  <a target="_blank" href="collections.html">我收藏的职位</a>
-                    <br>
-                    <a target="_blank" href="subscribe.html">我订阅的职位</a>
-                    <br/> -->
+                    <!--  <a target="_blank" href="collections.html">我收藏的职位</a>
+                     <br>
+                     <a target="_blank" href="subscribe.html">我订阅的职位</a>
+                     <br/> -->
                     <a target="_blank" href="{{url('remuseShow')}}">已投递的简历</a>
                 </div>
                 <!--end #myInfo-->
@@ -968,12 +979,11 @@
 
                 <div class="mycenterR" id="myShare">
                     <h2>当前每日投递量：10个</h2>
-                    <a target="_blank" href="#">邀请好友，提升投递量</a>
+                    <a target="_blank" href="h/share/invite.html">邀请好友，提升投递量</a>
                 </div>
                 <!--end #myShare-->
 
 
-               
             </div>
             <!--end .content_r-->
         </div>
@@ -1126,31 +1136,7 @@
                 <a class="close" href="javascript:;"></a>
             </div>
         </div>
-        <script>
-            // $(function () {
-            //     $.ajax({
-            //         url: ctx + "/mycenter/showQRCode",
-            //         type: "GET",
-            //         async: false
-            //     }).done(function (data) {
-            //         if (data.success) {
-            //             $('#qr_cloud_resume img').attr("src", data.content);
-            //         }
-            //     });
-            //     var sessionId = "resumeQR" + 314873;
-            //     if (!$.cookie(sessionId)) {
-            //         $.cookie(sessionId, 0, {expires: 1});
-            //     }
-            //     if ($.cookie(sessionId) &amp;&amp; $.cookie(sessionId) != 5) {
-            //         $('#qr_cloud_resume').removeClass('dn');
-            //     }
-            //     $('#qr_cloud_resume .close').click(function () {
-            //         $('#qr_cloud_resume').fadeOut(200);
-            //         resumeQR = parseInt($.cookie(sessionId)) + 1;
-            //         $.cookie(sessionId, resumeQR, {expires: 1});
-            //     });
-            // });
-        </script>
+
         <div class="clear"></div>
         <input type="hidden" value="{{csrf_token()}}" id="resubmitToken">
         <a rel="nofollow" title="回到顶部" id="backtop" style="display: none;"></a>
@@ -1201,7 +1187,7 @@
             };
         }
     };
-    // CallCenter.init(url);
+    //    CallCenter.init(url);
 </script>
 
 <div id="cboxOverlay" style="display: none;"></div>
@@ -1235,7 +1221,7 @@
 </div></body></html>
 <script>
     function img_check(a, b, c) {
-        var myimg=$('#myimg');
+        var myimg = $('#myimg');
         var a = $("#" + c);
         var _token = $("#resubmitToken").val();
         this.AllowExt = ".jpg,.gif,.jpeg,.png,.pjpeg", this.FileExt = a.val().substr(a.val().lastIndexOf(".")).toLowerCase(), 0 != this.AllowExt && -1 == this.AllowExt.indexOf(this.FileExt) ? errorTips("只支持jpg、gif、png、jpeg格式，请重新上传", "上传头像") : ($("#" + c + "_error").text("").hide(), $.ajaxFileUpload({

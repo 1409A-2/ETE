@@ -46,11 +46,11 @@
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow" style="z-index: 1;"></div>
-            <input type="text" id="search_input" style="height: 37px;"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="text" id="search_input" style="height: 37px;" name="i_name"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
             <input type="hidden" value="" id="education">
             <input type="hidden" value="" id="k">
-
-            <input type="button" id="search_button" value="搜索" />
+            <input type="submit" id="search_button" value="搜索" />
+           
         </div>
       
       
