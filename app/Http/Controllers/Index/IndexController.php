@@ -48,7 +48,7 @@ class IndexController extends BaseController
                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
             }
         }
-        for($i=1;$i<=$num;$i++){
+ for($i=1;$i<=$num;$i++){
             $temp='';
             foreach ($two_industry[$i] as $v){
                 $v=$v['i_name'];
@@ -74,85 +74,115 @@ class IndexController extends BaseController
         }
 
         $carousel = Carousel::selCarousel();
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
- 		//return view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
+
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot]);
+
     }
 
     //跳转职业详情
     public function jump(Request $request){
-        $i_name = $request->input('i_name');
-        @$k = $request->input('k');
-        @$education = $request->input('education');
-        if(empty($education)){
-            $where=1;
-            $education ='';
+
+        $type_selected=$request->input('type_selected');
+        if($type_selected=="公司"){
+            $c_name=$request->get('c_name','');
+            $industry=$request->get('industry','');
+            $rows = Company::searchCount($c_name,$industry);
+            $length = 6;
+            $page = $request->get('page',1);
+            $pages = ceil($rows/$length);
+            $limit = ($page-1)*$length;
+            $company_data = Company::searchAll($c_name,$industry,$length,$limit);
+
+            foreach($company_data as $key=>$val){
+                $company_data[$key]['industry'] = explode(',',$val['c_industry']);
+                unset($company_data[$key]['c_industry']);
+                $company_data[$key]['lable_data'] = Lable::selLable($val['c_id']);
+                // $company_data[$key]['release_data'] = Release::selList(['c_id'=>$val['c_id']]);
+                    $company_data[$key]['release_data']='';
+            }
+            // print_r($company_data);die;
+            return view('index.index.companylist',[
+                'company_data'=>$company_data,
+                'page' => $page,
+                'pages' =>$pages,
+                'industry' => $industry,
+                'c_name' =>$c_name
+            ]);
         }else{
-            $where=array('re_education'=>$education);
-        }
-        if(empty($k)){
+            $i_name = $request->input('i_name');
+            @$k = $request->input('k');
+            @$education = $request->input('education');
             if(empty($education)){
-                $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->count('re_id');
+                $where=1;
+                $education ='';
             }else{
-                $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
+                $where=array('re_education'=>$education);
             }
-            $length = 6;
-            $pages = ceil($row/$length);
-            $page = $request->get('page',1);
-            $limit = ($page-1)*$length;
-            if(empty($education)){
-                $list=DB::table('release')
-                    ->where('re_name',$i_name)
-                    ->join('company','release.c_id','=','company.c_id')
-                    ->limit($length)->offset($limit)->get();
-            }else{
-                $list=DB::table('release')
-                    ->where('re_status','=','0')->where($where)->where('re_name','like','%'.$i_name.'%')
-                    ->join('company','release.c_id','=','company.c_id')
-                    ->limit($length)->offset($limit)->get();
-            }
-
-            $str=json_encode($list);
-            $data=json_decode($str,true);
-            $k='';
-            foreach($data as $key => $v) {
-                $data[$key]['label'] = Lable::selLable($v['c_id']);
-            }
-
-        }
-        else{
-            if(strpos($k, '-')){
-                $ks=explode('-',$k);
-                for($i=0;$i<count($ks);$i++){
-                    $arr[$i]=substr($ks[$i],0,strpos($ks[$i],'k'));
-                }
-            } else {
-                $arr[0]=substr($k,0, strpos($k, 'k'));
-                if($arr[0]==2){
-                    $arr[1]=$arr[0];
-                    $arr[0]=0;
+            if(empty($k)){
+                if(empty($education)){
+                    $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->count('re_id');
                 }else{
-                    $arr[1]=100;
+                    $row = DB::table('release')->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')->where($where)->count('re_id');
+                }
+                $length = 6;
+                $pages = ceil($row/$length);
+                $page = $request->get('page',1);
+                $limit = ($page-1)*$length;
+                if(empty($education)){
+                    $list=DB::table('release')
+                        ->where('re_status','=','0')->where('re_name','like','%'.$i_name.'%')
+                        ->join('company','release.c_id','=','company.c_id')
+                        ->limit($length)->offset($limit)->get();
+                }else{
+                    $list=DB::table('release')
+                        ->where('re_status','=','0')->where($where)->where('re_name','like','%'.$i_name.'%')
+                        ->join('company','release.c_id','=','company.c_id')
+                        ->limit($length)->offset($limit)->get();
+                }
+
+                $str=json_encode($list);
+                $data=json_decode($str,true);
+                $k='';
+                foreach($data as $key => $v) {
+                    $data[$key]['label'] = Lable::selLable($v['c_id']);
                 }
             }
-            $moery = Release::moery($where,$i_name,$arr[0],$arr[1]);
-            $row = count($moery);
-            $length = 6;
-            $pages = ceil($row/$length);
-            $page = $request->get('page',1);
-            $limit = ($page-1)*$length;
-            $data=Release::moerys($where,$i_name,$arr[0],$arr[1],$limit,$length);
-            foreach($data as $key => $v) {
-                $data[$key]['label'] = Lable::selLable($v['c_id']);
+            else{
+                if(strpos($k, '-')){
+                    $ks=explode('-',$k);
+                    for($i=0;$i<count($ks);$i++){
+                        $arr[$i]=substr($ks[$i],0,strpos($ks[$i],'k'));
+                    }
+                } else {
+                    $arr[0]=substr($k,0, strpos($k, 'k'));
+                    if($arr[0]==2){
+                        $arr[1]=$arr[0];
+                        $arr[0]=0;
+                    }else{
+                        $arr[1]=100;
+                    }
+                }
+                $moery = Release::moery($where,$i_name,$arr[0],$arr[1]);
+                $row = count($moery);
+                $length = 6;
+                $pages = ceil($row/$length);
+                $page = $request->get('page',1);
+                $limit = ($page-1)*$length;
+                $data=Release::moerys($where,$i_name,$arr[0],$arr[1],$limit,$length);
+                foreach($data as $key => $v) {
+                    $data[$key]['label'] = Lable::selLable($v['c_id']);
+                }
             }
+            // print_r($data);die;
+            return view('index.index.ShowList',[
+                'arr'=>$data,
+                'education'=>$education,
+                'k'=>$k,'i_name'=>$i_name,
+                'pages'=>$pages,
+                'page'=>$page
+            ]);
         }
-        // print_r($data);die;
-        return view('index.index.ShowList',[
-            'arr'=>$data,
-            'education'=>$education,
-            'k'=>$k,'i_name'=>$i_name,
-            'pages'=>$pages,
-            'page'=>$page
-        ]);
+        
     }
 
     // 第三方登陆整合
