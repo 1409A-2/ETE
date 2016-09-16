@@ -49,7 +49,7 @@ class IndexController extends BaseController
                 $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
             }
         }
- for($i=1;$i<=$num;$i++){
+        for($i=1;$i<=$num;$i++){
             $temp='';
             foreach ($two_industry[$i] as $v){
                 $v=$v['i_name'];
@@ -76,9 +76,9 @@ class IndexController extends BaseController
 
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
-        unset($there_industry);
+        unset($two_industry);
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
     }
 
     //跳转职业详情
@@ -100,7 +100,7 @@ class IndexController extends BaseController
                 unset($company_data[$key]['c_industry']);
                 $company_data[$key]['lable_data'] = Lable::selLable($val['c_id']);
                 // $company_data[$key]['release_data'] = Release::selList(['c_id'=>$val['c_id']]);
-                    $company_data[$key]['release_data']='';
+                $company_data[$key]['release_data']='';
             }
             // print_r($company_data);die;
             return view('index.index.companylist',[
@@ -184,7 +184,7 @@ class IndexController extends BaseController
                 'page'=>$page
             ]);
         }
-        
+
     }
 
     // 第三方登陆整合
