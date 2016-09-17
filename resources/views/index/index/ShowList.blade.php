@@ -2,31 +2,29 @@
 @section('title','前端开发全国-职位搜索-拉勾网-最专业的互联网招聘平台')
 @section('content')
 <script>
-    $(function(){
-        $('.moery').click(function(){
-            k=$(this).html();
-            education=$('#education').val();
-            if(k=='全部'){
-                k='';
-            }
-            i_name=$('#i_name').val();
-            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
-        })
+    // $(function(){
+    //     $('.moery').click(function(){
+    //         k=$(this).html();
+    //         education=$('#education').val();
+    //         if(k=='全部'){
+    //             k='';
+    //         }
+    //         i_name=$('#i_name').val();
+    //         location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+    //     })
 
-        $('.education').click(function(){
-             education=$(this).html();
-            k=$('#k').val();
-            if(education=='不限'){
-                education='';
-            }
-            i_name=$('#i_name').val();
-            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
-        })
-    })
+    //     $('.education').click(function(){
+    //          education=$(this).html();
+    //         k=$('#k').val();
+    //         if(education=='不限'){
+    //             education='';
+    //         }
+    //         i_name=$('#i_name').val();
+    //         location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+    //     })
+    // })
 </script>
-<input type="hidden" value="{{$i_name}}" id="i_name">
-<input type="hidden" value="{{$education}}" id="education">
-<input type="hidden" value="{{$k}}" id="k">
+
     <div id="container">
         <div id="sidebar">
 <div id="options" class="greybg">
@@ -115,14 +113,19 @@
 </div>
 <div class="content" style="height: 1200px;">
     <div id="search_box">
+        <form action="jump" method="get">
             <ul id="searchType">
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow"  style="z-index: 1;"></div>
-            <input type="text" id="search_input" name = "kd"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
-
+            <input type="text" id="search_input" name = "i_name"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="hidden" id="type_selected" value="1" name="type_selected">
             <input type="submit" id="search_button" value="搜索" />
+            <input type="hidden" value="{{$i_name}}" id="i_name">
+            <input type="hidden" value="{{$education}}" id="education">
+            <input type="hidden" value="{{$k}}" id="k">
+        </form>
     </div>
     <style>
         .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}

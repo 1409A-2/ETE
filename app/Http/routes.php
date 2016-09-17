@@ -28,6 +28,7 @@ Route::group(['middleware' => ['web']], function () {
     //前台
     Route::get('/','Index\IndexController@index');
 	Route::get('postPreview','Index\IndexController@postPreview');//查看职位详情
+	Route::get('feedBack','Index\IndexController@feedBack');//前台用户反馈信息
 	// 微信用户整合
 	Route::get('registerWeixin.html','Index\IndexController@registerWeixin');
 	Route::post('registerProne','Index\IndexController@registerProne');
@@ -161,6 +162,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('dellink','Admin\MaterialController@delLink');
         Route::post('upLinkPro','Admin\MaterialController@upLinkPro');
         Route::post('batchDelLink','Admin\MaterialController@delLinkSome');
+
+		//用户反馈信息模块
+		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
+		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
 
 	});
 });

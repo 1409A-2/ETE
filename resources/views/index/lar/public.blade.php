@@ -9,7 +9,48 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <!DOCTYPE HTML>
 <html>
 <head>
-	<script id="allmobilize" charset="utf-8" src="style/js/allmobilize.min.js"></script>
+<style>
+#product-fk {
+    bottom: 80px;
+    cursor: pointer;
+    height: 50px;
+    left: 50%;
+    margin-left: 588px;
+    position: fixed;
+    width: 50px;
+    z-index: 21;
+}
+#feedback-icon {
+    position: relative;
+}
+
+#feedback-icon {
+    position: relative;
+}
+	.fb-icon {
+    background: rgba(0, 0, 0, 0) url("{{env('APP_HOST')}}/style/images/img/feedback_06c5af9.png") no-repeat scroll 0 0;
+    height: 30px;
+    margin: 0 auto;
+    width: 30px;
+
+	}
+	.feedback {
+		
+		width:300px;
+		height:400px;
+		border-width:0;
+		border-radius: 3px;
+		transition: height 0.5s ease-out;
+		z-index:99999;
+		display: none;
+		bottom:0;
+		right:0;
+		position:fixed;
+		background: #fff;
+	}
+
+</style>
+	<script id="allmobilize" charset="utf-8" src="{{env('APP_HOST')}}/style/js/allmobilize.min.js"></script>
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<link rel="alternate" media="handheld"  />
 	<!-- end 云适配 -->
@@ -21,6 +62,8 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 		console.log(1);
 	</script>
 	<link rel="Shortcut Icon" href="h/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/feekback.css"/>
+	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/feekback2.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/external.min.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/popup.css"/>
@@ -139,8 +182,54 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<div class="clear"></div>
 	<input type="hidden" id="resubmitToken" value="" />
 	<a id="backtop" title="回到顶部" rel="nofollow"></a>
+		
 </div><!-- end #container -->
 </div><!-- end #body -->
+<div id="product-fk" style="bottom: 80px;">
+<div id="feedback-icon">
+<div class="fb-icon"></div>
+<span style="font-size: 12px;">我要反馈</span>
+</div>
+</div>
+<script>
+	$(function(){
+		$("#feedback-icon").click(function(){
+			$(".feedback").css("display",'block')
+		})
+		$(".btns").click(function(){
+			$(".feedback").css("display",'none')
+		})
+		$('#feedbackSubmit').click(function(){
+			feedback=$('.feedback-text').val();
+			tel=$('.tel-text').val();
+			email=$('.email-text').val();
+			if(tel==''||email==''||feedback==''){
+				alert("不能为空");return 
+			}
+			var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+			if(reg.test(tel)==false){
+				alert("手机号错误");return
+			}
+			var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
+			if(email_str.test(email)==false){
+				alert("邮箱格式错误");return
+			}
+			_feekback=$(".feedback");
+			$.ajax({
+				url:'feedBack',
+				type:'get',
+				data:{f_feedback:feedback,f_tel:tel,f_email:email},
+				success:function(msg){
+					if(msg){
+						_feekback.css("display",'none');
+					}else{
+						alert('反馈失败');
+					}
+				}
+			})
+		})
+	})
+</script>
 <div id="footer">
 	<div class="wrapper">
 		<a href="#" target="_blank" rel="nofollow">联系我们</a>
@@ -158,5 +247,20 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 1243px; top: 250px;">
     <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 </div>
+
+	<div class="feedback" style="display: none;">
+	<div class="header">
+		<span class="connect" style="display: none;">连接中...</span>
+		<span class="btns">
+		<i class="icon-base minimize"></i>
+		<i class="icon-base close"></i>
+		</span>
+	</div>
+		<p class="title">请留言，我们将尽快联系您！</p>
+		<textarea id="feedbackText" class="feedback-text" placeholder="尊敬的用户您好，请把您遇到的问题以及您的联系方式告诉我们，我们会尽快与您联系。" name="feedbackText"></textarea>
+		<input id="telText" class="tel-text" type="text" placeholder="联系电话" name="tel">
+		<input id="emailText" class="email-text" type="text" placeholder="邮箱" name="email">
+		<input class="submit-feedback" id="feedbackSubmit" type="button" value="留言" name="submit">
+	</div>
 </body>
 </html> 

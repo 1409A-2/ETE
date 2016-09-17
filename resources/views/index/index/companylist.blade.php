@@ -6,16 +6,18 @@
     <div class="clearfix">
         <div class="content_l">
         <div id="search_box">
+        <form action="jump" method="get">
             <ul id="searchType">
-                <li data-searchtype="1" class="type_selected">职位</li>
-                <li data-searchtype="4">公司</li>
+            <li class="type_selected" data-searchtype="4" style="display: list-item;">公司</li>
+            <li class="" data-searchtype="1" style="display: none;">职位</li>
             </ul>
             <div class="searchtype_arrow" style="z-index: 1;"></div>
-            <input type="text" id="search_input" style="height: 20px;" name="i_name"   tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="hidden" id="type_selected" value="4" name="type_selected">
+            <input id="search_input" type="text" placeholder="请输入公司名称，如：拉勾" value="{{$c_name}}" tabindex="1" name="i_name" style="height: 20px;">
             <input type="hidden" value="" id="education">
             <input type="hidden" value="" id="k">
             <input type="submit" id="search_button" value="搜索" />
-           
+        </form>
         </div>
         <style>
             .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}
@@ -157,7 +159,7 @@
                 if(industry=='全部'){
                     return
                 }
-                location.href='jump?industry='+industry+"&c_name="+c_name;
+                location.href='jump?industry='+industry+"&c_name="+c_name+"&type_selected="+4;
             });
 
             var industry=$('#industry dd a');
