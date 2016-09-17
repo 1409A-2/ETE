@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\FriendSite;
 use App\Model\Lable;
 use App\Model\Product;
 use Illuminate\Http\Request;
@@ -81,12 +82,13 @@ class CompanyController extends Controller
             $company_data[$key]['lable_data'] = Lable::selLable($val['c_id']);
             $company_data[$key]['release_data'] = Release::selList(['c_id'=>$val['c_id']]);
         }
-
+        $company_site = FriendSite::selJump(2);
         return view('index.company.companylist',[
             'company_data'=>$company_data,
             'page' => $page,
             'pages' =>$pages,
-            'industry' => $industry
+            'industry' => $industry,
+            'company_site' => $company_site
         ]);
     }
 

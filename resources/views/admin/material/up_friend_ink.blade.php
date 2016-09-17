@@ -38,7 +38,7 @@
                     $("select[name='title']").val("{{$link_sort}}");
                 </script>
 
-                <div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+                <div class="form-button"><button class="button bg-main" type="submit">修改</button></div>
             </form>
         </div>
     </div>

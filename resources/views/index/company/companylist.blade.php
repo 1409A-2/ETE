@@ -131,12 +131,11 @@
                 <span class="c7">扫描拉勾二维码，微信轻松搜工作</span>
             </div>
             <!-- <a href="h/speed/speed3.html" target="_blank" class="adSpeed"></a> -->
-            <a href="#" target="" class="eventAd">
-                <img src="style/images/subject280.jpg" width="280" height="135"/>
+            @foreach($company_site as $value)
+            <a href="{{$value['site_url']}}" target="" class="eventAd">
+                <img src="{{env('APP_HOST').$value['site_img']}}" width="280" height="135" alt="{{$value['site_name']}}"/>
             </a>
-            <a href="#" target="" class="eventAd">
-                <img src="style/images/rising280.png" width="280" height="135"/>
-            </a>
+            @endforeach
         </div>
     </div>
 

@@ -162,6 +162,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('dellink','Admin\MaterialController@delLink');
         Route::post('upLinkPro','Admin\MaterialController@upLinkPro');
         Route::post('batchDelLink','Admin\MaterialController@delLinkSome');
+		//推荐网站
+		Route::get('adminRecommend','Admin\MaterialController@recommendSite');
+		Route::post('adminRecommendPro','Admin\MaterialController@recommendSitePro');
+		Route::get('upsite','Admin\MaterialController@upSite');
+		Route::post('upSitePro','Admin\MaterialController@upSitePro');
+		Route::get('delsite','Admin\MaterialController@delSite');
+		Route::post('batchDelSite','Admin\MaterialController@batchDelSite');
 
 		//用户反馈信息模块
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表

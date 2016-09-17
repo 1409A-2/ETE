@@ -4,7 +4,7 @@
 
     <div class="tab">
         <div class="tab-head">
-            <strong>系统设置</strong>
+            <strong>友情连接</strong>
             <ul class="tab-nav">
                 <li class="active"><a href="#tab-email">友情链接</a></li>
                 @if(count($carousel)<15)
@@ -75,7 +75,7 @@
                                 <td>{{$val['link_url']}}</td>
                                 <td>{{$val['link_sort']}}</td>
                                 <td>
-                                    <a class="button border-blue button-little" href="uplink?car_id={{$val['link_id']}}">修改</a>
+                                    <a class="button border-blue button-little" href="uplink?car_id={{$val['link_id']}}">详情</a>
                                     <a class="button border-yellow button-little" href="dellink?car_id={{$val['link_id']}}" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除
                                     </a>
                                 </td>

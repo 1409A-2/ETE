@@ -88,6 +88,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                     <ul>
                         <li><a href="adminMaterial">轮播管理</a></li>
                         <li><a href="adminFriendShip">友情链接</a></li>
+                        <li><a href="adminRecommend">推荐网站</a></li>
                     </ul>
                 </li>
             </ul>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Model\Carousel;
 use App\Model\FriendShip;
+use App\Model\FriendSite;
 use App\Model\Industry;
 use App\Model\Lable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -177,14 +178,16 @@ class IndexController extends BaseController
                     $data[$key]['label'] = Lable::selLable($v['c_id']);
                 }
             }
-            // print_r($data);die;
+            $jump_site = FriendSite::selJump(5);
+
             return view('index.index.ShowList',[
                 'arr'=>$data,
                 'education'=>$education,
                 'k'=>$k,'i_name'=>$i_name,
                 'pages'=>$pages,
                 'page'=>$page,
-                'type_selected'=>$type_selected
+                'type_selected'=>$type_selected,
+				'jump_site'=>$jump_site
             ]);
         }
 
