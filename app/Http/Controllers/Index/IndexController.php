@@ -186,7 +186,7 @@ class IndexController extends BaseController
                 'k'=>$k,'i_name'=>$i_name,
                 'pages'=>$pages,
                 'page'=>$page,
-                'type_selected'=>$type_selected
+                'type_selected'=>$type_selected,
 				'jump_site'=>$jump_site
             ]);
         }
