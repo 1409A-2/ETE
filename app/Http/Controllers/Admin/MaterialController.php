@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Carousel;
-use App\Model\FriendShip;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -55,7 +54,6 @@ class MaterialController extends Controller
     {
         $car_id = $request->get('car_id');
         $carousel = Carousel::selOnly($car_id);
-
         return view('admin.material.up_carousel',['carousel'=>$carousel]);
     }
 
@@ -130,99 +128,4 @@ class MaterialController extends Controller
             return redirect('adminMaterial');
         }
     }
-
-    /**
-     * 友情链接
-     */
-    public function friendShipLink()
-    {
-        $carousel = FriendShip::selFriendLink();
-
-        return view('admin.material.friend_ship_link',['carousel'=>$carousel]);
-    }
-
-    /**
-     * 添加友情链接
-     */
-    public function friendLinkPro(Request $request)
-    {
-        $insert_data['link_name'] = $request->input('sitename');
-        $insert_data['link_url'] = $request->input('siteurl');
-        $insert_data['link_sort'] = $request->input('title');
-        if(FriendShip::insertData($insert_data)){
-
-            return redirect('adminFriendShip');
-        }else{
-
-            return redirect('adminFriendShip');
-        }
-    }
-
-    /**
-     * 修改链接
-     */
-    public function upLink(Request $request)
-    {
-        $link_id = $request->get('car_id');
-        $links = FriendShip::selOnly($link_id);
-
-        return view('admin.material.up_friend_ink',$links);
-    }
-
-    /**
-     * 修改连接
-     */
-    public function upLinkPro(Request $request)
-    {
-        $data = $request->except('_token');
-        $up_data['link_id'] = $data['link_id'];
-        $up_data['link_name'] = $data['sitename'];
-        $up_data['link_url'] = $data['siteurl'];
-        $up_data['link_sort'] = $data['title'];
-        unset($data);
-        if(FriendShip::linkUp($up_data)){
-
-            return redirect('adminFriendShip');
-        }else{
-
-            return redirect('adminFriendShip');
-        }
-    }
-
-    /**
-     * 删除链接
-     */
-    public function delLink(Request $request)
-    {
-        $car_id = $request->get('car_id');
-
-        if(FriendShip::delOne($car_id)){
-
-            return redirect('adminFriendShip');
-        }else{
-
-            return redirect('adminFriendShip');
-        }
-    }
-
-    /**
-     * 批量删除
-     */
-    public function delLinkSome(Request $request)
-    {
-        $car_id = $request->input('id');
-
-        if($car_id==''){
-            echo "<script>alert('你没有要删除任何数据!');location.href='adminMaterial'</script>";die;
-        }
-
-        if(FriendShip::delSome($car_id)){
-
-            return redirect('adminFriendShip');
-        }else{
-
-            return redirect('adminFriendShip');
-        }
-    }
-
 }

@@ -63,7 +63,7 @@ class Carousel extends Model
      */
     public static function delOne($car_id)
     {
-        return self::where('link_id',$car_id)->delete();
+        return self::where('car_id',$car_id)->delete();
     }
 
     /**

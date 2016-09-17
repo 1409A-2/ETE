@@ -113,7 +113,7 @@
 </a>
 -->
 </div>
-<div class="content" style="height: 1200px;">
+<div class="content">
     <div id="search_box">
             <ul id="searchType">
                 <li data-searchtype="1" class="type_selected">职位</li>

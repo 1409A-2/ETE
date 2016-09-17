@@ -6,7 +6,7 @@
 <link rel="alternate" media="handheld"  />
 <!-- end 云适配 -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>登录-校易聘</title>
+<title>找回密码-确认账号-校易聘</title>
 <!-- <div class="web_root"  style="display:none">h</div> -->
 <script type="text/javascript">
 var ctx = "h";
@@ -33,33 +33,23 @@ var youdao_conv_id = 271546;
             <div id="cloud_m"><img src="{{env('APP_HOST')}}/style/images/cloud_m.png" width="136" height="95"  alt="cloud" /></div>
         </div>
         
-    	<input type="hidden" id="resubmitToken" value="<?php echo csrf_token(); ?>" />		
-		 <div class="login_box">
+    	<input type="hidden" id="resubmitToken" value="<?php echo csrf_token(); ?>" />	
+		 <div class="login_box" style="overflow:auto;">
+		 	<h3>找回密码-确认账号</h3>
         	<form id="loginForm" >
-				<input type="text" id="email" name="email" value="" tabindex="1" placeholder="请输入登录邮箱地址" />
-			  	<input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码" />
+				<input type="text" id="email" name="email" value="" tabindex="1" placeholder="请填写您需要找回的帐号邮箱" />
 				<span class="error" style="display:none;" id="beError"></span>
 				{!! Geetest::render() !!}
-			    <label class="fl" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin" /> 记住我</label>
-			    <a href="/pwdBack.html" class="fr" target="_blank">忘记密码？</a>
-			    <!-- reset.html -->
-				<!--<input type="submit" id="submitLogin" value="登 &nbsp; &nbsp; 录" />-->
-				<button style="color:#fff;"  class="submitLogin" title="登 &nbsp; &nbsp; 录"/>登 &nbsp; &nbsp; 录</button>
-
-			    
-			    <input type="hidden" id="callback" name="callback" value=""/>
-                <input type="hidden" id="authType" name="authType" value=""/>
-                <input type="hidden" id="signature" name="signature" value=""/>
-                <input type="hidden" id="timestamp" name="timestamp" value=""/>
+			    <label class="fl" for="remember">
+			    	</br>
+			    </label>
+			    <button style="color:#fff;"  class="submitLogin" title="下 &nbsp; 一 &nbsp; 步"/>
+			    	下 &nbsp; 一 &nbsp; 步
+			    </button>
 			</form>
 			<div class="login_right">
-				<div>还没有校易聘帐号？</div>
-				<a  href="register.html"  class="registor_now">立即注册</a>
-			    <div class="login_others">使用以下帐号直接登录:</div>
 			    <div id="hzy_fast_login">
-					<a href="http://www.chinayang.top/test/demo/index.php">
-					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
-					</a>
+	                <img src="{{env('APP_HOST')}}/style/images/zp.jpg" width="120px" alt="招聘图片">
                 </div>
             </div>
         </div>
@@ -70,24 +60,16 @@ var youdao_conv_id = 271546;
 $(function(){
 	//验证表单
 	 	$110("#loginForm").validate({
-	 		/* onkeyup: false,
-	    	focusCleanup:true, */
-	        rules: {
+	 		rules: {
 	    	   	email: {
 	    	    	required: true,
 	    	    	email: true
-	    	   	},
-	    	   	password: {
-	    	    	required: true
 	    	   	}
 	    	},
 	    	messages: {
 	    	   	email: {
 	    	    	required: "请输入登录邮箱地址",
 	    	    	email: "请输入有效的邮箱地址，如：vivi@lagou.com"
-	    	   	},
-	    	   	password: {
-	    	    	required: "请输入密码"
 	    	   	}
 	    	},
 	    	submitHandler:function(form) {
@@ -97,28 +79,25 @@ $(function(){
 	      			$('#remember').val(null);
 	      		}
 	    		var email = $('#email').val();
-	    		var password = $('#password').val();
-	    		var remember = $('#remember').val();
 	    		var resubmitToken = $('#resubmitToken').val();
 	    		var geetest_challenge = $('.geetest_challenge').val();
 	    		var geetest_validate = $('.geetest_validate').val();
 	    		var geetest_seccode = $('.geetest_seccode').val();
 
-	    		// $(form).find(":submit").attr("disabled", true);
-	            $.ajax({
+	    		$.ajax({
 	            	type:'POST',
-	            	data:{u_email:email,u_pwd:password,status:remember, _token:resubmitToken , geetest_seccode:geetest_seccode , geetest_validate:geetest_validate, geetest_challenge:geetest_challenge},
-	            	url:'loginPro',
+	            	data:{u_email:email, _token:resubmitToken , geetest_seccode:geetest_seccode , geetest_validate:geetest_validate, geetest_challenge:geetest_challenge},
+	            	url:'backPro',
 	            	success:function(e){
 	            		if (e==0) {
-	            			window.location.href='/info';
-	            		} else if (e==1) {
-	            			window.location.href='/info';
+	            			window.location.href='/twoPwd.html';
 	            		} else if (e==2) {
-	            			var str = '用户名或者密码错误！';
+	            			var str = '该邮箱不存在！';
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
+	            		} else {
+	            			window.location.href='/pwdBack.html';
 	            		}
 	            	},
 	            	error:function(e){
@@ -127,13 +106,11 @@ $(function(){
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
-	            		} else if (e.responseText =='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
+	            		} else {
 	            			var str = '验证码验证失效，请刷新重置！';
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
-	            		} else {
-	            			window.location.href='login.html';
 	            		}
 	            	}
 	            })
@@ -143,5 +120,3 @@ $(function(){
 </script>
 </body>
 </html>
-
-<!-- https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1bebcfb505f84419&redirect_uri=http%3a%2f%2fwww.chinayang.top%2ftest%2fsixGroup%2fweb%2findex.php%3fr%3dusers%2fufo&response_type=code&scope=snsapi_userinfo&state=351fq&connect_redirect=1#wechat_redirect -->
