@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Model\Carousel;
 use App\Model\FriendShip;
+use App\Model\FriendSite;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -222,6 +223,122 @@ class MaterialController extends Controller
         }else{
 
             return redirect('adminFriendShip');
+        }
+    }
+
+    /**
+     * 推荐网站
+     */
+    public function recommendSite()
+    {
+        $carousel = FriendSite::selSite();
+
+        return view('admin.material.friend_site',['carousel'=>$carousel]);
+    }
+
+    /**
+     * 添加推荐
+     */
+    public function recommendSitePro(Request $request)
+    {
+        $data['site_name'] = $request->input('sitename');
+        $data['site_url'] = $request->input('siteurl');
+        $destination_path = "/style/upload/site";
+        $file_name = time().rand(10000,99999)."_site.jpg";
+        if ($request->hasFile('logo')) {
+            if ($request->file('logo')->isValid()){
+                $request->file('logo')->move($_SERVER['DOCUMENT_ROOT'].$destination_path, $file_name);
+            }
+        }
+        $data['site_img'] = $destination_path.'/'.$file_name;
+        if(FriendSite::siteAdd($data)){
+
+            return redirect('adminRecommend');
+        }else{
+
+            return redirect('adminRecommend');
+        }
+    }
+
+    /**
+     * 修改网站
+     */
+    public function upSite(Request $request)
+    {
+        $car_id = $request->get('car_id');
+        $carousel = FriendSite::selOnly($car_id);
+
+        return view('admin.material.up_site',['carousel'=>$carousel]);
+    }
+
+    /**
+     * 修改
+     */
+    public function upSitePro(Request $request)
+    {
+        $data['site_name'] = $request->input('sitename');
+        $data['site_url'] = $request->input('siteurl');
+        $data['site_id'] = $request->input('site_id');
+        $carousel = FriendSite::selOnly($data['site_id']);
+        $destination_path = "/style/upload/site";
+        $file_name = time().rand(10000,99999)."_site.jpg";
+        if ($request->hasFile('logo')) {
+            if ($request->file('logo')->isValid()){
+                @unlink($_SERVER['DOCUMENT_ROOT'].$carousel['site_img']);
+                $request->file('logo')->move($_SERVER['DOCUMENT_ROOT'].$destination_path, $file_name);
+                $data['site_img'] = $destination_path.'/'.$file_name;
+            }
+        }
+
+        if(FriendSite::carouselUp($data)){
+
+            return redirect('adminRecommend');
+        }else{
+
+            return redirect('adminRecommend');
+        }
+    }
+
+    /**
+     * 删除网站
+     */
+    public function delSite(Request $request)
+    {
+        $car_id = $request->get('car_id');
+        $carousel = FriendSite::selOnly($car_id);
+        @unlink($_SERVER['DOCUMENT_ROOT'].$carousel['site_img']);
+        if(FriendSite::delOne($car_id)){
+
+            return redirect('adminRecommend');
+        }else{
+
+            return redirect('adminRecommend');
+        }
+    }
+
+    /**
+     * 批量删除轮播
+     */
+    public function batchDelSite(Request $request)
+    {
+        $car_id = $request->input('id');
+
+        if($car_id==''){
+            echo "<script>alert('你没有要删除任何数据!');location.href='adminMaterial'</script>";die;
+        }
+
+        $carousel = FriendSite::selSome($car_id);
+
+        foreach($carousel as $val){
+            @unlink($_SERVER['DOCUMENT_ROOT'].$val['site_img']);
+        }
+
+        if(FriendSite::delSome($car_id)){
+
+            return redirect('adminRecommend');
+        }else{
+
+            return redirect('adminRecommend');
         }
     }
 

@@ -93,21 +93,11 @@
 </div>
 
 <!-- 对外合作广告位  -->
-<a href="http://www.w3cplus.com/" target="_blank" class="partnersAd">
-    <img src="style/images/w3cplus.png" width="230" height="80" alt="w3cplus" />
+            @foreach($jump_site as $value)
+<a href="{{$value['site_url']}}" target="_blank" class="partnersAd">
+    <img src="{{env('APP_HOST').$value['site_img']}}" width="230" height="80" alt="{{$value['site_name']}}" />
 </a>
-<a href="" target="_blank" class="partnersAd">
-    <img src="style/images/jquery_school.jpg" width="230" height="80" alt="JQ学校" />
-</a>
-<a href="http://linux.cn/" target="_blank" class="partnersAd">
-    <img src="style/images/linuxcn.png" width="230" height="80" alt="Linux中文社区"  />
-</a>
-<a href="http://zt.zhubajie.com/zt/makesite? utm_source=lagou.com&utm_medium=referral&utm_campaign=BD-yl" target="_blank" class="partnersAd">
-    <img src="style/images/zhubajie.jpg" width="230" height="80" alt="猪八戒" />
-</a>
-<a href="http://www.imooc.com" target="_blank" class="partnersAd">
-    <img src="style/images/muke.jpg" width="230" height="80" alt="幕课网" />
-</a>
+            @endforeach
 <!-- 	            <a href="http://www.osforce.cn/" target="_blank" class="partnersAd">
 <img src="style/images/osf-lg.jpg" width="230" height="80" alt="开源力量"  />
 </a>
