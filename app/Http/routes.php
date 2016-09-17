@@ -47,7 +47,12 @@ Route::group(['middleware' => ['web']], function () {
 	Route::controller('login','Index\LoginController');
 	Route::get('email','Index\LoginController@email');
 	Route::get('loginOut.html','Index\LoginController@loginOut');
-
+	Route::get('pwdBack.html','Index\LoginController@pwdBack');
+	Route::post('backPro','Index\LoginController@backPro');
+	Route::get('newPwd.html','Index\LoginController@newPwd');
+	Route::post('newPro','Index\LoginController@newPro');
+	Route::get('twoPwd.html','Index\LoginController@twoPwd');
+	Route::get('resPwd.html','Index\LoginController@resPwd');
 
 
 	//用户个人信息
@@ -150,6 +155,13 @@ Route::group(['middleware' => ['web']], function () {
 		Route::get('adminUser','Admin\UserController@adminUser');//用户的主菜单页面
 		Route::get('adminUserList','Admin\UserController@adminUserList');//用户列表 后台管理用户  adminUserList
 		Route::get('adminUserDel','Admin\UserController@adminUserDel');//删除用户  adminUserDel
+		//友情连接
+		Route::get('adminFriendShip','Admin\MaterialController@friendShipLink');
+        Route::post('friendLinkPro','Admin\MaterialController@friendLinkPro');
+        Route::get('uplink','Admin\MaterialController@upLink');
+        Route::get('dellink','Admin\MaterialController@delLink');
+        Route::post('upLinkPro','Admin\MaterialController@upLinkPro');
+        Route::post('batchDelLink','Admin\MaterialController@delLinkSome');
 
 		//用户反馈信息模块
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表

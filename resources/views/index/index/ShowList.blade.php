@@ -111,7 +111,7 @@
 </a>
 -->
 </div>
-<div class="content">
+<div class="content" style="height: 1200px;">
     <div id="search_box">
         <form action="jump" method="get">
             <ul id="searchType">

@@ -53,13 +53,13 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 
 <body>
 <div class="lefter">
-    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" width="20" height="20" alt="后台管理系统" /></a></div>
+    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" height="40" alt="后台管理系统" /></a></div>
 </div>
 <div class="righter nav-navicon" id="admin-nav">
     <div class="mainer">
         <div class="admin-navbar">
             <span class="float-right">
-            	<a class="button button-little bg-main" href="#" target="_blank">前台首页</a>
+            	<a class="button button-little bg-main" href="{{env('APP_HOST')}}" target="_blank">前台首页</a>
                 <a class="button button-little bg-yellow" href="login.html">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
@@ -85,7 +85,10 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                 </li>
                 <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
                 <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
-                    <ul><li><a href="adminMaterial">轮播管理</a></li></ul>
+                    <ul>
+                        <li><a href="adminMaterial">轮播管理</a></li>
+                        <li><a href="adminFriendShip">友情链接</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
