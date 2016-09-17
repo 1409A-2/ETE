@@ -136,4 +136,32 @@ class User extends Model
         }
         return $user_data;
     }
+    
+    /**
+     * 检测用户是否存在
+     * @param $data 当前用户的信息
+     */
+    public static function checkOne($data)
+    {
+        $user_data = self::where('u_email', '=', $data['u_email'])->first();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+        }
+        return $user_data;
+    }
+
+    /**修改密码
+     * @return data
+     */
+    public static function upPwd($data)
+    {
+        $user_data = self::where('u_email','=',$data['u_email'])->first();
+        if ($user_data!=null) {
+            $pwd = md5($data['u_pwd']);
+            $user_data = $user_data->toArray();
+            return self::where('u_id','=',$user_data['u_id'])->update(['u_pwd'=>$pwd]);
+        } else {
+            return false;
+        }
+    }
 }

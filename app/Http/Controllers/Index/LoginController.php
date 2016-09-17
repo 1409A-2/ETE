@@ -141,4 +141,84 @@ class LoginController extends BaseController
 
         return redirect('/');
     }
+
+    /**找回密码-账号确认
+     * @return view
+     */
+    public function pwdBack()
+    {
+        return view('index.login.back');
+    }
+
+    // 账号是否存在ajax验证
+    public function backPro(Request $Request)
+    {
+        $data = $Request->all();
+        unset($data['_token']);
+        $Request = $this->validate($Request, [
+            'geetest_challenge' => 'required|geetest',
+        ], [
+            'geetest' => Config::get('geetest.server_fail_alert')
+        ]);
+        if ($Request) {
+            echo json_decode($Request);
+            exit;
+        }
+        $list = User::checkOne($data);
+        if ($list)
+        {
+            $email = $list['u_email'];
+            $arr['content'] = '校易聘密码找回，请点击或复制以下网址到浏览器里直接打开以便完成找回密码：'.env('APP_HOST').'/newPwd.html?email='.$list["u_email"].'，非本人邮件请勿操作，谢谢合作！';
+            $rest = Mail::raw($arr['content'], function ($message) use($email) {
+                $to = $email;
+                $message ->to($to)->subject('校易聘密码重置邮件');
+            });
+            if ($rest) {
+                echo "0";
+            } else {
+                echo "1";
+            }
+        } else {
+            echo "2";
+        }
+    }
+
+    /**
+     * 密码找回-邮箱提示
+     * @return view
+     */
+    public function twoPwd()
+    {
+        return view('index.login.twoPwd');
+    }
+
+    /**找回密码-重置密码
+     * @return view
+     */
+    public function newPwd(Request $Request)
+    {
+        $email = $Request->input('email');
+        return view('index.login.newPwd',['email'=>$email]);
+    }
+
+    /**重置密码newPro
+     * @return data
+     */
+    public function newPro(Request $Request)
+    {
+        $data = $Request->all();
+        unset($data['_token']);
+        $res = User::upPwd($data);
+        return redirect('/resPwd.html?res='.$res);
+    }
+
+    /**
+     * 找回密码-修改完成
+     * @return view
+     */
+    public function resPwd(Request $Request)
+    {
+        $res = $Request->input('res');
+        return view('index.login.resPwd',['res'=>$res]);
+    }
 }

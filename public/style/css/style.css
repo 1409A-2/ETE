@@ -21,10 +21,10 @@ body{margin:0;padding:0; font:14px/22px "微软雅黑","宋体",Arial; color:#33
 .clearfix:after{content: "";height: 0;clear: both;visibility: hidden;}
 .clearfix{display: inline-block;}  /* for IE/Mac */
 h1,h2,h3,h4,h5{font-weight:normal;}
-input[type="text"],input[type="password"]{border:2px solid #f1f1f1;outline:none;font:20px/32px "微软雅黑","宋体",Arial; width: 600px;height: 30px;  padding: 6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
+input[type="text"],input[type="password"]{border:2px solid #f1f1f1;outline:none;font:15px/32px "微软雅黑","宋体",Arial; width: 600px;height: 40px;  padding: 6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
 input[type="button"],input[type="submit"]{font-family:"微软雅黑","宋体",Arial;outline:none;cursor:pointer;border:none;}
 input[type="text"]:focus,input[type="password"]:focus{border:2px solid #d4e2e4;}
-textarea{ border:2px solid #f1f1f1; width:600px; height:260px;outline:none; resize:none; font:20px/32px "微软雅黑","宋体",Arial; padding:6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
+textarea{ border:2px solid #f1f1f1; width:600px; height:260px;outline:none; resize:none; font:15px/32px "微软雅黑","宋体",Arial; padding:6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
 textarea:focus{ border:2px solid #d4e2e4; }:focus {outline: 0;}.placeholder { color: #777; }img{border:none;}
 .dn{ display:none;}.db{display:block;}.fl{float:left!important;}.fr{float:right!important;}.clear{ clear:both;} 
 a{color:#555; text-decoration:none;cursor:pointer;-moz-transition: background-color 0.2s ease-out,color 0.1s ease-out; -webkit-transition: background-color 0.2s ease-out,color 0.1s ease-out;-ms-transition: background-color 0.2s ease-out,color 0.1s ease-out;transition: background-color 0.2s ease-out,color 0.1s ease-out;}a:hover{color:#019875;}
@@ -247,6 +247,7 @@ ul.hot_pos i{width: 12px;height: 14px;position:absolute;background:url(img/hot.p
 #loginForm a{color:#019875; }
 #loginForm input#email{width:296px;font-size:16px; color:#777; border:none;}
 #loginForm input#password{width:296px;font-size:16px; color:#777;  border:none;}
+#loginForm input#pwd{width:296px;font-size:16px; color:#777;  border:none;}
 #loginForm input:focus{border:2px solid #fff;-webkit-box-shadow: 0px 0px 4px #b5f0e7;-moz-box-shadow: 0px 0px 4px #b5f0e7;box-shadow: 0px 0px 4px #b5f0e7;}
 #loginForm .fr{color:#777; margin-right:45px;}
 #loginForm .fr:hover{color:#019875;}

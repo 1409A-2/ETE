@@ -46,7 +46,12 @@ Route::group(['middleware' => ['web']], function () {
 	Route::controller('login','Index\LoginController');
 	Route::get('email','Index\LoginController@email');
 	Route::get('loginOut.html','Index\LoginController@loginOut');
-
+	Route::get('pwdBack.html','Index\LoginController@pwdBack');
+	Route::post('backPro','Index\LoginController@backPro');
+	Route::get('newPwd.html','Index\LoginController@newPwd');
+	Route::post('newPro','Index\LoginController@newPro');
+	Route::get('twoPwd.html','Index\LoginController@twoPwd');
+	Route::get('resPwd.html','Index\LoginController@resPwd');
 
 
 	//用户个人信息
