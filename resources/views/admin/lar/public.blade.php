@@ -81,7 +81,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                 </li>
                 <li><a href="javascript:void(0);" class="icon-shopping-cart"> 订单</a></li>
                 <li><a href="javascript:void(0);" class="icon-user"> 用户管理</a>
-                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="feedBackList">反馈列表</a></li></ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
                 <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>

@@ -1,25 +1,26 @@
 @extends('admin.lar.public')
-@section('title_admin', '用户列表')
+@section('title_admin', '用户反馈')
 @section('content_admin')
 
 
 
-<form action="adminUserDel" method="get">
+<form action="feedBackDel" method="get">
     <div class="panel admin-panel">
-        <div class="panel-head"><strong>用户列表</strong></div>
+        <div class="panel-head"><strong>反馈列表</strong></div>
         <div class="padding border-bottom">
-            <input type="button" class="button button-small checkall" name="checkall" checkfor="u_id[]" value="全选" />
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="f_id[]" value="全选" />
             <input type="submit" id="border-yellow" class="button button-small border-yellow" value="批量删除" />
         </div>
         <table class="table table-hover">
-            <tr><th width="245">选择</th><th width="400">邮箱</th><th width="*">时间</th><th width="100">操作</th></tr>
-            @foreach($users as $v)
+            <tr><th width="245">选择</th><th width="400">反馈信息</th><th width="*">手机号码</th><th width="*">邮箱</th><th width="100">操作</th></tr>
+            @foreach($data as $v)
                 <tr>
-                    <td><input type="checkbox" name="u_id[]" value="{{$v['u_id']}}" />{{$v['u_id']}}</td>
-                    <td>{{$v['u_email']}}</td>
-                    <td>{{date('Y-m-d H:i:s',$v['u_resign'])}}</td>
+                    <td><input type="checkbox" name="f_id[]" value="{{$v['f_id']}}" /></td>
+                    <td>{{$v['f_feedback']}}</td>
+                    <td>{{$v['f_tel']}}</td>
+                    <td>{{$v['f_email']}}</td>
                     <td>
-                        <a class="button border-yellow button-little" href="adminUserDel?u_id={{$v['u_id']}}" >删除</a>
+                        <a class="button border-yellow button-little" href="feedBackDel?f_id={{$v['f_id']}}" >删除</a>
                     </td>
                 </tr>
             @endforeach
@@ -29,7 +30,7 @@
                 @if($page['page']==1)
                     <a href="javascript:;">上一页</a>
                 @else
-                    <a href="adminUserList?p={{$page['up']}}">上一页</a>
+                    <a href="feedBackList?p={{$page['up']}}">上一页</a>
                 @endif
             </li></ul>
             <ul class="pagination pagination-group">
@@ -40,14 +41,14 @@
                     @if($i>$page['pages'])
                     <?php continue  ?>
                     @endif                                      
-                    <li><a href="adminUserList?p={{$i}}">{{$i}}</a></li>
+                    <li><a href="feedBackList?p={{$i}}">{{$i}}</a></li>
                 @endfor
             </ul>
             <ul class="pagination"><li>
                 @if($page['page']==$page['pages'])
                     <a href="javascript:;">下一页</a>
                 @else
-                    <a href="adminUserList?p={{$page['next']}}">下一页</a>
+                    <a href="feedBackList?p={{$page['next']}}">下一页</a>
                 @endif
             </li></ul>
         </div>
