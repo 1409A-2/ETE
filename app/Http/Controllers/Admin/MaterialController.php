@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Carousel;
+use App\Model\FriendShip;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
