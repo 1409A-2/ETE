@@ -20,7 +20,7 @@
                     <div class="label"><label for="i_pid">所属行业</label></div>
                     <div class="field">
                         <select name="i_pid" class="input" style="width: 200px;" data-validate="required:请选择选择顺序">
-                            <option value="0">顶级</option>
+                            <option value="">请选择</option>
                             @foreach($industry as $v)
                                 <option value="{{$v['i_id']}}">{{$v['i_name']}}</option>
                             @endforeach

@@ -25,9 +25,6 @@
                             <p>顶级目录不可以更改</p>
                         @else
                             <select name="i_pid" class="input" style="width: 200px;" data-validate="required:请选择选择顺序">
-                                <option value="0">
-                                    顶级
-                                </option>
                                 @foreach($industry as $v)
                                     <option value="{{$v['i_id']}}" 
                                         @if($v['i_name']==$data['i_pname'])
