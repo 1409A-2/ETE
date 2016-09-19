@@ -19,7 +19,7 @@ class Porject extends Model
 
     /**
      *
-     * @param  $data 学历的信息
+     * @param  $data 项目经验的信息
      */
     public static function selAll($where)
     {
@@ -31,7 +31,14 @@ class Porject extends Model
      * @return mixed
      */
     public  static  function selOne($where){
-        return self::where($where)->first()->toArray();
+        $res=self::where($where)->first();
+        if ($res) {
+
+           return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
 
 

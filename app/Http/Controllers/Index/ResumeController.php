@@ -275,9 +275,9 @@ class ResumeController extends BaseController
 
         //判断是否修改成功
                 if($res){
-                    echo 1;
+                   return 1;
                 }else{
-                    echo 0;
+                   return 0;
                 }
     }
 
