@@ -99,13 +99,13 @@ class IndustryController extends BaseController
                 DB::rollBack(); 
         } 
             if($re){
-                echo 1;
+                return 1;
             }else{
-                echo 0;
+                return 0;
             }
         }else{
             if($time==$my_time){
-                echo 2;
+                return 2;
             }else{
                 $out_num['out_num']=1;
                 $out_num['out_time']=time();
@@ -119,9 +119,9 @@ class IndustryController extends BaseController
                     DB::rollBack(); 
             }
                 if($re){
-                    echo 1;
+                    return 1;
                 }else{
-                    echo 0;
+                    return 0;
                 }
             }
         }
@@ -208,7 +208,7 @@ class IndustryController extends BaseController
     //修改公司查看简历后状态
     public function unDetermined(Request $request){
     	$data=$request->input();
-    	echo ResumeReseale::upResumereseale($data);
+    	return ResumeReseale::upResumereseale($data);
     }
 
     //查看待定简历
@@ -254,7 +254,7 @@ class IndustryController extends BaseController
     		$arr['remuse_resele']=$data['remuse_resele'];
 			ResumeReseale::upResumereseale($arr);
     	}
-    	echo 1;   	
+    	return 1;   	
     }
 
     //面试成功和发送邮件
@@ -274,7 +274,7 @@ class IndustryController extends BaseController
 	        $arr['remuse_resele']=$data['remuse_resele'];
 			ResumeReseale::upResumereseale($arr);
     	}
-    	echo 1;
+    	return 1;
 		
     }
     //面试成功和发送邮件
@@ -289,7 +289,7 @@ class IndustryController extends BaseController
         });
         $arr['rere_id']=$data['rere_id'];
         $arr['remuse_resele']=$data['remuse_resele'];
-        echo ResumeReseale::upResumereseale($arr);
+        return ResumeReseale::upResumereseale($arr);
     }
 
     //查看已发送邮件的简历
@@ -438,12 +438,12 @@ class IndustryController extends BaseController
     //修改职位上下线问题
     public function positionsType(Request $request){
         $data = $request->except('_token');
-        echo Release::upReStatus($data);
+        return Release::upReStatus($data);
     }
     //删除职位
     public function positionsDel(Request $request){
         $data = $request->except('_token');
-        echo Release::delRelease($data);
+        return Release::delRelease($data);
     }
 
     //简历详情的下载
