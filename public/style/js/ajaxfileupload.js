@@ -409,7 +409,6 @@ jQuery.extend({
 
 $(function(){
   $("#feedback-icon").click(function(){
-      var a,b,c;
       $(".feedback").css("display",'block')
     })
     $(".minimize").click(function(){
@@ -428,6 +427,7 @@ $(function(){
       $(".feedback").css("display",'none')
     })
     $('#feedbackSubmit').click(function(){
+      var a,b,c;
       feedback=$('.feedback-text').val();
       tel=$('.tel-text').val();
       email=$('.email-text').val();

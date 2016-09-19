@@ -41,6 +41,7 @@ class IndustryController extends BaseController
                     $out_num['out_time']=1;
                     $out_num['out_num']=0;
                     Company::upBase($company_c_id['u_cid'],$out_num);
+
                 }                
             }
             $data=Company::selTime($company_c_id['u_cid']);
@@ -86,9 +87,9 @@ class IndustryController extends BaseController
         // echo $data['out_num'];
         if($da['out_num']<5){
             $out_num['out_num']=$da['out_num']+1;
-            if($da['out_num']==4){
+            // if($da['out_num']==4){
                 $out_num['out_time']=time();
-            }
+            // }
         try{
         DB::beginTransaction();
             Company::upBase($c_id,$out_num);

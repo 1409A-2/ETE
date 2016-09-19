@@ -81,7 +81,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="#">我收藏的职位</a></dd>
-				<dd class="btm"><a href="#">我的订阅</a></dd>
+				<dd class="btm"><a href="subscribe">我的订阅</a></dd>
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif

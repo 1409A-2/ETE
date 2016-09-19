@@ -35,7 +35,9 @@ Route::group(['middleware' => ['web']], function () {
     //跳转职业详情
     Route::get('jump','Index\IndexController@jump');
     Route::get('jumpSearch','Index\IndexController@jumpSearch');  //跳转查询职位详情
-
+    // 订阅职位 
+    Route::get('subscribe','Index\IndexController@subscribe');	// 订阅职位 
+    Route::get('subscribeEmail','Index\IndexController@subscribeEmail');	// 订阅职位 的发送邮件
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
 
