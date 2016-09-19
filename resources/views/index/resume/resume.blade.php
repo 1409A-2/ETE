@@ -330,6 +330,7 @@
                                                 <span class="c9">
 		            									            								（{{date('Y.m',$v['p_start_time'])}}
                                                     -{{date('Y.d',$v['p_end_time'])}}）
+                                                    <a href="{{url('porjectDel')}}/{{$v['p_id']}}"  style="font-size: 18px;color:red">删除</a>
 		            									            						</span>
                                             </div>
                                             <div class="dl1"></div>

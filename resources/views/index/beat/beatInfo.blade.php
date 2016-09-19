@@ -471,7 +471,7 @@
     <div class="hide">
         <div id="resume-imperfect" class="resume-imperfect">
             <p class="p1">
-                感谢选择拉勾一拍，但目前你的简历不完善，为了让我们能更好的服务你，你需要先完善你的简历<span class="green"></span>等信息后再报名一拍。
+                感谢选择校易聘一拍，但目前你的简历不完善，为了让我们能更好的服务你，你需要先完善你的简历<span class="green"></span>等信息后再报名一拍。
             </p>
 
             <p class="p2">
@@ -525,7 +525,7 @@
                 <div style="width: 502px; overflow: auto; height: 218px;" id="cboxLoadedContent">
                     <div id="resume-imperfect" class="resume-imperfect">
                         <p class="p1">
-                            感谢选择拉勾一拍，但目前你的简历不完善，为了让我们能更好的服务你，你需要先完善你的简历<span class="green">项目经验</span>等信息后再报名一拍。
+                            感谢选择校易聘一拍，但目前你的简历不完善，为了让我们能更好的服务你，你需要先完善你的简历<span class="green">项目经验</span>等信息后再报名一拍。
                         </p>
 
                         <p class="p2">

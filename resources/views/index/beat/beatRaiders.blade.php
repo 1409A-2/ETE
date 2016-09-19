@@ -27,11 +27,11 @@
             <div class="faq">
                 <div class="quesiton s-clearfix">
                     <div class="icon-left icon-left-ques"></div>
-                    <h2>1. 拉勾一拍是什么？<span class="icon-right"></span></h2>
+                    <h2>1. 校易聘一拍是什么？<span class="icon-right"></span></h2>
                 </div>
                 <div class="answer s-clearfix" style="display: none;">
                     <div class="icon-left icon-left-ans"></div>
-                    <p>一拍是拉勾网针对互联网行业风尖企业与高端人才定制的全新人才拍卖服务产品，为高端稀缺人才与企业之间建立及时有效的联系，专业团队全程提供1V1
+                    <p>一拍是校易聘网针对互联网行业风尖企业与高端人才定制的全新人才拍卖服务产品，为高端稀缺人才与企业之间建立及时有效的联系，专业团队全程提供1V1
                         服务。只要你拿到Dating
                         Park入场资格，就可在1周内收到多家优质企业邀请，由你自主决定是否接受，并准许对方查看你的联系方式，快速拿到最中意的offer。</p>
                 </div>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="answer s-clearfix" style="display: none;">
                     <div class="icon-left icon-left-ans"></div>
-                    <p>目前，拉勾一拍主要服务期望工作地点在北京、上海、广州、深圳、成都的候选人，并且具有3年+工作经验，30W+年薪的技术、产品、设计、运营、市场等互联网高端人才。</p>
+                    <p>目前，校易聘一拍主要服务期望工作地点在北京、上海、广州、深圳、成都的候选人，并且具有3年+工作经验，30W+年薪的技术、产品、设计、运营、市场等互联网高端人才。</p>
                 </div>
             </div>
             <div class="faq">
@@ -75,7 +75,7 @@
                 <div class="answer s-clearfix" style="display: none;">
                     <div class="icon-left icon-left-ans"></div>
                     <p>
-                        拉勾一拍全方位保护你的隐私，并给你独有屏蔽权。你可以指定屏蔽三家企业，只对心仪企业开放完整信息。只有你接受邀请，应邀企业才能看到你的姓名及联系方式。你的简历会于规定时间自动下架，所有信息都将关闭，为你免除后顾之忧。</p>
+                        校易聘一拍全方位保护你的隐私，并给你独有屏蔽权。你可以指定屏蔽三家企业，只对心仪企业开放完整信息。只有你接受邀请，应邀企业才能看到你的姓名及联系方式。你的简历会于规定时间自动下架，所有信息都将关闭，为你免除后顾之忧。</p>
                 </div>
             </div>
             <div class="faq">
@@ -85,8 +85,8 @@
                 </div>
                 <div class="answer s-clearfix" style="display: none;">
                     <div class="icon-left icon-left-ans"></div>
-                    <p>当你申请拉勾一拍，我们便为你配备专属私人职业顾问。拿到Dating
-                        Park入场券后，你的私人顾问将第一时间与你联系，帮你优化简历、撰写拉勾推荐语，将你最耀眼的一面完美展现给企业，为你实时跟进Dating
+                    <p>当你申请校易聘一拍，我们便为你配备专属私人职业顾问。拿到Dating
+                        Park入场券后，你的私人顾问将第一时间与你联系，帮你优化简历、撰写校易聘推荐语，将你最耀眼的一面完美展现给企业，为你实时跟进Dating
                         Park进度，及时解决你的所有问题，直到你拿到最满意的offer。</p>
                 </div>
             </div>
@@ -103,11 +103,11 @@
         </div>
         <div class="content" style="display: none;">
             <div class="part1 part">
-                <p>我们相信，高端的人才值得拥有更优质的机会。拉勾一拍专注于服务高端人才，包括产品、设计、技术、运营和市场，报名参与一拍，您将拥有专业职业顾问一对一的全程服务。</p>
+                <p>我们相信，高端的人才值得拥有更优质的机会。校易聘一拍专注于服务高端人才，包括产品、设计、技术、运营和市场，报名参与一拍，您将拥有专业职业顾问一对一的全程服务。</p>
                 <img src="{{env('APP_HOST')}}/yi/c_part1_new.png" alt="">
             </div>
             <div class="part2 part">
-                <p>加入一拍后，职业顾问会与主动您沟通，帮您撰写推荐语“拉勾说“，并帮您安排专场展示。</p>
+                <p>加入一拍后，职业顾问会与主动您沟通，帮您撰写推荐语“校易聘说“，并帮您安排专场展示。</p>
                 <img src="{{env('APP_HOST')}}/yi/c_part2_new.png" alt="">
             </div>
             <div class="part3 part">
