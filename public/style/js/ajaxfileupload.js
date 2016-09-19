@@ -433,12 +433,12 @@ $(function(){
       email=$('.email-text').val();
       if(tel==''){
         a=false;
-        $("#telTexts").html('<font color="red">ä¸èƒ½ä¸ºç©º</font>');
+        $("#telTexts").html('<font color="red">²»ÄÜÎª¿Õ</font>');
       }else{
         var reg = /^1[3|4|5|7|8][0-9]{9}$/;
         if(reg.test(tel)==false){
           a=false;
-          $("#telTexts").html('<font color="red">å¿…é¡»æ˜¯11ä½çš„æ­£è§„æ‰‹æœºå·ç </font>');
+          $("#telTexts").html('<font color="red">±ØĞëÊÇ11Î»µÄÕı¹æÊÖ»úºÅÂë</font>');
         }else{
           a=true;
           $("#telTexts").html('');
@@ -446,12 +446,12 @@ $(function(){
       }
       if(email==''){
         b=false;
-        $("#emailTexts").html('<font color="red">ä¸èƒ½ä¸ºç©º</font>');
+        $("#emailTexts").html('<font color="red">²»ÄÜÎª¿Õ</font>');
       }else{
         var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
         if(email_str.test(email)==false){
           b=false;
-          $("#emailTexts").html('<font color="red">å¿…é¡»æ˜¯æ­£è§„é‚®ç®±</font>');
+          $("#emailTexts").html('<font color="red">±ØĞëÊÇÕı¹æÓÊÏä</font>');
         }else{
           b=true;
           $("#emailTexts").html('');
@@ -459,7 +459,7 @@ $(function(){
       }
       if(feedback==''){
         c=false;
-        $("#feedbackTexts").html('<font color="red">ä¸èƒ½ä¸ºç©º</font>');
+        $("#feedbackTexts").html('<font color="red">²»ÄÜÎª¿Õ</font>');
       }else{
         c=true;
         $("#feedbackTexts").html('');
@@ -482,7 +482,7 @@ $(function(){
             _emailText.val("");
             _feekback.css("display",'none');            
           }else{
-            alert('åé¦ˆå¤±è´¥');
+            alert('·´À¡Ê§°Ü');
           }
         }
       })

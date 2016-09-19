@@ -38,8 +38,7 @@ class LoginController extends BaseController
             'geetest' => Config::get('geetest.server_fail_alert')
         ]);
         if ($Request) {
-            echo json_decode($Request);
-            exit;
+            return json_decode($Request);
         }
     	$list = User::checkLog($data);
         if ($list)
@@ -48,16 +47,16 @@ class LoginController extends BaseController
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id']);
 			    session()->put('u_email', $list['u_email']);
-			    echo "0";
+			    return 0;
 			} else {
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id'], 3600*24*7 );
 			    session()->put('u_email', $list['u_email'], 3600*24*7 );
-			    echo "1";
+			    return 1;
 			}
 			
         } else {
-        	echo "2";
+        	return 2;
         }
     }
 
@@ -78,8 +77,7 @@ class LoginController extends BaseController
             'geetest' => Config::get('geetest.server_fail_alert')
         ]);
         if ($Request) {
-            echo json_decode($Request);
-            exit;
+            return json_decode($Request);
         }
         unset($data['geetest_challenge']);
         unset($data['geetest_validate']);
@@ -87,8 +85,7 @@ class LoginController extends BaseController
 
         $reslut = User::findOne($data);
         if ($reslut) {
-            echo 500;
-            exit;
+            return 500;
         }
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();
@@ -109,11 +106,9 @@ class LoginController extends BaseController
             session()->put('u_id', $res);
             session()->put('u_email', $data['u_email']);
             session()->save();
-            echo json_encode($res);
-            exit;
+            return json_encode($res);
     	} else {
-    		echo json_encode($res);
-            exit;
+    		return json_encode($res);
     	}
     }
 
@@ -161,8 +156,7 @@ class LoginController extends BaseController
             'geetest' => Config::get('geetest.server_fail_alert')
         ]);
         if ($Request) {
-            echo json_decode($Request);
-            exit;
+            return json_decode($Request);
         }
         $list = User::checkOne($data);
         if ($list)
@@ -174,12 +168,12 @@ class LoginController extends BaseController
                 $message ->to($to)->subject('校易聘密码重置邮件');
             });
             if ($rest) {
-                echo "0";
+                return 0;
             } else {
-                echo "1";
+                return 1;
             }
         } else {
-            echo "2";
+            return 2;
         }
     }
 
