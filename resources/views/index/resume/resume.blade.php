@@ -60,9 +60,6 @@
                                                     @else
                                                         邮箱
                                                     @endif
-
-
-
                                                     <br>
             			</span>
 

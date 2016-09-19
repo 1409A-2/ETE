@@ -252,7 +252,24 @@ class IndexController extends BaseController
         $badword1 = array_combine($badword,array_fill(0,count($badword),'**'));
         $data['f_feedback'] = strtr($f_feedback, $badword1);
         $data['f_uid'] =  session('u_id',-2);
-        // print_r($data);die;
-        echo Feedback::backAdd($data);
+
+        $re= Feedback::backAdd($data);
+        if($re){
+            return 1;
+        }
+    }
+
+    //订阅职位
+    public function subscribe(){
+        $u_email=session('u_email','');
+        return view('index.subscribe.subscribe',['u_email'=>$u_email]);
+    }
+
+    // 订阅职位完成
+    public function subscribeEmail(){
+        
+        // Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+        // $m->to($user->email, $user->name)->subject('Your Reminder!');
+        // });
     }
 }

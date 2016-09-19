@@ -55,12 +55,15 @@
 
                                                 <div class="clear"></div>
 
-                                                @if($v['read']==1)
                                                     @if($v['remuse_resele']==0)
+                                                    <a class="btn_showprogress" href="javascript:;">
+                                                            投递成功
+                                                            </a>
+                                                    @elseif($v['remuse_resele']==1)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             被查看
                                                             </a>
-                                                    @elseif($v['remuse_resele']==1)
+                                                    @elseif($v['remuse_resele']==3)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             通知面试
                                                             </a>
@@ -68,33 +71,11 @@
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             初试通过
                                                             </a>
-                                                    @elseif($v['remuse_resele']==3)
+                                                    @elseif($v['remuse_resele']==4)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             不合适
                                                             </a>
                                                     @endif
-
-                                                @else
-
-                                                    @if($v['remuse_resele']==0)
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        投递成功
-                                                       </a>
-                                                    @elseif($v['remuse_resele']==1)
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        通知面试
-                                                       </a>
-                                                    @elseif($v['remuse_resele']==2)
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        初试通过
-                                                        </a>
-                                                    @elseif($v['remuse_resele']==3)
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        不合适
-                                                        </a>
-                                                    @endif
-
-                                                  @endif
                                             </div>
                                             <div class="progress_status	dn">
                                                 <ul class="status_steps">
@@ -187,9 +168,9 @@
                             {{--投递结束--}}
                             {{--被查看--}}
                             <diy>
-                            @if(array_key_exists('read',$reList))
-                                @foreach($reList['read'] as $v)
-                                    @if($v['read']==1&&$v['remuse_resele']==0)
+                            @if(array_key_exists('remuse_1',$reList))
+                                @foreach($reList['remuse_1'] as $v)
+                                    @if($v['remuse_resele']==1)
                                         <ul class="reset my_delivery">
                                             <li>
                                                 <div class="d_item">
@@ -336,8 +317,8 @@
                             {{--通过初筛结束--}}
                             {{--//通知面试成功--}}
                             <diy>
-                            @if(array_key_exists('remuse_1',$reList))
-                                @foreach($reList['remuse_1'] as $v)
+                            @if(array_key_exists('remuse_3',$reList))
+                                @foreach($reList['remuse_3'] as $v)
 
                                         <ul class="reset my_delivery">
                                             <li>
@@ -410,8 +391,8 @@
                             @endif
                                 </diy>
                             <diy>
-                            @if(array_key_exists('remuse_3',$reList))
-                                @foreach($reList['remuse_3'] as $v)
+                            @if(array_key_exists('remuse_4',$reList))
+                                @foreach($reList['remuse_4'] as $v)
 
                                         <ul class="reset my_delivery">
                                             <li>

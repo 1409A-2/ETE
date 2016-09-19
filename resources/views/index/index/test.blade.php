@@ -36,7 +36,7 @@
         @endforeach
 
         </div>
-        <span class="subscribe" href="#" >订阅职位</span>
+        <a class="subscribe" href="subscribe" >订阅职位</a>
             </div>
 
         <div class="content">
