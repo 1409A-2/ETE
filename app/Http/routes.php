@@ -162,6 +162,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('dellink','Admin\MaterialController@delLink');
         Route::post('upLinkPro','Admin\MaterialController@upLinkPro');
         Route::post('batchDelLink','Admin\MaterialController@delLinkSome');
+
+        // 后台行业管理
+        Route::get('adminIndustryList','Admin\IndustryController@adminIndustryList');
+        Route::get('adminIndustryAdd','Admin\IndustryController@adminIndustryAdd');
+        Route::post('industryAddPro','Admin\IndustryController@industryAddPro');
+        Route::get('adminIndustryDel','Admin\IndustryController@adminIndustryDel');
+        Route::get('adminIndustryUp','Admin\IndustryController@adminIndustryUp');
+        Route::post('industryUpPro','Admin\IndustryController@industryUpPro');
+
 		//推荐网站
 		Route::get('adminRecommend','Admin\MaterialController@recommendSite');
 		Route::post('adminRecommendPro','Admin\MaterialController@recommendSitePro');
