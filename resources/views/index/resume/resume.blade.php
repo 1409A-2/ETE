@@ -593,9 +593,13 @@
 
                         <div class="educationalShow">
 
-                           <span>学校名称——   <b>{{$school['s_name']}}</b>   <br/>最高学历——<b> @if($school['ed_id']==1)
-                                       大专@elseif($school['ed_id']==2)本科@elseif($school['ed_id']==3)
-                                       硕士@elseif($school['ed_id']==4)博士@elseif($school['ed_id']==5)其他@endif </b> <br>
+                           <span>学校名称——   <b>{{$school['s_name']}}</b>   <br/>最高学历——<b>
+                                   @foreach($education as $v)
+                                       @if($school['ed_id']==$v['ed_id'])
+                                           {{$v['ed_name']}}
+                                       @endif
+                                   @endforeach
+                                 </b> <br>
                                专业———— <b>  {{$school['s_major']}}</b> <br/> 在校历程—— <b> {{date('Y',$school['s_start_time'])}}
                                    —{{date('Y',$school['s_end_time'])}} </b><br>
             			</span>
