@@ -406,3 +406,85 @@ jQuery.extend({
     }
 
 })
+
+$(function(){
+  $("#feedback-icon").click(function(){
+      var a,b,c;
+      $(".feedback").css("display",'block')
+    })
+    $(".minimize").click(function(){
+      $(".feedback").css("display",'none')
+    })
+    $(".close").click(function(){
+      _feedbackText=$("#feedbackText");
+      _telText=$("#telText");
+      _emailText=$("#emailText");
+      _feedbackText.val("");
+      _telText.val("");
+      _emailText.val("");
+      $("#telTexts").html('');
+      $("#feedbackTexts").html('');
+      $("#emailTexts").html('');
+      $(".feedback").css("display",'none')
+    })
+    $('#feedbackSubmit').click(function(){
+      feedback=$('.feedback-text').val();
+      tel=$('.tel-text').val();
+      email=$('.email-text').val();
+      if(tel==''){
+        a=false;
+        $("#telTexts").html('<font color="red">不能为空</font>');
+      }else{
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+        if(reg.test(tel)==false){
+          a=false;
+          $("#telTexts").html('<font color="red">必须是11位的正规手机号码</font>');
+        }else{
+          a=true;
+          $("#telTexts").html('');
+        }
+      }
+      if(email==''){
+        b=false;
+        $("#emailTexts").html('<font color="red">不能为空</font>');
+      }else{
+        var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
+        if(email_str.test(email)==false){
+          b=false;
+          $("#emailTexts").html('<font color="red">必须是正规邮箱</font>');
+        }else{
+          b=true;
+          $("#emailTexts").html('');
+        }
+      }
+      if(feedback==''){
+        c=false;
+        $("#feedbackTexts").html('<font color="red">不能为空</font>');
+      }else{
+        c=true;
+        $("#feedbackTexts").html('');
+      }
+      if(a==false||b==false||c==false){
+        return;
+      }
+      _feekback=$(".feedback");
+      _feedbackText=$("#feedbackText");
+      _telText=$("#telText");
+      _emailText=$("#emailText");
+      $.ajax({
+        url:'feedBack',
+        type:'get',
+        data:{f_feedback:feedback,f_tel:tel,f_email:email},
+        success:function(msg){
+          if(msg){
+            _feedbackText.val("");
+            _telText.val("");
+            _emailText.val("");
+            _feekback.css("display",'none');            
+          }else{
+            alert('反馈失败');
+          }
+        }
+      })
+    })
+})

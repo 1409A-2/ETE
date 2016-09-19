@@ -2,44 +2,10 @@
 @section('title_admin', '用户反馈')
 @section('content_admin')
 
-<style>
-    body #email {  
-        border:3px solid #000;
-        border-color:#000;    
-        border-width:0;
-        border-radius: 3px;
-        transition: height 0.5s ease-out;
-        z-index:99999;
-        left: 50%;
-        display: none;
-        position:fixed;
-        background: #F0FFFF;
-        padding: 10px 10px;
-    }
-</style>
-<script>
-$(function(){
-    $(document).delegate("#goEmial",'click',function(){
-        fid=$(this).attr('fid');
-        $('#f_id').val(fid);
-        $("#email").css('display','block');
-    })
-})
-    
-</script>
-<div id="email">
-        <form action="feedBackEmail" method="get">
-            <h2 style="color:black">邮件内容:</h2>
-            <textarea name="f_name" id="" cols="40" rows="5">您好，
-            我是校易聘工作人员，今日收到您的反馈，由于您的电话处于关机状态，无法拨通。
-            </textarea>
-            <input type="hidden" id="f_id" name="f_id" value=""><br />
-            <input type="submit" class="button border-green button-little" value="发送">
-       </form>
-    </div>
 <form action="feedBackDel" method="get">
     <div class="panel admin-panel">
-        <div class="panel-head"><strong>反馈列表</strong></div>
+    
+        <div class="panel-head"><strong>已处理反馈</strong></div>
         <div class="padding border-bottom">
             <input type="button" class="button button-small checkall" name="checkall" checkfor="f_id[]" value="全选" />
             <input type="submit" id="border-yellow" class="button button-small border-yellow" value="批量删除" />
@@ -54,7 +20,6 @@ $(function(){
                     <td>{{$v['f_email']}}</td>
                     <td>
                         <a class="button border-yellow button-little" href="feedBackDel?f_id={{$v['f_id']}}" >删除</a>
-                        <a class="button border-green button-little" fid="{{$v['f_id']}}" id="goEmial" >发送邮件</a>
                     </td>
                 </tr>
             @endforeach

@@ -73,7 +73,7 @@ class UserController extends Controller
         if($re){
             return redirect('/adminUserList');
         }else{
-            echo 0;
+            return 0;
         }
     }   
 }
