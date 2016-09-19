@@ -40,7 +40,7 @@ var youdao_conv_id = 271546;
         		<ul class="register_radio clearfix">
 		            <li>
 		            	找工作
-		              	<input type="radio" value="0" name="type" /> 
+		              	<input type="radio" value="0" name="type" />
 		            </li>
 		            <li>
             	        招人

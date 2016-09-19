@@ -59,14 +59,14 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
     <div class="mainer">
         <div class="admin-navbar">
             <span class="float-right">
-            	<a class="button button-little bg-main" href="#" target="_blank">前台首页</a>
+            	<a class="button button-little bg-main" href="{{env('APP_HOST')}}" target="_blank">前台首页</a>
                 <a class="button button-little bg-yellow" href="login.html">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
                 <li><a href="javascript:void(0);" class="icon-home"> 开始</a>
                     <ul>
                         <li><a href="adminIndex">系统设置</a></li>
-                        <li><a href="#">内容管理</a></li>
+                        <li><a href="#">行业管理</a></li>
                         <li><a href="#">订单管理</a></li>
                         <li><a href="#">会员管理</a></li>
                         <li><a href="#">文件管理</a></li>
@@ -76,16 +76,23 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                 <li><a href="javascript:void(0);" class="icon-cog"> 系统</a>
                     <ul><li><a href="#">全局设置</a></li><li><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
                 </li>
-                <li><a href="javascript:void(0);" class="icon-file-text"> 内容</a>
-                    <ul><li><a href="#">添加内容</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                <li><a href="javascript:void(0);" class="icon-file-text"> 行业</a>
+                    <ul>
+                        <li><a href="adminIndustryList">行业列表</a></li>
+                        <li><a href="adminIndustryAdd">添加行业</a></li>
+                    </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-shopping-cart"> 订单</a></li>
                 <li><a href="javascript:void(0);" class="icon-user"> 用户管理</a>
-                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="feedBackList">反馈列表</a></li><li><a href="feedBackHandle">已处理反馈</a></li></ul>
                 </li>
                 <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
                 <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
-                    <ul><li><a href="adminMaterial">轮播管理</a></li></ul>
+                    <ul>
+                        <li><a href="adminMaterial">轮播管理</a></li>
+                        <li><a href="adminFriendShip">友情链接</a></li>
+                        <li><a href="adminRecommend">推荐网站</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

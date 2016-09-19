@@ -2,31 +2,29 @@
 @section('title','前端开发全国-职位搜索-拉勾网-最专业的互联网招聘平台')
 @section('content')
 <script>
-    $(function(){
-        $('.moery').click(function(){
-            k=$(this).html();
-            education=$('#education').val();
-            if(k=='全部'){
-                k='';
-            }
-            i_name=$('#i_name').val();
-            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
-        })
+    // $(function(){
+    //     $('.moery').click(function(){
+    //         k=$(this).html();
+    //         education=$('#education').val();
+    //         if(k=='全部'){
+    //             k='';
+    //         }
+    //         i_name=$('#i_name').val();
+    //         location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+    //     })
 
-        $('.education').click(function(){
-             education=$(this).html();
-            k=$('#k').val();
-            if(education=='不限'){
-                education='';
-            }
-            i_name=$('#i_name').val();
-            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
-        })
-    })
+    //     $('.education').click(function(){
+    //          education=$(this).html();
+    //         k=$('#k').val();
+    //         if(education=='不限'){
+    //             education='';
+    //         }
+    //         i_name=$('#i_name').val();
+    //         location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+    //     })
+    // })
 </script>
-<input type="hidden" value="{{$i_name}}" id="i_name">
-<input type="hidden" value="{{$education}}" id="education">
-<input type="hidden" value="{{$k}}" id="k">
+
     <div id="container">
         <div id="sidebar">
 <div id="options" class="greybg">
@@ -93,36 +91,31 @@
 </div>
 
 <!-- 对外合作广告位  -->
-<a href="http://www.w3cplus.com/" target="_blank" class="partnersAd">
-    <img src="style/images/w3cplus.png" width="230" height="80" alt="w3cplus" />
+            @foreach($jump_site as $value)
+<a href="{{$value['site_url']}}" target="_blank" class="partnersAd">
+    <img src="{{env('APP_HOST').$value['site_img']}}" width="230" height="80" alt="{{$value['site_name']}}" />
 </a>
-<a href="" target="_blank" class="partnersAd">
-    <img src="style/images/jquery_school.jpg" width="230" height="80" alt="JQ学校" />
-</a>
-<a href="http://linux.cn/" target="_blank" class="partnersAd">
-    <img src="style/images/linuxcn.png" width="230" height="80" alt="Linux中文社区"  />
-</a>
-<a href="http://zt.zhubajie.com/zt/makesite? utm_source=lagou.com&utm_medium=referral&utm_campaign=BD-yl" target="_blank" class="partnersAd">
-    <img src="style/images/zhubajie.jpg" width="230" height="80" alt="猪八戒" />
-</a>
-<a href="http://www.imooc.com" target="_blank" class="partnersAd">
-    <img src="style/images/muke.jpg" width="230" height="80" alt="幕课网" />
-</a>
+            @endforeach
 <!-- 	            <a href="http://www.osforce.cn/" target="_blank" class="partnersAd">
 <img src="style/images/osf-lg.jpg" width="230" height="80" alt="开源力量"  />
 </a>
 -->
 </div>
-<div class="content">
+<div class="content" style="height: 1200px;">
     <div id="search_box">
+        <form action="jump" method="get">
             <ul id="searchType">
                 <li data-searchtype="1" class="type_selected">职位</li>
                 <li data-searchtype="4">公司</li>
             </ul>
             <div class="searchtype_arrow"  style="z-index: 1;"></div>
-            <input type="text" id="search_input" name = "kd"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
-
+            <input type="text" id="search_input" name = "i_name"  tabindex="1" value="{{$i_name}}"  placeholder="请输入职位名称，如：产品经理"  />
+            <input type="hidden" id="type_selected" value="1" name="type_selected">
             <input type="submit" id="search_button" value="搜索" />
+            <input type="hidden" value="{{$i_name}}" id="i_name">
+            <input type="hidden" value="{{$education}}" id="education">
+            <input type="hidden" value="{{$k}}" id="k">
+        </form>
     </div>
     <style>
         .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}

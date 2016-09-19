@@ -71,9 +71,9 @@ class UserController extends Controller
         @$res=Porject::userDel($rid);
         @$res=ResumeReseale::userDel($rid);
         if($re){
-            return redirect('adminUserList');
+            return redirect('/adminUserList');
         }else{
-            echo 0;
+            return 0;
         }
     }   
 }

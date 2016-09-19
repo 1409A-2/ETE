@@ -74,7 +74,8 @@ class User extends Model
         }
         return $res;
     }
- /**
+
+    /**
      * 查询一个用户的所有信息
      */
     public static function selOne($u_id)
@@ -86,7 +87,6 @@ class User extends Model
             return $data->toArray();
         }
         return $data;
-
     }
 
     /**
@@ -135,5 +135,69 @@ class User extends Model
             $user_data = $user_data->toArray();
         }
         return $user_data;
+    }
+    
+    /**
+     * 检测用户是否存在
+     * @param $data 当前用户的信息
+     */
+    public static function checkOne($data)
+    {
+        $user_data = self::where('u_email', '=', $data['u_email'])->first();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+        }
+        return $user_data;
+    }
+
+    /**修改密码
+     * @return data
+     */
+    public static function upPwd($data)
+    {
+        $user_data = self::where('u_email','=',$data['u_email'])->first();
+        if ($user_data!=null) {
+            $pwd = md5($data['u_pwd']);
+            $user_data = $user_data->toArray();
+            return self::where('u_id','=',$user_data['u_id'])->update(['u_pwd'=>$pwd]);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 查询一个用户的所有信息
+     */
+    public static function findOnly($u_id)
+    {
+        $data =  self::where('u_id',$u_id)
+            ->first();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
+    }
+
+    /**
+     * 修改微信绑定状态
+     * @param $bool [u_status]
+     */
+    public static function weixin($data)
+    {
+        $mod = self::where('u_id', '=', $data['u_id'])
+            ->first();
+        if ($mod != null) {
+            $list = $mod->toArray();
+            if ($list['r_openid']=="") {
+                $mod->r_openid = $data['r_openid'];
+                $res = $mod->save();
+            } else {
+                $mod->r_openid = '';
+                $res = $mod->save();
+            }
+        } else {
+            $res = null;
+        }
+        return $res;
     }
 }

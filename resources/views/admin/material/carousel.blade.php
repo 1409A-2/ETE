@@ -4,7 +4,7 @@
 
     <div class="tab">
         <div class="tab-head">
-            <strong>系统设置</strong>
+            <strong>轮播设置</strong>
             <ul class="tab-nav">
                 <li class="active"><a href="#tab-email">轮播管理</a></li>
                 @if(count($carousel)<3)

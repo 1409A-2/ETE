@@ -1,12 +1,12 @@
 @extends('admin.lar.public')
-@section('title_admin', '测试')
+@section('title_admin', '用户列表')
 @section('content_admin')
 
 
 
 <form action="adminUserDel" method="get">
     <div class="panel admin-panel">
-        <div class="panel-head"><strong>内容列表</strong></div>
+        <div class="panel-head"><strong>用户列表</strong></div>
         <div class="padding border-bottom">
             <input type="button" class="button button-small checkall" name="checkall" checkfor="u_id[]" value="全选" />
             <input type="submit" id="border-yellow" class="button button-small border-yellow" value="批量删除" />

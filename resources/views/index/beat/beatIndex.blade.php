@@ -205,9 +205,7 @@
 </div>
 @include('index.beat.beatFoot')
 
-
 <script type="text/javascript" src="{{env('APP_HOST')}}/yi/esl.js"></script>
-
 <script type="text/javascript" src="{{env('APP_HOST')}}/yi/intro.html_aio.js"></script>
  @include('index.beat.beatJs')
 

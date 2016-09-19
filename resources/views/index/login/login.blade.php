@@ -41,7 +41,7 @@ var youdao_conv_id = 271546;
 				<span class="error" style="display:none;" id="beError"></span>
 				{!! Geetest::render() !!}
 			    <label class="fl" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin" /> 记住我</label>
-			    <a href="#" class="fr" target="_blank">忘记密码？</a>
+			    <a href="/pwdBack.html" class="fr" target="_blank">忘记密码？</a>
 			    <!-- reset.html -->
 				<!--<input type="submit" id="submitLogin" value="登 &nbsp; &nbsp; 录" />-->
 				<button style="color:#fff;"  class="submitLogin" title="登 &nbsp; &nbsp; 录"/>登 &nbsp; &nbsp; 录</button>
@@ -133,7 +133,10 @@ $(function(){
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
 	            		} else {
-	            			window.location.href='login.html';
+	            			var str = '验证码验证失效，请刷新重置！';
+	            			$('#beError').attr('style','');
+	            			$('#beError').text('');
+	            			$('#beError').append(str);
 	            		}
 	            	}
 	            })

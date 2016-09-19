@@ -9,7 +9,16 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <!DOCTYPE HTML>
 <html>
 <head>
-	<script id="allmobilize" charset="utf-8" src="style/js/allmobilize.min.js"></script>
+<style>
+	#product-fk {bottom: 80px;cursor: pointer;height: 50px;left: 50%;margin-left: 588px;position: fixed;width: 50px;z-index: 21;}
+	#feedback-icon {position: relative;}
+	#feedback-icon {position: relative;}
+	.fb-icon {background: rgba(0, 0, 0, 0) url("{{env('APP_HOST')}}/style/images/img/feedback_06c5af9.png") no-repeat scroll 0 0;height: 30px;margin: 0 auto;width: 30px;}
+	.feedback {width:300px;height:450px;border-width:0;border-radius: 3px;transition: height 0.5s ease-out;z-index:99999;display: none;bottom:0;right:0;position:fixed;background: #fff;}
+	.query_hint{display: none;z-index: 999999;width:100%;height:100%;position:fixed;top:0.1px;padding-top:22%; font-size:15px;color:#666;font-weight:bold;text-align:center;}
+	.query_hint img{position:relative;top:10px;left:-8px;}
+</style>
+	<script id="allmobilize" charset="utf-8" src="{{env('APP_HOST')}}/style/js/allmobilize.min.js"></script>
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<link rel="alternate" media="handheld"  />
 	<!-- end 云适配 -->
@@ -21,12 +30,15 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 		console.log(1);
 	</script>
 	<link rel="Shortcut Icon" href="h/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/feekback.css"/>
+	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/feekback2.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/external.min.css"/>
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/popup.css"/>
 	<script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>
+	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/excanvas.js"></script>
@@ -73,7 +85,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
-				<dd><a href="#">帐号设置</a></dd>
+				<dd><a href="updatePwd.html">帐号设置</a></dd>
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>
@@ -139,8 +151,15 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<div class="clear"></div>
 	<input type="hidden" id="resubmitToken" value="" />
 	<a id="backtop" title="回到顶部" rel="nofollow"></a>
+		
 </div><!-- end #container -->
 </div><!-- end #body -->
+<div id="product-fk" style="bottom: 80px;">
+<div id="feedback-icon">
+<div class="fb-icon"></div>
+<span style="font-size: 12px;">我要反馈</span>
+</div>
+</div>
 <div id="footer">
 	<div class="wrapper">
 		<a href="#" target="_blank" rel="nofollow">联系我们</a>
@@ -155,8 +174,43 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 
 <!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>
  -->
-<div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 1243px; top: 250px;">
-    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+<div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 20px; top: 250px;">
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '//static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', 32443);
+</script>
+<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
 </div>
+
+	<div class="feedback" style="display: none;">
+	<div class="header">
+		<span class="connect" style="display: none;">连接中...</span>
+		<span class="btns">
+		<i class="icon-base minimize"></i>
+		<i class="icon-base close"></i>
+		</span>
+	</div>
+		<p class="title">请留言，我们将尽快联系您！</p>
+		<textarea id="feedbackText" class="feedback-text" placeholder="尊敬的用户您好，请把您遇到的问题以及您的联系方式告诉我们，我们会尽快与您联系。" name="feedbackText"></textarea>
+		<span id="feedbackTexts"></span>
+		<input id="telText" class="tel-text" type="text" placeholder="联系电话" name="tel">
+		<span id="telTexts"></span>
+		<input id="emailText" class="email-text" type="text" placeholder="邮箱" name="email">
+		<span id="emailTexts"></span>
+		<input class="submit-feedback" id="feedbackSubmit" type="button" value="留言" name="submit">
+	</div>
+		<div id="query_hint" class="query_hint">
+	   		<img src="{{env('APP_HOST')}}/style/images/load.gif" />正在处理，请稍等...
+	  	</div>
 </body>
 </html> 

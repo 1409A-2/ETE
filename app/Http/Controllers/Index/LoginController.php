@@ -38,8 +38,7 @@ class LoginController extends BaseController
             'geetest' => Config::get('geetest.server_fail_alert')
         ]);
         if ($Request) {
-            echo json_decode($Request);
-            exit;
+            return json_decode($Request);
         }
     	$list = User::checkLog($data);
         if ($list)
@@ -48,16 +47,16 @@ class LoginController extends BaseController
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id']);
 			    session()->put('u_email', $list['u_email']);
-			    echo "0";
+			    return 0;
 			} else {
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id'], 3600*24*7 );
 			    session()->put('u_email', $list['u_email'], 3600*24*7 );
-			    echo "1";
+			    return 1;
 			}
 			
         } else {
-        	echo "2";
+        	return 2;
         }
     }
 
@@ -78,8 +77,7 @@ class LoginController extends BaseController
             'geetest' => Config::get('geetest.server_fail_alert')
         ]);
         if ($Request) {
-            echo json_decode($Request);
-            exit;
+            return json_decode($Request);
         }
         unset($data['geetest_challenge']);
         unset($data['geetest_validate']);
@@ -87,8 +85,7 @@ class LoginController extends BaseController
 
         $reslut = User::findOne($data);
         if ($reslut) {
-            echo 500;
-            exit;
+            return 500;
         }
 		$data['u_pwd'] = md5($data['u_pwd']);
 		$data['u_resign'] = time();
@@ -109,11 +106,9 @@ class LoginController extends BaseController
             session()->put('u_id', $res);
             session()->put('u_email', $data['u_email']);
             session()->save();
-            echo json_encode($res);
-            exit;
+            return json_encode($res);
     	} else {
-    		echo json_encode($res);
-            exit;
+    		return json_encode($res);
     	}
     }
 
@@ -140,5 +135,84 @@ class LoginController extends BaseController
         session()->forget('u_email');
 
         return redirect('/');
+    }
+
+    /**找回密码-账号确认
+     * @return view
+     */
+    public function pwdBack()
+    {
+        return view('index.login.back');
+    }
+
+    // 账号是否存在ajax验证
+    public function backPro(Request $Request)
+    {
+        $data = $Request->all();
+        unset($data['_token']);
+        $Request = $this->validate($Request, [
+            'geetest_challenge' => 'required|geetest',
+        ], [
+            'geetest' => Config::get('geetest.server_fail_alert')
+        ]);
+        if ($Request) {
+            return json_decode($Request);
+        }
+        $list = User::checkOne($data);
+        if ($list)
+        {
+            $email = $list['u_email'];
+            $arr['content'] = '校易聘密码找回，请点击或复制以下网址到浏览器里直接打开以便完成找回密码：'.env('APP_HOST').'/newPwd.html?email='.$list["u_email"].'，非本人邮件请勿操作，谢谢合作！';
+            $rest = Mail::raw($arr['content'], function ($message) use($email) {
+                $to = $email;
+                $message ->to($to)->subject('校易聘密码重置邮件');
+            });
+            if ($rest) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 2;
+        }
+    }
+
+    /**
+     * 密码找回-邮箱提示
+     * @return view
+     */
+    public function twoPwd()
+    {
+        return view('index.login.twoPwd');
+    }
+
+    /**找回密码-重置密码
+     * @return view
+     */
+    public function newPwd(Request $Request)
+    {
+        $email = $Request->input('email');
+        return view('index.login.newPwd',['email'=>$email]);
+    }
+
+    /**重置密码newPro
+     * @return data
+     */
+    public function newPro(Request $Request)
+    {
+        $data = $Request->all();
+        unset($data['_token']);
+        $res = User::upPwd($data);
+        return redirect('/resPwd.html?res='.$res);
+    }
+
+    /**
+     * 找回密码-修改完成
+     * @return view
+     */
+    public function resPwd(Request $Request)
+    {
+        $res = $Request->input('res');
+        return view('index.login.resPwd',['res'=>$res]);
     }
 }

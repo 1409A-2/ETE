@@ -28,6 +28,7 @@ Route::group(['middleware' => ['web']], function () {
     //前台
     Route::get('/','Index\IndexController@index');
 	Route::get('postPreview','Index\IndexController@postPreview');//查看职位详情
+	Route::get('feedBack','Index\IndexController@feedBack');//前台用户反馈信息
 	// 微信用户整合
 	Route::get('registerWeixin.html','Index\IndexController@registerWeixin');
 	Route::post('registerProne','Index\IndexController@registerProne');
@@ -46,7 +47,12 @@ Route::group(['middleware' => ['web']], function () {
 	Route::controller('login','Index\LoginController');
 	Route::get('email','Index\LoginController@email');
 	Route::get('loginOut.html','Index\LoginController@loginOut');
-
+	Route::get('pwdBack.html','Index\LoginController@pwdBack');
+	Route::post('backPro','Index\LoginController@backPro');
+	Route::get('newPwd.html','Index\LoginController@newPwd');
+	Route::post('newPro','Index\LoginController@newPro');
+	Route::get('twoPwd.html','Index\LoginController@twoPwd');
+	Route::get('resPwd.html','Index\LoginController@resPwd');
 
 
 	//用户个人信息
@@ -56,6 +62,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('sendEamil','Index\InfoController@sendMail');
         Route::post('company1pro','Index\InfoController@companyEmail');
         Route::post('company2pro','Index\InfoController@companyName');
+        //账号设置
+        Route::get('accountBind.html','Index\AccountController@accountBind');
+        Route::get('updatePwd.html','Index\AccountController@updatePwd');
+        Route::post('upPwdPro','Index\AccountController@upPwdPro');
+        Route::get('unAccount','Index\AccountController@unAccount');
+        Route::get('accountPro','Index\AccountController@accountPro');
 
 		//这是发布职位控制
 		Route::group(['middleware' => 'company'], function () {
@@ -154,6 +166,35 @@ Route::group(['middleware' => ['web']], function () {
 		Route::get('adminUser','Admin\UserController@adminUser');//用户的主菜单页面
 		Route::get('adminUserList','Admin\UserController@adminUserList');//用户列表 后台管理用户  adminUserList
 		Route::get('adminUserDel','Admin\UserController@adminUserDel');//删除用户  adminUserDel
+		//友情连接
+		Route::get('adminFriendShip','Admin\MaterialController@friendShipLink');
+        Route::post('friendLinkPro','Admin\MaterialController@friendLinkPro');
+        Route::get('uplink','Admin\MaterialController@upLink');
+        Route::get('dellink','Admin\MaterialController@delLink');
+        Route::post('upLinkPro','Admin\MaterialController@upLinkPro');
+        Route::post('batchDelLink','Admin\MaterialController@delLinkSome');
+
+        // 后台行业管理
+        Route::get('adminIndustryList','Admin\IndustryController@adminIndustryList');
+        Route::get('adminIndustryAdd','Admin\IndustryController@adminIndustryAdd');
+        Route::post('industryAddPro','Admin\IndustryController@industryAddPro');
+        Route::get('adminIndustryDel','Admin\IndustryController@adminIndustryDel');
+        Route::get('adminIndustryUp','Admin\IndustryController@adminIndustryUp');
+        Route::post('industryUpPro','Admin\IndustryController@industryUpPro');
+
+		//推荐网站
+		Route::get('adminRecommend','Admin\MaterialController@recommendSite');
+		Route::post('adminRecommendPro','Admin\MaterialController@recommendSitePro');
+		Route::get('upsite','Admin\MaterialController@upSite');
+		Route::post('upSitePro','Admin\MaterialController@upSitePro');
+		Route::get('delsite','Admin\MaterialController@delSite');
+		Route::post('batchDelSite','Admin\MaterialController@batchDelSite');
+
+		//用户反馈信息模块
+		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
+		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
+		Route::get('feedBackHandle','Admin\FeekController@feedBackHandle');//用户反馈信息管理
+		Route::get('feedBackEmail','Admin\FeekController@feedBackEmail');//反馈手机没打通，发邮件通知 feedBackEmail
 
 	});
 });
