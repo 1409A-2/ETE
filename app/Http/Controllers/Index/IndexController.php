@@ -205,8 +205,7 @@ class IndexController extends BaseController
         $email = $data['u_email'];
         $reslut = User::findOne($data);
         if ($reslut) {
-            echo json_encode(500);
-            exit;
+            return 500;
         }
         $data['u_pwd'] = md5($data['u_pwd']);
         $data['u_resign'] = time();
@@ -225,15 +224,12 @@ class IndexController extends BaseController
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
             if ($rest) {
-                echo json_encode($data['r_openid']);
-                exit;
+                return json_encode($data['r_openid']);
             } else {
-                echo json_encode($rest);
-                exit;
+                return json_encode($rest);
             }
         } else {
-            echo json_encode($res);
-            exit;
+            return json_encode($res);
         }
     }
     //职位详情
@@ -256,7 +252,6 @@ class IndexController extends BaseController
         $badword1 = array_combine($badword,array_fill(0,count($badword),'**'));
         $data['f_feedback'] = strtr($f_feedback, $badword1);
         $data['f_uid'] =  session('u_id',-2);
-        $data['f_time'] = time();
 
         $re= Feedback::backAdd($data);
         if($re){

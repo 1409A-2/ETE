@@ -133,7 +133,10 @@ $(function(){
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
 	            		} else {
-	            			window.location.href='login.html';
+	            			var str = '验证码验证失效，请刷新重置！';
+	            			$('#beError').attr('style','');
+	            			$('#beError').text('');
+	            			$('#beError').append(str);
 	            		}
 	            	}
 	            })

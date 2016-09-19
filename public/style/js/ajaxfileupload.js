@@ -1,17 +1,17 @@
 jQuery.extend({
 
    
-	handleError: function( s, xhr, status, e ) 		{
-		// If a local callback was specified, fire it
-				if ( s.error ) {
-					s.error.call( s.context || s, xhr, status, e );
-				}
+  handleError: function( s, xhr, status, e )    {
+    // If a local callback was specified, fire it
+        if ( s.error ) {
+          s.error.call( s.context || s, xhr, status, e );
+        }
 
-				// Fire the global callback
-				if ( s.global ) {
-					(s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
-				}
-			},
+        // Fire the global callback
+        if ( s.global ) {
+          (s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
+        }
+      },
  
 
     createUploadIframe: function(id, uri)
@@ -384,14 +384,14 @@ jQuery.extend({
 
         if ( type == "json" )
 
-        	// vee update
-        	data = jQuery.parseJSON(jQuery(data).text());
-        	/*if (data.startsWith("<pre>") && data.endsWith("</pre>")) {  
+          // vee update
+          data = jQuery.parseJSON(jQuery(data).text());
+          /*if (data.startsWith("<pre>") && data.endsWith("</pre>")) {  
                 data = data.substr(5, data.length - 11);  
                 data = jQuery.parseJSON(data);  
             } else {
-            	//eval( "data = " + data );
-            	eval("data = \" "+data+" \" ");
+              //eval( "data = " + data );
+              eval("data = \" "+data+" \" ");
             }*/
         // evaluate scripts within html
 

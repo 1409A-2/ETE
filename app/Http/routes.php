@@ -64,6 +64,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('sendEamil','Index\InfoController@sendMail');
         Route::post('company1pro','Index\InfoController@companyEmail');
         Route::post('company2pro','Index\InfoController@companyName');
+        //账号设置
+        Route::get('accountBind.html','Index\AccountController@accountBind');
+        Route::get('updatePwd.html','Index\AccountController@updatePwd');
+        Route::post('upPwdPro','Index\AccountController@upPwdPro');
+        Route::get('unAccount','Index\AccountController@unAccount');
+        Route::get('accountPro','Index\AccountController@accountPro');
 
 		//这是发布职位控制
 		Route::group(['middleware' => 'company'], function () {

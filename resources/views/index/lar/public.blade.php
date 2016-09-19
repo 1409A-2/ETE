@@ -37,7 +37,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/popup.css"/>
 	<script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
-	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>     
+	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>
 	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
@@ -85,7 +85,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
-				<dd><a href="#">帐号设置</a></dd>
+				<dd><a href="updatePwd.html">帐号设置</a></dd>
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>
@@ -175,7 +175,21 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>
  -->
 <div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 20px; top: 250px;">
-    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '//static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', 32443);
+</script>
+<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
 </div>
 
 	<div class="feedback" style="display: none;">
