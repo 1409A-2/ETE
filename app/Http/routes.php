@@ -126,8 +126,13 @@ Route::group(['middleware' => ['web']], function () {
 
         //一拍
         Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
-        Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍
-        Route::post('beatPro', 'Index\beatController@beatPro');//一拍
+        Route::get('beatRaiders', 'Index\beatController@beatRaiders');//一拍攻略
+        Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍添加显示
+        Route::get('beatPhone', 'Index\beatController@beatPhone');//一拍发送手机验证码
+        Route::get('codePro', 'Index\beatController@codePro');//一拍验证手机验证码
+
+        Route::post('beatPro', 'Index\beatController@beatPro');//一拍添加入库
+
     });
     Route::get('companylist','Index\CompanyController@index');// 可选 5
 	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5

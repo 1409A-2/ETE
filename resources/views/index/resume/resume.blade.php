@@ -10,7 +10,7 @@
                     <div class="nameShow fl">
                         <h1 title="@if($res['r_name']){{$res['r_name']}} @else 匿名 @endif 的简历">@if($res['r_name']){{$res['r_name']}} @else
                                 匿名 @endif 的简历</h1>
-                        | <a href="{{url('previewList')}}/{{$res['r_id']}}">预览</a>
+                        | <a target="_bank" href="{{url('previewList')}}/{{$res['r_id']}}">预览</a>
                     </div>
 
                 </div>
@@ -42,10 +42,10 @@
                                                     |  @if($res['r_sex']==0)男@else女@endif
                                                     |
                                                     @if($res['r_education'])
-                                                        @if($res['r_education']==1)大专@elseif($res['r_education']==2)
-                                                            本科@elseif($res['r_education']==3)
-                                                            硕士@elseif($res['r_education']==4)
-                                                            博士@elseif($res['r_education']==5)其他@endif
+                                                        @foreach($education as $v)
+                                                            @if($res['r_education']==$v['ed_id']){{$v['ed_name']}} @endif
+                                                        @endforeach
+
                                                     @else
                                                         学历
                                                     @endif
@@ -95,14 +95,16 @@
                                     <td valign="top"></td>
                                     <td>
                                         <ul class="profile_radio clearfix reset">
-                                            <li class="current">
+
+                                            <li @if($res['r_sex']==0)   class="current" @endif>
                                                 男<em></em>
-                                                <input type="radio" checked="checked" name="gender" value="0">
+                                                <input type="radio" name="gender" value="0">
                                             </li>
-                                            <li>
+                                            <li  @if($res['r_sex']==1)   class="current" @endif>
                                                 女<em></em>
                                                 <input type="radio" name="gender" value="1">
                                             </li>
+
                                         </ul>
                                     </td>
                                 </tr>
@@ -111,10 +113,21 @@
                                         <span class="redstar">*</span>
                                     </td>
                                     <td>
-                                        <input type="hidden" id="topDegree" value="大专" name="topDegree">
-                                        <input type="button" value="大专" id="select_topDegree"
-                                               class="profile_select_190 profile_select_normal">
+                                        @if($res['r_education'])
+                                            <input type="hidden" id="topDegree"
+                                                   value="@foreach ($education as $v) @if ($res['r_education']==$v['ed_id']){{$v['ed_name']}} @endif @endforeach"
+                                                   name="topDegree">
+                                            <input type="button"
+                                                   value="@foreach ($education as $v) @if ($res['r_education']==$v['ed_id']){{$v['ed_name']}} @endif @endforeach"
+                                                   id="select_topDegree"
+                                                   class="profile_select_190 profile_select_normal">
+                                        @else
 
+
+                                            <input type="hidden" id="topDegree" value="--请选择--" name="topDegree">
+                                            <input type="button" value="--请选择--" id="select_topDegree"
+                                                   class="profile_select_190 profile_select_normal">
+                                        @endif
                                         <div class="boxUpDown boxUpDown_190 dn" id="box_topDegree"
                                              style="display: none;">
                                             <ul>
@@ -196,9 +209,13 @@
                     </div>
                     <!--end .basicEdit-->
                     <input type="hidden" id="nameVal" value="{{$res['r_name']}}">
-                    <input type="hidden" id="genderVal" value="@if($res['r_sex']==0)男@else女@endif">
-                    <input type="hidden" id="topDegreeVal"
-                           value="@if($res['r_education']==1)大专@elseif($res['r_education']==2)本科@elseif($res['r_education']==3)硕士@elseif($res['r_education']==4)博士@elseif($res['r_education']==5)其他@else--请选择--@endif">
+                    <input type="hidden" id="genderVal">
+                    @if($res['r_education'])
+                        <input type="hidden" id="topDegreeVal"
+                               value=" @foreach ($education as $v) @if ($res['r_education']==$v['ed_id']){{$v['ed_name']}} @endif @endforeach">
+                    @else
+                        <input type="hidden" id="topDegreeVal" value="--请选择--">
+                    @endif
                     <input type="hidden" id="currentStateVal"
                            value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@else--请选择--@endif">
                     <input type="hidden" id="emailVal" value="{{$res['r_email']}}">
@@ -306,17 +323,20 @@
 
                             @foreach($porject as $v)
 
-
                                 <ul class="plist clearfix">
-                                    <li> 项目名称: <b>{{$v['p_name']}}</b>
-                                        担任职务: <b> {{$v['p_duties']}}</b>
-                                        开始时间: <b> {{date('Y-m',$v['p_start_time'])}}</b>
-                                        结束时间: <b> {{date('Y-m',$v['p_end_time']) }}</b>
-                                        描述: <b>  {{$v['p_desc']}}</b>
+                                    <li class="noborder">
+                                        <div class="projectList">
+                                            <div class="f16 mb10">{{$v['p_name']}},{{$v['p_duties']}}
+                                                <span class="c9">
+		            									            								（{{date('Y.m',$v['p_start_time'])}}
+                                                    -{{date('Y.d',$v['p_end_time'])}}）
+		            									            						</span>
+                                            </div>
+                                            <div class="dl1"></div>
+                                        </div>
                                     </li>
-                                    <a style="color: red;font-size: 18px;" href="{{url('porjectDel')}}/{{$v['p_id']}}">删除</a>
-                                    <hr/>
                                 </ul>
+                                <hr/>
                             @endforeach
                         </div><!--end .projectShow-->
                         <div class="projectEdit dn">
@@ -701,7 +721,8 @@
                                         </td>
                                         <td>
                                             <input type="hidden" class="degree" value="" name="degree">
-                                            <input type="button" value="学历" class="profile_select_287 profile_select_normal select_degree">
+                                            <input type="button" value="学历"
+                                                   class="profile_select_287 profile_select_normal select_degree">
 
 
                                             <div class="box_degree boxUpDown boxUpDown_287 dn" style="display: none;">
@@ -850,17 +871,18 @@
 
                     @if($works)
                         <span class="c_add"></span>
+
                         <div class="workShow">
-                        @foreach($works as $v)
+                            @foreach($works as $v)
 
 
-                                <ul class="slist clearfix">
-                                    地址—— <b>{{$v['w_url']}}</b> <br/>
-                                    描述—— <b>{{$v['w_desc']}}</b>
-                                </ul>
-                                <a style="font-size: 18px; color:red;" href="{{url('worksDel')}}/{{$v['w_id']}}">删除</a>
+                                <div class="workList c7">
+                                    <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
+                                    </div>
+                                    <p>{{$v['w_desc']}} </p>
+                                </div>
                                 <hr/>
-                        @endforeach
+                            @endforeach
                         </div>
                         <div class="workEdit dn">
                             <form class="workForm">
@@ -944,37 +966,37 @@
                 </div>
                 <!--end #myInfo-->
 
-                <div class="mycenterR" id="myResume">
-                    <h2>我的附件简历
-                        <a title="上传附件简历" href="#uploadFile" class="inline cboxElement">上传简历</a>
-                    </h2>
+                {{--<div class="mycenterR" id="myResume">--}}
+                {{--<h2>我的附件简历--}}
+                {{--<a title="上传附件简历" href="#uploadFile" class="inline cboxElement">上传简历</a>--}}
+                {{--</h2>--}}
 
-                    <div class="resumeUploadDiv">
-                        暂无附件简历
-                    </div>
-                </div>
+                {{--<div class="resumeUploadDiv">--}}
+                {{--暂无附件简历--}}
+                {{--</div>--}}
+                {{--</div>--}}
                 <!--end #myResume-->
 
-                <div class="mycenterR" id="resumeSet">
-                    <h2>投递简历设置 <span>修改设置</span></h2>
-                    <!-- -1 (0=附件， 1=在线， 其他=未设置) -->
-                    <div class="noSet set0 dn">默认使用<span>附件简历</span>进行投递</div>
-                    <div class="noSet set1 dn">默认使用<span>在线简历</span>进行投递</div>
-                    <div class="noSet">暂未设置默认投递简历</div>
-                    <input type="hidden" class="defaultResume" value="-1">
+                {{--<div class="mycenterR" id="resumeSet">--}}
+                {{--<h2>投递简历设置 <span>修改设置</span></h2>--}}
+                {{--<!-- -1 (0=附件， 1=在线， 其他=未设置) -->--}}
+                {{--<div class="noSet set0 dn">默认使用<span>附件简历</span>进行投递</div>--}}
+                {{--<div class="noSet set1 dn">默认使用<span>在线简历</span>进行投递</div>--}}
+                {{--<div class="noSet">暂未设置默认投递简历</div>--}}
+                {{--<input type="hidden" class="defaultResume" value="-1">--}}
 
-                    <form class="dn" id="resumeSetForm">
-                        <label><input type="radio" value="1" class="resume1"
-                                      name="resume">默认使用<span>在线简历</span>进行投递</label>
-                        <label><input type="radio" value="0" class="resume0"
-                                      name="resume">默认使用<span>附件简历</span>进行投递</label>
-                        <span class="setTip error"></span>
+                {{--<form class="dn" id="resumeSetForm">--}}
+                {{--<label><input type="radio" value="1" class="resume1"--}}
+                {{--name="resume">默认使用<span>在线简历</span>进行投递</label>--}}
+                {{--<label><input type="radio" value="0" class="resume0"--}}
+                {{--name="resume">默认使用<span>附件简历</span>进行投递</label>--}}
+                {{--<span class="setTip error"></span>--}}
 
-                        <div class="resumeTip">设置后投递简历时将不再提醒</div>
-                        <input type="submit" value="保 存" class="btn_profile_save">
-                        <a class="btn_profile_cancel" href="javascript:;">取 消</a>
-                    </form>
-                </div>
+                {{--<div class="resumeTip">设置后投递简历时将不再提醒</div>--}}
+                {{--<input type="submit" value="保 存" class="btn_profile_save">--}}
+                {{--<a class="btn_profile_cancel" href="javascript:;">取 消</a>--}}
+                {{--</form>--}}
+                {{--</div>--}}
                 <!--end #resumeSet-->
 
                 <div class="mycenterR" id="myShare">

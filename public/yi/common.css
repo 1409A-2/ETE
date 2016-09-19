@@ -1,4 +1,3 @@
-
 @charset "utf-8";
 .fl {
     float: left;
@@ -563,7 +562,7 @@ textarea::-moz-placeholder {
 }
 
 .popup .error_msg {
-    background: url(/yi/lb_error.png) 0 5px no-repeat;
+    background: url(../yi/lb_error.png) 0 5px no-repeat;
     padding-left: 45px;
     width: 380px;
     margin: 0 auto 25px;
@@ -730,12 +729,12 @@ textarea::-moz-placeholder {
     float: left;
     height: 17px;
     width: 17px;
-    background: url(../images/user/radio.png) no-repeat;
+    background: url(../yi/user/radio.png) no-repeat;
     margin: 4px 10px 0 0
 }
 
 #bindReplace .chooseAccount label.current em {
-    background: url(../images/user/radioSel.png) no-repeat
+    background: url(../yi/user/radioSel.png) no-repeat
 }
 
 #bindReplace .chooseAccount .acc_detail {
@@ -994,7 +993,7 @@ td.select_box, td.report_last {
 
 .report_last label.checkbox i {
     display: block;
-    background: url(/yi/report_select.png) 0 0 no-repeat;
+    background: url(../yi/report_select.png) 0 0 no-repeat;
     width: 17px;
     height: 14px;
     position: absolute;
@@ -1121,7 +1120,7 @@ td.select_box, td.report_last {
 .popup .upper_msg {
     font-size: 24px;
     font-weight: 400;
-    background: url(/yi/lb_error.png) 0 5px no-repeat;
+    background: url(../yi/lb_error.png) 0 5px no-repeat;
     padding-left: 45px;
     width: 380px;
     margin: 0 auto 10px;
@@ -1533,7 +1532,7 @@ td.select_box, td.report_last {
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     color: #fff;
-    background: #00b38a url(/images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x
+    background: #00b38a url(/yi/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x
 }
 
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
@@ -1542,7 +1541,7 @@ td.select_box, td.report_last {
 
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
     border: 1px solid #cd0a0a;
-    background: #b81900 url(/images/ui-bg_diagonals-thick_18_b81900_40x40.png) 50% 50% repeat;
+    background: #b81900 url(/yi/ui-bg_diagonals-thick_18_b81900_40x40.png) 50% 50% repeat;
     color: #fff
 }
 
@@ -1587,11 +1586,11 @@ td.select_box, td.report_last {
 }
 
 .ui-state-highlight .ui-icon {
-    background-image: url(/images/ui-icons_228ef1_256x240.png)
+    background-image: url(/yi/ui-icons_228ef1_256x240.png)
 }
 
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
-    background-image: url(/images/ui-icons_ffd27a_256x240.png)
+    background-image: url(/yi/ui-icons_ffd27a_256x240.png)
 }
 
 .ui-icon-blank {
@@ -2313,7 +2312,7 @@ td.select_box, td.report_last {
 .ui-widget-shadow {
     margin: -5px 0 0 -5px;
     padding: 5px;
-    background: #000 url(/images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x;
+    background: #000 url(/yi/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x;
     opacity: .2;
     filter: Alpha(Opacity=20);
     border-radius: 5px

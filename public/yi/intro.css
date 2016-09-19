@@ -37,7 +37,7 @@ h1, h2, h3 {
 
 .header {
     height: 500px;
-
+    background: url(/yi/bg_head_big.jpg) no-repeat center bottom;
     -webkit-background-size: cover;
     background-size: cover;
     text-align: center;
@@ -536,19 +536,19 @@ h2 {
 }
 
 .part2 .slide-wrapper.hr .slide-container .slide-content .slide.slide1 {
-    background-image: url(/yi/b_intro_1.png)
+    background-image: url(/yi/index/b_intro_1.png)
 }
 
 .part2 .slide-wrapper.hr .slide-container .slide-content .slide.slide2 {
-    background-image: url(/yi/b_intro_2.png)
+    background-image: url(/yi/index/b_intro_2.png)
 }
 
 .part2 .slide-wrapper.hr .slide-container .slide-content .slide.slide3 {
-    background-image: url(/yi/b_intro_3.png)
+    background-image: url(/yi/index/b_intro_3.png)
 }
 
 .part2 .slide-wrapper.hr .slide-container .slide-content .slide.slide4 {
-    background-image: url(/yi/b_intro_4.png)
+    background-image: url(/yi/index/b_intro_4.png)
 }
 
 .part2 .slide-wrapper .slide-container {
@@ -603,19 +603,19 @@ h2 {
 }
 
 .part2 .slide-wrapper .slide-container .slide-content .slide.slide1 {
-    background-image: url(/yi/c_intro_1.png)
+    background-image: url(/yi/index/c_intro_1.png)
 }
 
 .part2 .slide-wrapper .slide-container .slide-content .slide.slide2 {
-    background-image: url(/yi/c_intro_2.png)
+    background-image: url(/yi/index/c_intro_2.png)
 }
 
 .part2 .slide-wrapper .slide-container .slide-content .slide.slide3 {
-    background-image: url(/yi/c_intro_3.png)
+    background-image: url(/yi/index/c_intro_3.png)
 }
 
 .part2 .slide-wrapper .slide-container .slide-content .slide.slide4 {
-    background-image: url(/yi/c_intro_4.png)
+    background-image: url(/yi/index/c_intro_4.png)
 }
 
 .part2 .slide-wrapper .slide-control {

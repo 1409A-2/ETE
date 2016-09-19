@@ -12,6 +12,14 @@
     text-decoration: underline
 }
 
+select{
+    padding: 0 15px;
+    width: 460px;
+    height: 50px;
+    line-height: 50px;
+    color: #333;
+}
+
 .error-tip {
     visibility: hidden;
     color: #f94e4e;
@@ -962,7 +970,7 @@ input.cmn-toggle-round:checked + label:after {
     width: 71px;
     height: 71px;
     margin-left: -35.5px;
-    background: url(/yi/light_bulb.png) 0 0 no-repeat
+    background: url(/yi/basicinfo/light_bulb.png) 0 0 no-repeat
 }
 
 .m-tip .tip-content {
@@ -994,7 +1002,7 @@ input.cmn-toggle-round:checked + label:after {
     bottom: -7px;
     width: 205px;
     height: 7px;
-    background: url(/yi/tip_shadow.png) 0 0 no-repeat
+    background: url(/yi/basicinfo/tip_shadow.png) 0 0 no-repeat
 }
 
 .placeholder {
@@ -1007,7 +1015,7 @@ input.cmn-toggle-round:checked + label:after {
     padding: 18px 12px 22px;
     margin-top: -40px;
     margin-bottom: 16px;
-    background: url(/yi/notice-bottom.png) #fdfdde repeat-x center bottom
+    background: url(/yi/holiday/notice-bottom.png) #fdfdde repeat-x center bottom
 }
 
 .holiday-notice .mark {
@@ -1282,7 +1290,7 @@ input.cmn-toggle-round:checked + label:after {
 
 .check-standard li {
     padding-left: 19px;
-    background: url(/yi/list-square.png) 0 6px no-repeat
+    background: url(/yi/venue/list-square.png) 0 6px no-repeat
 }
 
 .check-standard li + li {
