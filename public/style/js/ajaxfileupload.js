@@ -1,17 +1,17 @@
 jQuery.extend({
 
    
-	handleError: function( s, xhr, status, e ) 		{
-		// If a local callback was specified, fire it
-				if ( s.error ) {
-					s.error.call( s.context || s, xhr, status, e );
-				}
+  handleError: function( s, xhr, status, e )    {
+    // If a local callback was specified, fire it
+        if ( s.error ) {
+          s.error.call( s.context || s, xhr, status, e );
+        }
 
-				// Fire the global callback
-				if ( s.global ) {
-					(s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
-				}
-			},
+        // Fire the global callback
+        if ( s.global ) {
+          (s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
+        }
+      },
  
 
     createUploadIframe: function(id, uri)
@@ -384,14 +384,14 @@ jQuery.extend({
 
         if ( type == "json" )
 
-        	// vee update
-        	data = jQuery.parseJSON(jQuery(data).text());
-        	/*if (data.startsWith("<pre>") && data.endsWith("</pre>")) {  
+          // vee update
+          data = jQuery.parseJSON(jQuery(data).text());
+          /*if (data.startsWith("<pre>") && data.endsWith("</pre>")) {  
                 data = data.substr(5, data.length - 11);  
                 data = jQuery.parseJSON(data);  
             } else {
-            	//eval( "data = " + data );
-            	eval("data = \" "+data+" \" ");
+              //eval( "data = " + data );
+              eval("data = \" "+data+" \" ");
             }*/
         // evaluate scripts within html
 
@@ -409,7 +409,6 @@ jQuery.extend({
 
 $(function(){
   $("#feedback-icon").click(function(){
-      var a,b,c;
       $(".feedback").css("display",'block')
     })
     $(".minimize").click(function(){
@@ -428,17 +427,18 @@ $(function(){
       $(".feedback").css("display",'none')
     })
     $('#feedbackSubmit').click(function(){
+      var a,b,c;
       feedback=$('.feedback-text').val();
       tel=$('.tel-text').val();
       email=$('.email-text').val();
       if(tel==''){
         a=false;
-        $("#telTexts").html('<font color="red">²»ÄÜÎª¿Õ</font>');
+        $("#telTexts").html('<font color="red">ä¸èƒ½ä¸ºç©º</font>');
       }else{
         var reg = /^1[3|4|5|7|8][0-9]{9}$/;
         if(reg.test(tel)==false){
           a=false;
-          $("#telTexts").html('<font color="red">±ØĞëÊÇ11Î»µÄÕı¹æÊÖ»úºÅÂë</font>');
+          $("#telTexts").html('<font color="red">å¿…é¡»æ˜¯11ä½çš„æ­£è§„æ‰‹æœºå·ç </font>');
         }else{
           a=true;
           $("#telTexts").html('');
@@ -446,12 +446,12 @@ $(function(){
       }
       if(email==''){
         b=false;
-        $("#emailTexts").html('<font color="red">²»ÄÜÎª¿Õ</font>');
+        $("#emailTexts").html('<font color="red">ä¸èƒ½ä¸ºç©º</font>');
       }else{
         var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
         if(email_str.test(email)==false){
           b=false;
-          $("#emailTexts").html('<font color="red">±ØĞëÊÇÕı¹æÓÊÏä</font>');
+          $("#emailTexts").html('<font color="red">å¿…é¡»æ˜¯æ­£è§„é‚®ç®±</font>');
         }else{
           b=true;
           $("#emailTexts").html('');
@@ -459,7 +459,7 @@ $(function(){
       }
       if(feedback==''){
         c=false;
-        $("#feedbackTexts").html('<font color="red">²»ÄÜÎª¿Õ</font>');
+        $("#feedbackTexts").html('<font color="red">ä¸èƒ½ä¸ºç©º</font>');
       }else{
         c=true;
         $("#feedbackTexts").html('');
@@ -482,7 +482,7 @@ $(function(){
             _emailText.val("");
             _feekback.css("display",'none');            
           }else{
-            alert('·´À¡Ê§°Ü');
+            alert('åé¦ˆå¤±è´¥');
           }
         }
       })
