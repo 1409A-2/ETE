@@ -29,8 +29,8 @@ class Feedback extends Model
     /** * 查询反馈信息
      * @return mixed
      */
-    public static function sel($len,$off){
-         $res=self::orderBy('f_id','desc')->orderBy('f_uid','desc')->skip($off)->take($len)->get();
+    public static function sel($f_status,$len,$off){
+         $res=self::where('f_status','=',$f_status)->orderBy('f_time','desc')->orderBy('f_id','desc')->orderBy('f_uid','desc')->skip($off)->take($len)->get();
          if($res){
 
             return $res->toArray();
@@ -43,8 +43,8 @@ class Feedback extends Model
     /**查询反馈信息条数
      * @return mixed
      */
-    public static function selAll(){
-        return self::count();
+    public static function selAll($f_status){
+        return self::where('f_status','=',$f_status)->count();
     }
     /**
      * 删除和批量删除一些数据
@@ -52,5 +52,19 @@ class Feedback extends Model
      */
     public static function feedDel($arr){
         return self::whereIn('f_id',$arr)->delete();
+    }
+    /**
+     * 查询单条反馈信息
+     * @return array()
+     */
+    public static function selOne($f_id){
+        return self::where('f_id','=',$f_id)->first()->toArray();
+    }
+    /**
+     * 修改反馈信息
+     * @return   [description]
+     */
+    public static function up($f_id,$f_status){
+        return self::where('f_id','=',$f_id)->update(['f_status'=>$f_status]);
     }
 }

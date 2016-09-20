@@ -14,7 +14,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	#feedback-icon {position: relative;}
 	#feedback-icon {position: relative;}
 	.fb-icon {background: rgba(0, 0, 0, 0) url("{{env('APP_HOST')}}/style/images/img/feedback_06c5af9.png") no-repeat scroll 0 0;height: 30px;margin: 0 auto;width: 30px;}
-	.feedback {width:300px;height:400px;border-width:0;border-radius: 3px;transition: height 0.5s ease-out;z-index:99999;display: none;bottom:0;right:0;position:fixed;background: #fff;}
+	.feedback {width:300px;height:450px;border-width:0;border-radius: 3px;transition: height 0.5s ease-out;z-index:99999;display: none;bottom:0;right:0;position:fixed;background: #fff;}
 	.query_hint{display: none;z-index: 999999;width:100%;height:100%;position:fixed;top:0.1px;padding-top:22%; font-size:15px;color:#666;font-weight:bold;text-align:center;}
 	.query_hint img{position:relative;top:10px;left:-8px;}
 </style>
@@ -38,6 +38,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>     
+	<!-- feedback -->
 	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
@@ -81,11 +82,11 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collectedPosition">我收藏的职位</a></dd>
-				<dd class="btm"><a href="#">我的订阅</a></dd>
+				<dd class="btm"><a href="subscribe">我的订阅</a></dd>
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
-				<dd><a href="#">帐号设置</a></dd>
+				<dd><a href="updatePwd.html">帐号设置</a></dd>
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>
@@ -175,7 +176,21 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>
  -->
 <div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 20px; top: 250px;">
-    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '//static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', 32443);
+</script>
+<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
 </div>
 
 	<div class="feedback" style="display: none;">
@@ -188,8 +203,11 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	</div>
 		<p class="title">请留言，我们将尽快联系您！</p>
 		<textarea id="feedbackText" class="feedback-text" placeholder="尊敬的用户您好，请把您遇到的问题以及您的联系方式告诉我们，我们会尽快与您联系。" name="feedbackText"></textarea>
+		<span id="feedbackTexts"></span>
 		<input id="telText" class="tel-text" type="text" placeholder="联系电话" name="tel">
+		<span id="telTexts"></span>
 		<input id="emailText" class="email-text" type="text" placeholder="邮箱" name="email">
+		<span id="emailTexts"></span>
 		<input class="submit-feedback" id="feedbackSubmit" type="button" value="留言" name="submit">
 	</div>
 		<div id="query_hint" class="query_hint">

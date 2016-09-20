@@ -74,7 +74,8 @@ class User extends Model
         }
         return $res;
     }
- /**
+
+    /**
      * 查询一个用户的所有信息
      */
     public static function selOne($u_id)
@@ -86,7 +87,6 @@ class User extends Model
             return $data->toArray();
         }
         return $data;
-
     }
 
     /**
@@ -163,5 +163,41 @@ class User extends Model
         } else {
             return false;
         }
+    }
+
+    /**
+     * 查询一个用户的所有信息
+     */
+    public static function findOnly($u_id)
+    {
+        $data =  self::where('u_id',$u_id)
+            ->first();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
+    }
+
+    /**
+     * 修改微信绑定状态
+     * @param $bool [u_status]
+     */
+    public static function weixin($data)
+    {
+        $mod = self::where('u_id', '=', $data['u_id'])
+            ->first();
+        if ($mod != null) {
+            $list = $mod->toArray();
+            if ($list['r_openid']=="") {
+                $mod->r_openid = $data['r_openid'];
+                $res = $mod->save();
+            } else {
+                $mod->r_openid = '';
+                $res = $mod->save();
+            }
+        } else {
+            $res = null;
+        }
+        return $res;
     }
 }

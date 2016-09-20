@@ -459,36 +459,35 @@ class ResumeController extends BaseController
                         //查询出当前投递的简历
                         $arr[]=ResumeReseale::selRes(['resume_reseale.rere_id'=>$v['rere_id']]);
                     }
-
                     foreach($arr as $ke=>$ve){
                         //全部投递的简历
                         $reList['all'][]=$ve;
-                        //查看过的简历
-                        if($ve['read']==1){
-                            $reList['read'][]=$ve;
-                        }
+                        
                         //投递成功
                         if($ve['remuse_resele']==0){
                             $reList['remuse_0'][]=$ve;
+                        }
+                        //查看过的简历
+                        if($ve['remuse_resele']==1){
+                            $reList['remuse_1'][]=$ve;
                         }
                         //简历初试通过
                         if($ve['remuse_resele']==2){
                             $reList['remuse_2'][]=$ve;
                         }
                         //通知面试
-                        if($ve['remuse_resele']==1){
-                            $reList['remuse_1'][]=$ve;
-                        }
-                        //不合格
                         if($ve['remuse_resele']==3){
                             $reList['remuse_3'][]=$ve;
+                        }
+                        //不合格
+                        if($ve['remuse_resele']==4){
+                            $reList['remuse_4'][]=$ve;
                         }
                     }
 
              }else{
                 $reList[]='';
              }
-
         return view('index.resume.delivery',[
             'reList'=>$reList
         ]);

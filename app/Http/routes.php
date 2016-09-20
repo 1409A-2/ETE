@@ -35,7 +35,9 @@ Route::group(['middleware' => ['web']], function () {
     //跳转职业详情
     Route::get('jump','Index\IndexController@jump');
     Route::get('jumpSearch','Index\IndexController@jumpSearch');  //跳转查询职位详情
-
+    // 订阅职位 
+    Route::get('subscribe','Index\IndexController@subscribe');	// 订阅职位 
+    Route::get('subscribeEmail','Index\IndexController@subscribeEmail');	// 订阅职位 的发送邮件
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
 
@@ -62,6 +64,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('sendEamil','Index\InfoController@sendMail');
         Route::post('company1pro','Index\InfoController@companyEmail');
         Route::post('company2pro','Index\InfoController@companyName');
+        //账号设置
+        Route::get('accountBind.html','Index\AccountController@accountBind');
+        Route::get('updatePwd.html','Index\AccountController@updatePwd');
+        Route::post('upPwdPro','Index\AccountController@upPwdPro');
+        Route::get('unAccount','Index\AccountController@unAccount');
+        Route::get('accountPro','Index\AccountController@accountPro');
 
 		//这是发布职位控制
 		Route::group(['middleware' => 'company'], function () {
@@ -166,6 +174,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('dellink','Admin\MaterialController@delLink');
         Route::post('upLinkPro','Admin\MaterialController@upLinkPro');
         Route::post('batchDelLink','Admin\MaterialController@delLinkSome');
+
+        // 后台行业管理
+        Route::get('adminIndustryList','Admin\IndustryController@adminIndustryList');
+        Route::get('adminIndustryAdd','Admin\IndustryController@adminIndustryAdd');
+        Route::post('industryAddPro','Admin\IndustryController@industryAddPro');
+        Route::get('adminIndustryDel','Admin\IndustryController@adminIndustryDel');
+        Route::get('adminIndustryUp','Admin\IndustryController@adminIndustryUp');
+        Route::post('industryUpPro','Admin\IndustryController@industryUpPro');
+
 		//推荐网站
 		Route::get('adminRecommend','Admin\MaterialController@recommendSite');
 		Route::post('adminRecommendPro','Admin\MaterialController@recommendSitePro');
@@ -177,6 +194,8 @@ Route::group(['middleware' => ['web']], function () {
 		//用户反馈信息模块
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
 		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
+		Route::get('feedBackHandle','Admin\FeekController@feedBackHandle');//用户反馈信息管理
+		Route::get('feedBackEmail','Admin\FeekController@feedBackEmail');//反馈手机没打通，发邮件通知 feedBackEmail
 
 	});
 });

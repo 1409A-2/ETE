@@ -1,17 +1,17 @@
 jQuery.extend({
 
    
-	handleError: function( s, xhr, status, e ) 		{
-		// If a local callback was specified, fire it
-				if ( s.error ) {
-					s.error.call( s.context || s, xhr, status, e );
-				}
+  handleError: function( s, xhr, status, e )    {
+    // If a local callback was specified, fire it
+        if ( s.error ) {
+          s.error.call( s.context || s, xhr, status, e );
+        }
 
-				// Fire the global callback
-				if ( s.global ) {
-					(s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
-				}
-			},
+        // Fire the global callback
+        if ( s.global ) {
+          (s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
+        }
+      },
  
 
     createUploadIframe: function(id, uri)
@@ -384,14 +384,14 @@ jQuery.extend({
 
         if ( type == "json" )
 
-        	// vee update
-        	data = jQuery.parseJSON(jQuery(data).text());
-        	/*if (data.startsWith("<pre>") && data.endsWith("</pre>")) {  
+          // vee update
+          data = jQuery.parseJSON(jQuery(data).text());
+          /*if (data.startsWith("<pre>") && data.endsWith("</pre>")) {  
                 data = data.substr(5, data.length - 11);  
                 data = jQuery.parseJSON(data);  
             } else {
-            	//eval( "data = " + data );
-            	eval("data = \" "+data+" \" ");
+              //eval( "data = " + data );
+              eval("data = \" "+data+" \" ");
             }*/
         // evaluate scripts within html
 
@@ -421,22 +421,51 @@ $(function(){
       _feedbackText.val("");
       _telText.val("");
       _emailText.val("");
+      $("#telTexts").html('');
+      $("#feedbackTexts").html('');
+      $("#emailTexts").html('');
       $(".feedback").css("display",'none')
     })
     $('#feedbackSubmit').click(function(){
+      var a,b,c;
       feedback=$('.feedback-text').val();
       tel=$('.tel-text').val();
       email=$('.email-text').val();
-      if(tel==''||email==''||feedback==''){
-        alert("不能为空");return 
+      if(tel==''){
+        a=false;
+        $("#telTexts").html('<font color="red">不能为空</font>');
+      }else{
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+        if(reg.test(tel)==false){
+          a=false;
+          $("#telTexts").html('<font color="red">必须是11位的正规手机号码</font>');
+        }else{
+          a=true;
+          $("#telTexts").html('');
+        }
       }
-      var reg = /^1[3|4|5|7|8][0-9]{9}$/;
-      if(reg.test(tel)==false){
-        alert("手机号错误");return
+      if(email==''){
+        b=false;
+        $("#emailTexts").html('<font color="red">不能为空</font>');
+      }else{
+        var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
+        if(email_str.test(email)==false){
+          b=false;
+          $("#emailTexts").html('<font color="red">必须是正规邮箱</font>');
+        }else{
+          b=true;
+          $("#emailTexts").html('');
+        }
       }
-      var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
-      if(email_str.test(email)==false){
-        alert("邮箱格式错误");return
+      if(feedback==''){
+        c=false;
+        $("#feedbackTexts").html('<font color="red">不能为空</font>');
+      }else{
+        c=true;
+        $("#feedbackTexts").html('');
+      }
+      if(a==false||b==false||c==false){
+        return;
       }
       _feekback=$(".feedback");
       _feedbackText=$("#feedbackText");

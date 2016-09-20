@@ -2,94 +2,104 @@
 @section('title', '待定简历')
 @section('content')
 <script type="text/javascript">
-                                        $(function(){                                              
-                                            $('.r').click(function(){
-                                                $(this).parent().attr('class','read');
-                                            })                                      
-                                            $(document).delegate('.resume_notice','click',function(){
-                                                resume_notice=$(this).attr('status');
-                                                resume_no=$(this).html();
-                                                rere_id=$(this).attr('data-deliverid');
-                                                _this=$(this);
-                                                $.ajax({
-                                                    url:'nndetermined',
-                                                    type:'get',
-                                                    data: {remuse_resele:resume_notice,rere_id:rere_id},
-                                                    success: function(a){
-                                                        if(a==1){
-                                                            _this.parent().parent().parent().remove();
-                                                        }else{
-                                                            alert(resume_no+"失败");
-                                                        }
-                                                    }
-                                                })
-                                            })
+        $(function(){                                              
+            $('.r').click(function(){
+                $(this).parent().attr('class','read');
+            })                                      
+            $(document).delegate('.resume_notice','click',function(){
+                resume_notice=$(this).attr('status');
+                resume_no=$(this).html();
+                rere_id=$(this).attr('data-deliverid');
+                _this=$(this);
+                $.ajax({
+                    url:'nndetermined',
+                    type:'get',
+                    data: {remuse_resele:resume_notice,rere_id:rere_id},
+                    success: function(a){
+                        if(a==1){
+                            _this.parent().parent().parent().remove();
+                        }else{
+                            alert(resume_no+"失败");
+                        }
+                    }
+                })
+            })
 
-                                            $(document).delegate('#resumeInterviewAl','click',function(){
-                                                var str=$(".chec[checked=checked]");
-                                                var val = '';
-                                                resume_notice=$(this).attr('status');
-                                                for(var i=0;i<str.length;i++){
-                                                    val +=','+ str.eq(i).val();
+            $(document).delegate('#resumeInterviewAl','click',function(){
+                var str=$(".chec[checked=checked]");
+                var val = '';
+                resume_notice=$(this).attr('status');
+                for(var i=0;i<str.length;i++){
+                    val +=','+ str.eq(i).val();
 
-                                                }
-                                                val=val.substr(1);
-                                                $.ajax({
-                                                    url:'nndetermineds',
-                                                    type:'get',
-                                                    data: {remuse_resele:resume_notice,rere_id:val},
-                                                    success: function(a){
-                                                        location.href='canInterviewResumes';
-                                                    }
-                                                })
-                                            });
-                                            $(document).delegate('#resumeInterviewAls','click',function(){
-                                                var str=$(".chec[checked=checked]");
-                                                var val = '';
-                                                resume_notice=$(this).attr('status');
-                                                
-                                                email=$('.email').attr('em');
-                                                c_name=$('.c_name').attr('c');
-                                                r_name=$('.r_name').attr('r');
-                                                i_name=$('.i_name').attr('i');
-                                                for(var i=0;i<str.length;i++){
-                                                    val +=','+ str.eq(i).val();
+                }
+                val=val.substr(1);
+                $.ajax({
+                    url:'nndetermineds',
+                    type:'get',
+                    data: {remuse_resele:resume_notice,rere_id:val},
+                    success: function(a){
+                        location.href='canInterviewResumes';
+                    }
+                })
+            });
+            $(document).delegate('#resumeInterviewAls','click',function(){
+                $('#query_hint').css('display','block');
+                _query_hint=$('#query_hint');
+                var str=$(".chec[checked=checked]");
+                var val = '';
+                resume_notice=$(this).attr('status');                
+                email=$('.email').attr('em');
+                c_name=$('.c_name').attr('c');
+                r_name=$('.r_name').attr('r');
+                i_name=$('.i_name').attr('i');
+                for(var i=0;i<str.length;i++){
+                    val +=','+ str.eq(i).val();
 
-                                                }
-                                                val=val.substr(1);
-                                                $.ajax({
-                                                    url:'nndeterminedsEmail',
-                                                    type:'get',
-                                                    data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:val},
-                                                    success: function(a){
-                                                        location.href='canInterviewResumes';
-                                                    }
-                                                })
-                                            });
-                                            $(document).delegate('.resume_notices','click',function(){
-                                                resume_notice=$(this).attr('status');
-                                                resume_no=$(this).html();
-                                                rere_id=$(this).attr('data-deliverid');
-                                                _this=$(this);
-                                                email=$('.email').attr('em');
-                                                c_name=$('.c_name').attr('c');
-                                                r_name=$('.r_name').attr('r');
-                                                i_name=$('.i_name').attr('i');
-                                                $.ajax({
-                                                    url:'nndeterminedEmail',
-                                                    type:'get',
-                                                    data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:rere_id},
-                                                    success: function(a){
-                                                        if(a==1){
-                                                            _this.parent().parent().parent().remove();
-                                                        }else{
-                                                            alert(resume_no+"失败");
-                                                        }
-                                                    }
-                                                })
-                                            })
-                                        })
-                                    </script>
+                }
+                val=val.substr(1);                
+                $.ajax({
+                    url:'nndeterminedsEmail',
+                    type:'get',
+                    data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:val},
+                    success: function(a){ 
+                        if(a){
+                            location.href='canInterviewResumes';
+                        }                       
+                        _query_hint.css('display','none');
+                    }
+                })
+                
+            });
+            $(document).delegate('.resume_notices','click',function(){
+                $('#query_hint').css('display','block');
+                resume_notice=$(this).attr('status');
+                resume_no=$(this).html();
+                rere_id=$(this).attr('data-deliverid');
+                _this=$(this);
+                email=$('.email').attr('em');
+                c_name=$('.c_name').attr('c');
+                r_name=$('.r_name').attr('r');
+                i_name=$('.i_name').attr('i');
+                _query_hint=$('#query_hint');
+                $.ajax({
+                    url:'nndeterminedEmail',
+                    type:'get',
+                    data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:rere_id},
+                    success: function(a){
+                        if(a==1){
+                            _this.parent().parent().parent().remove();
+                        }else{
+                            alert(resume_no+"失败");
+                        }
+                        _query_hint.css('display','none');
+                    }
+
+                })
+                
+            })
+        })
+    </script>
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
@@ -111,9 +121,9 @@
                             </label>
                             <span>全选</span>
                             <!--  -->
-                            <a id="resumeInterviewAls" status="1"  href="javascript:;">通知面试</a>
+                            <a id="resumeInterviewAls" status="3"  href="javascript:;">通知面试</a>
                               <!--  -->
-                            <a id="resumeInterviewAl" status="3" href="javascript:;">不合适</a>
+                            <a id="resumeInterviewAl" status="4" href="javascript:;">不合适</a>
 
                             <div id="filter_btn" class="">筛选简历 <em class=""></em></div>
                         </div>
@@ -122,48 +132,13 @@
 
                         <div class="filter_options  dn " style="display: none;">
                             <dl>
-                                <dt>简历状态：</dt>
-                                <dd>
-                                <input type="hidden" value="{{$read}}" id="rel">
-                                @if($read==-1) 
-                                    <a class="current"  href="javascript:;">不限</a>
-                                @else
-                                    <a href="canInterviewResumes?rel=-1&rels={{$ed_name}}">不限</a>
-                                @endif 
-                                 
-                                @if($read==0) 
-                                    <a class="current" href="javascript:;">未阅读</a>
-                                @else
-                                    <a href="canInterviewResumes?rel=0&rels={{$ed_name}}">未阅读</a>
-                                @endif 
-                                @if($read==1) 
-                                    <a class="current" href="javascript:;">已阅读</a>
-                                @else
-                                    <a href="canInterviewResumes?rel=1&rels={{$ed_name}}">已阅读</a>
-                                @endif    
-                                   
-                                   
-                        
-                                    <input type="hidden" value="-1" name="resumeStatus">
-                                </dd>
-                            </dl>
-                           <!--  <dl>
-                                <dt>简历形式：</dt>
-                                <dd>
-                                    <a rel="-1" class="current" href="javascript:;">不限</a>
-                                    <a rel="0" href="javascript:;">附件简历</a>
-                                    <a rel="1" href="javascript:;">在线简历</a>
-                                    <input type="hidden" value="-1" name="resumeType">
-                                </dd>
-                            </dl> -->
-                            <dl>
                                 <dt>最低学历：</dt>
                                 <dd>
                                    @foreach($education as $v)
                                 @if($ed_name==$v['ed_id']) 
                                     <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
                                 @else
-                                    <a href="canInterviewResumes?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
+                                    <a href="canInterviewResumes?rels={{$v['ed_id']}}">{{$v['ed_name']}}</a>
                                 @endif 
                                 @endforeach
                                 </dd>
@@ -187,15 +162,6 @@
                                     </a>
 
                                     <div class="resumeIntro">
-                                    @if($v['read']==0)
-                                        <h3 class="unread">
-                                            <a class="r" target="_blank" title="预览jason的简历"
-                                               href="preview?rere_id={{$v['rere_id']}}">
-                                                {{$v['r_name']}}的简历
-                                            </a>
-                                            <em></em>
-                                        </h3>
-                                    @else
                                         <h3 class="read">
                                             <a target="_blank" title="预览jason的简历"
                                                href="preview?rere_id={{$v['rere_id']}}">
@@ -203,7 +169,6 @@
                                             </a>
                                             <em></em>
                                         </h3>
-                                    @endif
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
 
                                         <div>
@@ -215,10 +180,10 @@
                                         </div>
                                     </div>
                                     <div class="links">
-                                        <a data-deliverid="{{$v['rere_id']}}" status="1" data-name="jason" data-positionid="149594"
+                                        <a data-deliverid="{{$v['rere_id']}}" status="3" data-name="jason" data-positionid="149594"
                                            email="{{$v['r_email']}}" class="resume_notices"
                                            href="javascript:void(0)">通知面试</a>
-                                        <a data-deliverid="{{$v['rere_id']}}" status="3" class="resume_notice"
+                                        <a data-deliverid="{{$v['rere_id']}}" status="4" class="resume_notice"
                                            href="javascript:void(0)">不合适</a>
                                         </a>
                                     </div>

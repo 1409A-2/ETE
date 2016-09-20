@@ -69,7 +69,7 @@
                             <!--  -->
                             <a id="resumeInterviewAl" status="2" href="javascript:;">待定</a>
                               <!--  -->
-                            <a id="resumeInterviewAl" status="3" href="javascript:;">不合适</a>
+                            <a id="resumeInterviewAl" status="4" href="javascript:;">不合适</a>
 
                             <div id="filter_btn" class="">筛选简历 <em class=""></em></div>
                         </div>
@@ -78,7 +78,7 @@
                             <dl>
                                 <dt>简历状态：</dt>
                                 <dd>
-                                @if($read==-1) 
+                                @if($read==-1)  
                                     <a class="current"  href="javascript:;">不限</a>
                                 @else
                                     <a href="pendingResume?rel=-1&rels={{$ed_name}}">不限</a>
@@ -129,7 +129,7 @@
                                     </a>
 
                                     <div class="resumeIntro">
-                                    @if($v['read']==0)
+                                    @if($v['remuse_resele']==0)
                                         <h3 class="unread">
                                             <a class="r" target="_blank" title="预览jason的简历"
                                                href="preview?rere_id={{$v['rere_id']}}">
@@ -139,8 +139,8 @@
                                         </h3>
                                     @else
                                         <h3 class="read">
-                                            <a target="_blank" title="预览jason的简历"
-                                               href="preview?rere_id={{$v['rere_id']}}">
+                                            <a target="_blank" title="预览{{$v['r_name']}}的简历"
+                                               href="preview?rere_id={{$v['rere_id']}}&remuse_resele=1">
                                                 {{$v['r_name']}}的简历
                                             </a>
                                             <em></em>

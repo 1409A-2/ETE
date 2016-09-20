@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function adminUserList(Request $request){
         $pages=User::selAll();                  //总数
-        $p=empty($request->input('p'))?1:$request->input('p');
+        @$p=empty($request->input('p'))?1:$request->input('p');
         $page['page']=$p;
         $len = 5;
         $page['pages']=ceil($pages/$len);                               //每页条数
@@ -73,7 +73,7 @@ class UserController extends Controller
         if($re){
             return redirect('/adminUserList');
         }else{
-            echo 0;
+            return 0;
         }
     }   
 }

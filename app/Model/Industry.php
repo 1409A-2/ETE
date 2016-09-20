@@ -34,4 +34,50 @@ class Industry extends Model
     	}
     	return $arr;
     }
+
+    /**
+     * 查询分页数据
+     */
+    public static function selPage($len,$off){
+        $user_data = self::skip($off)->take($len)->get();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+        }
+        return $user_data;
+    }
+
+    /**
+     * 新增行业
+     */
+    public static function add($data){
+        return self::insertGetId($data);
+    }
+
+    /**
+     * 删除一些数据
+     */
+    public static function delSome($i_id)
+    {
+        return self::whereIn('i_id',$i_id)->delete();
+    }
+
+    /**
+     * 查询单条数据
+     */
+    public static function findOne($i_id)
+    {
+        $data = self::where('i_id','=',$i_id)->first();
+        if ($data!=null) {
+            $data = $data->toArray();
+        }
+        return $data;
+    }
+
+    /**
+     * 修改数据
+     */
+    public static function updata($data)
+    {
+        return self::where('i_id',$data['i_id'])->update($data);
+    }
 }
