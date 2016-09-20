@@ -39,7 +39,7 @@
         <a class="subscribe" href="subscribe" >订阅职位</a>
             </div>
 
-        <div class="content">
+        <div class="content" style="height: 1000px;">
         <div id="search_box">
         <form action="jump" method="get">
             <ul id="searchType">
