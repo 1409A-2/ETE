@@ -48,12 +48,7 @@ class IndexController extends BaseController
 
         $num = count($new_industry);
         $two_industry='';
-        /*for($i=0;$i<$num;$i++){
-            for($k=0;$k<10;$k++){
-                $b=$arr[$i];
-                $two_industry[$b][]=$new_industry[$b]['son'][rand($i,count($new_industry[$b]['son'])-1)];
-            }
-        }*/
+        
         foreach($new_industry as $key => $val){
             for($i=0;$i<10;$i++){
                 $two_industry[$key][] = $val['son'][rand(0,count($val['son'])-1)];
