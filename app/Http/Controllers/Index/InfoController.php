@@ -99,8 +99,17 @@ class InfoController extends Controller
         }else{
             $re = Company::upEmail($insert_data,$user_data['u_cid']);
         }
+        if($re){
 
-        echo 1;
+            return 1;
+        }else if($re===false){
+
+            return 0;
+        }else{
+
+            return 1;
+        }
+
     }
 
     /**
@@ -126,7 +135,12 @@ class InfoController extends Controller
 
         $c_id = Company::upName($update_data);
 
-        echo $c_id;
+        if($c_id){
+
+            return 1;
+        }
+
+        return 0;
     }
 
     /**
@@ -162,7 +176,13 @@ class InfoController extends Controller
             $message ->to($to)->subject('校易聘注册认证邮件');
         });
 
-        echo $rest;
+        if($rest){
+
+            return 1;
+        }else{
+
+            return 0;
+        }
     }
 
     /**

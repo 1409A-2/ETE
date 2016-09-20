@@ -10,45 +10,13 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <html>
 <head>
 <style>
-#product-fk {
-    bottom: 80px;
-    cursor: pointer;
-    height: 50px;
-    left: 50%;
-    margin-left: 588px;
-    position: fixed;
-    width: 50px;
-    z-index: 21;
-}
-#feedback-icon {
-    position: relative;
-}
-
-#feedback-icon {
-    position: relative;
-}
-	.fb-icon {
-    background: rgba(0, 0, 0, 0) url("{{env('APP_HOST')}}/style/images/img/feedback_06c5af9.png") no-repeat scroll 0 0;
-    height: 30px;
-    margin: 0 auto;
-    width: 30px;
-
-	}
-	.feedback {
-		
-		width:300px;
-		height:400px;
-		border-width:0;
-		border-radius: 3px;
-		transition: height 0.5s ease-out;
-		z-index:99999;
-		display: none;
-		bottom:0;
-		right:0;
-		position:fixed;
-		background: #fff;
-	}
-
+	#product-fk {bottom: 80px;cursor: pointer;height: 50px;left: 50%;margin-left: 588px;position: fixed;width: 50px;z-index: 21;}
+	#feedback-icon {position: relative;}
+	#feedback-icon {position: relative;}
+	.fb-icon {background: rgba(0, 0, 0, 0) url("{{env('APP_HOST')}}/style/images/img/feedback_06c5af9.png") no-repeat scroll 0 0;height: 30px;margin: 0 auto;width: 30px;}
+	.feedback {width:300px;height:400px;border-width:0;border-radius: 3px;transition: height 0.5s ease-out;z-index:99999;display: none;bottom:0;right:0;position:fixed;background: #fff;}
+	.query_hint{display: none;z-index: 999999;width:100%;height:100%;position:fixed;top:0.1px;padding-top:22%; font-size:15px;color:#666;font-weight:bold;text-align:center;}
+	.query_hint img{position:relative;top:10px;left:-8px;}
 </style>
 	<script id="allmobilize" charset="utf-8" src="{{env('APP_HOST')}}/style/js/allmobilize.min.js"></script>
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -69,7 +37,8 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/popup.css"/>
 	<script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
-	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>
+	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>     
+	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/excanvas.js"></script>
@@ -111,7 +80,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				</dt>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
-				<dd><a href="#">我收藏的职位</a></dd>
+				<dd><a href="collectedPosition">我收藏的职位</a></dd>
 				<dd class="btm"><a href="#">我的订阅</a></dd>
 				@else
 				<dd><a href="detailed">我要招人</a></dd>
@@ -191,45 +160,6 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 <span style="font-size: 12px;">我要反馈</span>
 </div>
 </div>
-<script>
-	$(function(){
-		$("#feedback-icon").click(function(){
-			$(".feedback").css("display",'block')
-		})
-		$(".btns").click(function(){
-			$(".feedback").css("display",'none')
-		})
-		$('#feedbackSubmit').click(function(){
-			feedback=$('.feedback-text').val();
-			tel=$('.tel-text').val();
-			email=$('.email-text').val();
-			if(tel==''||email==''||feedback==''){
-				alert("不能为空");return 
-			}
-			var reg = /^1[3|4|5|7|8][0-9]{9}$/;
-			if(reg.test(tel)==false){
-				alert("手机号错误");return
-			}
-			var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
-			if(email_str.test(email)==false){
-				alert("邮箱格式错误");return
-			}
-			_feekback=$(".feedback");
-			$.ajax({
-				url:'feedBack',
-				type:'get',
-				data:{f_feedback:feedback,f_tel:tel,f_email:email},
-				success:function(msg){
-					if(msg){
-						_feekback.css("display",'none');
-					}else{
-						alert('反馈失败');
-					}
-				}
-			})
-		})
-	})
-</script>
 <div id="footer">
 	<div class="wrapper">
 		<a href="#" target="_blank" rel="nofollow">联系我们</a>
@@ -262,5 +192,8 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 		<input id="emailText" class="email-text" type="text" placeholder="邮箱" name="email">
 		<input class="submit-feedback" id="feedbackSubmit" type="button" value="留言" name="submit">
 	</div>
+		<div id="query_hint" class="query_hint">
+	   		<img src="{{env('APP_HOST')}}/style/images/load.gif" />正在处理，请稍等...
+	  	</div>
 </body>
 </html> 

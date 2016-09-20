@@ -161,4 +161,9 @@ class Release extends Model
                 ->skip($limit)->take($length)->get()->toArray();
         }
     }
+
+    //查看发布职位
+    public static function selListLimit($c_id){
+        return Release::where($c_id)->limit(3)->get()->toArray();
+    }
 }

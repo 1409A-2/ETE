@@ -14,8 +14,8 @@
                 </div>
                 <div class="menu_sub dn">
                     @foreach($industry as $key => $vals)
+                        @if($vals['i_pid']==$val['i_id'])
                         <dl class="reset">
-                            @if($vals['i_pid']==$val['i_id'])
                                 <dt style="width: 90px;">
                                     <a href="{{url('jump')}}?i_name={{$vals['i_name']}}">
                                         {{$vals['i_name']}}
@@ -28,8 +28,8 @@
                                         @endif
                                       @endforeach  
                                 </dd>
-                            @endif                            
                         </dl>
+                        @endif
                     @endforeach
                 </div>
             </div>

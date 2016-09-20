@@ -372,7 +372,7 @@ class IndustryController extends BaseController
         /**
          * 个人简历
          */
-        $data['resume']=Resume::sel_One(['r_id'=>$r_id['r_id']]);
+        $data['resume']=Resume::selOne(['r_id'=>$r_id['r_id']]);
         /**
          * 作品
          */
@@ -478,7 +478,7 @@ class IndustryController extends BaseController
         /**
          * 个人简历
          */
-        $data['resume']=Resume::sel_One(['r_id'=>$r_id['r_id']]);
+        $data['resume']=Resume::selOne(['r_id'=>$r_id['r_id']]);
         /**
          * 作品
          */

@@ -406,3 +406,56 @@ jQuery.extend({
     }
 
 })
+
+$(function(){
+  $("#feedback-icon").click(function(){
+      $(".feedback").css("display",'block')
+    })
+    $(".minimize").click(function(){
+      $(".feedback").css("display",'none')
+    })
+    $(".close").click(function(){
+      _feedbackText=$("#feedbackText");
+      _telText=$("#telText");
+      _emailText=$("#emailText");
+      _feedbackText.val("");
+      _telText.val("");
+      _emailText.val("");
+      $(".feedback").css("display",'none')
+    })
+    $('#feedbackSubmit').click(function(){
+      feedback=$('.feedback-text').val();
+      tel=$('.tel-text').val();
+      email=$('.email-text').val();
+      if(tel==''||email==''||feedback==''){
+        alert("不能为空");return 
+      }
+      var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+      if(reg.test(tel)==false){
+        alert("手机号错误");return
+      }
+      var email_str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
+      if(email_str.test(email)==false){
+        alert("邮箱格式错误");return
+      }
+      _feekback=$(".feedback");
+      _feedbackText=$("#feedbackText");
+      _telText=$("#telText");
+      _emailText=$("#emailText");
+      $.ajax({
+        url:'feedBack',
+        type:'get',
+        data:{f_feedback:feedback,f_tel:tel,f_email:email},
+        success:function(msg){
+          if(msg){
+            _feedbackText.val("");
+            _telText.val("");
+            _emailText.val("");
+            _feekback.css("display",'none');            
+          }else{
+            alert('反馈失败');
+          }
+        }
+      })
+    })
+})

@@ -20,7 +20,7 @@ class Resume extends Model
     /**简历的信息
      * @return mixed
      */
-    public static function sel_All()
+    public static function selAll()
     {
         return self::get()->toArray();
     }
@@ -29,7 +29,7 @@ class Resume extends Model
      * @param $where
      * @return mixed
      */
-    public  static  function sel_One($where){
+    public  static  function selOne($where){
         $res=self::where($where)->first();
         if($res){
             return $res->toArray();
