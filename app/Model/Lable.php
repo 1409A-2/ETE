@@ -50,4 +50,18 @@ class Lable extends Model
         }
         return $data;
     }
+
+    /**
+     * 添加公司的lable
+     * @param $c_id int 公司id
+     * @return boolean
+     */
+    public static function selLableLimit($c_id)
+    {
+        $data = self::where('c_id',$c_id)->limit(3)->get();
+        if($data){
+            return $data->toArray();
+        }
+        return $data;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Carousel;
+use App\Model\CollectedPosition;
 use App\Model\FriendShip;
 use App\Model\FriendSite;
 use App\Model\Industry;
@@ -37,33 +38,38 @@ class IndexController extends BaseController
             if ($val['level']==0){
                 $new_industry[$val['i_id']] = $val;
                 $parent = $val['i_id'];
+                $arr[]=$val['i_id'];;
             }
 
             if($val['level']==2){
                 $new_industry[$parent]['son'][] = $val;
             }
         }
-        // print_r($new_industry);die;
+
         $num = count($new_industry);
         $two_industry='';
-        for($i=1;$i<=$num;$i++){
-            for($k=0;$k<10;$k++){
-                $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
+        
+        foreach($new_industry as $key => $val){
+            for($i=0;$i<10;$i++){
+                $two_industry[$key][] = $val['son'][rand(0,count($val['son'])-1)];
             }
         }
-        for($i=1;$i<=$num;$i++){
+
+        for($i=0;$i<$num;$i++){
+            $b=$arr[$i];
             $temp='';
-            foreach ($two_industry[$i] as $v){
+            foreach ($two_industry[$b] as $v){
                 $v=$v['i_name'];
                 $temp[]=$v;
             }
             $temp=array_unique($temp);//去掉重复的字符串,也就是重复的一维数组
             foreach ($temp as $k => $v){
-                if($two_industry[$i][$k]['i_name']==$v){
-                    $there_industry[$i][$k]=$two_industry[$i][$k];
+                if($two_industry[$b][$k]['i_name']==$v){
+                    $there_industry[$b][$k]=$two_industry[$b][$k];
                 }
             }
         }
+
         $hot=Release::hotRelease();
         $userKey = $Request->input('user');
         if (!empty($userKey)) {
@@ -232,6 +238,7 @@ class IndexController extends BaseController
             return json_encode($res);
         }
     }
+
     //职位详情
     public function postPreview(Request $request){
         $put=$request->input();
@@ -271,5 +278,65 @@ class IndexController extends BaseController
         // Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
         // $m->to($user->email, $user->name)->subject('Your Reminder!');
         // });
+    }
+
+    /**
+     * 查询用户是否收藏这个职位
+     */
+    public function getCollected(Request $request)
+    {
+        $u_id = $request->input('u_id');
+        $re_id = $request->input('re_id');
+
+        return CollectedPosition::selOnlyPosition($u_id,$re_id);
+    }
+
+    /**
+     * 收藏职位
+     */
+    public function collectionPosition(Request $request)
+    {
+        $u_id = $request->input('u_id');
+        $re_id = $request->input('re_id');
+
+        if(CollectedPosition::selOnlyPosition($u_id,$re_id) != ''){
+
+            return 1;
+        }
+        $insert_data['u_id'] = $u_id;
+        $insert_data['re_id'] = $re_id;
+        $insert_data['col_time'] = time();
+        if(CollectedPosition::inserCollection($insert_data)){
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * 取消收藏
+     */
+    public function cancelCollected(Request $request)
+    {
+        $del_data['u_id'] = $request->input('u_id');
+        $del_data['re_id'] = $request->input('re_id');
+
+        if(CollectedPosition::delCollection($del_data)===false){
+
+            return 0;
+        }
+
+        return 1;
+    }
+
+    /**
+     * 我的收藏
+     */
+    public function collectedPosition()
+    {
+        $collected = CollectedPosition::selCollected(session('u_id'));
+
+        return view('index.index.collecteds',['collected'=>$collected]);
     }
 }

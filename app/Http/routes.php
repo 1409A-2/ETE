@@ -111,6 +111,10 @@ Route::group(['middleware' => ['web']], function () {
 			Route::post('info5Pro','Index\DetailedController@introPro');// 可选 5
 
 		});
+        Route::post('getcollected','Index\IndexController@getCollected');// 是否收藏职位
+        Route::post('collectionPosition','Index\IndexController@collectionPosition');// 收藏职位
+        Route::post('cancelCollected','Index\IndexController@cancelCollected');// 取消收藏职位
+        Route::get('collectedPosition','Index\IndexController@collectedPosition');// 取消收藏职位
     });
 
 //我的简历

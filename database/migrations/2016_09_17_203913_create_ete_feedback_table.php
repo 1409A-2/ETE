@@ -18,6 +18,8 @@ class CreateEteFeedbackTable extends Migration
             $table->char('f_tel',11);
             $table->string('f_email',50);
             $table->integer('f_uid');
+            $table->tinyInteger('f_status')->default(0);
+            $table->integer('f_time');
         });
     }
 

@@ -11,7 +11,7 @@
                 <dd>
                     <div class="os_step_3"></div>
                     <div class="open_service_success">
-                        <h3>请检查邮箱发送：{{$company_data['c_email']}}</h3><button  onclick="sendEamil()"><a style="color: red;" href="javascript:void(0)">发送验证邮件</a></button>
+                        <h3>请检查邮箱发送：{{$company_data['c_email']}}</h3><button style="cursor: pointer;" onclick="sendEamil()"><a style="color: red;" href="javascript:void(0)">发送验证邮件</a></button>
                         <h4>请登录邮箱进入邮件内的链接，验证后即可发布职位</h4>
                         <!-- <div class="emailus">
                             我们已将主题为“开通招聘服务信息确认”邮件发送至邮箱：<a class="f18"></a> <br />
@@ -55,16 +55,18 @@
         <!-- end #container -->
     <script>
         function sendEamil(){
-            var _success = $('#success');
-            alert("我们已将激活邮件发送至：{{$company_data['c_email']}}，请进入邮件内的链接完成验证。");
+            var _query_hint=$('#query_hint');
+            _query_hint.css('display','block');
+
             $.ajax({
                 type : 'get',
                 url : 'sendEamil',
                 success : function (e) {
+                    _query_hint.css('display','none');
                    if(e==1){
-                        if(e==0){
-                            alert('发送异常，请重新发送')
-                        }
+                       alert("我们已将激活邮件发送至：{{$company_data['c_email']}}，请进入邮件内的链接完成验证。");
+                   } else if (e==0){
+                        alert('发送异常，请重新发送')
                    }
                 }
             });

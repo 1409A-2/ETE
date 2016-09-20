@@ -152,8 +152,8 @@
         </center>
     @else
     <ul class="hot_pos reset">
-     @foreach($arr as $v)
-        <li class="odd clearfix">
+     @foreach($arr as $key => $v)
+        <li class="@if($key%2==0) odd @endif clearfix">
             <div class="hot_pos_l">
                 <div class="mb10">
                     <a href="postPreview?re_id={{$v['re_id']}}" title="{{$v['re_name']}}" target="_blank">{{$v['re_name']}}</a>
