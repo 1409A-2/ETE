@@ -52,8 +52,8 @@ $(function(){
                     <td>{{$v['f_feedback']}}</td>
                     <td>{{$v['f_tel']}}</td>
                     <td>{{$v['f_email']}}</td>
-                    <td>
-                        <a class="button border-yellow button-little" href="feedBackDel?f_id={{$v['f_id']}}" >删除</a>
+                    <td><input type="hidden" name="p" value="{{$page['page']}}">
+                        <a class="button border-yellow button-little" href="feedBackDel?f_id={{$v['f_id']}}&p={{$page['page']}}" >删除</a>
                         <a class="button border-green button-little" fid="{{$v['f_id']}}" id="goEmial" >发送邮件</a>
                     </td>
                 </tr>
