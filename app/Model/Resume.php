@@ -43,7 +43,7 @@ class Resume extends Model
      * @return mixed
      */
     public static function  addResume($data){
-        return self::insert($data);
+        return self::insertGetId($data);
 
     }
 

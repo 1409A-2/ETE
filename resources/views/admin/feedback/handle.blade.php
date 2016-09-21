@@ -2,7 +2,7 @@
 @section('title_admin', '用户反馈')
 @section('content_admin')
 
-<form action="feedBackDel" method="get">
+<form action="feedBackDele" method="get">
     <div class="panel admin-panel">
     
         <div class="panel-head"><strong>已处理反馈</strong></div>
@@ -18,8 +18,8 @@
                     <td>{{$v['f_feedback']}}</td>
                     <td>{{$v['f_tel']}}</td>
                     <td>{{$v['f_email']}}</td>
-                    <td>
-                        <a class="button border-yellow button-little" href="feedBackDel?f_id={{$v['f_id']}}" >删除</a>
+                    <td><input type="hidden" name="p" value="{{$page['page']}}">
+                        <a class="button border-yellow button-little" href="feedBackDele?f_id={{$v['f_id']}}&p={{$page['page']}}" >删除</a>
                     </td>
                 </tr>
             @endforeach

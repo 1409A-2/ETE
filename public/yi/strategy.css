@@ -1,0 +1,235 @@
+
+.container {
+    font: 14px/22px "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "宋体";
+    width: 832px;
+    margin: 44px auto 0;
+    color: #333
+}
+
+.container .top {
+    width: 826px;
+    height: 110px;
+    margin: 0 auto;
+    border-bottom: 1px dashed #e2e2e2
+}
+
+.container .top img {
+    float: left;
+    width: 98px;
+    height: 80px;
+    background: pink;
+    margin-left: 375px
+}
+
+.container .s-clearfix {
+    *zoom: 1
+}
+
+.container .s-clearfix:after {
+    visibility: hidden;
+    display: block;
+    overflow: hidden;
+    font-size: 0;
+    height: 0;
+    content: '.';
+    clear: both
+}
+
+.container .nav {
+    text-align: center;
+    padding-top: 28px
+}
+
+.container .nav li {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 103px;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #00b38a;
+    border-radius: 2px;
+    color: #00b38a
+}
+
+.container .nav li:hover {
+    color: #fff;
+    background-color: #00b38a
+}
+
+.container .nav li + li {
+    margin-left: 42px
+}
+
+.container .nav .nav-selected {
+    color: #fff;
+    background-color: #00b38a
+}
+
+.container .faq-content {
+    padding-top: 50px;
+    padding-bottom: 170px
+}
+
+.container .faq-content .faq {
+    padding: 10px 0 15px;
+    border-bottom: 1px dashed #e2e2e2;
+    background-color: #fff
+}
+
+.container .faq-content .faq:hover {
+    background-color: #fafafa
+}
+
+.container .faq-content .faq > div {
+    margin-right: 9px
+}
+
+.container .faq-content .faq .answer {
+    padding: 15px 0 9px
+}
+
+.container .faq-content .faq .icon-left {
+    float: left;
+    width: 28px;
+    height: 28px;
+    margin-left: 13px
+}
+
+.container .faq-content .faq .icon-left-ques {
+    background: url(/yi/faq.png) 0 -50px no-repeat
+}
+
+.container .faq-content .faq .icon-left-ans {
+    background: url(/yi/faq.png) 0 -88px no-repeat
+}
+
+.container .faq-content .faq .icon-right {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-left: 30px;
+    vertical-align: middle;
+    background: url(/yi/faq.png) 0 0 no-repeat
+}
+
+.container .faq-content .faq .icon-right-toggle {
+    background: url(/yi/faq.png) 0 -25px no-repeat
+}
+
+.container .faq-content .faq h2 {
+    float: left;
+    margin: 0 0 0 16px;
+    font-size: 16px;
+    line-height: 28px;
+    color: #333
+}
+
+.container .faq-content .faq p {
+    float: left;
+    width: 756px;
+    margin-left: 16px;
+    font: 14px;
+    color: #555
+}
+
+.container .faq-content .faq-click {
+    background-color: #fafafa
+}
+
+.container .content {
+    width: 832px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-align: center
+}
+
+.container .content p {
+    text-align: left;
+    margin-bottom: 50px
+}
+
+.container .content .part {
+    margin-bottom: 100px
+}
+
+.container .content .part1 img {
+    width: 758px
+}
+
+.container .content .part2 img {
+    width: 764px
+}
+
+.container .content .part3 img {
+    width: 772px
+}
+
+.container .content .part4 img {
+    width: 768px
+}
+
+.container .content .part5 img {
+    width: 800px
+}
+
+.foot-tip {
+    min-width: 1024px;
+    height: 88px;
+    background: #f6f6f6;
+    border: 1px solid #ebebeb;
+    margin: 0 auto
+}
+
+.foot-tip .center {
+    margin: 0 auto
+}
+
+.foot-tip .center p {
+    display: inline-block;
+    font-size: 30px;
+    color: #00b38a;
+    width: 492px;
+    height: 88px;
+    text-align: center;
+    line-height: 88px
+}
+
+.foot-tip .center span {
+    display: inline-block;
+    width: 178px;
+    height: 46px;
+    border: 2px solid #00b38a;
+    margin-left: 300px
+}
+
+.foot-tip .center span a {
+    display: block;
+    width: 178px;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    color: #00b38a;
+    background: #f6f6f6
+}
+
+.foot-tip .center span a:hover {
+    color: #fff;
+    background-color: #00b38a
+}
+
+.green {
+    color: #00b38a
+}
+
+.btn {
+    display: inline-block;
+    width: 84px;
+    height: 30px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    background: #00b38a;
+    margin-left: 5px;
+    border-radius: 5px
+}

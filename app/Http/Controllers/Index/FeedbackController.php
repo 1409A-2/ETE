@@ -49,7 +49,7 @@ class FeedbackController extends Controller
 	            }
 	        }
 	        $sub=Company::subQuery($arr[0],$arr[1],$data);
-	           
+	        
 	        Mail::send('index.subscribe.subscribes',['data'=>$data,'sub'=>$sub], function ($message) use ($data) {
 	        	$message->to($data['s_email'])->subject('校易聘订阅通知');
 	        });
@@ -80,11 +80,7 @@ class FeedbackController extends Controller
 		        	$message->to($data['s_email'])->subject('校易聘订阅通知');
 		        });
 	  		}
-        }
-        
-
-        
-    
+        }   
     }
 
     public function subscribeDel(Request $request){

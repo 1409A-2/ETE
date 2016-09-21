@@ -53,7 +53,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 
 <body>
 <div class="lefter">
-    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" height="40" alt="后台管理系统" /></a></div>
+    <div class="logo"><a href="#" target="_blank"><img src="{{env('APP_HOST')}}/styles/images/logo.png" width="20" height="20" alt="后台管理系统" /></a></div>
 </div>
 <div class="righter nav-navicon" id="admin-nav">
     <div class="mainer">
@@ -86,7 +86,9 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                 <li><a href="javascript:void(0);" class="icon-user"> 用户管理</a>
                     <ul><li><a href="adminUserList">用户列表</a></li><li><a href="feedBackList">反馈列表</a></li><li><a href="feedBackHandle">已处理反馈</a></li></ul>
                 </li>
-                <li><a href="javascript:void(0);" class="icon-file"> 文件</a></li>
+                <li><a href="javascript:void(0);" class="icon-file"> 文件</a>
+                    <ul><li><a href="adminSubscribe">订阅管理</a></li></ul>
+                </li>
                 <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
                     <ul>
                         <li><a href="adminMaterial">轮播管理</a></li>

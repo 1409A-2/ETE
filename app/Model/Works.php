@@ -23,7 +23,12 @@ class Works extends Model
      */
     public static function selAll($where)
     {
-        return self::where($where)->get()->toArray();
+        $work=self::where($where)->get();
+        if($work){
+            return $work->toArray();
+        }else{
+            return $work;
+        }
     }
 
 

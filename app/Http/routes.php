@@ -96,7 +96,6 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('positionsdown','Index\IndustryController@positionsDown');//查看有效职位  positionsdown
 			Route::get('positionsType','Index\IndustryController@positionsType');//职位上下线管理	positionsType
 			Route::get('positionsDel','Index\IndustryController@positionsDel');//删除职位   positionsDel
-			Route::get('downloadResume','Index\IndustryController@downloadResume');//下载简历   	downloadResume
 
 
 
@@ -118,6 +117,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('cancelCollected','Index\IndexController@cancelCollected');// 取消收藏职位
         Route::get('collectedPosition','Index\IndexController@collectedPosition');// 取消收藏职位
     });
+    Route::get('downloadResume','Index\IndustryController@downloadResume');//下载简历   	downloadResume
 
 //我的简历
     Route::group(['middleware' => 'resume'], function () {
@@ -127,15 +127,16 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('educationDesc', 'Index\ResumeController@educationDesc');//自我描述
 
         Route::post('schoolPro', 'Index\ResumeController@schoolPro');//教育背景
+        Route::get('schoolDel', 'Index\ResumeController@schoolDel');//教育背景
 
         Route::post('worksAdd', 'Index\ResumeController@worksAdd');//添加作品
-        Route::get('worksDel/{id}', 'Index\ResumeController@worksDel');//删除作品
+        Route::get('worksDel', 'Index\ResumeController@worksDel');//删除作品
 
         Route::post('porjectAdd', 'Index\ResumeController@porjectAdd');//添加项目
-        Route::get('porjectDel/{id}', 'Index\ResumeController@porjectDel');//删除项目
+        Route::get('porjectDel', 'Index\ResumeController@porjectDel');//删除项目
 
         Route::post('expectedAdd', 'Index\ResumeController@expectedAdd');//添加(修改)期望工作
-        Route::get('expectedDel/{id}', 'Index\ResumeController@expectedDel');//删除期望工作
+        Route::get('expectedDel', 'Index\ResumeController@expectedDel');//删除期望工作
 
 
         Route::get('previewList/{id}', 'Index\ResumeController@previewList');//简历预览
@@ -146,8 +147,14 @@ Route::group(['middleware' => ['web']], function () {
 
         //一拍
         Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
-        Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍
-        Route::post('beatPro', 'Index\beatController@beatPro');//一拍
+        Route::get('beatRaiders', 'Index\beatController@beatRaiders');//一拍攻略
+        Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍添加显示
+        Route::get('beatPhone', 'Index\beatController@beatPhone');//一拍发送手机验证码
+        Route::get('codePro', 'Index\beatController@codePro');//一拍验证手机验证码
+
+        Route::post('beatPro', 'Index\beatController@beatPro');//一拍添加入库
+
+
     });
     Route::get('companylist','Index\CompanyController@index');// 可选 5
 	Route::get('companyinfo','Index\CompanyController@enterpriseInfo');// 可选 5
@@ -194,11 +201,15 @@ Route::group(['middleware' => ['web']], function () {
 		Route::get('delsite','Admin\MaterialController@delSite');
 		Route::post('batchDelSite','Admin\MaterialController@batchDelSite');
 
-		//用户反馈信息模块
+		//用户反馈信息模块   
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
 		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
+		Route::get('feedBackDele','Admin\FeekController@feedBackDele'); //确认用户反馈信息删除  
 		Route::get('feedBackHandle','Admin\FeekController@feedBackHandle');//用户反馈信息管理
 		Route::get('feedBackEmail','Admin\FeekController@feedBackEmail');//反馈手机没打通，发邮件通知 feedBackEmail
 
+		//后台订阅操作
+		Route::get('adminSubscribe','Admin\SubscribeController@adminSubscribe');//后台管理订阅功能  adminSubscribe
+		Route::get('subscribeDelete','Admin\SubscribeController@subscribeDelete');//删除订阅信息  //发邮件通知用户  subscribeDelete
 	});
 });
