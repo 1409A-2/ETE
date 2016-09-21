@@ -411,10 +411,11 @@ class IndustryController extends BaseController
     public function downloadResume(Request $request){
         $data=$request->input();
         ob_start();
-        $fp =fopen("./".$data['rere_id'].".html",'w');
+        $fp =fopen("./".$data['r_id'].".html",'w');
         $content=self::previews($data);
+
         fwrite($fp, $content);
-        $fps =file_get_contents("./".$data['rere_id'].".html");
+        $fps =file_get_contents("./".$data['r_id'].".html");
         print_r($fps);
         if($data['type']==1){
             header('Content-Type:doc/docx');
@@ -428,39 +429,39 @@ class IndustryController extends BaseController
         }
         
         fclose($fp);
-        unlink("./".$data['rere_id'].".html");
+        unlink("./".$data['r_id'].".html");
     }
 
     //公司查看简历
     public static function previews($arr){
 
-        $r_id=ResumeReseale::selOne(['rere_id'=>$arr['rere_id']]);
+
 //        print_r($r_id);die;
         /**
          * 个人简历
          */
-        $data['resume']=Resume::selOne(['r_id'=>$r_id['r_id']]);
+        $data['resume']=Resume::selOne(['r_id'=>$arr['r_id']]);
         /**
          * 作品
          */
-        $data['works']=Works::selAll(['r_id'=>$r_id['r_id']]);
+        $data['works']=Works::selAll(['r_id'=>$arr['r_id']]);
 
         /**
          * 项目
          */
-        $data['porject']=Porject::selAll(['r_id'=>$r_id['r_id']]);
+        $data['porject']=Porject::selAll(['r_id'=>$arr['r_id']]);
 
         /**
          * 期望工作
          */
-        $data['expected']=Expected::SelOne(['r_id'=>$r_id['r_id']]);
+        $data['expected']=Expected::SelOne(['r_id'=>$arr['r_id']]);
 
 
 
         /**
          * 教育背景
          */
-        $data['school']= School::selOne(['r_id'=>$r_id['r_id']]);
+        $data['school']= School::selOne(['r_id'=>$arr['r_id']]);
 
 //        print_r($data);die;
         if($arr['type']!=2){

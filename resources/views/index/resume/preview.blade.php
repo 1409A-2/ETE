@@ -10,9 +10,9 @@
     <div id="previewWrapper">
         <div class="preview_header">
             <h1 title="{{$resume['r_name']}}的简历">{{$resume['r_name']}}的简历</h1>
-            @if(isset($re_re))
+
             <a title="下载简历" class="inline cboxElement" href="#downloadOnlineResume">下载该简历</a>
-            @endif
+
         </div>
         <!--end .preview_header-->
 
@@ -143,7 +143,7 @@
         });
     </script>
     <!-------------------------------------弹窗lightbox ----------------------------------------->
-    @if(isset($re_re))
+
     <div style="display:none;">
         <!-- 下载简历 -->
 
@@ -155,20 +155,20 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="btn_s" href="downloadResume?key={{csrf_token()}}&type=1&rere_id={{$re_re['rere_id']}}&name={{$resume['r_name']}}">word格式</a>
-                        <a class="btn_s" href="downloadResume?key={{csrf_token()}}&type=2&rere_id={{$re_re['rere_id']}}&name={{$resume['r_name']}}">html格式</a>
-                        <a class="btn_s" href="downloadResume?key={{csrf_token()}}&type=3&rere_id={{$re_re['rere_id']}}&name={{$resume['r_name']}}">pdf格式</a>
+                        <a class="btn_s" href="{{url('downloadResume')}}?key={{csrf_token()}}&type=1&r_id={{$resume['r_id']}}&name={{$resume['r_name']}}">word格式</a>
+                        <a class="btn_s" href="{{url('downloadResume')}}?key={{csrf_token()}}&type=2&r_id={{$resume['r_id']}}&name={{$resume['r_name']}}">html格式</a>
+                        <a class="btn_s" href="{{url('downloadResume')}}?key={{csrf_token()}}&type=3&r_id={{$resume['r_id']}}&name={{$resume['r_name']}}">pdf格式</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        @else
+
 
 
 
         <!--/#downloadOnlineResume-->
-    </div>  @endif
+    </div>
 
 
 

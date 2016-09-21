@@ -18,7 +18,7 @@ class Expected extends Model
 
     //添加期望工作
     public static function expectedAdd($data){
-    	return self::insertGetId($data);
+    	return self::insert($data);
     }
 
     //修改期望工作
