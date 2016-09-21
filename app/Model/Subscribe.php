@@ -41,6 +41,35 @@ class Subscribe extends Model
 	public static function up($data){
 		return self::where("u_id",'=',$data['u_id'])->update($data);
 	}
+
+	/**
+	 * 查询所有订阅信息
+	 * @return  array()
+	 */
+	public static function selAll($len,$off){
+		$res = self::skip($off)->take($len)->get();
+		if($res){
+			return $res->toArray();
+		}else{
+			return $res;
+		}
+	}
+
+	/**
+	 * 查询订阅数量
+	 * @return  int
+	 */
+	public static function selNum(){
+		return self::count();
+	}
+
+	/**
+	 * 删除订阅信息
+	 * @return  int
+	 */
+	public static function dele($u_id){
+		return self::whereIn('u_id',$u_id)->delete();
+	}
 }
 
 ?>

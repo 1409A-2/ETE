@@ -193,11 +193,15 @@ Route::group(['middleware' => ['web']], function () {
 		Route::get('delsite','Admin\MaterialController@delSite');
 		Route::post('batchDelSite','Admin\MaterialController@batchDelSite');
 
-		//用户反馈信息模块
+		//用户反馈信息模块   
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
 		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
+		Route::get('feedBackDele','Admin\FeekController@feedBackDele'); //确认用户反馈信息删除  
 		Route::get('feedBackHandle','Admin\FeekController@feedBackHandle');//用户反馈信息管理
 		Route::get('feedBackEmail','Admin\FeekController@feedBackEmail');//反馈手机没打通，发邮件通知 feedBackEmail
 
+		//后台订阅操作
+		Route::get('adminSubscribe','Admin\SubscribeController@adminSubscribe');//后台管理订阅功能  adminSubscribe
+		Route::get('subscribeDelete','Admin\SubscribeController@subscribeDelete');//删除订阅信息  //发邮件通知用户  subscribeDelete
 	});
 });
