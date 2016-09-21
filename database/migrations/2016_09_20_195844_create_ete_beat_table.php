@@ -15,9 +15,9 @@ class CreateEteBeatTable extends Migration
         Schema::create('beat', function (Blueprint $table) {
             $table->increments('b_id');
             $table->string('b_name',30);
-            $table->tinyInteger('b_sex',1);
+            $table->tinyInteger('b_sex');
             $table->string('b_professional',30);
-            $table->tinyInteger('b_workyear',2);
+            $table->tinyInteger('b_workyear');
             $table->char('b_phone',11);
             $table->string('b_email',30);
             $table->integer('b_salary_start');
