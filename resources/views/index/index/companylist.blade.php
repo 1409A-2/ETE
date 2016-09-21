@@ -82,34 +82,51 @@
                 </dl>
                 <ul class="hc_list reset">
                     @foreach($company_data as $key=>$val)
-                    <li @if($key%3==0)style="clear:both;"@endif>
-                        <a href="companyinfo?c_id={{$val['c_id']}}" target="_blank">
-                            <h3 title="{{$val['c_shorthand']}}">{{$val['c_shorthand']}}</h3>
+                        <li style="@if($key%3==0)clear:both;@endif " >
+                            <a href="companyinfo?c_id={{$val['c_id']}}" target="_blank">
+                                <h3 title="{{$val['c_shorthand']}}">{{$val['c_shorthand']}}</h3>
 
-                            <div class="comLogo" style="height: 190px;width: 190px;">
-                                <img src="{{env("APP_HOST").$val['c_logo']}}" width="190" height="190" alt="CCIC"/>
-                                <ul>
-                                    @foreach($val['industry'] as $vv)
-                                    <li>{{$vv}}</li>
+                                <div class="comLogo"  style="height: 190px;width: 190px;">
+                                    <img src="{{env("APP_HOST").$val['c_logo']}}" width="190" height="190" alt="CCIC"/>
+                                    <ul>
+                                        @foreach($val['industry'] as $vv)
+                                            <li>{{$vv}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </a>
+                            <div style="height: 73px;;">
+                                @if($val['release_data'])
+                                    @foreach($val['release_data'] as $release)
+                                        <a href="postPreview?re_id={{$release['re_id']}}" target="_blank"> {{$release['re_name']}}</a>
                                     @endforeach
-                                </ul>
+                                @else
+                                    暂无职位发布
+                                @endif
                             </div>
-                        </a>
-                        @if($val['release_data'])
-                            @foreach($val['release_data'] as $release)
-                        <a href="postPreview?re_id={{$release['re_id']}}" target="_blank"> {{$release['re_name']}}</a>
-                            @endforeach
-                        @endif
 
-                        <ul class="reset ctags">
-                            @foreach($val['lable_data'] as $vv)
-                            <li>{{$vv['lab_name']}}</li>
-                            @endforeach
-                        </ul>
+                            <ul class="reset ctags" style="height: 30px;">
+                                @if($val['lable_data'])
+                                    @foreach($val['lable_data'] as $vv)
+                                        <li>{{$vv['lab_name']}}</li>
+                                    @endforeach
+                                @else
+                                    暂未设置标签
+                                @endif
+                            </ul>
 
-                    </li>
+                        </li>
                     @endforeach
                 </ul>
+                @if(!$company_data)
+                    <center>
+                        <div class="txt" style="margin-top:200px">
+                            <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的公司</div>
+                            <br/>
+                            <span style="color:#91cebe;font-size:22px">请重新修改搜索条件后再进行搜索</span>
+                        </div>
+                    </center>
+                @endif
 
                 <div class="Pagination"></div>
             </form>
