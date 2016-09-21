@@ -2,27 +2,27 @@
 @section('title','前端开发全国-职位搜索-拉勾网-最专业的互联网招聘平台')
 @section('content')
 <script>
-    // $(function(){
-    //     $('.moery').click(function(){
-    //         k=$(this).html();
-    //         education=$('#education').val();
-    //         if(k=='全部'){
-    //             k='';
-    //         }
-    //         i_name=$('#i_name').val();
-    //         location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
-    //     })
+    $(function(){
+        $('.moery').click(function(){
+            k=$(this).html();
+            education=$('#education').val();
+            if(k=='全部'){
+                k='';
+            }
+            i_name=$('#i_name').val();
+            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+        })
 
-    //     $('.education').click(function(){
-    //          education=$(this).html();
-    //         k=$('#k').val();
-    //         if(education=='不限'){
-    //             education='';
-    //         }
-    //         i_name=$('#i_name').val();
-    //         location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
-    //     })
-    // })
+        $('.education').click(function(){
+             education=$(this).html();
+            k=$('#k').val();
+            if(education=='不限'){
+                education='';
+            }
+            i_name=$('#i_name').val();
+            location.href="jump?k="+k+"&i_name="+i_name+"&education="+education;      
+        })
+    })
 </script>
 
     <div id="container">
