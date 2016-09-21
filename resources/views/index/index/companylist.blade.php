@@ -49,7 +49,7 @@
                         <dl id="industry">
                     <dt>行业领域：</dt>
                     <dd>
-                        <a href="jump?page=1" @if($industry=='')class="current"@endif>全部</a>
+                        <a href="jump?page=1&type_selected=4" @if($industry=='')class="current"@endif>全部</a>
                         <a href="javascript:void(0)">移动互联网</a>
                         <a href="javascript:void(0)">电子商务</a>
                         <a href="javascript:void(0)">社交</a>
