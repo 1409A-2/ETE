@@ -146,5 +146,26 @@ class Company extends Model
         }
         return $data;
     }
+
+    /**
+     * 查看符合订阅的职位和公司类型
+     * @return  array()
+     */
+    public static function subQuery($min,$max,$data){
+        $data = self::Join('release', 'release.c_id', '=', 'company.c_id')
+                ->where(function ($query) use($min,$max) {
+                    $query->orWhere('re_salarymax','=',$min)
+                        ->orWhere('re_salarymin','=',$max)
+                        ->orWhere('re_salarymin','>=',$min)
+                        ->where('re_salarymax','<=',$max);
+                })->where('c_industry','like','%'.$data['s_field'].'%')
+                ->where('re_name','like','%'.$data['s_position'].'%')
+                ->get();
+        if($data){
+            return $data->toArray();
+        }else{
+            return $data;
+        }
+    }
 }
 

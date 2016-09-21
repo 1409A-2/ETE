@@ -266,19 +266,7 @@ class IndexController extends BaseController
         }
     }
 
-    //订阅职位
-    public function subscribe(){
-        $u_email=session('u_email','');
-        return view('index.subscribe.subscribe',['u_email'=>$u_email]);
-    }
 
-    // 订阅职位完成
-    public function subscribeEmail(){
-        
-        // Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
-        // $m->to($user->email, $user->name)->subject('Your Reminder!');
-        // });
-    }
 
     /**
      * 查询用户是否收藏这个职位

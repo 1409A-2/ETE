@@ -36,8 +36,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('jump','Index\IndexController@jump');
     Route::get('jumpSearch','Index\IndexController@jumpSearch');  //跳转查询职位详情
     // 订阅职位 
-    Route::get('subscribe','Index\IndexController@subscribe');	// 订阅职位 
-    Route::get('subscribeEmail','Index\IndexController@subscribeEmail');	// 订阅职位 的发送邮件
+    Route::get('te','Index\FeedbackController@te');
+    Route::get('subscribe','Index\FeedbackController@subscribe');	// 订阅职位 
+    Route::post('subscribeEmail','Index\FeedbackController@subscribeEmail');	// 订阅职位 的发送邮件
+    Route::post('subscribeDel','Index\FeedbackController@subscribeDel'); 	//删除订阅器  
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
 
