@@ -32,8 +32,22 @@ class BeatController extends Controller
         $industry=Industry::sel();
 
 
+        $parent=0;
+        foreach($industry as $key => $val) {
+            if ($val['level']==0){
+                $new_industry[$val['i_id']] = $val;
+                $parent = $val['i_id'];
+                $father[]=$val;
+            }
 
-//        print_r($industry);die;
+            if($val['level']==2){
+                $new_industry[$parent]['son'][] = $val;
+            }
+        }
+
+
+//            print_r($father);
+//        print_r($new_industry);die;
 
         $id=session('u_id');
         $r_id=Resume::userUid($id);
@@ -42,7 +56,11 @@ class BeatController extends Controller
         if($beat){
             return view('index.beat.beatAdmin');
         }else{
-            return view('index.beat.beatInfo',['porject'=>$porject]);
+            return view('index.beat.beatInfo',[
+                'porject'=>$porject,
+                'industry'=>$new_industry,
+                'father'=>$father
+            ]);
         }
 
     }
@@ -61,7 +79,7 @@ class BeatController extends Controller
         foreach($professional_content as $k=>$v){
             $professional.=','.$v;
         }
-        $beat['b_professional']=substr($professional,1);
+        $beat['b_professional']=substr($professional,1);//期望工作的字符串Id
         $beat['b_phone']=$request->input('phoneNumber');  //手机号
         $beat['b_email']=$request->input('email');  //邮箱
         $beat['b_salary_start']=$request->input('salary_start');  //最低期望月薪

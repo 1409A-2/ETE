@@ -44,7 +44,7 @@ class Porject extends Model
 
     //添加
     public static function  addProject($data){
-        return self::insert($data);
+        return self::insertGetId($data);
 
     }
         //修改

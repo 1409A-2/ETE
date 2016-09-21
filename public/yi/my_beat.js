@@ -17,7 +17,6 @@ $(function () {
 
     //选择期望工作
     $('#diy ul li').click(function () {
-
         var $this = $(this);
         var classname = $this.find('label').attr('class');
         if (classname == 'radio-expectPosition') {
@@ -114,10 +113,7 @@ $(function () {
             },
             phoneCodes: {
                 required: true,
-                remote: {
-                    url: "codePro",     //后台处理程序
-                    type: "get"
-                }
+                remote:'codePro'
             },
             email: {
                 required: true,

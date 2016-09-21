@@ -22,7 +22,8 @@
                             暂无
                         @endif
                 
-                </span></div>
+                </span>
+                </div>
                 <!--end #lastChangedTime-->
                 <div id="resumeScore">
                     <div class="score fl">
@@ -51,7 +52,7 @@
                                                     @endif
                                                     <br>
                                                     @if($res['r_photo'])
-                                                        {{$res['r_photo']}}
+                                                        {{$res['r_photo']}} |
                                                     @else
                                                         手机号
                                                     @endif
@@ -61,18 +62,29 @@
                                                         邮箱
                                                     @endif
 
-
-
                                                     <br>
+                                                    @if($res['r_status'])
+                                                        @if($res['r_status']==0)
+                                                            我目前已离职，可快速到岗
+                                                           @elseif($res['r_status']==1)
+                                                            我目前正在职，正考虑换个新环境
+                                                        @elseif($res['r_status']==2)
+                                                            我暂时不想找工作
+                                                        @elseif($res['r_status']==3)
+                                                            我是应届毕业生
+                                                            @endif
+                                                        @else
+                                                        目前状态
+                                                    @endif
             			</span>
 
-                        <div class="m_portrait">
+                            <div class="m_portrait">
                             <div></div>
                             @if($res['r_img'])
                                 <img width="120" height="120" alt="jason" src="{{env('APP_HOST')}}/{{$res['r_img']}}">
                             @else
                                 <img width="120" height="120" alt="jason"
-                                     src="{{env('APP_HOST')}}/style/images/default_headpic.png">
+                                     src="{{env('APP_HOST')}}/style/images/default_headpic.png"/>
                             @endif
 
                         </div>
@@ -81,7 +93,7 @@
 
                     <div class="basicEdit dn">
                         <form id="profileForm">
-                            <input type="hidden" value="{{csrf_token()}}" id="resubmitTokens">
+                            <input type="hidden" value="{{csrf_token()}}" id="editToken">
                             <table>
                                 <tbody>
                                 <tr>
@@ -209,7 +221,7 @@
                     </div>
                     <!--end .basicEdit-->
                     <input type="hidden" id="nameVal" value="{{$res['r_name']}}">
-                    <input type="hidden" id="genderVal">
+                    <input type="hidden" id="genderVal" value="{{$res['r_sex']}}">
                     @if($res['r_education'])
                         <input type="hidden" id="topDegreeVal"
                                value=" @foreach ($education as $v) @if ($res['r_education']==$v['ed_id']){{$v['ed_name']}} @endif @endforeach">
@@ -233,8 +245,8 @@
                         <div class="expectShow">
                             <span>  北京，全职，月薪{{$expected['re_salarymin']}}k-{{$expected['re_salarymax']}}k，职位(<font
                                         color="red">{{$expected['ex_name']}}</font>)</span>
-                            <br/> <a href="{{url('expectedDel')}}/{{$expected['r_id']}}"
-                                     style="font-size: 18px;color:red">删除</a>
+                            <br/> <a href="javascript:;"
+                                     style="font-size: 18px;color:red" onclick="expectedDel({{$expected['r_id']}})">删除</a>
                         </div><!--end .expectShow-->
 
                         <div class="expectEdit dn">
@@ -251,11 +263,11 @@
                                             <input type="text" placeholder="最低月薪" value="{{$expected['re_salarymin']}}"
                                                    id="salaryMin"
                                                    name="salaryMin">
-                                            <span>k</span>
+                                            <b>K</b>
                                             <input type="text" placeholder="最高月薪" value="{{$expected['re_salarymax']}}"
                                                    id="salaryMax"
                                                    name="salaryMax">
-                                            <span>k</span>
+                                            <b>K</b>
                                         </td>
                                     </tr>
                                     <tr>
@@ -269,7 +281,13 @@
                             </form>
                             <!--end #expectForm-->
                         </div><!--end .expectEdit-->
+                        <div class="expectAdd pAdd dn">
+                            填写准确的期望工作能大大提高求职成功率哦…<br>
+                            快来添加期望工作吧！
+                            <span>添加期望工作</span>
+                        </div>
                     @else
+                        <div class="expectShow"></div>
                         <div class="expectEdit dn">
                             <form id="expectForm">
                                 <table>
@@ -280,14 +298,13 @@
                                             <input type="text" placeholder="期望职位，如：产品经理" value="" name="expectPosition"
                                                    id="expectPosition">
                                         </td>
-                                        <td>
-                                            <input type="text" placeholder="最低月薪" value="" id="salaryMin"
-                                                   name="salaryMin">
-                                            <span>k</span>
-                                            <input type="text" placeholder="最高月薪" value="" id="salaryMax"
-                                                   name="salaryMax">
-                                            <span>k</span>
-                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" placeholder="最低月薪" value="" id="salaryMin"
+                                                   name="salaryMin"><span>K</span></td>
+                                        <td><input type="text" placeholder="最高月薪" value="" id="salaryMax"
+                                                   name="salaryMax"><span>K</span></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -330,7 +347,8 @@
                                                 <span class="c9">
 		            									            								（{{date('Y.m',$v['p_start_time'])}}
                                                     -{{date('Y.d',$v['p_end_time'])}}）
-                                                    <a href="{{url('porjectDel')}}/{{$v['p_id']}}"  style="font-size: 18px;color:red">删除</a>
+                                                    <a href="javascript:;" class="porjectDel" pid="{{$v['p_id']}}"
+                                                       style="font-size: 18px;color:red">删除</a>
 		            									            						</span>
                                             </div>
                                             <div class="dl1"></div>
@@ -457,6 +475,11 @@
                                 <input type="hidden" value="" class="projectId">
                             </form>
                             <!--end .projectForm-->
+                        </div>
+                        <div class="projectAdd pAdd dn">
+                            项目经验是用人单位衡量人才能力的重要指标哦！<br>
+                            来说说让你难忘的项目吧！
+                            <span>添加项目经验</span>
                         </div>
                     @else
                         <div class="projectEdit dn">
@@ -590,7 +613,7 @@
 
 
                     @if($school)
-
+                        <span class="c_edit"></span>
                         <div class="educationalShow">
 
                            <span>学校名称——   <b>{{$school['s_name']}}</b>   <br/>最高学历——<b>
@@ -599,14 +622,16 @@
                                            {{$v['ed_name']}}
                                        @endif
                                    @endforeach
-                                 </b> <br>
+                               </b> <br>
                                专业———— <b>  {{$school['s_major']}}</b> <br/> 在校历程—— <b> {{date('Y',$school['s_start_time'])}}
                                    —{{date('Y',$school['s_end_time'])}} </b><br>
-            			</span>
+                               <a href="javascript:;" onclick="schoolDel({{$school['r_id']}})"
+                                  style="font-size: 18px;color:red">删除</a>
+                               </span>
+                        </div>
 
-                        </div> <span class="c_add"></span>
-                        <div class="educationalShow ">
-                            <form class="educationalForm dn">
+                        <div class="educationalEdit dn">
+                            <form class="educationalForm">
                                 <input type="hidden" value="{{csrf_token()}}" id="resubmitTokens">
                                 <table>
                                     <tbody>
@@ -622,19 +647,15 @@
                                             <span class="redstar">*</span>
                                         </td>
                                         <td>
-                                            <input type="hidden" class="degree" value="
+                                            <input type="hidden" class="degree" value="学历" name="degree">
 
-                                                    " name="degree">
-
-                                            <input type="button" value=" "
-                                                   class="profile_select_287 profile_select_normal select_degree">
+                                            <input type="button"
+                                                   value="学历"
+                                                   class="profile_select_287 profile_select_normal  select_degree">
 
                                             <div class="box_degree boxUpDown boxUpDown_287" style="display: none;">
                                                 <ul>
                                                     @foreach($education as $v)
-                                                        @if($school['ed_id']==$v['ed_id'])
-                                                            <li>{{$v['ed_name']}}</li>
-                                                        @endif
                                                         <li>{{$v['ed_name']}}</li>
                                                     @endforeach
                                                 </ul>
@@ -654,30 +675,24 @@
                                         </td>
                                         <td>
                                             <div class="fl">
-                                                <input type="hidden" class="schoolYearStart"
-                                                       value="{{date('Y',$school['s_start_time'])}}"
+                                                <input type="hidden" class="schoolYearStart" value=""
                                                        name="schoolYearStart">
-                                                <input type="button" value="{{date('Y',$school['s_start_time'])}}"
-
+                                                <input type="button" value="开始年份"
                                                        class="profile_select_139 profile_select_normal select_schoolYearStart">
 
                                                 <div class="box_schoolYearStart boxUpDown boxUpDown_139 dn"
                                                      style="display: none;">
                                                     <ul>
                                                         @for($i=2016;$i>1969;$i--)
-                                                            <li>
-
-                                                                {{$i}}
-                                                            </li>
+                                                            <li>{{$i}}</li>
                                                         @endfor
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="fl">
-                                                <input type="hidden" class="schoolYearEnd" value=""
+                                                <input type="hidden" class="schoolYearEnd" value="结束年份"
                                                        name="schoolYearEnd">
-                                                <input type="button" value=" {{date('Y',$school['s_end_time'])}}
-                                                                    "
+                                                <input type="button" value="结束年份"
                                                        class="profile_select_139 profile_select_normal select_schoolYearEnd">
 
                                                 <div class="box_schoolYearEnd  boxUpDown boxUpDown_139 dn"
@@ -704,11 +719,103 @@
                                 <input type="hidden" class="eduId" value="">
                             </form>
                         </div>
+                        <div class="educationalAd dn">
+                            <form class="educationalForm">
+                                <input type="hidden" value="{{csrf_token()}}" id="resubmitTokens">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="学校名称" name="schoolName" class="schoolName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" class="degree" value="学历" name="degree">
+                                            <input type="button" value="学历"
+                                                   class="profile_select_287 profile_select_normal select_degree">
 
 
+                                            <div class="box_degree boxUpDown boxUpDown_287 dn" style="display: none;">
+                                                <ul>
+                                                    @foreach($education as $v)
+                                                        <li>{{$v['ed_name']}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="专业名称" name="professionalName"
+                                                   class="professionalName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="schoolYearStart" value=""
+                                                       name="schoolYearStart">
+                                                <input type="button" value="开始年份"
+                                                       class="profile_select_139 profile_select_normal select_schoolYearStart">
+
+                                                <div class="box_schoolYearStart boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="fl">
+                                                <input type="hidden" class="schoolYearEnd" value=""
+                                                       name="schoolYearEnd">
+                                                <input type="button" value="结束年份"
+                                                       class="profile_select_139 profile_select_normal select_schoolYearEnd">
+
+                                                <div class="box_schoolYearEnd  boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="3">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" class="eduId" value="">
+                            </form>
+                            <!--end .educationalForm-->
+                        </div>
+                        <div class="educationalAdd pAdd dn">
+                            教育背景可以充分体现你的学习和专业能力，<br>
+                            且完善后才可投递简历哦！
+                            <span>添加教育经历</span>
+                        </div>
 
                     @else
-
+                        <span class="c_edit dn"></span>
+                        <div class="educationalShow dn"></div>
                         <div class="educationalEdit dn">
                             <form class="educationalForm">
                                 <input type="hidden" value="{{csrf_token()}}" id="resubmitTokens">
@@ -725,7 +832,7 @@
                                             <span class="redstar">*</span>
                                         </td>
                                         <td>
-                                            <input type="hidden" class="degree" value="" name="degree">
+                                            <input type="hidden" class="degree" value="学历" name="degree">
                                             <input type="button" value="学历"
                                                    class="profile_select_287 profile_select_normal select_degree">
 
@@ -797,7 +904,96 @@
                             </form>
                             <!--end .educationalForm-->
                         </div><!--end .educationalEdit-->
-                        <div class="educationalAdd pAdd">
+                        <div class="educationalAd dn">
+                            <form class="educationalForm">
+                                <input type="hidden" value="{{csrf_token()}}" id="resubmitTokens">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="学校名称" name="schoolName" class="schoolName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" class="degree" value="学历" name="degree">
+                                            <input type="button" value="学历"
+                                                   class="profile_select_287 profile_select_normal select_degree">
+
+
+                                            <div class="box_degree boxUpDown boxUpDown_287 dn" style="display: none;">
+                                                <ul>
+                                                    @foreach($education as $v)
+                                                        <li>{{$v['ed_name']}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="专业名称" name="professionalName"
+                                                   class="professionalName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="schoolYearStart" value=""
+                                                       name="schoolYearStart">
+                                                <input type="button" value="开始年份"
+                                                       class="profile_select_139 profile_select_normal select_schoolYearStart">
+
+                                                <div class="box_schoolYearStart boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="fl">
+                                                <input type="hidden" class="schoolYearEnd" value=""
+                                                       name="schoolYearEnd">
+                                                <input type="button" value="结束年份"
+                                                       class="profile_select_139 profile_select_normal select_schoolYearEnd">
+
+                                                <div class="box_schoolYearEnd  boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="3">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" class="eduId" value="">
+                            </form>
+                            <!--end .educationalForm-->
+                        </div>
+
+                        <div class="educationalAdd pAdd ">
                             教育背景可以充分体现你的学习和专业能力，<br>
                             且完善后才可投递简历哦！
                             <span>添加教育经历</span>
@@ -883,6 +1079,7 @@
 
                                 <div class="workList c7">
                                     <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
+                                        <a href="javascript:;" class="workDel" wid="{{$v['w_id']}}"    style="font-size: 18px;color:red">删除</a>
                                     </div>
                                     <p>{{$v['w_desc']}} </p>
                                 </div>
@@ -896,14 +1093,15 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <input type="text" placeholder="请输入作品链接" name="workLink" class="workLink">
+                                            <input type="text" placeholder="请输入作品链接" id="workLink" name="workLink"
+                                                   class="workLink">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
-
+                                                      id="workDescription" name="workDescription"
+                                                      placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -918,6 +1116,11 @@
                                 <input type="hidden" class="showId" value="">
                             </form>
                             <!--end .workForm-->
+                        </div>
+                        <div class="workAdd pAdd dn">
+                            好作品会说话！<br>
+                            快来秀出你的作品打动企业吧！
+                            <span>添加作品展示</span>
                         </div>
                     @else
                         <div class="workEdit dn">
@@ -1174,6 +1377,7 @@
 {{--基本信息验证--}}
 
 <script type="text/javascript">
+    var URL='{{url('/')}}';
     $(function () {
         $('#noticeDot-1').hide();
         $('#noticeTip a.closeNT').click(function () {
@@ -1245,8 +1449,9 @@
         </div>
     </div>
     <div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
-</div></body></html>
+</div>
 <script>
+
     function img_check(a, b, c) {
         var myimg = $('#myimg');
         var a = $("#" + c);
@@ -1274,6 +1479,92 @@
             }
         }))
     }
+    /**
+     * 删除 期望工作
+     * @param id
+     */
+    function expectedDel(id){
+        $.ajax({
+            type:'GET',
+            url:"{{'expectedDel'}}",
+            data:{expectedId:id},
+            success:function(msg){
+                if(msg==1){
+                $('#expectJob .expectShow').addClass('dn');
+                $('#expectJob .c_edit').addClass('dn');
+                $('#expectJob .expectAdd').removeClass('dn');
+                }else{
+                    $('#expectJob h2').html('删除失败')
+                }
+            }
+        })
+    }
+    /**
+     * 删除 教育背景
+     * @param id
+     */
+    function schoolDel(id){
+        $.ajax({
+            type:'GET',
+            url:"{{'schoolDel'}}",
+            data:{schoolId:id},
+            success:function(msg){
+                if(msg==1){
+                    $('#educationalBackground .educationalShow').addClass('dn');
+                    $('#educationalBackground .c_edit').addClass('dn');
+                    $('#educationalBackground .educationalAdd').removeClass('dn');
+                }else{
+                    $('#educationalBackground h2').html('删除失败')
+                }
+            }
+        })
+    }
+    /**
+     * 删除 作品
+     * @param id
+     */
+    $(function () {
 
+        $(document).delegate('.workDel', 'click', function () {
+            var wid = $(this).attr('wid');
+            _this = $(this)
+            $.ajax({
+                type: 'GET',
+                url: "{{'worksDel'}}",
+                data: {workId: wid},
+                success: function (msg) {
+                    if (msg == 1) {
+                        $('#worksShow .workShow').addClass('dn');
+                        $('#worksShow .c_add').addClass('dn');
+                        $('#worksShow .workAdd').removeClass('dn');
+                    } else if (msg == 2) {
+                        _this.parents('.workList').remove();
+                    } else {
+                        $('#worksShow h2').html('删除失败')
+                    }
+                }
+            })
+        })
 
+        $(document).delegate('.porjectDel', 'click', function () {
+            var pid = $(this).attr('pid');
+            _this = $(this)
+            $.ajax({
+                type: 'GET',
+                url: "{{'porjectDel'}}",
+                data: {porjectId: pid},
+                success: function (msg) {
+                    if (msg == 1) {
+                        $('#projectExperience .projectShow').addClass('dn');
+                        $('#projectExperience .c_add').addClass('dn');
+                        $('#projectExperience .projectAdd').removeClass('dn');
+                    } else if (msg == 2) {
+                        _this.parents('.plist ').remove();
+                    } else {
+                        $('#projectExperience h2').html('删除失败')
+                    }
+                }
+            })
+        })
+    })
 </script>

@@ -108,214 +108,28 @@
             <!--<ul class="radio-wrapper col-5">-->
             <ul id="tipshow" class="radio-wrapper radio col-5 tip-show"
                 data-property="1">
-                <li><label for="field1">技术</label><input name="field" id="field1" value="1" type="radio"></li>
-                <li><label for="field2">产品</label><input name="field" id="field2" value="2" type="radio"></li>
-                <li><label for="field3">设计</label><input name="field" id="field3" value="3" type="radio"></li>
-                <li><label for="field4">运营</label><input name="field" id="field4" value="4" type="radio"></li>
+                @foreach($father as $v)
+                    <li><label for="field{{$v['i_id']}}">{{$v['i_name']}}</label>
+                        <input name="field" id="field{{$v['i_id']}}"
+                               value="{{$v['i_id']}}" type="radio"></li>
+                @endforeach
             </ul>
             <diy id="diy">
-                <!-- 技术 -->
-                <ul class="radio-techology-content radio-content">
-                    <li>
-                        <input name="professional_content[]" value="Java工程师" type="checkbox">
-                        <label class="radio-expectPosition">Java工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="PHP工程师" type="checkbox">
-                        <label class="radio-expectPosition">PHP工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="Python工程师" type="checkbox">
-                        <label class="radio-expectPosition">Python工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="前端工程师" type="checkbox">
-                        <label class="radio-expectPosition">前端工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="C/C++工程师" type="checkbox">
-                        <label class="radio-expectPosition">C/C++工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="Ruby工程师" type="checkbox">
-                        <label class="radio-expectPosition">Ruby工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value=".Net工程师" type="checkbox">
-                        <label class="radio-expectPosition">.Net工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="C#工程师" type="checkbox">
-                        <label class="radio-expectPosition">C#工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="Node.js工程师" type="checkbox">
-                        <label class="radio-expectPosition">Node.js工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="数据挖掘工程师" type="checkbox">
-                        <label class="radio-expectPosition">数据挖掘工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="搜索算法工程师" type="checkbox">
-                        <label class="radio-expectPosition">搜索算法工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="全栈工程师" type="checkbox">
-                        <label class="radio-expectPosition">全栈工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="Android工程师" type="checkbox">
-                        <label class="radio-expectPosition">Android工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="iOS工程师" type="checkbox">
-                        <label class="radio-expectPosition">iOS工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="技术经理" type="checkbox">
-                        <label class="radio-expectPosition">技术经理</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="技术总监" type="checkbox">
-                        <label class="radio-expectPosition">技术总监</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="架构师" type="checkbox">
-                        <label class="radio-expectPosition">架构师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="CTO" type="checkbox">
-                        <label class="radio-expectPosition">CTO</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="项目经理" type="checkbox">
-                        <label class="radio-expectPosition">项目经理</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="安全工程师" type="checkbox">
-                        <label class="radio-expectPosition">安全工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="Go工程师" type="checkbox">
-                        <label class="radio-expectPosition">Go工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="Scala工程师" type="checkbox">
-                        <label class="radio-expectPosition">Scala工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="测试工程师" type="checkbox">
-                        <label class="radio-expectPosition">测试工程师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="运维" type="checkbox">
-                        <label class="radio-expectPosition">运维</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="DBA" type="checkbox">
-                        <label class="radio-expectPosition">DBA</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="游戏开发" type="checkbox">
-                        <label class="radio-expectPosition">游戏开发</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="后端开发" type="checkbox">
-                        <label class="radio-expectPosition">后端开发</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="移动开发" type="checkbox">
-                        <label class="radio-expectPosition">移动开发</label>
-                    </li>
-                </ul>
-                <!-- 产品 -->
-                <ul class="radio-production-content radio-content ">
-                    <li>
-                        <input name="professional_content[]" value="产品经理" type="checkbox">
-                        <label class="radio-expectPosition">产品经理</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="移动产品经理" type="checkbox">
-                        <label class="radio-expectPosition">移动产品经理</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="产品总监" type="checkbox">
-                        <label class="radio-expectPosition">产品总监</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="游戏策划" type="checkbox">
-                        <label class="radio-expectPosition">游戏策划</label>
-                    </li>
-                </ul>
-                <!-- 设计 -->
-                <ul class="radio-design-content radio-content ">
-                    <li>
-                        <input name="professional_content[]" value="视觉设计师" type="checkbox">
-                        <label class="radio-expectPosition">视觉设计师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="交互设计师" type="checkbox">
-                        <label class="radio-expectPosition">交互设计师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="品牌设计师" type="checkbox">
-                        <label class="radio-expectPosition">品牌设计师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="平面设计师" type="checkbox">
-                        <label class="radio-expectPosition">平面设计师</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="用户研究" type="checkbox">
-                        <label class="radio-expectPosition">用户研究</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="游戏设计" type="checkbox">
-                        <label class="radio-expectPosition">游戏设计</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="设计总监" type="checkbox">
-                        <label class="radio-expectPosition">设计总监</label>
-                    </li>
-                </ul>
-                <!-- 运营 -->
-                <ul class="radio-operating-content radio-content ">
-                    <li>
-                        <input name="professional_content[]" value="内容运营" type="checkbox">
-                        <label class="radio-expectPosition">内容运营</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="产品运营" type="checkbox">
-                        <label class="radio-expectPosition">产品运营</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="用户运营" type="checkbox">
-                        <label class="radio-expectPosition">用户运营</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="活动运营" type="checkbox">
-                        <label class="radio-expectPosition">活动运营</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="数据运营" type="checkbox">
-                        <label class="radio-expectPosition">数据运营</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="新媒体运营" type="checkbox">
-                        <label class="radio-expectPosition">新媒体运营</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="编辑" type="checkbox">
-                        <label class="radio-expectPosition">编辑</label>
-                    </li>
-                    <li>
-                        <input name="professional_content[]" value="运营总监" type="checkbox">
-                        <label class="radio-expectPosition">运营总监</label>
-                    </li>
-                </ul>
-                <!-- 市场 -->
+            @foreach($father as $v)
+                    <ul class="radio-techology-content radio-content">
+                        @foreach($industry as $k)
+                            @if($k['i_id']==$v['i_id'])
+                                @foreach($k['son'] as $ve)
+                                    <li>
+                                        <input name="professional_content[]" value="{{$ve['i_id']}}" type="checkbox">
+                                        <label class="radio-expectPosition">{{$ve['i_name']}}</label>
+                                    </li>
+                                @endforeach
 
+                            @endif
+                        @endforeach
+                    </ul>
+                @endforeach
             </diy>
         </div>
 

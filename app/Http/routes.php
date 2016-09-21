@@ -119,15 +119,16 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('educationDesc', 'Index\ResumeController@educationDesc');//自我描述
 
         Route::post('schoolPro', 'Index\ResumeController@schoolPro');//教育背景
+        Route::get('schoolDel', 'Index\ResumeController@schoolDel');//教育背景
 
         Route::post('worksAdd', 'Index\ResumeController@worksAdd');//添加作品
-        Route::get('worksDel/{id}', 'Index\ResumeController@worksDel');//删除作品
+        Route::get('worksDel', 'Index\ResumeController@worksDel');//删除作品
 
         Route::post('porjectAdd', 'Index\ResumeController@porjectAdd');//添加项目
-        Route::get('porjectDel/{id}', 'Index\ResumeController@porjectDel');//删除项目
+        Route::get('porjectDel', 'Index\ResumeController@porjectDel');//删除项目
 
         Route::post('expectedAdd', 'Index\ResumeController@expectedAdd');//添加(修改)期望工作
-        Route::get('expectedDel/{id}', 'Index\ResumeController@expectedDel');//删除期望工作
+        Route::get('expectedDel', 'Index\ResumeController@expectedDel');//删除期望工作
 
 
         Route::get('previewList/{id}', 'Index\ResumeController@previewList');//简历预览
