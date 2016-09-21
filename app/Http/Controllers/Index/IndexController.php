@@ -51,22 +51,9 @@ class IndexController extends BaseController
         $two_industry='';
 
         foreach($new_industry as $key => $val){
-            for($i=0;$i<10;$i++){
-                $two_industry[$key][] = $val['son'][rand(0,count($val['son'])-1)];
-            }
-        }
-
-        for($i=0;$i<$num;$i++){
-            $b=$arr[$i];
-            $temp='';
-            foreach ($two_industry[$b] as $v){
-                $v=$v['i_name'];
-                $temp[]=$v;
-            }
-            $temp=array_unique($temp);//去掉重复的字符串,也就是重复的一维数组
-            foreach ($temp as $k => $v){
-                if($two_industry[$b][$k]['i_name']==$v){
-                    $there_industry[$b][$k]=$two_industry[$b][$k];
+            foreach($val['son'] as $vv){
+                if($vv['i_hot']==1){
+                    $two_industry[$key][] = $vv;
                 }
             }
         }
@@ -87,9 +74,8 @@ class IndexController extends BaseController
 
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
-        unset($two_industry);
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$there_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
     }
 
     //跳转职业详情
@@ -109,9 +95,8 @@ class IndexController extends BaseController
             foreach($company_data as $key=>$val){
                 $company_data[$key]['industry'] = explode(',',$val['c_industry']);
                 unset($company_data[$key]['c_industry']);
-                $company_data[$key]['lable_data'] = Lable::selLable($val['c_id']);
-                // $company_data[$key]['release_data'] = Release::selList(['c_id'=>$val['c_id']]);
-                $company_data[$key]['release_data']='';
+                $company_data[$key]['lable_data'] = Lable::selLableLimit($val['c_id']);
+                $company_data[$key]['release_data'] = Release::selListLimit(['c_id'=>$val['c_id']]);
             }
             // print_r($company_data);die;
             return view('index.index.companylist',[

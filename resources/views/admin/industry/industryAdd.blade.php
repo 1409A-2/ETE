@@ -22,7 +22,7 @@
                         <select name="i_pid" class="input" style="width: 200px;" data-validate="required:请选择选择顺序">
                             <option value="">请选择</option>
                             @foreach($industry as $v)
-                                <option value="{{$v['i_id']}}">{{$v['i_name']}}</option>
+                                <option value="{{$v['i_id']}}">@if($v['level']==1)|-- @endif{{$v['i_name']}}</option>
                             @endforeach
                         </select>
                     </div>
