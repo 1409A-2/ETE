@@ -37,30 +37,33 @@ class IndexController extends BaseController
             if ($val['level']==0){
                 $new_industry[$val['i_id']] = $val;
                 $parent = $val['i_id'];
+                $arr[]=$val['i_id'];;
             }
 
             if($val['level']==2){
                 $new_industry[$parent]['son'][] = $val;
-            }
+            }            
         }
         // print_r($new_industry);die;
         $num = count($new_industry);
         $two_industry='';
-        for($i=1;$i<=$num;$i++){
+        for($i=0;$i<$num;$i++){
             for($k=0;$k<10;$k++){
-                $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
+                $b=$arr[$i];
+                $two_industry[$b][]=$new_industry[$b]['son'][rand($i,count($new_industry[$b]['son'])-1)];
             }
         }
-        for($i=1;$i<=$num;$i++){
+        for($i=0;$i<$num;$i++){
+            $b=$arr[$i];
             $temp='';
-            foreach ($two_industry[$i] as $v){
+            foreach ($two_industry[$b] as $v){
                 $v=$v['i_name'];
                 $temp[]=$v;
             }
             $temp=array_unique($temp);//去掉重复的字符串,也就是重复的一维数组
             foreach ($temp as $k => $v){
-                if($two_industry[$i][$k]['i_name']==$v){
-                    $there_industry[$i][$k]=$two_industry[$i][$k];
+                if($two_industry[$b][$k]['i_name']==$v){
+                    $there_industry[$b][$k]=$two_industry[$b][$k];
                 }
             }
         }
@@ -257,19 +260,5 @@ class IndexController extends BaseController
         if($re){
             return 1;
         }
-    }
-
-    //订阅职位
-    public function subscribe(){
-        $u_email=session('u_email','');
-        return view('index.subscribe.subscribe',['u_email'=>$u_email]);
-    }
-
-    // 订阅职位完成
-    public function subscribeEmail(){
-        
-        // Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
-        // $m->to($user->email, $user->name)->subject('Your Reminder!');
-        // });
     }
 }
