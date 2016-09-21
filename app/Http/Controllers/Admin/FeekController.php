@@ -35,6 +35,7 @@ class FeekController extends Controller
      */
     public function feedBackDel(Request $request){
         $id=$request->input('f_id');
+        $p=$request->input('p',1);
         if(!is_array($id)){
             $arr[]=$id;
         }else{
@@ -42,7 +43,24 @@ class FeekController extends Controller
         }
         $re = Feedback::feedDel($arr); 
         if($re){
-            return redirect('feedBackList');
+            return redirect('feedBackList?p='.$p);
+        }
+    }
+
+    /**
+     * 删除反馈确认后的信息
+     */
+    public function feedBackDele(Request $request){
+        $id=$request->input('f_id');
+        $p=$request->input('p',1);
+        if(!is_array($id)){
+            $arr[]=$id;
+        }else{
+            $arr=$id;
+        }
+        $re = Feedback::feedDel($arr); 
+        if($re){
+            return redirect('feedBackHandle?p='.$p);
         }
     }
 
