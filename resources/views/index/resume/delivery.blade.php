@@ -19,12 +19,12 @@
                         <div class="delivery_tabs">
 
                             <ul class="reset" id="tab">
-                                <li class="current"><a href="javascript:;">全部</a></li>
-                                <li><a href="javascript:;">投递成功</a></li>
-                                <li><a href="javascript:;">被查看</a></li>
-                                <li><a href="javascript:;">通过初筛</a></li>
-                                <li><a href="javascript:;">通知面试</a></li>
-                                <li class="last"><a href="javascript:;">不合适</a></li>
+                                <li class="current"><a href="javascript:;">全部@if(isset($num['all']))({{$num['all']}}) @endif</a></li>
+                                <li><a href="javascript:;">投递成功@if(isset($num['go']))({{$num['go']}}) @endif </a></li>
+                                <li><a href="javascript:;">被查看@if(isset($num['read']))({{$num['read']}}) @endif </a></li>
+                                <li><a href="javascript:;">通过初筛 @if(isset($num['yes']))({{$num['yes']}}) @endif</a></li>
+                                <li><a href="javascript:;">通知面试 @if(isset($num['ok']))({{$num['ok']}})@endif</a></li>
+                                <li class="last"><a href="javascript:;">不合适@if(isset($num['pass']))({{$num['pass']}})@endif </a></li>
                             </ul>
 
                         </div>
@@ -32,168 +32,50 @@
                             {{--//全部--}}
 
 
-                                <diy style="display: block">
-                                    @if(array_key_exists('all',$reList))
+                            <diy style="display: block">
+                                @if(array_key_exists('all',$reList))
                                     @foreach($reList['all'] as $v)
-                                    <ul class="reset my_delivery">
-                                        <li>
-                                            <div class="d_item">
-                                                <h2 title="{{$v['re_name']}}">
-                                                    <a target="_blank" href="postPreview?re_id={{$v['re_id']}}">
-                                                        <em>{{$v['re_name']}}</em>
-                                                        <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
-                                                        <!--  -->
+                                        <ul class="reset my_delivery">
+                                            <li>
+                                                <div class="d_item">
+                                                    <h2 title="{{$v['re_name']}}">
+                                                        <a target="_blank" href="postPreview?re_id={{$v['re_id']}}">
+                                                            <em>{{$v['re_name']}}</em>
+                                                            <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
+                                                            <!--  -->
+                                                        </a>
+                                                    </h2>
+
+                                                    <div class="clear"></div>
+                                                    <a title="公司名称" class="d_jobname" target="_blank"
+                                                       href="">
+                                                        {{$v['c_name']}} <span>[北京]</span>
                                                     </a>
-                                                </h2>
+                                                    <span class="d_time">{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
 
-                                                <div class="clear"></div>
-                                                <a title="公司名称" class="d_jobname" target="_blank"
-                                                   href="">
-                                                    {{$v['c_name']}} <span>[北京]</span>
-                                                </a>
-                                                <span class="d_time">{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
-
-                                                <div class="clear"></div>
+                                                    <div class="clear"></div>
 
                                                     @if($v['remuse_resele']==0)
-                                                    <a class="btn_showprogress" href="javascript:;">
+                                                        <a class="btn_showprogress" href="javascript:;">
                                                             投递成功
-                                                            </a>
+                                                        </a>
                                                     @elseif($v['remuse_resele']==1)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             被查看
-                                                            </a>
+                                                        </a>
                                                     @elseif($v['remuse_resele']==3)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             通知面试
-                                                            </a>
+                                                        </a>
                                                     @elseif($v['remuse_resele']==2)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             初试通过
-                                                            </a>
+                                                        </a>
                                                     @elseif($v['remuse_resele']==4)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             不合适
-                                                            </a>
+                                                        </a>
                                                     @endif
-                                            </div>
-                                            <div class="progress_status	dn">
-                                                <ul class="status_steps">
-                                                    <li class="status_done status_1">1</li>
-                                                    <li class="status_line status_line_done"><span></span></li>
-                                                    <li class="status_done"><span>2</span></li>
-                                                    <li class="status_line status_line_done"><span></span></li>
-                                                    <li class="status_done"><span>3</span></li>
-                                                    <li class="status_line status_line_done"><span></span></li>
-                                                    <li class="status_done"><span>4</span></li>
-                                                </ul>
-                                                <ul class="status_text">
-                                                    <li>投递成功</li>
-                                                    <li class="status_text_2">简历被查看</li>
-                                                    <li class="status_text_3">通过初步筛选</li>
-                                                    <li style="margin-left: 75px;*margin-left: 60px;" class="status_text_4">
-                                                        不合适
-                                                    </li>
-                                                </ul>
-                                                <ul class="status_list">
-                                                    <li class="top">
-                                                        <div class="list_time"><em></em>2014-07-01 17:15</div>
-                                                        <div class="list_body">
-                                                            简历被lixiang标记为不合适
-                                                            <div>您的简历已收到，但目前您的工作经历与该职位不是很匹配，因此很抱歉地通知您无法进入面试。</div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="bottom">
-                                                        <div class="list_time"><em></em>2014-07-01 17:08</div>
-                                                        <div class="list_body">
-                                                            lixiang已成功接收你的简历
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <a class="btn_closeprogress" href="javascript:;"></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    @endforeach
-                                    @else
-
-                                    @endif
-                                </diy>
-
-
-
-                            {{--全部结束--}}
-
-
-                            {{--//投递成功--}}
-                            <diy>
-                            @if(array_key_exists('remuse_0',$reList))
-
-                                @foreach($reList['remuse_0'] as $v)
-                                @if($v['read']==0)
-                                        <ul class="reset my_delivery">
-                                            <li>
-                                                <div class="d_item">
-                                                    <h2 title="{{$v['re_name']}}">
-                                                        <a target="_blank" href="{{url('jump')}}?i_name={{$v['re_name']}}">
-                                                            <em>{{$v['re_name']}}</em>
-                                                            <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
-                                                            <!--  -->
-                                                        </a>
-                                                    </h2>
-
-                                                    <div class="clear"></div>
-                                                    <a title="公司名称" class="d_jobname" target="_blank"
-                                                       href="http://www.lagou.com/c/25927.html">
-                                                        {{$v['c_name']}} <span>[北京]</span>
-                                                    </a>
-                                                    <span class="d_time">2014-07-01 17:15</span>
-
-                                                    <div class="clear"></div>
-
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        投递成功
-                                                        </a>
-                                                </div>
-
-                                            </li>
-                                        </ul>
-                                 @endif
-                                @endforeach
-
-                            @else
-
-                            @endif
-                            </diy>
-                            {{--投递结束--}}
-                            {{--被查看--}}
-                            <diy>
-                            @if(array_key_exists('remuse_1',$reList))
-                                @foreach($reList['remuse_1'] as $v)
-                                    @if($v['remuse_resele']==1)
-                                        <ul class="reset my_delivery">
-                                            <li>
-                                                <div class="d_item">
-                                                    <h2 title="{{$v['re_name']}}">
-                                                        <a target="_blank" href="{{url('jump')}}?i_name={{$v['re_name']}}">
-                                                            <em>{{$v['re_name']}}</em>
-                                                            <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
-                                                            <!--  -->
-                                                        </a>
-                                                    </h2>
-
-                                                    <div class="clear"></div>
-                                                    <a title="公司名称" class="d_jobname" target="_blank"
-                                                       href="http://www.lagou.com/c/25927.html">
-                                                        {{$v['c_name']}} <span>[北京]</span>
-                                                    </a>
-                                                    <span class="d_time">2014-07-01 17:15</span>
-
-                                                    <div class="clear"></div>
-
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        被查看
-                                                        </a>
                                                 </div>
                                                 <div class="progress_status	dn">
                                                     <ul class="status_steps">
@@ -232,17 +114,135 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    @endif
-                                @endforeach
+                                    @endforeach
+                                @else
 
-                            @else
+                                @endif
+                            </diy>
 
-                            @endif
+
+
+                            {{--全部结束--}}
+
+
+                            {{--//投递成功--}}
+                            <diy>
+                                @if(array_key_exists('remuse_0',$reList))
+
+                                    @foreach($reList['remuse_0'] as $v)
+
+                                            <ul class="reset my_delivery">
+                                                <li>
+                                                    <div class="d_item">
+                                                        <h2 title="{{$v['re_name']}}">
+                                                            <a target="_blank" href="{{url('jump')}}?i_name={{$v['re_name']}}">
+                                                                <em>{{$v['re_name']}}</em>
+                                                                <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
+                                                                <!--  -->
+                                                            </a>
+                                                        </h2>
+
+                                                        <div class="clear"></div>
+                                                        <a title="公司名称" class="d_jobname" target="_blank"
+                                                           href="http://www.lagou.com/c/25927.html">
+                                                            {{$v['c_name']}} <span>[北京]</span>
+                                                        </a>
+                                                        <span class="d_time">2014-07-01 17:15</span>
+
+                                                        <div class="clear"></div>
+
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            投递成功
+                                                        </a>
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+
+                                    @endforeach
+
+                                @else
+
+                                @endif
+                            </diy>
+                            {{--投递结束--}}
+                            {{--被查看--}}
+                            <diy>
+                                @if(array_key_exists('remuse_1',$reList))
+                                    @foreach($reList['remuse_1'] as $v)
+                                        @if($v['remuse_resele']==1)
+                                            <ul class="reset my_delivery">
+                                                <li>
+                                                    <div class="d_item">
+                                                        <h2 title="{{$v['re_name']}}">
+                                                            <a target="_blank" href="{{url('jump')}}?i_name={{$v['re_name']}}">
+                                                                <em>{{$v['re_name']}}</em>
+                                                                <span>（{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k）</span>
+                                                                <!--  -->
+                                                            </a>
+                                                        </h2>
+
+                                                        <div class="clear"></div>
+                                                        <a title="公司名称" class="d_jobname" target="_blank"
+                                                           href="http://www.lagou.com/c/25927.html">
+                                                            {{$v['c_name']}} <span>[北京]</span>
+                                                        </a>
+                                                        <span class="d_time">2014-07-01 17:15</span>
+
+                                                        <div class="clear"></div>
+
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            被查看
+                                                        </a>
+                                                    </div>
+                                                    <div class="progress_status	dn">
+                                                        <ul class="status_steps">
+                                                            <li class="status_done status_1">1</li>
+                                                            <li class="status_line status_line_done"><span></span></li>
+                                                            <li class="status_done"><span>2</span></li>
+                                                            <li class="status_line status_line_done"><span></span></li>
+                                                            <li class="status_done"><span>3</span></li>
+                                                            <li class="status_line status_line_done"><span></span></li>
+                                                            <li class="status_done"><span>4</span></li>
+                                                        </ul>
+                                                        <ul class="status_text">
+                                                            <li>投递成功</li>
+                                                            <li class="status_text_2">简历被查看</li>
+                                                            <li class="status_text_3">通过初步筛选</li>
+                                                            <li style="margin-left: 75px;*margin-left: 60px;" class="status_text_4">
+                                                                不合适
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="status_list">
+                                                            <li class="top">
+                                                                <div class="list_time"><em></em>2014-07-01 17:15</div>
+                                                                <div class="list_body">
+                                                                    简历被lixiang标记为不合适
+                                                                    <div>您的简历已收到，但目前您的工作经历与该职位不是很匹配，因此很抱歉地通知您无法进入面试。</div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="bottom">
+                                                                <div class="list_time"><em></em>2014-07-01 17:08</div>
+                                                                <div class="list_body">
+                                                                    lixiang已成功接收你的简历
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <a class="btn_closeprogress" href="javascript:;"></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        @endif
+                                    @endforeach
+
+                                @else
+
+                                @endif
                             </diy>
                             {{--通过初筛--}}
                             <diy>
-                            @if(array_key_exists('remuse_2',$reList))
-                                @foreach($reList['remuse_2'] as $v)
+                                @if(array_key_exists('remuse_2',$reList))
+                                    @foreach($reList['remuse_2'] as $v)
 
                                         <ul class="reset my_delivery">
                                             <li>
@@ -267,7 +267,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         初试通过
-                                                        </a>
+                                                    </a>
 
                                                 </div>
                                                 <div class="progress_status	dn">
@@ -308,17 +308,17 @@
                                             </li>
                                         </ul>
 
-                                @endforeach
+                                    @endforeach
 
-                            @else
+                                @else
 
-                            @endif
+                                @endif
                             </diy>
                             {{--通过初筛结束--}}
                             {{--//通知面试成功--}}
                             <diy>
-                            @if(array_key_exists('remuse_3',$reList))
-                                @foreach($reList['remuse_3'] as $v)
+                                @if(array_key_exists('remuse_3',$reList))
+                                    @foreach($reList['remuse_3'] as $v)
 
                                         <ul class="reset my_delivery">
                                             <li>
@@ -343,7 +343,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         通知面试
-                                                        </a>
+                                                    </a>
 
                                                 </div>
                                                 <div class="progress_status	dn">
@@ -384,15 +384,15 @@
                                             </li>
                                         </ul>
 
-                                @endforeach
+                                    @endforeach
 
-                            @else
+                                @else
 
-                            @endif
-                                </diy>
+                                @endif
+                            </diy>
                             <diy>
-                            @if(array_key_exists('remuse_4',$reList))
-                                @foreach($reList['remuse_4'] as $v)
+                                @if(array_key_exists('remuse_4',$reList))
+                                    @foreach($reList['remuse_4'] as $v)
 
                                         <ul class="reset my_delivery">
                                             <li>
@@ -417,7 +417,7 @@
 
                                                     <a class="btn_showprogress" href="javascript:;">
                                                         不合适
-                                                        </a>
+                                                    </a>
 
                                                 </div>
                                                 <div class="progress_status	dn">
@@ -458,11 +458,11 @@
                                             </li>
                                         </ul>
 
-                                @endforeach
+                                    @endforeach
 
-                            @else
+                                @else
 
-                            @endif
+                                @endif
                             </diy>
                             {{--不合格结束--}}
 
@@ -487,14 +487,14 @@
                 <div class="mycenterR" id="myRecommend">
                     <h2>可能适合你的职位 <i>匹配度</i></h2>
                     <ul class="reset">
-                    <li><center>暂无</center></li>
-                       <!--  <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
-                                <span class="f16">产品经理</span>
-                                <span class="c7">广州百田</span>
-                                <em>92%</em>
-                            </a>
-                        </li> -->
+                        <li><center>暂无</center></li>
+                        <!--  <li>
+                             <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
+                                 <span class="f16">产品经理</span>
+                                 <span class="c7">广州百田</span>
+                                 <em>92%</em>
+                             </a>
+                         </li> -->
                     </ul>
                     <!-- <a target="_blank" class="more" href="mList.html">更多推荐职位&gt;&gt;</a> -->
                 </div>
@@ -573,7 +573,7 @@
                                         <div id="showName" class="f14 c7">
                                             <label class="checkbox">
                                                 <input type="checkbox">
-                                                
+
                                             </label>
                                             匿名提交
                                         </div>

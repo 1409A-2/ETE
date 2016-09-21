@@ -45,7 +45,7 @@ class School extends Model
      * @return mixed
      */
     public static function addSchool($data){
-        return self::insert($data);
+        return self::insertGetId($data);
 
     }
 
@@ -56,6 +56,10 @@ class School extends Model
      */
     public static function updateSchool($data,$where){
         return self::where($where)->update($data);
+    }
+
+    public static function delSchool($where){
+        return self::where($where)->delete();
     }
 
 
