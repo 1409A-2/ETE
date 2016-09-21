@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CreateEteAdminTable' => $baseDir . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
+    'CreateEteBeatTable' => $baseDir . '/database/migrations/2016_09_20_195844_create_ete_beat_table.php',
     'CreateEteCarousel' => $baseDir . '/database/migrations/2016_09_11_204555_create_ete_carousel.php',
+    'CreateEteCollectedPositionTable' => $baseDir . '/database/migrations/2016_09_20_201534_create_ete_collected_position_table.php',
     'CreateEteCompanyTable' => $baseDir . '/database/migrations/2016_08_31_060528_create_ete_company_table.php',
     'CreateEteEducationTable' => $baseDir . '/database/migrations/2016_08_31_060721_create_ete_education_table.php',
     'CreateEteEnclosureTable' => $baseDir . '/database/migrations/2016_08_31_060930_create_ete_enclosure_table.php',
@@ -23,6 +25,7 @@ return array(
     'CreateEteRemuseResealeTable' => $baseDir . '/database/migrations/2016_08_31_063930_create_ete_remuse_reseale_table.php',
     'CreateEteResumeTable' => $baseDir . '/database/migrations/2016_08_31_061035_create_ete_resume_table.php',
     'CreateEteSchoolTable' => $baseDir . '/database/migrations/2016_08_31_060953_create_ete_school_table.php',
+    'CreateEteSubscribeTable' => $baseDir . '/database/migrations/2016_09_20_194847_create_ete_subscribe_table.php',
     'CreateEteUsersTable' => $baseDir . '/database/migrations/2016_08_31_061045_create_ete_users_table.php',
     'CreateEteWorksTable' => $baseDir . '/database/migrations/2016_08_31_060941_create_ete_works_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

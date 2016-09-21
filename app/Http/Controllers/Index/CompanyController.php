@@ -54,6 +54,7 @@ class CompanyController extends Controller
                         
                         return redirect('detailed');
                     }else{
+
                         return $this->companyInfo();
                     }
 
@@ -79,10 +80,11 @@ class CompanyController extends Controller
         foreach($company_data as $key=>$val){
             $company_data[$key]['industry'] = explode(',',$val['c_industry']);
             unset($company_data[$key]['c_industry']);
-            $company_data[$key]['lable_data'] = Lable::selLable($val['c_id']);
-            $company_data[$key]['release_data'] = Release::selList(['c_id'=>$val['c_id']]);
+            $company_data[$key]['lable_data'] = Lable::selLableLimit($val['c_id']);
+            $company_data[$key]['release_data'] = Release::selListLimit(['c_id'=>$val['c_id']]);
         }
         $company_site = FriendSite::selJump(2);
+
         return view('index.company.companylist',[
             'company_data'=>$company_data,
             'page' => $page,
@@ -102,9 +104,7 @@ class CompanyController extends Controller
         $all_data['company_data'] = Company::selOne($user_data['u_cid']);
         $all_data['product_data'] = Product::selProduct($user_data['u_cid']);
         $all_data['lable_data'] = Lable::selLable($user_data['u_cid']);
-        /*$all_data['industry_data'] = explode(',',$all_data['company_data']['c_industry']);
-        unset($all_data['company_data']['c_industry']);*/
-        //print_r($all_data);die;
+
         return view('index.company.myhome',$all_data);
     }
 
@@ -117,9 +117,7 @@ class CompanyController extends Controller
         $all_data['company_data'] = Company::selOne($c_id);
         $all_data['product_data'] = Product::selProduct($c_id);
         $all_data['lable_data'] = Lable::selLable($c_id);
-        /*$all_data['industry_data'] = explode(',',$all_data['company_data']['c_industry']);
-        unset($all_data['company_data']['c_industry']);*/
-        //print_r($all_data);die;
+
         return view('index.company.companyinfo',$all_data);
     }
 }

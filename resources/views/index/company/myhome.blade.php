@@ -93,7 +93,7 @@
 							<dd>
 								<img width="380" height="220" alt="{{$val['pr_name']}}" src="{{env('APP_HOST').$val['pr_pic']}}">
 								<div class="cp_intro">
-									<h3><a target="_blank" href="{{$val['pr_website']}}">{{$val['pr_name']}} </a></h3>
+									<h3 style="margin: 10px 0;"><a target="_blank" href="{{$val['pr_website']}}">{{$val['pr_name']}} </a></h3>
 									<div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 260px;">
 
 										<div class="jspContainer" style="width: 260px; height: 140px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 260px;"><div>{{$val['pr_desc']}}</div></div></div></div>
@@ -106,44 +106,7 @@
 
 						@endif
 						<!--产品编辑-->
-						<dl id="newProduct" class="newProduct dn">
-							<dt>
-							<h2><em></em>公司产品</h2>
-							</dt>
-							<dd>
-								<form method="post" class="productForm">
-									<div class="new_product">
 
-										<div class="product_upload dn productNo">
-											<div>
-												<span>上传产品图片</span>
-												<br>
-												尺寸：380*220px  	大小：小于5M
-											</div>
-										</div>
-										<div class="product_upload productShow">
-											<img width="380" height="220" src="style/images/product_default.png">
-											<span>更换产品图片<br>380*220px 小于5M</span>
-										</div>
-
-										<input type="file" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="product_check(this,'http://www.lagou.com/c/upload.json','productNo','productShow','type','productInfos');" name="myfiles" id="myfiles0">
-										<input type="hidden" value="3" name="type" class="type">
-										<input type="hidden" value="images/product_default.png" name="productPicUrl" class="productInfos">
-									</div>
-
-									<div class="cp_intro">
-										<input type="text" placeholder="请输入产品名称" value="发大发" name="product">
-										<input type="text" placeholder="请输入产品网址" value="http://www.weimob.com" name="productUrl">
-										<textarea placeholder="请简短描述该产品定位、产品特色、用户群体等" maxlength="500" value="发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf" class="s_textarea" name="productProfile">发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf</textarea>
-										<div class="word_count fr">你还可以输入 <span>500</span> 字</div>
-										<div class="clear"></div>
-										<input type="submit" value="保存" class="btn_small">
-										<a class="btn_cancel_s product_delete" href="javascript:void(0)">删除</a>
-										<input type="hidden" value="11867" class="product_id">
-									</div>
-								</form>
-							</dd>
-						</dl>
 
 					</div>
 				</div>   <!-- end #Product -->

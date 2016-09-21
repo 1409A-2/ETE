@@ -37,7 +37,8 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/popup.css"/>
 	<script src="{{env('APP_HOST')}}/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
-	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>
+	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>     
+	<!-- feedback -->
 	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
@@ -80,7 +81,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				</dt>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
-				<dd><a href="#">我收藏的职位</a></dd>
+				<dd><a href="collectedPosition">我收藏的职位</a></dd>
 				<dd class="btm"><a href="subscribe">我的订阅</a></dd>
 				@else
 				<dd><a href="detailed">我要招人</a></dd>

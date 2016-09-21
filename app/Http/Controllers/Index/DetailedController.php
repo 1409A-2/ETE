@@ -35,10 +35,7 @@ class DetailedController extends Controller
 
                 return redirect('/info');
             }else{
-                if($company_data['c_status']==0){
-
-                    return redirect('/info');
-                }elseif($company_data['c_status']==1){
+                if($company_data['c_status'] != 2){
 
                     return redirect('/info');
                 }else{
@@ -144,7 +141,12 @@ class DetailedController extends Controller
         }
         Lable::delCompany($user_data['u_cid']);
 
-        echo Lable::insertData($insert_lables);
+        if(Lable::insertData($insert_lables)){
+
+            return 1;
+        }
+
+        return 0;
 
     }
 

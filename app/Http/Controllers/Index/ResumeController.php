@@ -38,7 +38,7 @@ class ResumeController extends BaseController
         }
 
         //根据用户查询所有简历信息
-       $res=Resume::sel_One(['u_id'=>$u_id]);
+       $res=Resume::selOne(['u_id'=>$u_id]);
         if($res){
             if($res['r_img']){
                 $sum+=5;
@@ -149,7 +149,7 @@ class ResumeController extends BaseController
                         }
             $data['r_time']=time();
             $data['u_id']=$request->session()->get('u_id');
-            $res=Resume::sel_One(['u_id'=>$data['u_id']]);
+            $res=Resume::selOne(['u_id'=>$data['u_id']]);
 
         //判断修改还是添加
            if($res){
@@ -166,7 +166,7 @@ class ResumeController extends BaseController
         //获取用户id
         $u_id= $request->session()->get('u_id');
 
-        $resume=Resume::sel_One(['u_id'=>$u_id]);
+        $resume=Resume::selOne(['u_id'=>$u_id]);
 
         //拼接图片地址
         $data['r_img']='uploads/'.session('u_email').rand(0,999).'.jpg';
@@ -230,7 +230,7 @@ class ResumeController extends BaseController
         $data['s_major']=$request->input('professional');
         $data['s_start_time']=strtotime($request->input('startYear').'-01-01');
         $data['s_end_time']=strtotime($request->input('endYear').'-01-01');
-        $res=Resume::sel_One(['u_id'=>session('u_id')]);
+        $res=Resume::selOne(['u_id'=>session('u_id')]);
         $data['r_id']=$res['r_id'];
 
         $school=School::selOne(['r_id'=>$res['r_id']]);
@@ -430,7 +430,7 @@ class ResumeController extends BaseController
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function remusePro($id){
-           $resume= Resume::sel_One(['u_id'=>session('u_id')]);
+           $resume= Resume::selOne(['u_id'=>session('u_id')]);
             $data['r_id']=$resume['r_id'];//简历的id
             $data['re_id']=$id; //职位id
             $data['delivery_time']=time();
@@ -451,7 +451,7 @@ class ResumeController extends BaseController
      */
     public function remuseShow(){
 
-         $resume= Resume::sel_One(['u_id'=>session('u_id')]);
+         $resume= Resume::selOne(['u_id'=>session('u_id')]);
          $re_all= ResumeReseale::selWhole(['r_id'=>$resume['r_id']]);
 
              if($re_all){
@@ -501,7 +501,7 @@ class ResumeController extends BaseController
     public function previewList($id){
 
         //个人简历信息查询
-        $data['resume']=Resume::sel_One(['r_id'=>$id]);
+        $data['resume']=Resume::selOne(['r_id'=>$id]);
 
         // 作品查询
         $data['works']=Works::selAll(['r_id'=>$id]);
