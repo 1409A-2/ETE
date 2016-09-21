@@ -48,37 +48,55 @@
                 </dl>
                 <ul class="hc_list reset">
                     @foreach($company_data as $key=>$val)
-                    <li @if($key%3==0)style="clear:both;"@endif>
-                        <a href="companyinfo?c_id={{$val['c_id']}}" target="_blank">
-                            <h3 title="{{$val['c_shorthand']}}">{{$val['c_shorthand']}}</h3>
+                        <li style="@if($key%3==0)clear:both;@endif " >
+                            <a href="companyinfo?c_id={{$val['c_id']}}" target="_blank">
+                                <h3 title="{{$val['c_shorthand']}}">{{$val['c_shorthand']}}</h3>
 
-                            <div class="comLogo"  style="height: 190px;width: 190px;">
-                                <img src="{{env("APP_HOST").$val['c_logo']}}" width="190" height="190" alt="CCIC"/>
-                                <ul>
-                                    @foreach($val['industry'] as $vv)
-                                    <li>{{$vv}}</li>
-                                    @endforeach
-                                </ul>
+                                <div class="comLogo"  style="height: 190px;width: 190px;">
+                                    <img src="{{env("APP_HOST").$val['c_logo']}}" width="190" height="190" alt="CCIC"/>
+                                    <ul>
+                                        @foreach($val['industry'] as $vv)
+                                            <li>{{$vv}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </a>
+                            <div style="height: 73px;;">
+                            @if($val['release_data'])
+                                @foreach($val['release_data'] as $release)
+                                    <a href="postPreview?re_id={{$release['re_id']}}" target="_blank"> {{$release['re_name']}}</a>
+                                @endforeach
+                            @else
+                                暂无职位发布
+                            @endif
                             </div>
-                        </a>
-                        @if($val['release_data'])
-                            @foreach($val['release_data'] as $release)
-                                <a href="postPreview?re_id={{$release['re_id']}}" target="_blank"> {{$release['re_name']}}</a>
-                            @endforeach
-                        @endif
 
-                        <ul class="reset ctags">
-                            @foreach($val['lable_data'] as $vv)
-                            <li>{{$vv['lab_name']}}</li>
-                            @endforeach
-                        </ul>
+                            <ul class="reset ctags" style="height: 30px;">
+                                @if($val['lable_data'])
+                                @foreach($val['lable_data'] as $vv)
+                                    <li>{{$vv['lab_name']}}</li>
+                                @endforeach
+                                @else
+                                    暂未设置标签
+                                @endif
+                            </ul>
 
-                    </li>
+                        </li>
                     @endforeach
                 </ul>
+                @if(!$company_data)
+                <center>
+                    <div class="txt" style="margin-top:200px">
+                        <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的公司</div>
+                        <br/>
+                        <span style="color:#91cebe;font-size:22px">请重新修改搜索条件后再进行搜索</span>
+                    </div>
+                </center>
+                @endif
 
                 <div class="Pagination"></div>
             </form>
+            @if($company_data)
             <div class="Pagination myself">
                 @if($page==1)
                     <span class="disabled" title="首页" >首页 </span>
@@ -108,6 +126,7 @@
                     <a title="30" href="companylist?page={{$pages}}&industry={{$industry}}">尾页</a>
                 @endif
             </div>
+            @endif
         </div>
         <div class="content_r">
             <div class="subscribe_side">
@@ -126,15 +145,12 @@
                     <i>我也要订阅职位</i>
                 </a>
             </div>
-            <div class="greybg qrcode mt20">
-                <img src="style/images/companylist_qr.png" width="242" height="242" alt="拉勾微信公众号二维码"/>
-                <span class="c7">扫描拉勾二维码，微信轻松搜工作</span>
-            </div>
+
             <!-- <a href="h/speed/speed3.html" target="_blank" class="adSpeed"></a> -->
             @foreach($company_site as $value)
-            <a href="{{$value['site_url']}}" target="" class="eventAd">
-                <img src="{{env('APP_HOST').$value['site_img']}}" width="280" height="135" alt="{{$value['site_name']}}"/>
-            </a>
+                <a href="{{$value['site_url']}}" target="" class="eventAd">
+                    <img src="{{env('APP_HOST').$value['site_img']}}" width="280" height="135" alt="{{$value['site_name']}}"/>
+                </a>
             @endforeach
         </div>
     </div>

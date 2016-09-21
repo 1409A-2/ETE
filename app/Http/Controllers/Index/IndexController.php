@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Carousel;
+use App\Model\CollectedPosition;
 use App\Model\FriendShip;
 use App\Model\FriendSite;
 use App\Model\Industry;
@@ -14,6 +15,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Model\User;
+use App\Model\Convenient;
 use App\Model\Release;
 use App\Model\Company;
 use App\Model\Resume;
@@ -37,42 +39,49 @@ class IndexController extends BaseController
             if ($val['level']==0){
                 $new_industry[$val['i_id']] = $val;
                 $parent = $val['i_id'];
+                $arr[]=$val['i_id'];;
             }
 
             if($val['level']==2){
                 $new_industry[$parent]['son'][] = $val;
             }
         }
-        // print_r($new_industry);die;
+
         $num = count($new_industry);
         $two_industry='';
-        for($i=1;$i<=$num;$i++){
-            for($k=0;$k<10;$k++){
-                $two_industry[$i][]=$new_industry[$i]['son'][rand($i,count($new_industry[$i]['son'])-1)];
+        
+        foreach($new_industry as $key => $val){
+            for($i=0;$i<10;$i++){
+                $two_industry[$key][] = $val['son'][rand(0,count($val['son'])-1)];
             }
         }
-        for($i=1;$i<=$num;$i++){
+
+        for($i=0;$i<$num;$i++){
+            $b=$arr[$i];
             $temp='';
-            foreach ($two_industry[$i] as $v){
+            foreach ($two_industry[$b] as $v){
                 $v=$v['i_name'];
                 $temp[]=$v;
             }
             $temp=array_unique($temp);//去掉重复的字符串,也就是重复的一维数组
             foreach ($temp as $k => $v){
-                if($two_industry[$i][$k]['i_name']==$v){
-                    $there_industry[$i][$k]=$two_industry[$i][$k];
+                if($two_industry[$b][$k]['i_name']==$v){
+                    $there_industry[$b][$k]=$two_industry[$b][$k];
                 }
             }
         }
+
         $hot=Release::hotRelease();
         $userKey = $Request->input('user');
+        $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {
-            $checkRest = User::checkOnly($userKey);
-            if (!empty($checkRest)) {
+            $con_data = Convenient::checkOnly($userKey);
+            if ($con_data) {
+                $checkRest = User::findOnly($con_data['u_id']);
                 session()->put('u_id', $checkRest['u_id']);
                 session()->put('u_email', $checkRest['u_email']);
             } else {
-                return view('index.index.WeixinRegister',['userKey'=>$userKey]);
+                return view('index.index.WeixinRegister',['userKey'=>$userKey,'ct_type'=>$ct_type]);
             }
         }
 
@@ -201,7 +210,11 @@ class IndexController extends BaseController
     // ajax第三方整合验证
     public function registerProne(Request $Request){
         $data = $Request->all();
+        $con_data['ct_type'] = $data['ct_type'];
+        $con_data['ct_openid'] = $data['r_openid'];
         unset($data['_token']);
+        unset($data['ct_type']);
+        unset($data['r_openid']);
         $email = $data['u_email'];
         $reslut = User::findOne($data);
         if ($reslut) {
@@ -218,13 +231,15 @@ class IndexController extends BaseController
                 $user['u_id']=$res;
                 Resume::addResume($user);
             }
+            $con_data['u_id'] = $res;
+            Convenient::addConven($con_data);
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
             $rest = Mail::raw($arr['content'], function ($message) use($email) {
                 $to = $email;
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
             if ($rest) {
-                return json_encode($data['r_openid']);
+                return json_encode($con_data['ct_openid']);
             } else {
                 return json_encode($rest);
             }
@@ -232,6 +247,7 @@ class IndexController extends BaseController
             return json_encode($res);
         }
     }
+
     //职位详情
     public function postPreview(Request $request){
         $put=$request->input();
@@ -252,7 +268,72 @@ class IndexController extends BaseController
         $badword1 = array_combine($badword,array_fill(0,count($badword),'**'));
         $data['f_feedback'] = strtr($f_feedback, $badword1);
         $data['f_uid'] =  session('u_id',-2);
-        // print_r($data);die;
-        echo Feedback::backAdd($data);
+
+        $re= Feedback::backAdd($data);
+        if($re){
+            return 1;
+        }
+    }
+
+
+
+    /**
+     * 查询用户是否收藏这个职位
+     */
+    public function getCollected(Request $request)
+    {
+        $u_id = $request->input('u_id');
+        $re_id = $request->input('re_id');
+
+        return CollectedPosition::selOnlyPosition($u_id,$re_id);
+    }
+
+    /**
+     * 收藏职位
+     */
+    public function collectionPosition(Request $request)
+    {
+        $u_id = $request->input('u_id');
+        $re_id = $request->input('re_id');
+
+        if(CollectedPosition::selOnlyPosition($u_id,$re_id) != ''){
+
+            return 1;
+        }
+        $insert_data['u_id'] = $u_id;
+        $insert_data['re_id'] = $re_id;
+        $insert_data['col_time'] = time();
+        if(CollectedPosition::inserCollection($insert_data)){
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * 取消收藏
+     */
+    public function cancelCollected(Request $request)
+    {
+        $del_data['u_id'] = $request->input('u_id');
+        $del_data['re_id'] = $request->input('re_id');
+
+        if(CollectedPosition::delCollection($del_data)===false){
+
+            return 0;
+        }
+
+        return 1;
+    }
+
+    /**
+     * 我的收藏
+     */
+    public function collectedPosition()
+    {
+        $collected = CollectedPosition::selCollected(session('u_id'));
+
+        return view('index.index.collecteds',['collected'=>$collected]);
     }
 }

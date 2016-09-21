@@ -471,25 +471,31 @@ class ResumeController extends BaseController
             foreach ($arr as $ke => $ve) {
                 //全部投递的简历
                 $reList['all'][] = $ve;
-                //查看过的简历
-                if ($ve['read'] == 1) {
-                    $reList['read'][] = $ve;
-                }
+                $num['all']=count($reList['all']);
                 //投递成功
-                if ($ve['remuse_resele'] == 0) {
-                    $reList['remuse_0'][] = $ve;
+                if($ve['remuse_resele']==0){
+                    $reList['remuse_0'][]=$ve;
+                    $num['go']=count($reList['remuse_0']);
+                }
+                //查看过的简历
+                if($ve['remuse_resele']==1){
+                    $reList['remuse_1'][]=$ve;
+                    $num['read']=count($reList['remuse_1']);
                 }
                 //简历初试通过
-                if ($ve['remuse_resele'] == 2) {
-                    $reList['remuse_2'][] = $ve;
+                if($ve['remuse_resele']==2){
+                    $reList['remuse_2'][]=$ve;
+                    $num['yes']=count($reList['remuse_2']);
                 }
                 //通知面试
-                if ($ve['remuse_resele'] == 1) {
-                    $reList['remuse_1'][] = $ve;
+                if($ve['remuse_resele']==3){
+                    $reList['remuse_3'][]=$ve;
+                    $num['ok']=count($reList['remuse_3']);
                 }
                 //不合格
-                if ($ve['remuse_resele'] == 3) {
-                    $reList['remuse_3'][] = $ve;
+                if($ve['remuse_resele']==4){
+                    $reList['remuse_4'][]=$ve;
+                    $num['pass']=count($reList['remuse_4']);
                 }
             }
 
@@ -497,8 +503,10 @@ class ResumeController extends BaseController
             $reList[] = '';
         }
 
+
         return view('index.resume.delivery', [
-            'reList' => $reList
+            'reList' => $reList,
+            'num'=>$num
         ]);
     }
 

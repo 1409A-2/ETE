@@ -21,20 +21,19 @@ class Release extends Model
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)        
-        ->where('resume_reseale.remuse_resele','=',$remuse_resele)
+        ->whereIn('resume_reseale.remuse_resele',$remuse_resele)
         ->orderBy('rere_id','desc')
         ->get()        
         ->toArray();
     }
 
-    public static function selRel($c_id,$remuse_resele,$read){
+    public static function selRel($c_id,$remuse_resele){
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)
-        ->where('resume_reseale.read','=',$read)
-        ->where('resume_reseale.remuse_resele','=',$remuse_resele)
+        ->whereIn('resume_reseale.remuse_resele',$remuse_resele)
         ->orderBy('rere_id','desc')
         ->get()        
         ->toArray();
@@ -47,21 +46,20 @@ class Release extends Model
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)
         ->where('resume.r_education','=',$ed_name)        
-        ->where('resume_reseale.remuse_resele','=',$remuse_resele)
+        ->whereIn('resume_reseale.remuse_resele',$remuse_resele)
         ->orderBy('rere_id','desc')
         ->get()        
         ->toArray();
     }
 
-    public static function selReled($c_id,$remuse_resele,$read,$ed_name){
+    public static function selReled($c_id,$remuse_resele,$ed_name){
         return Release::Join('resume_reseale', 'release.re_id', '=', 'resume_reseale.re_id')
         ->Join('company', 'release.c_id', '=', 'company.c_id')
         ->Join('resume', 'resume_reseale.r_id', '=', 'resume.r_id')
         ->Join('education', 'resume.r_education', '=', 'education.ed_id')
         ->where('release.c_id','=',$c_id)
-        ->where('resume_reseale.read','=',$read)
         ->where('resume.r_education','=',$ed_name)  
-        ->where('resume_reseale.remuse_resele','=',$remuse_resele)
+        ->whereIn('resume_reseale.remuse_resele',$remuse_resele)
         ->orderBy('rere_id','desc')
         ->get()        
         ->toArray();
@@ -160,5 +158,10 @@ class Release extends Model
                 })
                 ->skip($limit)->take($length)->get()->toArray();
         }
+    }
+
+    //查看发布职位
+    public static function selListLimit($c_id){
+        return Release::where($c_id)->limit(3)->get()->toArray();
     }
 }

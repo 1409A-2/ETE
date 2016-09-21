@@ -21,7 +21,7 @@ body{margin:0;padding:0; font:14px/22px "微软雅黑","宋体",Arial; color:#33
 .clearfix:after{content: "";height: 0;clear: both;visibility: hidden;}
 .clearfix{display: inline-block;}  /* for IE/Mac */
 h1,h2,h3,h4,h5{font-weight:normal;}
-input[type="text"],input[type="password"]{border:2px solid #f1f1f1;outline:none;font:15px/32px "微软雅黑","宋体",Arial; width: 600px;height: 40px;  padding: 6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
+input[type="text"],input[type="password"]{border:2px solid #f1f1f1;outline:none;font:15px/32px "微软雅黑","宋体",Arial; width: 200px;height: 40px;  padding: 6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
 input[type="button"],input[type="submit"]{font-family:"微软雅黑","宋体",Arial;outline:none;cursor:pointer;border:none;}
 input[type="text"]:focus,input[type="password"]:focus{border:2px solid #d4e2e4;}
 textarea{ border:2px solid #f1f1f1; width:600px; height:260px;outline:none; resize:none; font:15px/32px "微软雅黑","宋体",Arial; padding:6px 10px; margin-top:20px;transition:border 0.2s ease-in 0s;}
@@ -453,7 +453,7 @@ ul.hot_pos i{width: 12px;height: 14px;position:absolute;background:url(img/hot.p
 .s_form dt{margin-bottom:16px;}
 .s_form h3{color:#fff; font-size:24px; height:42px; line-height:42px; font-weight:normal;background:#93b7bb; padding:0 20px 0 30px; float:left; margin:0 0 0 -35px; position:relative;}
 /**add by nancy rss页面的圆点**/
-.rss_circle{background: url(img/rss_circle.png) no-repeat;width:4px;height:3px;display:inline-block;position:absolute;top:50%;right:62%;}
+.rss_circle{width:4px;height:3px;display:inline-block;position:absolute;top:50%;right:62%;}
 /**add end by nancy**/
 .s_form h3 em{ background:url(img/s_arrow.png) no-repeat; width:10px;height:14px; position:absolute; left:0; top:42px;}
 .s_form dd{ clear:both;}

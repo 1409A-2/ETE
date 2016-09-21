@@ -281,6 +281,35 @@
                             </form>
                             <!--end #expectForm-->
                         </div><!--end .expectEdit-->
+                        <div class="expectAd dn">
+                            <form id="expectForm">
+                                <table>
+                                    <tbody>
+
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="期望职位，如：产品经理" value="" name="expectPosition"
+                                                   id="expectPosition">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" placeholder="最低月薪" value="" id="salaryMin"
+                                                   name="salaryMin"><span>K</span></td>
+                                        <td><input type="text" placeholder="最高月薪" value="" id="salaryMax"
+                                                   name="salaryMax"><span>K</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                            <!--end #expectForm-->
+                        </div>
                         <div class="expectAdd pAdd dn">
                             填写准确的期望工作能大大提高求职成功率哦…<br>
                             快来添加期望工作吧！
@@ -288,7 +317,7 @@
                         </div>
                     @else
                         <div class="expectShow"></div>
-                        <div class="expectEdit dn">
+                        <div class="expectAd dn">
                             <form id="expectForm">
                                 <table>
                                     <tbody>
@@ -317,6 +346,35 @@
                             </form>
                             <!--end #expectForm-->
                         </div><!--end .expectEdit-->
+                        <div class="expectEdit dn">
+                            <form id="expectForm">
+                                <table>
+                                    <tbody>
+
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="期望职位，如：产品经理" value="" name="expectPosition"
+                                                   id="expectPosition">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" placeholder="最低月薪" value="" id="salaryMin"
+                                                   name="salaryMin"><span>K</span></td>
+                                        <td><input type="text" placeholder="最高月薪" value="" id="salaryMax"
+                                                   name="salaryMax"><span>K</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                            <!--end #expectForm-->
+                        </div>
                         <div class="expectAdd pAdd">
                             填写准确的期望工作能大大提高求职成功率哦…<br>
                             快来添加期望工作吧！
@@ -482,6 +540,8 @@
                             <span>添加项目经验</span>
                         </div>
                     @else
+                        <div class="c_edit dn"></div>
+                        <div class="projectShow dn"></div>
                         <div class="projectEdit dn">
                             <form class="projectForm">
                                 <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
@@ -599,6 +659,7 @@
                             </form>
                             <!--end .projectForm-->
                         </div><!--end .projectEdit-->
+
                         <div class="projectAdd pAdd">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
                             来说说让你难忘的项目吧！
@@ -1035,6 +1096,8 @@
                             <!--end .descriptionForm-->
                         </div>
                     @else
+                        <span class="c_edit dn"></span>
+                        <div class="descriptionShow "></div>
                         <div class="descriptionEdit dn">
                             <form class="descriptionForm">
                                 <table>
@@ -1117,13 +1180,73 @@
                             </form>
                             <!--end .workForm-->
                         </div>
+                        <div class="workAd dn">
+                            <form class="workForm">
+                                <input type="hidden" value="{{csrf_token()}}" id="token_work"/>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="请输入作品链接" name="workLink" class="workLink">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <textarea maxlength="100" class="workDescription s_textarea"
+                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" class="showId" value="">
+                            </form>
+                            <!--end .workForm-->
+                        </div>
                         <div class="workAdd pAdd dn">
                             好作品会说话！<br>
                             快来秀出你的作品打动企业吧！
                             <span>添加作品展示</span>
                         </div>
                     @else
+                        <div class="c_add dn"></div>
+                        <div class="workShow"></div>
                         <div class="workEdit dn">
+                            <form class="workForm">
+                                <input type="hidden" value="{{csrf_token()}}" id="token_work"/>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="请输入作品链接" name="workLink" class="workLink">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <textarea maxlength="100" class="workDescription s_textarea"
+                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" class="showId" value="">
+                            </form>
+                            <!--end .workForm-->
+                        </div>
+                        <div class="workAd dn">
                             <form class="workForm">
                                 <input type="hidden" value="{{csrf_token()}}" id="token_work"/>
                                 <table>

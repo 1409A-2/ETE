@@ -35,7 +35,11 @@ Route::group(['middleware' => ['web']], function () {
     //跳转职业详情
     Route::get('jump','Index\IndexController@jump');
     Route::get('jumpSearch','Index\IndexController@jumpSearch');  //跳转查询职位详情
-
+    // 订阅职位 
+    Route::get('te','Index\FeedbackController@te');
+    Route::get('subscribe','Index\FeedbackController@subscribe');	// 订阅职位 
+    Route::post('subscribeEmail','Index\FeedbackController@subscribeEmail');	// 订阅职位 的发送邮件
+    Route::post('subscribeDel','Index\FeedbackController@subscribeDel'); 	//删除订阅器  
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
 
@@ -92,7 +96,6 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('positionsdown','Index\IndustryController@positionsDown');//查看有效职位  positionsdown
 			Route::get('positionsType','Index\IndustryController@positionsType');//职位上下线管理	positionsType
 			Route::get('positionsDel','Index\IndustryController@positionsDel');//删除职位   positionsDel
-			Route::get('downloadResume','Index\IndustryController@downloadResume');//下载简历   	downloadResume
 
 
 
@@ -109,7 +112,12 @@ Route::group(['middleware' => ['web']], function () {
 			Route::post('info5Pro','Index\DetailedController@introPro');// 可选 5
 
 		});
+        Route::post('getcollected','Index\IndexController@getCollected');// 是否收藏职位
+        Route::post('collectionPosition','Index\IndexController@collectionPosition');// 收藏职位
+        Route::post('cancelCollected','Index\IndexController@cancelCollected');// 取消收藏职位
+        Route::get('collectedPosition','Index\IndexController@collectedPosition');// 取消收藏职位
     });
+    Route::get('downloadResume','Index\IndustryController@downloadResume');//下载简历   	downloadResume
 
 //我的简历
     Route::group(['middleware' => 'resume'], function () {
@@ -145,6 +153,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('codePro', 'Index\beatController@codePro');//一拍验证手机验证码
 
         Route::post('beatPro', 'Index\beatController@beatPro');//一拍添加入库
+
 
     });
     Route::get('companylist','Index\CompanyController@index');// 可选 5
@@ -191,11 +200,15 @@ Route::group(['middleware' => ['web']], function () {
 		Route::get('delsite','Admin\MaterialController@delSite');
 		Route::post('batchDelSite','Admin\MaterialController@batchDelSite');
 
-		//用户反馈信息模块
+		//用户反馈信息模块   
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
 		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
+		Route::get('feedBackDele','Admin\FeekController@feedBackDele'); //确认用户反馈信息删除  
 		Route::get('feedBackHandle','Admin\FeekController@feedBackHandle');//用户反馈信息管理
 		Route::get('feedBackEmail','Admin\FeekController@feedBackEmail');//反馈手机没打通，发邮件通知 feedBackEmail
 
+		//后台订阅操作
+		Route::get('adminSubscribe','Admin\SubscribeController@adminSubscribe');//后台管理订阅功能  adminSubscribe
+		Route::get('subscribeDelete','Admin\SubscribeController@subscribeDelete');//删除订阅信息  //发邮件通知用户  subscribeDelete
 	});
 });

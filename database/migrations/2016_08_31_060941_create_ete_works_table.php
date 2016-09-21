@@ -15,7 +15,6 @@ class CreateEteWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->increments('w_id');
-            $table->string('w_name',50);
             $table->string('w_url',80);
             $table->string('w_desc',100)->default('');
             $table->integer('r_id');
