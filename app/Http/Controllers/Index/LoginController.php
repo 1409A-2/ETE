@@ -43,6 +43,9 @@ class LoginController extends BaseController
     	$list = User::checkLog($data);
         if ($list)
         {
+            if ($list['u_status'] == 0) {
+                return 3;
+            }
 			if ($data['status'] == 1) {
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id']);

@@ -27,17 +27,25 @@
                 <li>绑定后，你可以同时使用以下方式登录拉勾</li>
             </ul>
             <dl class="user_thirdLogin">
-            	@if (empty($data['r_openid']))
-                <dt><img alt="wx" src="{{env('APP_HOST')}}/style/images/wx1.png"></dt>
-            	<dd>未绑定微信帐号  <span></span>
-            	 	<a href="http://www.chinayang.top/test/binding/index.php">前去绑定</a>
-            	</dd>
-            	@else
-            	<dt><img alt="wx" src="{{env('APP_HOST')}}/style/images/wx1.png"></dt>
-            	<dd>已绑定微信帐号  <span></span>
-            	 	<a href="/unAccount">解除绑定</a>
-            	</dd>
-            	@endif
+                @if (empty($con_data))
+                    <dt><img alt="微信" src="{{env('APP_HOST')}}/style/images/wx1.png"></dt>
+                    <dd>未绑定微信帐号  <span></span>
+                        <a href="http://www.chinayang.top/test/binding/index.php">前去绑定</a>
+                    </dd>
+                @else
+                    @foreach ($con_data as $val)
+                        <?php
+                        if ($val['ct_type']=='wx') {
+                        ?>
+                            <dt><img alt="微信" src="{{env('APP_HOST')}}/style/images/wx1.png"></dt>
+                            <dd>已绑定微信帐号  <span></span>
+                                <a href="/unAccount">解除绑定</a>
+                            </dd>
+                        <?php
+                        }
+                        ?>
+                    @endforeach
+                @endif
             </dl>
         </dd>
     </dl>
