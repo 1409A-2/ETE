@@ -7,6 +7,7 @@ use App\Model\Release;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\User;
+use App\Model\Convenient;
 use App\Model\Company;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -21,7 +22,8 @@ class AccountController extends Controller
 		if (!empty(session('u_id'))&&!empty(session('u_email'))) {
 			$u_id = session('u_id');
 			$data = User::findOnly($u_id);
-	        return view('index.account.accountBind',['data'=>$data]);
+			$con_data = User::find($u_id)->convenients->toArray();
+	        return view('index.account.accountBind',['data'=>$data,'con_data'=>$con_data]);
         }
         return redirect('/');
 	}
@@ -33,9 +35,10 @@ class AccountController extends Controller
 	public function accountPro(Request $Request)
 	{
 		if (!empty(session('u_id'))&&!empty(session('u_email'))) {
-			$data['r_openid'] = $Request->input('user');
+			$data['ct_type'] = $Request->input('ct_type');
+			$data['ct_openid'] = $Request->input('user');
 			$data['u_id'] = session('u_id');
-			$res = User::weixin($data);
+			$res = Convenient::weixin($data);
 			if ($res) {
 				echo "<script>alert('绑定成功，您现在已经可以使用微信登陆！');location='/accountBind.html';</script>";
 			} else {
@@ -53,9 +56,8 @@ class AccountController extends Controller
 	public function unAccount()
 	{
 		if (!empty(session('u_id'))&&!empty(session('u_email'))) {
-			$data['r_openid'] = "";
-			$data['u_id'] = session('u_id');
-			$res = User::weixin($data);
+			$id = session('u_id');
+			$res = Convenient::weixinDel($id);
 			if ($res) {
 				echo "<script>alert('解绑成功，您已经成功取消微信绑定！');location='/accountBind.html';</script>";
 			} else {
