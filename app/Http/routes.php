@@ -191,6 +191,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('adminIndustryDel','Admin\IndustryController@adminIndustryDel');
         Route::get('adminIndustryUp','Admin\IndustryController@adminIndustryUp');
         Route::post('industryUpPro','Admin\IndustryController@industryUpPro');
+        Route::get('adminIndustryHot','Admin\IndustryController@adminIndustryHot');
 
 		//推荐网站
 		Route::get('adminRecommend','Admin\MaterialController@recommendSite');

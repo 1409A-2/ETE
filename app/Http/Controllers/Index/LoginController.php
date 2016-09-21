@@ -106,9 +106,6 @@ class LoginController extends BaseController
                 $to = $email;
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
-            session()->put('u_id', $res);
-            session()->put('u_email', $data['u_email']);
-            session()->save();
             return json_encode($res);
     	} else {
     		return json_encode($res);
