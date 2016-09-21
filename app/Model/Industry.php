@@ -80,4 +80,41 @@ class Industry extends Model
     {
         return self::where('i_id',$data['i_id'])->update($data);
     }
+
+    /**
+     * 查询分页数据
+     */
+    public static function selectPage($len,$off){
+        $user_data = self::skip($off)->take($len)->get();
+        if($user_data!=null){
+            $user_data = $user_data->toArray();
+            $list = self::level($user_data);
+            foreach ($list as $k=>$v) {
+                foreach ($user_data as $key => $val) {
+                    if ($v['i_id']==$val['i_id']) {
+                        $arr[] = $v;
+                    }
+                }
+            }
+        }
+        foreach ($arr as $ak => $av) {
+            if($ak>4){
+                unset($arr[$ak]);
+            }
+        }
+        return $arr;
+    }
+
+    /**
+     * 行业管理-统计总数
+     */
+    public static function industryCount()
+    {
+        $arr = self::where('i_hot','1')->get();
+        if ($arr!=null) {
+            $arr->toArray();
+            $count = count($arr);
+        }
+        return $count;
+    }
 }

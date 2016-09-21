@@ -14,8 +14,9 @@
                 <th width="245">选择</th>
                 <th width="200">行业ID</th>
                 <th width="200">所属行业</th>
+                <th width="100">状态</th>
                 <th width="*">行业名称</th>
-                <th width="100">操作</th>
+                <th width="150">操作</th>
             </tr>
             @foreach($industry as $v)
                 <tr>
@@ -24,6 +25,20 @@
                     </td>
                     <td>{{$v['i_id']}}</td>
                     <td>{{$v['i_pname']}}</td>
+                    <td>
+                        <?php 
+                        if ($v['level']=='2') 
+                        {
+                        ?>
+                            @if ($v['i_hot']=='1')
+                                <a class="button border-yellow button-little" href="adminIndustryHot?i_id={{$v['i_id']}}" onclick="{if(confirm('热门最多设置10项，确认设置为最热?')){return true;}return false;}">HOt</a>
+                            @else
+                                <a class="button border-blue button-little" href="adminIndustryHot?i_id={{$v['i_id']}}" onclick="{if(confirm('热门最多设置10项，确认取消设置?')){return true;}return false;}">COOL</a>
+                            @endif
+                        <?php
+                        } 
+                        ?>
+                    </td>
                     <td>{{$v['i_name']}}</td>
                     <td>
                         <a class="button border-blue button-little" href="adminIndustryUp?i_id={{$v['i_id']}}">编辑</a>
