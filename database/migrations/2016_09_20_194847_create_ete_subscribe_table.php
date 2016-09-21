@@ -14,6 +14,8 @@ class CreateEteSubscribeTable extends Migration
     {
         Schema::create('subscribe', function (Blueprint $table) {
             $table->increments('s_id');
+            $table->string('s_address',20);
+            $table->string(' s_type',20);
             $table->string('s_email',50);
             $table->char('s_length',1);
             $table->string('s_position',20);

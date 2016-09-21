@@ -39,7 +39,6 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>     
 	<!-- feedback -->
-	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/excanvas.js"></script>
@@ -177,20 +176,20 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
  -->
 <div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 20px; top: 250px;">
 <script type='text/javascript'>
-    (function(m, ei, q, i, a, j, s) {
-        m[i] = m[i] || function() {
-            (m[i].a = m[i].a || []).push(arguments)
-        };
-        j = ei.createElement(q),
-            s = ei.getElementsByTagName(q)[0];
-        j.async = true;
-        j.charset = 'UTF-8';
-        j.src = '//static.meiqia.com/dist/meiqia.js';
-        s.parentNode.insertBefore(j, s);
-    })(window, document, 'script', '_MEIQIA');
-    _MEIQIA('entId', 32443);
+//     (function(m, ei, q, i, a, j, s) {
+//         m[i] = m[i] || function() {
+//             (m[i].a = m[i].a || []).push(arguments)
+//         };
+//         j = ei.createElement(q),
+//             s = ei.getElementsByTagName(q)[0];
+//         j.async = true;
+//         j.charset = 'UTF-8';
+//         j.src = '//static.meiqia.com/dist/meiqia.js';
+//         s.parentNode.insertBefore(j, s);
+//     })(window, document, 'script', '_MEIQIA');
+//     _MEIQIA('entId', 32443);
 </script>
-<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a>
 </div>
 
 	<div class="feedback" style="display: none;">

@@ -7,11 +7,30 @@
         <div class="clearfix">
             <div class="content_l">
                 <h1>我的职位订阅</h1>
-
-                <!--      -->
-                <input type="hidden" id="orderCount" value="0"/>
-
-                <form id="subForm">
+                    @if(empty($subscribe))
+                       
+                    @else
+                        <div class="selected s1" style="display: block;">                    
+                        <h2>Java</h2>
+                        <div class="sbox">
+                        <a class="sclose" href="javascript:void(0)" rel="1"></a>
+                        <a class="sedit" href="javascript:void(0)" rel="1"></a>
+                        </div>
+                            <span> {{$subscribe['s_address']}} / {{$subscribe['s_field']}} / {{$subscribe['s_type']}} / {{$subscribe['s_salary']}} </span>
+                            <input id="oi1" type="hidden" value="{{$subscribe['u_id']}}" name="orderId">
+                            <input id="pn1" type="hidden" value="{{$subscribe['s_position']}}">
+                            <input id="ci1" type="hidden" value="{{$subscribe['s_address']}}">
+                            <input id="inf1" type="hidden" value="{{$subscribe['s_field']}}">
+                            <input id="fs1" type="hidden" value="{{$subscribe['s_type']}}">
+                            <input id="sa1" type="hidden" value="{{$subscribe['s_salary']}}">
+                            <input id="smp1" type="hidden" value="{{$subscribe['s_length']}}">
+                            <input id="em1" type="hidden" value="{{$subscribe['s_email']}}">
+                        </div>
+                    @endif    
+                    
+                    <input id="orderCount" type="hidden" value="1">
+            
+                <form id="subForm"  class="dn" style="display: @if(empty($subscribe)) block @else none @endif ;">
                     <input type="hidden" value="" name="id" id="orderId"/>
 
                     <div class="s_form">
@@ -376,7 +395,7 @@
                             <dd>
                                 <input type="hidden" id="select_city_hidden" name="city" value=""/>
                                 <ul class="s_radio clearfix">
-                                    <li class="current" title="北京">北京<em></em></li>
+                                    <li title="北京">北京</li>
 
                                 </ul>
                                 <span id="cityError" class="error" style="display:none;">请选择工作地点 </span>
@@ -473,6 +492,7 @@
                         <a href="javascript:void(0)" class="btn_cancel">取 消</a>
                     </div>
                 </form>
+            
             </div>
             <div class="content_r">
                 <div class="subscribe_side mb20 c5">
@@ -485,10 +505,10 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" value="" name="userid" id="userid"/>
+        <input type="hidden" value="{{$u_id}}" name="userid" id="userid"/>
 
         <!------------------------------------- 弹窗lightbox ----------------------------------------->
-        <div style="display:none;">
+        <div >
             <!-- 
                 登录帐号订阅成功
                 1、已登录用户，且是自有用户，已验证，订阅职位<=1，提示订阅成功；接收邮箱默认为登录邮箱，可修改。
@@ -496,13 +516,12 @@
                 未登录帐号订阅成功 
                 未登录用户，但填写的邮箱为已注册、已验证邮箱，且订阅职位<=1，订阅成功，点击确定显示登录框
             -->
-            <div id="subscribeSuccessLogined" class="popup">
+              <div id="subscribeSuccessLogined" class="popup" style="position:fixed;top:200px;left:350px;background:#91cebe;display:none">
                 <h4>职位订阅成功！</h4>
-
-                <p>我们将定期发送订阅邮件至：<a></a>，请注意查收。</p>
+                <p>我们将定期发送订阅邮件至：<a id="email"></a>，请注意查收。</p>
                 <table width="100%">
                     <tr>
-                        <td align="center"><a href="subscribe.html" class="btn_s">确&nbsp;定</a></td>
+                        <td align="center"><a href="subscribe" class="btn_s">确&nbsp;定</a></td>
                     </tr>
                 </table>
             </div>
@@ -512,7 +531,7 @@
              未登录未注册帐号订阅成功
              提示注册框
          -->
-            <div id="subscribeSuccessRegister" class="popup" style="height:370px;">
+            <div id="subscribeSuccessRegister" style="display:none;" class="popup" style="height:370px;">
                 <h4>职位订阅成功！</h4>
 
                 <p>我们将定期发送订阅邮件至：<a><em></em></a>，请注意查收。</p>
@@ -557,7 +576,7 @@
                未登录注册帐号订阅成功
                弹出框有登录按钮，提示登录
            -->
-            <div id="subscribeSuccessLogin" class="popup">
+            <div id="subscribeSuccessLogin" style="display:none;" class="popup">
                 <h4>职位订阅成功！</h4>
 
                 <p>我们将定期发送订阅邮件至：<a></a>，请注意查收。</p>
@@ -570,7 +589,7 @@
             <!--/#subscribeSuccessLogin-->
 
             <!-- 登录框 -->
-            <div id="loginPop" class="popup" style="height:240px;">
+            <div id="loginPop" class="popup" style="display:none;" style="height:240px;">
                 <form id="loginForm">
                     <input type="text" id="email" name="email" tabindex="1" placeholder="请输入登录邮箱地址"/>
                     <input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码"/>
@@ -592,7 +611,7 @@
             <!--/#loginPop-->
 
             <!--退订-->
-            <div id="cancelSub" class="popup">
+            <div id="cancelSub" style="display:none;" class="popup">
                 <h4>确认要退订该订阅？</h4>
                 <table width="100%">
                     <tr>

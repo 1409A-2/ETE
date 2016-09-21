@@ -18,6 +18,14 @@ class User extends Model
     public $timestamps = false;
 
     /**
+     * 用户获取关联的第三方信息
+     */
+    public function convenients()
+    {
+        return $this->hasMany('App\Model\Convenient', 'u_id');
+    }
+
+    /**
      * 添加一个用户
      * @param  $data 用户的信息
      */

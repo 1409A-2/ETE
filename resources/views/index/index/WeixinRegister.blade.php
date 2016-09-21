@@ -58,6 +58,7 @@ var youdao_conv_id = 271546;
            		</label>
                 <input type="submit" id="submitLogin" value="信&nbsp;息&nbsp;完&nbsp;善" />
                 <input type="hidden" id="openid" name="openid" value="{{$userKey}}"/>
+                <input type="hidden" id="ct_type" name="ct_type" value="{{$ct_type}}"/>
                 <input type="hidden" id="callback" name="callback" value=""/>
                 <input type="hidden" id="authType" name="authType" value=""/>
                 <input type="hidden" id="signature" name="signature" value=""/>
@@ -143,6 +144,7 @@ var youdao_conv_id = 271546;
 			    		var password =$('#password').val();
 			    		var resubmitToken = $('#resubmitToken').val();
 			    		var openid = $('#openid').val();
+			    		var ct_type = $('#ct_type').val();
 
 			    		var callback = $('#callback').val();
 			    		var authType = $('#authType').val();
@@ -152,7 +154,7 @@ var youdao_conv_id = 271546;
 
 			            $.ajax({
 			            	type:'POST',
-			            	data: {u_email:email,type:type,u_pwd:password,_token:resubmitToken, r_openid:openid},
+			            	data: {u_email:email,type:type,u_pwd:password,_token:resubmitToken, r_openid:openid, ct_type:ct_type},
 			            	url: 'registerProne',
 			            	dataType:'json',
 		            		success: function(e) {

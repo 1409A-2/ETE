@@ -11,6 +11,7 @@ return array(
     'CreateEteCarousel' => $baseDir . '/database/migrations/2016_09_11_204555_create_ete_carousel.php',
     'CreateEteCollectedPositionTable' => $baseDir . '/database/migrations/2016_09_20_201534_create_ete_collected_position_table.php',
     'CreateEteCompanyTable' => $baseDir . '/database/migrations/2016_08_31_060528_create_ete_company_table.php',
+    'CreateEteConvenientTable' => $baseDir . '/database/migrations/2016_09_21_084215_create_ete_convenient_table.php',
     'CreateEteEducationTable' => $baseDir . '/database/migrations/2016_08_31_060721_create_ete_education_table.php',
     'CreateEteEnclosureTable' => $baseDir . '/database/migrations/2016_08_31_060930_create_ete_enclosure_table.php',
     'CreateEteExpectedTable' => $baseDir . '/database/migrations/2016_09_05_094831_create_ete_expected_table.php',
