@@ -39,7 +39,6 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/jquery.lib.min.js"></script>
 	<script src="{{env('APP_HOST')}}/style/js/ajaxfileupload.js" type="text/javascript"></script>     
 	<!-- feedback -->
-	<!-- feedback -->
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/additional-methods.js"></script>
 	<!--[if lte IE 8]>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/excanvas.js"></script>

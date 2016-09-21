@@ -277,6 +277,7 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
         'CreateEteCarousel' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_204555_create_ete_carousel.php',
         'CreateEteCollectedPositionTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_20_201534_create_ete_collected_position_table.php',
         'CreateEteCompanyTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060528_create_ete_company_table.php',
+        'CreateEteConvenientTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_21_084215_create_ete_convenient_table.php',
         'CreateEteEducationTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060721_create_ete_education_table.php',
         'CreateEteEnclosureTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_060930_create_ete_enclosure_table.php',
         'CreateEteExpectedTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_05_094831_create_ete_expected_table.php',

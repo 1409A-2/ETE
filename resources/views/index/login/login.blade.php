@@ -119,7 +119,12 @@ $(function(){
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
-	            		}
+	            		} else if (e==3) {
+	            			var str = '该账号尚未验证邮箱，请您先验证邮箱后再登陆！';
+	            			$('#beError').attr('style','');
+	            			$('#beError').text('');
+	            			$('#beError').append(str);
+	            		};
 	            	},
 	            	error:function(e){
 	            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {

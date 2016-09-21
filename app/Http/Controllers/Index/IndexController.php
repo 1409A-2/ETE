@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Model\User;
+use App\Model\Convenient;
 use App\Model\Release;
 use App\Model\Company;
 use App\Model\Resume;
@@ -72,13 +73,15 @@ class IndexController extends BaseController
 
         $hot=Release::hotRelease();
         $userKey = $Request->input('user');
+        $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {
-            $checkRest = User::checkOnly($userKey);
-            if (!empty($checkRest)) {
+            $con_data = Convenient::checkOnly($userKey);
+            if ($con_data) {
+                $checkRest = User::findOnly($con_data['u_id']);
                 session()->put('u_id', $checkRest['u_id']);
                 session()->put('u_email', $checkRest['u_email']);
             } else {
-                return view('index.index.WeixinRegister',['userKey'=>$userKey]);
+                return view('index.index.WeixinRegister',['userKey'=>$userKey,'ct_type'=>$ct_type]);
             }
         }
 
@@ -207,7 +210,11 @@ class IndexController extends BaseController
     // ajax第三方整合验证
     public function registerProne(Request $Request){
         $data = $Request->all();
+        $con_data['ct_type'] = $data['ct_type'];
+        $con_data['ct_openid'] = $data['r_openid'];
         unset($data['_token']);
+        unset($data['ct_type']);
+        unset($data['r_openid']);
         $email = $data['u_email'];
         $reslut = User::findOne($data);
         if ($reslut) {
@@ -224,13 +231,15 @@ class IndexController extends BaseController
                 $user['u_id']=$res;
                 Resume::addResume($user);
             }
+            $con_data['u_id'] = $res;
+            Convenient::addConven($con_data);
             $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
             $rest = Mail::raw($arr['content'], function ($message) use($email) {
                 $to = $email;
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
             if ($rest) {
-                return json_encode($data['r_openid']);
+                return json_encode($con_data['ct_openid']);
             } else {
                 return json_encode($rest);
             }
