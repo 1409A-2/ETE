@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Index;
 use App\Model\FriendSite;
 use App\Model\Lable;
 use App\Model\Product;
+use App\Model\Subscribe;
 use Illuminate\Http\Request;
 use App\Model\Release;
 use App\Http\Requests;
@@ -84,13 +85,14 @@ class CompanyController extends Controller
             $company_data[$key]['release_data'] = Release::selListLimit(['c_id'=>$val['c_id']]);
         }
         $company_site = FriendSite::selJump(2);
-
+        $subscribe_num=Subscribe::selNum();
         return view('index.company.companylist',[
             'company_data'=>$company_data,
             'page' => $page,
             'pages' =>$pages,
             'industry' => $industry,
-            'company_site' => $company_site
+            'company_site' => $company_site,
+            'num' => $subscribe_num
         ]);
     }
 
