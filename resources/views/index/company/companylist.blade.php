@@ -130,7 +130,7 @@
         </div>
         <div class="content_r">
             <div class="subscribe_side">
-                <a href="subscribe.html" target="_blank">
+                <a href="subscribe" target="_blank">
                     <div class="subpos"><span>订阅</span> 职位</div>
                     <div class="c7">拉勾网会根据你的筛选条件，定期将符合你要求的职位信息发给你
                     </div>
