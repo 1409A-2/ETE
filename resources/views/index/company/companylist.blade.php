@@ -135,11 +135,15 @@
                     <div class="c7">拉勾网会根据你的筛选条件，定期将符合你要求的职位信息发给你
                     </div>
                     <div class="count">已有
-                        <em>3</em>
-                        <em>4</em>
-                        <em>2</em>
-                        <em>1</em>
-                        <em>0</em>
+                    <?php $b=1; ?>
+                    @for($i=0;$i<strlen($num);$i++) 
+                        <?php $b=$b*10; ?>
+                    @endfor
+                    @for($i=0;$i<strlen($num);$i++) 
+                        <?php $b=$b/10; ?>                      
+                        <em>{{$num/$b%10}}</em>                        
+                    @endfor
+                      
                         人订阅
                     </div>
                     <i>我也要订阅职位</i>
