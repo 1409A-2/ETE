@@ -176,20 +176,29 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
  -->
 <div id="followDiv2" style="z-index: 10; position: fixed; width: 80px; height: 60px; left: 20px; top: 250px;">
 <script type='text/javascript'>
-//     (function(m, ei, q, i, a, j, s) {
-//         m[i] = m[i] || function() {
-//             (m[i].a = m[i].a || []).push(arguments)
-//         };
-//         j = ei.createElement(q),
-//             s = ei.getElementsByTagName(q)[0];
-//         j.async = true;
-//         j.charset = 'UTF-8';
-//         j.src = '//static.meiqia.com/dist/meiqia.js';
-//         s.parentNode.insertBefore(j, s);
-//     })(window, document, 'script', '_MEIQIA');
-//     _MEIQIA('entId', 32443);
+    function yourFunction() {
+    }
 </script>
-<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a>
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '//static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', '32443');
+    _MEIQIA('allSet', yourFunction);
+</script>
+<script type='text/javascript'>
+    _MEIQIA('allSet', yourFunction);
+    _MEIQIA('init');
+</script>
+<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
 </div>
 
 	<div class="feedback" style="display: none;">
