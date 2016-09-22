@@ -12,6 +12,7 @@ use App\Model\Resume;
 use App\Model\Enclosure;
 use App\Model\Expected;
 use App\Model\Porject;
+use App\Model\Convenient;
 use App\Model\ResumeReseale;
 use Session;
 
@@ -70,6 +71,7 @@ class UserController extends Controller
         @$res=Expected::userDel($rid);
         @$res=Porject::userDel($rid);
         @$res=ResumeReseale::userDel($rid);
+        @$res=Convenient::userDel($rid);
         if($re){
             return redirect('/adminUserList');
         }else{
