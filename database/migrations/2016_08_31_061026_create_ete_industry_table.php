@@ -17,6 +17,7 @@ class CreateEteIndustryTable extends Migration
             $table->increments('i_id');
             $table->string('i_name',30);
             $table->integer('i_pid');
+            $table->tinyInteger('i_hot');
         });
     }
 

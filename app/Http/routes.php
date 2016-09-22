@@ -66,6 +66,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('sendEamil','Index\InfoController@sendMail');
         Route::post('company1pro','Index\InfoController@companyEmail');
         Route::post('company2pro','Index\InfoController@companyName');
+        Route::get('detailed','Index\DetailedController@index');//必填 1
+        Route::post('info1pro','Index\DetailedController@basePro');//提交1
         //账号设置
         Route::get('accountBind.html','Index\AccountController@accountBind');
         Route::get('updatePwd.html','Index\AccountController@updatePwd');
@@ -100,8 +102,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 			//完善公司的信息
-			Route::get('detailed','Index\DetailedController@index');//必填 1
-			Route::post('info1pro','Index\DetailedController@basePro');//提交1
+
 			Route::get('detailed_info2','Index\DetailedController@detailedLabel');// 可选 2
 			Route::post('info2Pro','Index\DetailedController@labelPro');
 			Route::get('detailed_info3','Index\DetailedController@detailedTeam');// 可选 3
