@@ -162,14 +162,14 @@ class IndustryController extends Controller
         $data = Industry::findOne($i_id);
         if ($data['i_hot']=='0') {
             if ($count>10) {
-                echo "<script>alert('热门设置最多10项，请您取消其他热门！');location='adminIndustryList';</script>";
-                die;
+                $res = '热门设置最多10项，请您取消其他热门！';
+                return $res;
             } 
             $data['i_hot']='1';
         } else {
             $data['i_hot']='0';
         }
         $res = Industry::updata($data);
-        return redirect('adminIndustryList');
+        return $res;
     }
 }
