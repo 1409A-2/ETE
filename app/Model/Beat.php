@@ -30,6 +30,9 @@ class Beat extends Model
             return $res;
         }
     }
+
+
+    
 }
 
 ?>

@@ -27,6 +27,9 @@
                 <dd>
                     <a href="haveRefuseResumes">不合适简历</a>
                 </dd>
+                <dd>
+                    <a href="companyAllBeat">一拍信息</a>
+                </dd>
                 <!-- <dd class="btm">
                     <a href="autoFilterResumes.html">自动过滤简历</a>
                 </dd> -->

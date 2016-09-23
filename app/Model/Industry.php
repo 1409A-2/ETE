@@ -117,4 +117,20 @@ class Industry extends Model
         }
         return $count;
     }
+
+    /**
+     * 查询期望行业
+     */
+    public static function selBeat($i_id){
+       $i_id=self::whereIn('i_id',$i_id)->get();
+       if($i_id){
+            $str='';
+            foreach ($i_id->toArray() as $k => $v) {
+                $str.=','.$v['i_name'];
+            }
+            return substr($str,1);
+       }else{
+        return $i_id;
+       }
+    }
 }

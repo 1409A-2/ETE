@@ -66,6 +66,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                     <li><a href="{{url('beatIndex')}}">一拍</a></li>
 				@else
 				<li @if($url=='detailed' || $url=='postOffice') class="current" @endif><a href="detailed" rel="nofollow">发布职位</a></li>
+				<li @if($url=='companyBeat') class="current" @endif><a href="companyBeat" rel="nofollow">一拍</a></li>
 				@endif
 
 			</ul>

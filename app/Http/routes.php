@@ -111,6 +111,11 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('detailed_info5','Index\DetailedController@detailedIntro');// 可选 5
 			Route::post('info5Pro','Index\DetailedController@introPro');// 可选 5
 
+
+			//公司查看一拍结果 
+			Route::get('companyAllBeat', 'Index\IndustryController@companyAllBeat');//公司查看一拍页面   
+			Route::get('companyBeat', 'Index\beatController@companyBeat');//查看一拍页面信息
+			Route::get('beatYes', 'Index\beatController@beatYes');//添加公司的一拍   
 		});
         Route::post('getcollected','Index\IndexController@getCollected');// 是否收藏职位
         Route::post('collectionPosition','Index\IndexController@collectionPosition');// 收藏职位
