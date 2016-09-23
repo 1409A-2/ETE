@@ -273,6 +273,7 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
 
     public static $classMap = array (
         'CreateEteAdminTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
+        'CreateEteBcTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_23_083430_create_ete_bc_table.php',
         'CreateEteBeatTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_20_195844_create_ete_beat_table.php',
         'CreateEteCarousel' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_204555_create_ete_carousel.php',
         'CreateEteCollectedPositionTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_20_201534_create_ete_collected_position_table.php',
