@@ -169,6 +169,6 @@ class Release extends Model
 
     //查看发布职位
     public static function selListLimit($c_id){
-        return Release::where($c_id)->limit(3)->get()->toArray();
+        return Release::where($c_id)->where('re_status',0)->limit(3)->get()->toArray();
     }
 }

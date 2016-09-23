@@ -17,7 +17,7 @@ class CreateEteResumeTable extends Migration
             $table->increments('r_id');
             $table->string('r_name',200);
             $table->tinyInteger('r_sex');
-            $table->integer('r_education');
+            $table->integer('r_education')->default(1);
             $table->string('r_photo',11);
             $table->string('r_email',30);
             $table->string('r_desc',100);

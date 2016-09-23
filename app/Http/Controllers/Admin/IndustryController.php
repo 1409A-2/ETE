@@ -33,7 +33,7 @@ class IndustryController extends Controller
         $page['next'] = $p>=$page['pages']? $page['pages'] :$p+1;       
         //偏移量
         $off = ceil($p-1)*$len;
-        $industry = Industry::selPage($len,$off);
+        $industry = Industry::selectPage($len,$off);
         $arr = Industry::sel();
         foreach ($industry as $k => $v) {
             if ($v['i_pid']==0) {
@@ -150,5 +150,26 @@ class IndustryController extends Controller
         } else {
             return redirect('adminIndustryList');
         }
+    }
+
+    /**
+     * 行业管理-热门设置
+     */
+    public function adminIndustryHot(Request $Request)
+    {
+        $i_id =$Request->input('i_id');
+        $count = Industry::industryCount();
+        $data = Industry::findOne($i_id);
+        if ($data['i_hot']=='0') {
+            if ($count>10) {
+                $res = '热门设置最多10项，请您取消其他热门！';
+                return $res;
+            } 
+            $data['i_hot']='1';
+        } else {
+            $data['i_hot']='0';
+        }
+        $res = Industry::updata($data);
+        return $res;
     }
 }

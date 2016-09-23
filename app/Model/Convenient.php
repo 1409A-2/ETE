@@ -77,4 +77,12 @@ class Convenient extends Model
         $res = self::whereIn('ct_id',$data)->delete();
         return $res;
     }
+
+    /**删除
+     * @param $id
+     * @return 1
+     */
+    public static function userDel($id){
+        return self::whereIn('u_id',$id)->delete();
+    }
 }

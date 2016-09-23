@@ -65,7 +65,7 @@
         </style>
         <script type="text/javascript" src="style/js/search.min.js"></script>
         <dl class="hotSearch">
-           <!--  <dt>热门搜索：</dt>
+           {{-- <dt>热门搜索：</dt>
             <dd><a href="list.htmlJava?labelWords=label&city=">Java</a></dd>
             <dd><a href="list.htmlPHP?labelWords=label&city=">PHP</a></dd>
             <dd><a href="list.htmlAndroid?labelWords=label&city=">Android</a></dd>
@@ -75,7 +75,7 @@
             <dd><a href="list.htmlUI?labelWords=label&city=">UI</a></dd>
             <dd><a href="list.html运营?labelWords=label&city=">运营</a></dd>
             <dd><a href="list.htmlBD?labelWords=label&city=">BD</a></dd>
-            <dd><a href="list.html?gx=实习&city=">实习</a></dd> -->
+            <dd><a href="list.html?gx=实习&city=">实习</a></dd>--}}
         </dl>
         <div id="home_banner">
             <ul class="banner_bg">

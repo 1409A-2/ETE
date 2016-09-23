@@ -14,8 +14,9 @@
                 <th width="245">选择</th>
                 <th width="200">行业ID</th>
                 <th width="200">所属行业</th>
+                <th width="100">状态</th>
                 <th width="*">行业名称</th>
-                <th width="100">操作</th>
+                <th width="150">操作</th>
             </tr>
             @foreach($industry as $v)
                 <tr>
@@ -24,6 +25,20 @@
                     </td>
                     <td>{{$v['i_id']}}</td>
                     <td>{{$v['i_pname']}}</td>
+                    <td id="td_{{$v['i_id']}}">
+                        <?php 
+                        if ($v['level']=='2') 
+                        {
+                        ?>
+                            @if ($v['i_hot']=='1')
+                                <a class="button border-yellow button-little" data-id="{{$v['i_id']}}" href="javascript:void(0)" name="hot" id="web_{{$v['i_id']}}" onclick="{if(confirm('热门最多设置10项，确认取消设置?')){return true;}return false;}">HOT</a>
+                            @else
+                                <a class="button border-blue button-little" data-id="{{$v['i_id']}}" href="javascript:void(0)" name="hot" id="web_{{$v['i_id']}}" onclick="{if(confirm('热门最多设置10项，确认设置为最热?')){return true;}return false;}">COOL</a>
+                            @endif
+                        <?php
+                        } 
+                        ?>
+                    </td>
                     <td>{{$v['i_name']}}</td>
                     <td>
                         <a class="button border-blue button-little" href="adminIndustryUp?i_id={{$v['i_id']}}">编辑</a>
@@ -53,7 +68,13 @@
                     @if($i>$page['pages'])
                     <?php continue  ?>
                     @endif
-                    <li><a href="adminIndustryList?p={{$i}}">{{$i}}</a></li>
+                    <li 
+                        @if ($i==$page['page'])
+                        class="active" style='background-color:#9999ff' 
+                        @endif
+                    >
+                        <a href="adminIndustryList?p={{$i}}">{{$i}}</a>
+                    </li>
                 @endfor
             </ul>
             <ul class="pagination">
@@ -72,3 +93,24 @@
     </div>
     </form>
 @endsection
+<script src="{{env('APP_HOST')}}/styles/js/jquery.js"></script>
+<script>
+    $(document).on("click", "a[name='hot']", function(){
+        var i_id = $(this).attr('data-id');
+        $.get("adminIndustryHot", { i_id: i_id},
+        function(data){
+            if (data==1) {
+                var statu = $('#web_'+i_id).text();
+                if (statu=='HOT') {
+                    $('#web_'+i_id).remove();
+                    $('#td_'+i_id).append('<a class="button border-blue button-little" data-id="'+i_id+'" href="javascript:void(0)" name="hot" id="web_'+i_id+'" onclick="{ if( confirm(\'热门最多设置10项，确认设置为最热?\')){ return true;} return false; }">COOL</a>');
+                } else if (statu=='COOL') {
+                    $('#web_'+i_id).remove();
+                    $('#td_'+i_id).append('<a class="button border-yellow button-little" data-id="'+i_id+'" href="javascript:void(0)" name="hot" id="web_'+i_id+'" onclick="{if(confirm(\'热门最多设置10项，确认设置为最热?\')){return true;}return false;}">HOT</a>');
+                }
+            } else {
+                alert(data);
+            }
+        });
+    });
+</script>

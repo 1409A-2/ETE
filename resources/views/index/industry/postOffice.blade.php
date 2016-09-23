@@ -284,15 +284,18 @@
                     $('#lat').val(e.point.lat);
                     $('#lng').val(e.point.lng);
                 });
-                $("#cboxClose").trigger('click');   
+                $("#cboxClose").trigger('click');
                 $('#baiduMap').hide();
                 //////////////////////重置中心点
                 olng = e.point.lng;
                 olat = e.point.lat;
             }
             map.addEventListener("click", showInfo);//地图点击事件
-
+            
             $(function(){
+                $(document).delegate('#cboxClose','click',function(){
+                      $('#baiduMap').hide();          
+                })
             	$('#baiduMap').hide();
                 $('#mapPreview').bind('click',function(){
                 	$('#baiduMap').show();
