@@ -194,6 +194,7 @@
         <div id="hotList">
             <ul class="hot_pos reset">
                 <li class="clearfix">
+                    @if($hot)
                     <div class="hot_pos_l">
                         <div class="mb10">
                             <a href="postPreview?re_id={{$hot['re_id']}}" target="_blank">{{$hot['re_name']}}</a>
@@ -208,6 +209,7 @@
                         <span>{{ceil((time()-$hot['re_time'])/86400)}}天以前发布</span>
                         <!-- <a  class="wb">分享到微博</a> -->
                     </div>
+                    @endif
                     <div class="hot_pos_r">
                         <!-- <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>
                         <span><em class="c7">领域：</em> 移动互联网</span>
