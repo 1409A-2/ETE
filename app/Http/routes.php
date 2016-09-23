@@ -66,6 +66,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('sendEamil','Index\InfoController@sendMail');
         Route::post('company1pro','Index\InfoController@companyEmail');
         Route::post('company2pro','Index\InfoController@companyName');
+        Route::get('detailed','Index\DetailedController@index');//必填 1
+        Route::post('info1pro','Index\DetailedController@basePro');//提交1
         //账号设置
         Route::get('accountBind.html','Index\AccountController@accountBind');
         Route::get('updatePwd.html','Index\AccountController@updatePwd');
@@ -100,8 +102,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 			//完善公司的信息
-			Route::get('detailed','Index\DetailedController@index');//必填 1
-			Route::post('info1pro','Index\DetailedController@basePro');//提交1
+
 			Route::get('detailed_info2','Index\DetailedController@detailedLabel');// 可选 2
 			Route::post('info2Pro','Index\DetailedController@labelPro');
 			Route::get('detailed_info3','Index\DetailedController@detailedTeam');// 可选 3
@@ -126,7 +127,7 @@ Route::group(['middleware' => ['web']], function () {
 
 //我的简历
     Route::group(['middleware' => 'resume'], function () {
-        Route::get('resumeList', 'Index\ResumeController@index');
+        Route::get('resumeList', 'Index\ResumeController@index'); ///简历
         Route::post('educationPro', 'Index\ResumeController@educationPro');//个人资料
         Route::post('educationUpload', 'Index\ResumeController@educationUpload');//个人头像
         Route::post('educationDesc', 'Index\ResumeController@educationDesc');//自我描述
@@ -138,6 +139,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('worksDel', 'Index\ResumeController@worksDel');//删除作品
 
         Route::post('porjectAdd', 'Index\ResumeController@porjectAdd');//添加项目
+        Route::get('porjectSel', 'Index\ResumeController@porjectSel');//查询项目
         Route::get('porjectDel', 'Index\ResumeController@porjectDel');//删除项目
 
         Route::post('expectedAdd', 'Index\ResumeController@expectedAdd');//添加(修改)期望工作
@@ -152,12 +154,20 @@ Route::group(['middleware' => ['web']], function () {
 
         //一拍
         Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
-        Route::get('beatRaiders', 'Index\beatController@beatRaiders');//一拍攻略
+        Route::get('beatRaiders', 'Index\beatController@beatRaiders');//一拍攻略注册前
+        Route::get('beatRaider', 'Index\beatController@beatRaider');//一拍攻略注册后
         Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍添加显示
         Route::get('beatPhone', 'Index\beatController@beatPhone');//一拍发送手机验证码
         Route::get('codePro', 'Index\beatController@codePro');//一拍验证手机验证码
 
         Route::post('beatPro', 'Index\beatController@beatPro');//一拍添加入库
+        Route::post('beatReason', 'Index\beatController@beatReason');//一拍取消上场
+
+        Route::get('beatCenter', 'Index\beatController@beatCenter');//一拍个人中心
+        Route::get('beatProfile', 'Index\beatController@beatProfile');//一拍我的履历
+//        Route::get('beatInvited', 'Index\beatController@beatInvited');//一拍我的邀约
+//        Route::get('beatReward', 'Index\beatController@beatReward');//一拍我的Offer
+
 
 
     });
@@ -216,5 +226,8 @@ Route::group(['middleware' => ['web']], function () {
 		//后台订阅操作
 		Route::get('adminSubscribe','Admin\SubscribeController@adminSubscribe');//后台管理订阅功能  adminSubscribe
 		Route::get('subscribeDelete','Admin\SubscribeController@subscribeDelete');//删除订阅信息  //发邮件通知用户  subscribeDelete
+
+        //注销退出
+        Route::get('cancellation','Admin\AdminController@cancellation');
 	});
 });

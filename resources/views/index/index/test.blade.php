@@ -191,6 +191,7 @@
             <li class="current">热门职位</li>
             <li>最新职位</li>
         </ul>
+@if($hot)
         <div id="hotList">
             <ul class="hot_pos reset">
                 <li class="clearfix">
@@ -209,25 +210,11 @@
                         <!-- <a  class="wb">分享到微博</a> -->
                     </div>
                     <div class="hot_pos_r">
-                        <!-- <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>
-                        <span><em class="c7">领域：</em> 移动互联网</span>
-                        <span><em class="c7">创始人：</em>陈桦</span>
-                        <br />
-                        <span><em class="c7">阶段：</em> 初创型(天使轮)</span>
-                        <span><em class="c7">规模：</em>少于15人</span>
-                        <ul class="companyTags reset">
-                            <li>移动互联网</li>
-                            <li>五险一金</li>
-                            <li>扁平管理</li>
-                        </ul> -->
                     </div>
-
                 </li>
-                <!-- <a href="list.html" class="btn fr" target="_blank">查看更多</a> -->
             </ul>
-        
         </div>
-
+@endif
         <div class="clear"></div>
         <div id="linkbox">
             <dl>

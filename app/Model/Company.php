@@ -167,5 +167,22 @@ class Company extends Model
             return $data;
         }
     }
+
+    /**
+     * 查询公司的基本信息
+     */
+    public static function selBase($c_id)
+    {
+        $data = self::where('c_id',$c_id)
+            ->select('c_shorthand','c_website','c_industry','c_desc','c_name','c_email','c_tel','c_status')
+            ->first();
+        if($data){
+
+            return $data->toArray();
+        }
+
+        return $data;
+
+    }
 }
 

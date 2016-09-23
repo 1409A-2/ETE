@@ -50,7 +50,18 @@ class AdminController extends Controller
     public function adminIndex(){
         return view("admin.admin.index");
     }
+
     public function adminUser(){
         return view("admin.admin.index");
     }
+
+    /**
+     * 注销登录
+     */
+    public function cancellation(){
+        session()->forget('uid');
+        //print_r($data);die;
+        return redirect('admin');
+    }
+
 }
