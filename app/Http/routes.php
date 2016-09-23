@@ -112,6 +112,11 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('detailed_info5','Index\DetailedController@detailedIntro');// 可选 5
 			Route::post('info5Pro','Index\DetailedController@introPro');// 可选 5
 
+
+			//公司查看一拍结果 
+			Route::get('companyAllBeat', 'Index\IndustryController@companyAllBeat');//公司查看一拍页面   
+			Route::get('companyBeat', 'Index\beatController@companyBeat');//查看一拍页面信息
+			Route::get('beatYes', 'Index\beatController@beatYes');//添加公司的一拍   
 		});
         Route::post('getcollected','Index\IndexController@getCollected');// 是否收藏职位
         Route::post('collectionPosition','Index\IndexController@collectionPosition');// 收藏职位
@@ -122,7 +127,7 @@ Route::group(['middleware' => ['web']], function () {
 
 //我的简历
     Route::group(['middleware' => 'resume'], function () {
-        Route::get('resumeList', 'Index\ResumeController@index');
+        Route::get('resumeList', 'Index\ResumeController@index'); ///简历
         Route::post('educationPro', 'Index\ResumeController@educationPro');//个人资料
         Route::post('educationUpload', 'Index\ResumeController@educationUpload');//个人头像
         Route::post('educationDesc', 'Index\ResumeController@educationDesc');//自我描述
@@ -134,6 +139,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('worksDel', 'Index\ResumeController@worksDel');//删除作品
 
         Route::post('porjectAdd', 'Index\ResumeController@porjectAdd');//添加项目
+        Route::get('porjectSel', 'Index\ResumeController@porjectSel');//查询项目
         Route::get('porjectDel', 'Index\ResumeController@porjectDel');//删除项目
 
         Route::post('expectedAdd', 'Index\ResumeController@expectedAdd');//添加(修改)期望工作
@@ -148,12 +154,20 @@ Route::group(['middleware' => ['web']], function () {
 
         //一拍
         Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
-        Route::get('beatRaiders', 'Index\beatController@beatRaiders');//一拍攻略
+        Route::get('beatRaiders', 'Index\beatController@beatRaiders');//一拍攻略注册前
+        Route::get('beatRaider', 'Index\beatController@beatRaider');//一拍攻略注册后
         Route::get('beatInfo', 'Index\beatController@beatInfo');//一拍添加显示
         Route::get('beatPhone', 'Index\beatController@beatPhone');//一拍发送手机验证码
         Route::get('codePro', 'Index\beatController@codePro');//一拍验证手机验证码
 
         Route::post('beatPro', 'Index\beatController@beatPro');//一拍添加入库
+        Route::post('beatReason', 'Index\beatController@beatReason');//一拍取消上场
+
+        Route::get('beatCenter', 'Index\beatController@beatCenter');//一拍个人中心
+        Route::get('beatProfile', 'Index\beatController@beatProfile');//一拍我的履历
+//        Route::get('beatInvited', 'Index\beatController@beatInvited');//一拍我的邀约
+//        Route::get('beatReward', 'Index\beatController@beatReward');//一拍我的Offer
+
 
 
     });

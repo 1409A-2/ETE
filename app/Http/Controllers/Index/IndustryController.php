@@ -10,6 +10,8 @@ use Validator;
 use Session;
 use Redirect;
 use DB;
+use App\Model\Beat;
+use App\Model\Bc;
 use App\Model\Industry;
 use App\Model\Education;
 use App\Model\Company;
@@ -471,5 +473,16 @@ class IndustryController extends BaseController
 
             return view('index.resume.preview',$data);
         }
+    }
+
+    //根据公司查询一拍信息
+    public function companyAllBeat(){
+        $company_c_id=User::selOne(session('u_id'));
+        $companylist=Bc::selAllCompany($company_c_id['u_cid']);
+        foreach ($companylist as $k => $v) {
+             $i_id=explode(',',$v['b_professional']);
+             $companylist[$k]['b_professional']=Industry::selBeat($i_id);
+        }
+        return view('index.pendingresume.companylist',['companylist'=>$companylist]);
     }
 }

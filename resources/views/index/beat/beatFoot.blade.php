@@ -1,18 +1,24 @@
 <div id="footer">
     <div class="wrapper">
         <div class="inner_wrapper">
-            <a class="footer_app click_track" event-name="l-appdownload-footer" href="http://www.lagou.com/app/download.html" rel="nofollow">校易聘APP<span></span><i></i></a>
-            <a class="click_track" event-name="l-weibo-footer" href="http://e.weibo.com/lagou720" target="_blank" rel="nofollow">校易聘微博</a>
+            <a class="footer_app click_track" event-name="l-appdownload-footer" href="javascript:void(0);"
+               rel="nofollow">校易聘APP<span></span><i></i></a>
+            <a class="click_track" event-name="l-weibo-footer" href="javascript:void(0)" target="_blank" rel="nofollow">校易聘微博</a>
             <a class="footer_qr click_track" event-name="l-weixin-footer" href="javascript:void(0)" rel="nofollow">校易聘微信<i></i></a>
-            <a class="click_track" event-name="l-whatisnew-footer" href="http://www.lagou.com/topic/whatisnew.html" target="_blank" rel="nofollow">版本更新</a>
-            <a class="click_track" event-name="l-help-footer" href="http://www.lagou.com/qa.html?t=1" target="_blank" rel="nofollow">帮助中心</a>
-            <a class="click_track" event-name="l-about-footer" href="http://www.lagou.com/about.html" target="_blank" rel="nofollow">联系我们</a>
-            <a class="click_track" event-name="l-chat-footer" id="onlineService" href="javascript:void(0);" rel="nofollow">在线交流</a>
+            <a class="click_track" event-name="l-whatisnew-footer" href="javascript:void(0)"
+               target="_blank" rel="nofollow">版本更新</a>
+            <a class="click_track" event-name="l-help-footer" href="javascript:void(0)" target="_blank"
+               rel="nofollow">帮助中心</a>
+            <a class="click_track" event-name="l-about-footer" href="javascript:void(0)" target="_blank"
+               rel="nofollow">联系我们</a>
+            <a class="click_track" event-name="l-chat-footer" id="onlineService" href="javascript:void(0);"
+               rel="nofollow">在线交流</a>
             <span class="tel">服务热线：<em>400-605-9900 (9:00 -19:00)</em></span>
         </div>
         <div class="copy">
             <span><em>&copy;</em>2016 Xiaoyip</span>
-            <a class="click_track" event-name="l-beian-footer" target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" rel="nofollow">京ICP备14023790号-2</a>
+            <a class="click_track" event-name="l-beian-footer" target="_blank"
+               href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" rel="nofollow">京ICP备14023790号-2</a>
             <span>京公网安备11010802017116号</span>
         </div>
     </div>

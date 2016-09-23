@@ -29,8 +29,20 @@ class Resume extends Model
      * @param $where
      * @return mixed
      */
-    public  static  function selOne($where){
+    public static function selOne($where){
         $res=self::where($where)->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+    }
+    /**查询单个
+     * @param $where
+     * @return mixed
+     */
+    public static function selFind($where,$find){
+        $res=self::where($where)->select($find)->first();
         if($res){
             return $res->toArray();
         }else{
