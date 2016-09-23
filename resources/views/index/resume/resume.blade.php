@@ -1588,6 +1588,7 @@
             data: {headPic: a.val(), _token: _token},
             dataType: "json",
             success: function (msg) {
+//                alert(2)
                 if (msg != 0) {
 
                     myimg.attr('src', msg.responseText);
@@ -1596,6 +1597,7 @@
                 }
             },
             error: function (msg) {
+//                alert(1)
                 if (msg != 0) {
                     myimg.attr('src', msg.responseText);
                 } else {

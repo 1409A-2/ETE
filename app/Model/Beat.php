@@ -65,6 +65,19 @@ class Beat extends Model
             return $res;
         }
     }
+/* 查询投递的一拍信息
+* @param $where
+* @return mixed
+*/
+    public static function selAll(){
+        $res=self::where('b_state','=',1)->get();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+    }
+
 }
 
 ?>

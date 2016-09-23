@@ -100,7 +100,6 @@ class BeatController extends Controller
             return redirect('beatIndex');
         }
 
-
     }
 
     /** 我的邀约
@@ -118,6 +117,42 @@ class BeatController extends Controller
 //        return view('index.beat.beatReward');
 //    }
 
+
+
+
+
+
+    // 查询用户的一拍信息
+    public function companyBeat(){
+        $companylist=Beat::selAll();
+        $company_c_id=User::selOne(session('u_id'));
+        foreach ($companylist as $k => $v) {
+            $i_id=explode(',',$v['b_professional']);
+            $companylist[$k]['b_professional']=Industry::selBeat($i_id);
+            $companylist[$k]['level']=Bc::sel($company_c_id['u_cid'],$v['b_id']);
+        }
+        return view('index.beat.companylist',['companylist'=>$companylist]);
+    }
+    //公司邀约简历
+    public function beatYes(Request $request){
+        $arr['cb_bid']=$request->input('b_id');
+        $company_c_id=User::selOne(session('u_id'));
+        $arr['bc_cid']=$company_c_id['u_cid'];
+        $arr['cb_cb']=$request->input('bc',2);
+        if($arr['cb_cb']==2){
+            $re = Bc::cbCb($arr);
+        }else{
+            $re = Bc::up($arr);
+        }
+        if($re){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+
+
     /** 一拍攻略  注册前
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -126,6 +161,10 @@ class BeatController extends Controller
         return view('index.beat.beatRaiders');
     }
 
+    /**个人 取消一拍的原因
+     * @param Request $request
+     * @return mixed
+     */
     public function beatReason(Request $request){
 
         $data['b_reason']=$request->input('reason');

@@ -240,14 +240,12 @@
                                                                                                       onclick="trackMonitor('c-right-wait');">去处理
                                 &gt;&gt;</a></p>
 
-                        <p><span class="item">已安排约见</span><span class="number" id="arrange-num">20</span><a class="link"
+                        <p><span class="item">已安排约见</span><span class="number" id="arrange-num">0</span><a class="link"
                                                                                                             href="http://pai.lagou.com/talent/invited.html?type=arrange"
                                                                                                             onclick="trackMonitor('c-right-arrange');">查看
                                 &gt;&gt;</a></p>
 
-                        <p><span class="item">即将自动回绝</span><span class="number" id="will-refuse-num">15</span><a
-                                    class="link" href="http://pai.lagou.com/talent/invited.html"
-                                    onclick="trackMonitor('c-right-invited');">去处理 &gt;&gt;</a></p>
+
                     </div>
                 </div>
             </div>

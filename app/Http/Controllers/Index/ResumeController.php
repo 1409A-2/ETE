@@ -159,6 +159,7 @@ class ResumeController extends BaseController
      */
     public function educationUpload(Request $request)
     {
+//        return $_FILES['headPic']['tmp_name'];die;
         //获取用户id
         $u_id = $request->session()->get('u_id');
 
@@ -166,13 +167,11 @@ class ResumeController extends BaseController
 
         //拼接图片地址
         $data['r_img'] = 'uploads/' . session('u_email') . rand(0, 999) . '.jpg';
-
+        move_uploaded_file($_FILES['headPic']['tmp_name'], $data['r_img']);
         //判断图片是否存在,进行删除替换
         if (file_exists($resume['r_img'])) {
             unlink($resume['r_img']);
         };
-
-        move_uploaded_file($_FILES['headPic']['tmp_name'], $data['r_img']);
         $res = Resume::updateResume($data, ['u_id' => $u_id]);
 
         if ($res) {
