@@ -246,7 +246,7 @@
                             <span>  北京，全职，月薪{{$expected['re_salarymin']}}k-{{$expected['re_salarymax']}}k，职位(<font
                                         color="red">{{$expected['ex_name']}}</font>)</span>
                             <br/> <a href="javascript:;"
-                                     style="font-size: 18px;color:red" onclick="expectedDel({{$expected['r_id']}})">删除</a>
+                                     style="font-size: 14px;" onclick="expectedDel({{$expected['r_id']}})">删除</a>
                         </div><!--end .expectShow-->
 
                         <div class="expectEdit dn">
@@ -406,7 +406,10 @@
 		            									            								（{{date('Y.m',$v['p_start_time'])}}
                                                     -{{date('Y.d',$v['p_end_time'])}}）
                                                     <a href="javascript:;" class="porjectDel" pid="{{$v['p_id']}}"
-                                                       style="font-size: 18px;color:red">删除</a>
+                                                       style="font-size: 14px;">删除</a>
+                                                    <br/>
+                                                    <?php echo mb_substr($v['p_desc'],0,15,'UTF-8')?>
+                                                    {{--<span pid="{{$v['p_id']}}" class="c_edit"></span>--}}
 		            									            						</span>
                                             </div>
                                             <div class="dl1"></div>
@@ -415,7 +418,7 @@
                                 </ul>
                                 <hr/>
                             @endforeach
-                        </div><!--end .projectShow-->
+                        </div>
                         <div class="projectEdit dn">
                             <form class="projectForm">
                                 <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
@@ -532,8 +535,8 @@
                                 </table>
                                 <input type="hidden" value="" class="projectId">
                             </form>
-                            <!--end .projectForm-->
                         </div>
+                        <div class="projectEd dn"></div>
                         <div class="projectAdd pAdd dn">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
                             来说说让你难忘的项目吧！
@@ -657,9 +660,8 @@
                                 </table>
                                 <input type="hidden" value="" class="projectId">
                             </form>
-                            <!--end .projectForm-->
-                        </div><!--end .projectEdit-->
 
+                        </div>
                         <div class="projectAdd pAdd">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
                             来说说让你难忘的项目吧！
@@ -687,7 +689,7 @@
                                专业———— <b>  {{$school['s_major']}}</b> <br/> 在校历程—— <b> {{date('Y',$school['s_start_time'])}}
                                    —{{date('Y',$school['s_end_time'])}} </b><br>
                                <a href="javascript:;" onclick="schoolDel({{$school['r_id']}})"
-                                  style="font-size: 18px;color:red">删除</a>
+                                  style="font-size: 14px;">删除</a>
                                </span>
                         </div>
 
@@ -1142,7 +1144,7 @@
 
                                 <div class="workList c7">
                                     <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
-                                        <a href="javascript:;" class="workDel" wid="{{$v['w_id']}}"    style="font-size: 18px;color:red">删除</a>
+                                        <a href="javascript:;" class="workDel" wid="{{$v['w_id']}}"    style="font-size: 14px;">删除</a>
                                     </div>
                                     <p>{{$v['w_desc']}} </p>
                                 </div>
@@ -1330,10 +1332,10 @@
                 {{--</div>--}}
                 <!--end #resumeSet-->
 
-                <div class="mycenterR" id="myShare">
-                    <h2>当前每日投递量：10个</h2>
-                    <a target="_blank" href="h/share/invite.html">邀请好友，提升投递量</a>
-                </div>
+                {{--<div class="mycenterR" id="myShare">--}}
+                    {{--<h2>当前每日投递量：10个</h2>--}}
+                    {{--<a target="_blank" href="h/share/invite.html">邀请好友，提升投递量</a>--}}
+                {{--</div>--}}
                 <!--end #myShare-->
 
 
@@ -1609,7 +1611,7 @@
     function expectedDel(id){
         $.ajax({
             type:'GET',
-            url:"{{'expectedDel'}}",
+            url:"{{url('expectedDel')}}",
             data:{expectedId:id},
             success:function(msg){
                 if(msg==1){
@@ -1629,7 +1631,7 @@
     function schoolDel(id){
         $.ajax({
             type:'GET',
-            url:"{{'schoolDel'}}",
+            url:"{{url('schoolDel')}}",
             data:{schoolId:id},
             success:function(msg){
                 if(msg==1){
@@ -1653,7 +1655,7 @@
             _this = $(this)
             $.ajax({
                 type: 'GET',
-                url: "{{'worksDel'}}",
+                url: "{{url('worksDel')}}",
                 data: {workId: wid},
                 success: function (msg) {
                     if (msg == 1) {
@@ -1674,7 +1676,7 @@
             _this = $(this)
             $.ajax({
                 type: 'GET',
-                url: "{{'porjectDel'}}",
+                url: "{{url('porjectDel')}}",
                 data: {porjectId: pid},
                 success: function (msg) {
                     if (msg == 1) {
@@ -1689,5 +1691,64 @@
                 }
             })
         })
+
+        {{--$(document).delegate('#projectExperience .c_edit','click',function(){--}}
+            {{--var pid=$(this).attr('pid');--}}
+            {{--var token='{{csrf_token()}}';--}}
+            {{--$.ajax({--}}
+                {{--type: 'GET',--}}
+                {{--url: "{{url('porjectSel')}}",--}}
+                {{--data: {pid: pid},--}}
+                {{--dataType:'json',--}}
+                {{--success: function (msg) {--}}
+                   {{--html=''--}}
+                    {{--html+='<form class="projectForm">';--}}
+                    {{--html+='<input type="hidden" name="porjectId" id="porjectId" value='+msg['p_id']+'>'--}}
+                    {{--html+='<input type="hidden" name="project_token" id="project_token" value="'+token+'"/>';--}}
+                    {{--html+='<table><tbody><tr> <td valign="top">';--}}
+                    {{--html+='<span class="redstar">*</span></td> <td>';--}}
+                    {{--html+='<input type="text" value='+msg['p_name']+' placeholder="项目名称" name="projectName" class="projectName">';--}}
+                    {{--html+='</td> <td valign="top"> <span class="redstar">*</span> </td> <td>';--}}
+                    {{--html+='<input type="text" placeholder="担任职务，如：产品负责人" value='+msg['p_duties']+' name="thePost" class="thePost">';--}}
+                    {{--html+='</td> </tr> <tr> <td valign="top"> <span class="redstar">*</span> </td> <td> <div class="fl">';--}}
+                    {{--html+='<input type="hidden" class="projectYearStart" value="" name="projectYearStart">';--}}
+                    {{--html+='<input type="button" value="开始年份"class="profile_select_139 profile_select_normal select_projectYearStart">';--}}
+                    {{--html+='<div class="box_projectYearStart  boxUpDown boxUpDown_139 dn"style="display: none;"> <ul>';--}}
+                    {{--for(var i=2016; i>1969; i--){--}}
+                     {{--html+='<li>'+i+'</li>'--}}
+                    {{--}--}}
+                    {{--html+='</ul> </div> </div> <div class="fl"> <input type="hidden" class="projectMonthStart" value="" name="projectMonthStart">';--}}
+                    {{--html+='<input type="button" value="开始月份"class="profile_select_139 profile_select_normal select_projectMonthStart">';--}}
+                    {{--html+='<div style="display: none;"class="box_projectMonthStart boxUpDown boxUpDown_139 dn"> <ul>';--}}
+                    {{--for(var v=1; v<13; v++){--}}
+                        {{--html+='<li>'+v+'</li>'--}}
+                    {{--}--}}
+                    {{--html+='</ul></div></div><div class="clear"></div> </td> <td valign="top"> <span class="redstar">*</span> </td> <td> <div class="fl">';--}}
+                    {{--html+='<input type="hidden" class="projectYearEnd" value="" name="projectYearEnd">';--}}
+                    {{--html+='<input type="button" value="结束年份" class="profile_select_139 profile_select_normal select_projectYearEnd">';--}}
+                    {{--html+='<div class="box_projectYearEnd  boxUpDown boxUpDown_139 dn"style="display: none;">';--}}
+                    {{--html+='<ul> <li>至今</li>';--}}
+                    {{--for(var i=2016; i>1969; i--){--}}
+                        {{--html+='<li>'+i+'</li>'--}}
+                    {{--}--}}
+                    {{--html+='</ul></div> </div> <div class="fl"> <input type="hidden" class="projectMonthEnd" value="" name="projectMonthEnd">';--}}
+                    {{--html+='<input type="button" value="结束月份" class="profile_select_139 profile_select_normal select_projectMonthEnd">';--}}
+                    {{--html+='<div style="display: none;"class="box_projectMonthEnd boxUpDown boxUpDown_139 dn"> <ul>';--}}
+                    {{--for(var v=1; v<13; v++){--}}
+                        {{--html+='<li>'+v+'</li>'--}}
+                    {{--}--}}
+                    {{--html+='</ul></div></div><div class="clear"></div></td></tr><tr><td valign="top"></td><td colspan="3">'--}}
+                    {{--html+='<textarea class="projectDescription s_textarea" name="projectDescription" placeholder="项目描述">'+msg['p_desc']+'</textarea>';--}}
+                    {{--html+='</td> </tr><tr><td valign="top"></td><td colspan="3">';--}}
+                    {{--html+='<input type="submit" value="保 存" class="btn_profile_save">';--}}
+                    {{--html+='<a class="btn_profile_cancel" href="javascript:;">取 消</a>';--}}
+                    {{--html+='</td> </tr> </tbody> </table> <input type="hidden" value="" class="projectId"> </form>'--}}
+                    {{--$('#projectExperience .projectShow').addClass('dn');--}}
+                    {{--$('#projectExperience .c_add').addClass('dn');--}}
+                    {{--$('#projectExperience .projectEd').removeClass('dn').html(html);--}}
+                    {{--$('#projectExperience .projectShow').addClass('dn');--}}
+                {{--}--}}
+            {{--})--}}
+        {{--})--}}
     })
 </script>
