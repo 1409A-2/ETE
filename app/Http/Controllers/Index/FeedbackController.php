@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Index;
 use Mail;
 use Storage;
 use Illuminate\Http\Request;
+use App\Model\Industry;
 use App\Model\Company;
 use App\Model\Subscribe;
 use App\Http\Requests;
@@ -15,10 +16,11 @@ class FeedbackController extends Controller
 
         //订阅职位
     public function subscribe(){
+    	$industry=Industry::sel();
         $u_email=session('u_email','');
         $u_id=session('u_id','');
         $subscribe = Subscribe::sel($u_id);
-        return view('index.subscribe.subscribe',['u_email'=>$u_email,'u_id'=>$u_id,'subscribe'=>$subscribe]);
+        return view('index.subscribe.subscribe',['u_email'=>$u_email,'industry'=>$industry,'u_id'=>$u_id,'subscribe'=>$subscribe]);
     }
 
     // 订阅职位完成

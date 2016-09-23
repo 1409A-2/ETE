@@ -43,11 +43,11 @@
                                 <span style="display:none;" id="myfiles0_error" class="error"></span>
 
                                 <h3>产品名称</h3>
-                                <input type="text" value="{{$product_data['pr_name']}}" placeholder="请输入产品名称" name="product[]" id="name0">
+                                <input type="text" value="{{$product_data['pr_name']}}" placeholder="请输入产品名称" name="product[]" id="name0" style="width:500px;">
 
                                 <h3>产品地址</h3>
                                 <input type="text" placeholder="请输入产品主页URL或产品下载地址" name="productUrl[]"
-                                       id="address0" value="{{$product_data['pr_name']}}">
+                                       id="address0" value="{{$product_data['pr_name']}}" style="width:500px;">
 
                                 <h3>产品简介</h3>
                                 <textarea placeholder="请简短描述该产品定位、产品特色、用户群体等" maxlength="1000"

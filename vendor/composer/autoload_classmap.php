@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CreateEteAdminTable' => $baseDir . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
+    'CreateEteBcTable' => $baseDir . '/database/migrations/2016_09_23_083430_create_ete_bc_table.php',
     'CreateEteBeatTable' => $baseDir . '/database/migrations/2016_09_20_195844_create_ete_beat_table.php',
     'CreateEteCarousel' => $baseDir . '/database/migrations/2016_09_11_204555_create_ete_carousel.php',
     'CreateEteCollectedPositionTable' => $baseDir . '/database/migrations/2016_09_20_201534_create_ete_collected_position_table.php',
@@ -533,6 +534,7 @@ return array(
     'SebastianBergmann\\RecursionContext\\Exception' => $vendorDir . '/sebastian/recursion-context/src/Exception.php',
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'SeedEteIndustryTable' => $baseDir . '/database/migrations/2016_09_22_193456_seed_ete_industry_table.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );

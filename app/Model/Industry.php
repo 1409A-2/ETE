@@ -117,4 +117,46 @@ class Industry extends Model
         }
         return $count;
     }
+    /** 查询出需要的名称
+     * @param $where
+     * @return mixed
+     */
+    public static function findAll($where){
+
+        return self::where($where)->select('i_name')->get()->toArray();
+
+    }
+
+
+    /** 查询出需要的名称
+     * @param $where
+     * @return mixed
+     */
+    public static function findOll($where){
+
+        $res= self::where($where)->select('i_name')->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+
+    }
+   /** 查询出需要的名称
+     * @param $where
+    * @return mixed
+      */
+    public static function selBeat($i_id){
+       $i_id=self::whereIn('i_id',$i_id)->get();
+       if($i_id){
+           $str='';
+           foreach ($i_id->toArray() as $k => $v) {
+               $str.=','.$v['i_name'];
+           }
+           return substr($str,1);
+      }else{
+       return $i_id;
+      }
+
+    }
 }

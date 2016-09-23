@@ -70,7 +70,7 @@ class ResumeController extends BaseController
         if ($school = School::selOne(['r_id' => $res['r_id']])) {
             $sum += 20;
         };
-
+        session()->put('sum', $sum);
         //赋值到表单页面,传对应的值
         return view('index.resume.resume', [
             'education' => $education,
@@ -159,6 +159,7 @@ class ResumeController extends BaseController
      */
     public function educationUpload(Request $request)
     {
+//        return $_FILES['headPic']['tmp_name'];die;
         //获取用户id
         $u_id = $request->session()->get('u_id');
 
@@ -166,13 +167,11 @@ class ResumeController extends BaseController
 
         //拼接图片地址
         $data['r_img'] = 'uploads/' . session('u_email') . rand(0, 999) . '.jpg';
-
+        move_uploaded_file($_FILES['headPic']['tmp_name'], $data['r_img']);
         //判断图片是否存在,进行删除替换
         if (file_exists($resume['r_img'])) {
             unlink($resume['r_img']);
         };
-
-        move_uploaded_file($_FILES['headPic']['tmp_name'], $data['r_img']);
         $res = Resume::updateResume($data, ['u_id' => $u_id]);
 
         if ($res) {
@@ -338,7 +337,6 @@ class ResumeController extends BaseController
     public function porjectAdd(Request $request)
     {
         //表单自带验证
-
         $validator = Validator::make($request->all(), [
             'projectName' => 'required',
             'positionName' => 'required',
@@ -351,7 +349,7 @@ class ResumeController extends BaseController
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         }
-
+//        $porjectId=$request->input('porjectId');
         //接收表单的值
         $data['p_name'] = $request->input('projectName');//项目名称
         $data['p_duties'] = $request->input('positionName');//担任职务
@@ -359,13 +357,37 @@ class ResumeController extends BaseController
         $data['p_end_time'] = ($request->input('endYear') == '至今') ? time() : strtotime($request->input('endYear') . '-' . $request->input('endMonth'));//项目结束年月
         $data['p_desc'] = $request->input('projectRemark');//项目描述
         $data['r_id'] = $request->input('projectid');//对应简历的Id
+//        if (isset($porjectId)) {
+//
+//            $res = Porject::updateProject($data,['p_id'=>$porjectId]);
+//                if ($res) {
+//                    return json_encode($data);
+//                } else {
+//                    return 0;
+//                }
+//
+//        } else {
+
         $res = Porject::addProject($data);
+
         if ($res) {
+
             return json_encode(Porject::selAll(['r_id'=>$data['r_id']]));
         } else {
+
             return 0;
+//        }
         }
     }
+
+    public function porjectSel(Request $request){
+         $pid= $request->input('pid');
+
+        return json_encode(Porject::selOne(['p_id'=>$pid]));
+
+
+    }
+
 
     /**   * 删除项目
      * @param $id
