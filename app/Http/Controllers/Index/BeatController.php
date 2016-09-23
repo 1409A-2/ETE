@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Index;
 
 use App\Model\Beat;
+use App\Model\Bc;
+use App\Model\User;
 use App\Model\Industry;
 use App\Model\Porject;
 use App\Model\Resume;
@@ -298,4 +300,6 @@ class BeatController extends Controller
     }
 
     //--------------------------发送短信结束----------------
+    //
+          
 }
