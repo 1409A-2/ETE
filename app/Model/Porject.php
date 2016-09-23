@@ -47,7 +47,7 @@ class Porject extends Model
         return self::insertGetId($data);
 
     }
-        //修改
+    //修改
     public  static  function updateProject($data,$where){
         return self::where($where)->update($data);
     }

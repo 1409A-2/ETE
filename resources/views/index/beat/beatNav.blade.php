@@ -36,7 +36,7 @@
                 <li class="" onclick="trackMonitor('l-guide-nav')"><a
                             href="{{url('beatRaiders')}}">一拍攻略</a></li>
             </ul>
-            <a href="/" id="nav-go-back" onclick="trackMonitor('l-backlagou-text')">回拉勾</a>
+            <a href="/" id="nav-go-back" onclick="trackMonitor('l-backlagou-text')">回校易聘</a>
         </div>
     </div>
 </div>
