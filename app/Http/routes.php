@@ -212,5 +212,8 @@ Route::group(['middleware' => ['web']], function () {
 		//后台订阅操作
 		Route::get('adminSubscribe','Admin\SubscribeController@adminSubscribe');//后台管理订阅功能  adminSubscribe
 		Route::get('subscribeDelete','Admin\SubscribeController@subscribeDelete');//删除订阅信息  //发邮件通知用户  subscribeDelete
+
+        //注销退出
+        Route::get('cancellation','Admin\AdminController@cancellation');
 	});
 });
