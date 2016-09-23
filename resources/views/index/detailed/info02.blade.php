@@ -28,7 +28,7 @@
                         @endforeach
                     </ul>
 
-                    <input type="text" placeholder="请输入自定义标签" name="label" id="label">
+                    <input type="text" placeholder="请输入自定义标签" name="label" id="label" style="height: 30px;">
                     <input type="submit" value="贴上" id="add_label">
 
                     <div class="clear"></div>

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Model;
+use DB;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        DB::table('industry')->insert([
+            'i_name' => '技术',
+            'i_pid' => 0,
+            'i_hot' => 1,
+        ]);
     }
 }

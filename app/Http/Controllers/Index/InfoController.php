@@ -163,7 +163,7 @@ class InfoController extends Controller
         $u_id = session('u_id');
         $user_data = User::selOne($u_id);
         if($user_data['u_cid']==0||$user_data['u_cid']==1){
-            echo 0;die;
+            return 0;
         }
         $company_data = Company::selOne($user_data['u_cid']);
         $token = base64_encode($u_id.'|'.$user_data['u_cid'].'|1');
@@ -173,7 +173,7 @@ class InfoController extends Controller
 
         $rest = Mail::raw("请激活的你的发布招聘的资格,进入此网址进行激活》》 ".env('APP_HOST')."/adopt?token=$token", function ($message) use($company_data) {
             $to = $company_data['c_email'];
-            $message ->to($to)->subject('校易聘注册认证邮件');
+            $message ->to($to)->subject('校易聘企业认证邮件');
         });
 
         if($rest){

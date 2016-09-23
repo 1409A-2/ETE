@@ -1,4 +1,4 @@
-body{background-color:#f2f9fd;}
+body{background:url('../images/11.jpeg');}
 .panel{background:#fff;}
 form .form-group:last-child{padding-bottom:0;}
 .passcode{position:absolute;right:0;top:0;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
@@ -29,3 +29,33 @@ form .form-group:last-child{padding-bottom:0;}
 .admin-panel td{line-height:24px;}
 .admin-panel td .button{line-height:16px;}
 .admin-panel .pagination .active{background:#fff;}
+.admin dl{width: 300px; height: 400px;  left: 0; border: 1px solid blue; border-radius:10px ; float: left; margin-left: 50px; text-align: center;display: inline-block; margin-bottom: 40px;}
+#desc{margin-left: 200px;}
+.admin dl dt{ margin-top: 10px; text-align: center;position: relative;}
+.admin dl dt img{ display: inline-block; width: 200px; height: 200px; position: relative;}
+.admin dl dd{position: relative;}
+.admin dl dd span{font-size: 16px; color: #33BBCC;  font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;}
+.admin dl dd p{font-size: 18px; color: palevioletred;}
+.admin dl dt {
+  animation: p3 4s ;
+}
+.admin dl dd {
+  animation: p4 8s ;
+}
+@keyframes p3 {
+  0% {
+    left: -2000px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@keyframes p4 {
+  0% {
+    left: -3000px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
