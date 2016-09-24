@@ -104,17 +104,15 @@ class Release extends Model
     }
 
     //主页热门搜索职位
+    public static function hotRelease(){
+        $re=Release::get()->toArray();
+        if(!$re){
 
-        public static function hotRelease(){
-            $re=Release::get()->toArray();
-            if(!$re){
-
-                return $re;
-            }
-
-            return $re[rand(0,count($re)-1)];
+            return $re;
         }
 
+        return $re[rand(0,count($re)-1)];
+    }
 
 
     //主页热门薪资搜索职位
