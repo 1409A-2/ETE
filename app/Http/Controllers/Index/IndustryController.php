@@ -287,6 +287,7 @@ class IndustryController extends BaseController
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele[0]=3;
+            $remuse_resele[1]=6;
         	$resume=Release::selAs($c_id,$remuse_resele);
             if($ed_name==1){
                 $resume=Release::selAs($c_id,$remuse_resele);

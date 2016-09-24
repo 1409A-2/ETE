@@ -11,7 +11,7 @@
                        
                     @else
                         <div class="selected s1" style="display: block;">                    
-                        <h2>Java</h2>
+                        <h2>{{$subscribe['s_position']}}</h2>
                         <div class="sbox">
                         <a class="sclose" href="javascript:void(0)" rel="1"></a>
                         <a class="sedit" href="javascript:void(0)" rel="1"></a>
