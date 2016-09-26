@@ -30,7 +30,7 @@
                 @if (empty($con_data))
                     <dt><img alt="微信" src="{{env('APP_HOST')}}/style/images/wx1.png"></dt>
                     <dd>未绑定微信帐号  <span></span>
-                        <a href="http://www.chinayang.top/test/binding/index.php">前去绑定</a>
+                        <a href="http://www.chinayang.top/test/binding/index.php?url={{env('APP_HOST')}}">前去绑定</a>
                     </dd>
                 @else
                     @foreach ($con_data as $val)
