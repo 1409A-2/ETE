@@ -8,6 +8,7 @@ use App\Model\FriendShip;
 use App\Model\FriendSite;
 use App\Model\Industry;
 use App\Model\Lable;
+use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -72,6 +73,11 @@ class IndexController extends BaseController
             }
         }
 
+        $id = session('u_id');
+        $list = User::findOnly($id);
+        if ($list['u_status']=='0') {
+            return view('index.index.checkEmail');
+        }
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 
@@ -320,5 +326,26 @@ class IndexController extends BaseController
         $collected = CollectedPosition::selCollected(session('u_id'));
 
         return view('index.index.collecteds',['collected'=>$collected]);
+    }
+
+    /**
+     * 发送邮件
+     */
+    public function sendMail()
+    {
+        $u_id = session('u_id');
+        $user_data = User::findOnly($u_id);
+        
+        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email={$user_data['u_email']}'>这里激活</a>";
+        $subject = "校易聘企业认证邮件";
+
+        $rest = MailController::send($content,$user_data['u_email'],$subject);
+
+        if($rest){
+            return 1;
+        }else{
+
+            return 0;
+        }
     }
 }

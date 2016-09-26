@@ -42,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('subscribeDel','Index\FeedbackController@subscribeDel'); 	//删除订阅器  
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
+	Route::get('checkEamil','Index\IndexController@sendMail');
 
 	//登录注册
 	Route::get('login.html','Index\LoginController@login');
