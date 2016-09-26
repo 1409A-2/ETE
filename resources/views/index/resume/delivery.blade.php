@@ -24,7 +24,7 @@
                                 <li><a href="javascript:;">被查看@if(isset($num['read']))({{$num['read']}}) @endif </a></li>
                                 <li><a href="javascript:;">通过初筛 @if(isset($num['yes']))({{$num['yes']}}) @endif</a></li>
                                 <li><a href="javascript:;">通知面试 @if(isset($num['ok']))({{$num['ok']}})@endif</a></li>
-                                <li class="last"><a href="javascript:;">不合适@if(isset($num['pass']))({{$num['pass']}})@endif </a></li>
+                                <li class="last"><a href="javascript:;">不合适@if(isset($num['pass']))({{$num['pass']}})@endif</a></li>
                             </ul>
 
                         </div>
@@ -74,6 +74,10 @@
                                                     @elseif($v['remuse_resele']==4)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             不合适
+                                                        </a>
+                                                    @elseif($v['remuse_resele']==6)
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            收到Offer
                                                         </a>
                                                     @endif
                                                 </div>
@@ -340,10 +344,16 @@
 
                                                     <div class="clear"></div>
 
-
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        通知面试
-                                                    </a>
+                                                    @if($v['remuse_resele']==3)
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            通知面试
+                                                        </a>
+                                                    @else
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            收到Offer
+                                                        </a>
+                                                    @endif
+                                                    
 
                                                 </div>
                                                 <div class="progress_status	dn">

@@ -12,7 +12,7 @@
                                                 rere_id=$(this).attr('data-deliverid');
                                                 _this=$(this);
                                                 $.ajax({
-                                                    url:'nndetermined',
+                                                    url:'nndeterminedEmail',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                                                     success: function(a){
@@ -23,6 +23,34 @@
                                                         }
                                                     }
                                                 })
+                                            })
+
+                                            $(document).delegate('.resume_notice5','click',function(){
+                                                $('#query_hint').css('display','block');
+                                                resume_notice=$(this).attr('status');
+                                                resume_no=$(this).html();
+                                                rere_id=$(this).attr('data-deliverid');
+                                                _this=$(this);
+                                                email=$('.email').attr('em');
+                                                c_name=$('.c_name').attr('c');
+                                                r_name=$('.r_name').attr('r');
+                                                i_name=$('.i_name').attr('i');
+                                                _query_hint=$('#query_hint');
+                                                $.ajax({
+                                                    url:'nndeterminedEmail',
+                                                    type:'get',
+                                                    data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:rere_id},
+                                                    success: function(a){
+                                                        if(a==1){
+                                                            _this.parent().html('<a href="javascript:void(0)">已发送</a>');
+                                                        }else{
+                                                            alert(resume_no+"失败");
+                                                        }
+                                                        _query_hint.css('display','none');
+                                                    }
+
+                                                })
+                                                
                                             })
 
                                             $(document).delegate('#resumeInterviewAl','click',function(){
@@ -123,12 +151,21 @@
                                         </div>
                                     </div>
                                     <div class="links">
-                                        <!-- <a data-deliverid="{{$v['rere_id']}}" status="2" data-name="jason" data-positionid="149594" -->
-                                           <!-- data-email="888888888@qq.com" class="resume_notice" -->
-                                           <!-- href="javascript:void(0)">待定</a> -->
+                                    <input type="hidden" r="{{$v['r_name']}}" class="r_name">
+                                    <input type="hidden" c="{{$v['c_name']}}" class="c_name">
+                                    <input type="hidden" i="{{$v['i_name']}}" class="i_name">
+                                    <input type="hidden" em="{{$v['r_email']}}" class="email">
+                                    @if($v['remuse_resele']==6)
+                                        <a data-deliverid="{{$v['rere_id']}}" 
+                                           href="javascript:void(0)">已发送</a>
+                                    @else
+                                        <a data-deliverid="{{$v['rere_id']}}" status="6"  class="resume_notice5"
+                                           href="javascript:void(0)">发送Offer</a>
                                         <a data-deliverid="{{$v['rere_id']}}" status="4" class="resume_notice"
                                            href="javascript:void(0)">不合适</a>
                                         </a>
+                                    @endif
+                                        
                                     </div>
 
 

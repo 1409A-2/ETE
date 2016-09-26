@@ -16,8 +16,22 @@
                     success: function(a){
                         if(a==1){
                             _this.parent().html("<a data-deliverid='' status='' class='' href='javascript:void(0)'>已发送</a>");
-                        }else{
-                            alert("失败");
+                        }
+                    }
+                })
+            })
+            $(document).delegate('.resume_notice1','click',function(){
+                b_id=$(this).attr('data-deliverid');
+                // alert(bc);return;
+                _this=$(this);
+                bc=6;
+                $.ajax({
+                    url:'beatYes',
+                    type:'get',
+                    data: {b_id:b_id,bc:bc},
+                    success: function(a){
+                        if(a==1){                   
+                            _this.parent().html("<a class='resume_notice' href='javascript:void(0)'>发送offer</a><a class='resume_notices' href='javascript:void(0)'>不合适</a>");
                         }
                     }
                 })
@@ -34,8 +48,6 @@
                     success: function(a){
                         if(a==1){
                             _this.parent().html("<a data-deliverid='' status='' class='' href='javascript:void(0)'>不合适</a>");
-                        }else{
-                            alert("失败");
                         }
                     }
                 })
@@ -100,25 +112,24 @@
                                         </div>
                                     </div>
                                     <div class="links">
-                                                                                                 
-                                            
-                                                        @if($v['cb_cb']==2)
-                                                               <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice"
-                                               href="javascript:void(0)">  发送offer </a>
-                                               <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notices"
-                                               href="javascript:void(0)">   不合适</a>
-                                                        @else
-                                                            @if($v['cb_cb']==4)
-                                                <a data-deliverid="{{$v['b_id']}}" status="4" class=""
-                                               href="javascript:void(0)">   不合适</a>
-                                                            @else
-                                                             <a data-deliverid="{{$v['b_id']}}" status="4" class="" href="javascript:void(0)">    已发送 </a>
-
-                                                        
-                                                          @endif    
-                                                        @endif
-                                               
-                                    
+                                        @if($v['cb_cb']==2)
+                                            <a data-deliverid="{{$v['b_id']}}" status="4"  href="javascript:void(0)">  联系中  </a>
+                                        @elseif($v['cb_cb']==7)
+                                            <a  class="resume_notice" href="javascript:void(0)">  被拒绝 </a>
+                                        @else
+                                            @if($v['cb_cb']==5)
+                                                <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice1" href="javascript:void(0)">  安排见面  </a>
+                                                @else
+                                                @if($v['cb_cb']==4)
+                                                        <a  href="javascript:void(0)">  不合适  </a>
+                                                @elseif($v['cb_cb']==6)
+                                                        <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
+                                                        <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notices" href="javascript:void(0)">   不合适  </a>
+                                                @elseif($v['cb_cb']==3)
+                                                    <a href="javascript:void(0)">  已发送  </a>
+                                                @endif    
+                                            @endif
+                                        @endif
                                     </div>
                                 
                                 <input type="hidden" i="{{$v['b_phone']}}" class="b_phone">

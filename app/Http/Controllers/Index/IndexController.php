@@ -58,7 +58,7 @@ class IndexController extends BaseController
             }
         }
 
-        $hot=Release::hotRelease();
+        $hot = Release::hotRelease();
         $userKey = $Request->input('user');
         $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {

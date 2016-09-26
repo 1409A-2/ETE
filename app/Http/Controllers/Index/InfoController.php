@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Validator;
 use Mail;
+use App\Http\Controllers\MailController;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\User;
@@ -167,14 +168,11 @@ class InfoController extends Controller
         }
         $company_data = Company::selOne($user_data['u_cid']);
         $token = base64_encode($u_id.'|'.$user_data['u_cid'].'|1');
-        /*Mail::raw("请激活的你的发布招聘的资格,猛戳》》 <br/> <a href='http://www.ete.com'>http://www.ete.com</a>", function ($m) {
-            $m->to('594513729@qq.com', '校易聘')->subject('激活你的公司');
-        });*/
 
-        $rest = Mail::raw("请激活的你的发布招聘的资格,进入此网址进行激活》》 ".env('APP_HOST')."/adopt?token=$token", function ($message) use($company_data) {
-            $to = $company_data['c_email'];
-            $message ->to($to)->subject('校易聘企业认证邮件');
-        });
+        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/adopt?token=$token'>这里激活</a>";
+        $subject = "校易聘企业认证邮件";
+
+        $rest = MailController::send($content,$company_data['c_email'],$subject);
 
         if($rest){
 
