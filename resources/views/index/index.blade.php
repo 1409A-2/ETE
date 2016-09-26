@@ -1154,7 +1154,7 @@
 	</div>
 </div>
  -->
-<!-------------------------------------弹窗lightbox  ----------------------------------------->
+<!-------------------------------------弹窗lightbox  --------------------------------------- -->
 <div style="display:none;">
 	<!-- 登录框 -->
 	<div id="loginPop" class="popup" style="height:240px;">
@@ -1175,7 +1175,7 @@
 		</div>
     </div><!--/#loginPop-->
 </div>
-<!------------------------------------- end ----------------------------------------->
+<!------------------------------------- end --------------------------------------- -->
 <script type="text/javascript" src="style/js/Chart.min.js"></script>
 <script type="text/javascript" src="style/js/home.min.js"></script>
 <script type="text/javascript" src="style/js/count.js"></script>

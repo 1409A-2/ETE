@@ -72,6 +72,11 @@ class IndexController extends BaseController
             }
         }
 
+        $id = session('u_id');
+        $list = User::findOnly($id);
+        if ($list['u_status']=='0') {
+            return view('index.index.checkEmail');
+        }
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 

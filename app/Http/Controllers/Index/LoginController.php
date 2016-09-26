@@ -43,9 +43,9 @@ class LoginController extends BaseController
     	$list = User::checkLog($data);
         if ($list)
         {
-            if ($list['u_status'] == 0) {
-                return 3;
-            }
+            // if ($list['u_status'] == 0) {
+            //     return 3;
+            // }
 			if ($data['status'] == 1) {
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id']);
@@ -106,6 +106,8 @@ class LoginController extends BaseController
                 $to = $email;
                 $message ->to($to)->subject('校易聘注册认证邮件');
             });
+            session()->put('u_id', $res);
+            session()->put('u_email', $email);
             return json_encode($res);
     	} else {
     		return json_encode($res);
