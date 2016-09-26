@@ -94,7 +94,7 @@ var youdao_conv_id = 271546;
             	<a  href="login.html"  class="registor_now">直接登录</a>
                 <div class="login_others">使用以下帐号直接登录:</div>
                 <div id="hzy_fast_login">
-					<a href="http://www.chinayang.top/test/demo/index.php">
+					<a href="http://www.chinayang.top/test/demo/index.php?url={{env('APP_HOST')}}">
 					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
 					</a>
                 </div>
