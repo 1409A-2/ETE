@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Model\Resume;
 use DB;
+use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -101,11 +102,11 @@ class LoginController extends BaseController
                 $user['u_id']=$res;
                 Resume::addResume($user);
             }
-            $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
-            $rest = Mail::raw($arr['content'], function ($message) use($email) {
-                $to = $email;
-                $message ->to($to)->subject('校易聘注册认证邮件');
-            });
+            $u_id = session('u_id');
+            $user_data = User::findOnly($u_id);
+            $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$email'>这里激活</a>";
+            $subject = "校易聘企业认证邮件";
+            $rest = MailController::send($content,$email,$subject);
             session()->put('u_id', $res);
             session()->put('u_email', $email);
             return json_encode($res);
