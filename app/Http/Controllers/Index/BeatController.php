@@ -133,6 +133,7 @@ class BeatController extends Controller
             $companylist[$k]['b_professional']=Industry::selBeat($i_id);
             $companylist[$k]['level']=Bc::sel($company_c_id['u_cid'],$v['b_id']);
         }
+        
         return view('index.beat.companylist',['companylist'=>$companylist]);
     }
     //公司邀约简历
