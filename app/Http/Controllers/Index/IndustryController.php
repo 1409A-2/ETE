@@ -20,6 +20,7 @@ use App\Model\User;
 use App\Model\ResumeReseale;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Http\Controllers\MailController;
 use Mail;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -251,12 +252,11 @@ class IndustryController extends BaseController
     		$arr['rere_id']=$rere_id[$i];
 			$r_id=ResumeReseale::selEmail($arr);
 			$email=$r_id['r_email'];
-	    	$content = $r_id['r_name']."您好，\n感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们会在7个工作日内处理您的简历。通知你面试";
+	    	$content = $r_id['r_name']."您好，<br />感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们在处理您的简历。请你手机保持随时畅通，以方便我们联系你面试";
 	        // echo $content;die;
-	        $rest = Mail::raw($content, function ($message) use($email) {
-	            $to = $email;
-	            $message ->to($to)->subject('校易聘认证邮件');
-	        });
+	        $subject = "校易聘企业认证邮件";
+
+        $rest = MailController::send($content,$email,$subject);
 	        $arr['remuse_resele']=$data['remuse_resele'];
 			ResumeReseale::upResumereseale($arr);
     	}
@@ -267,12 +267,23 @@ class IndustryController extends BaseController
     public function unDeterminedEmail(Request $request){
     	$data=$request->input();
     	$email=$data['email'];
-    	$content = $data['r_name']."您好，\n感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们会在7个工作日内处理您的简历。通知你面试";
+    	$content = $data['r_name']."您好，<br />感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们在处理您的简历。请你手机保持随时畅通，以方便我们联系你面试";
         // echo $content;die;
-        $rest = Mail::raw($content, function ($message) use($email) {
-            $to = $email;
-            $message ->to($to)->subject('校易聘认证邮件');
-        });
+        $subject = "校易聘企业认证邮件";
+        $rest = MailController::send($content,$email,$subject);
+        $arr['rere_id']=$data['rere_id'];
+        $arr['remuse_resele']=$data['remuse_resele'];
+        return ResumeReseale::upResumereseale($arr);
+    }
+
+    //发送Offer    
+    public function undeterminedOffer(Request $request){
+        $data=$request->input();
+        $email=$data['email'];
+        $content = $data['r_name']."先生<br />您好，这里是".$data['c_name']."人事部，恭喜你通过了".$data['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职/gz/gz\gz<br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证及学历原件。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：".$data['addr'];
+        // echo $content;die;
+        $subject = "校易聘企业认证邮件";
+        $rest = MailController::send($content,$email,$subject);
         $arr['rere_id']=$data['rere_id'];
         $arr['remuse_resele']=$data['remuse_resele'];
         return ResumeReseale::upResumereseale($arr);
@@ -478,6 +489,7 @@ class IndustryController extends BaseController
 
     //根据公司查询一拍信息
     public function companyAllBeat(){
+
         $company_c_id=User::selOne(session('u_id'));
         $companylist=Bc::selAllCompany($company_c_id['u_cid']);
         foreach ($companylist as $k => $v) {
@@ -486,4 +498,26 @@ class IndustryController extends BaseController
         }
         return view('index.pendingresume.companylist',['companylist'=>$companylist]);
     }
+
+    //公司一拍发送Offer
+    public function companyBeatEmail(Request $request){
+        $company_c_id=User::selOne(session('u_id'));
+        $data = Company::selOne($company_c_id['u_cid']);
+
+        $arr1['cb_bid']=$request->input('b_id');
+        $arr1['bc_cid']=$company_c_id['u_cid'];
+        $arr1['cb_cb']=$request->input('bc',2);        
+        
+        $arr=$request->input();
+        $email=$arr['email'];
+        $content = $arr['b_name']."先生<br />您好，这里是".$data['c_name']."人事部，恭喜你通过了".$arr['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职/gz/gz\gz<br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：XXX";
+        
+        // echo $content;die;
+        $subject = "校易聘企业认证邮件";
+        $rest = MailController::send($content,$email,$subject);
+        return $re = Bc::up($arr1);
+    }
+
 }
+
+

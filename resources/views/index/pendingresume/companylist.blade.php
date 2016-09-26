@@ -7,12 +7,15 @@
             $(document).delegate('.resume_notice','click',function(){
                 b_id=$(this).attr('data-deliverid');
                 // alert(bc);return;
+                b_name=$(this).attr('b');
+                email=$(this).attr("em");
+                b_phone=$(this).attr('i');
                 _this=$(this);
                 bc=3;
                 $.ajax({
-                    url:'beatYes',
+                    url:'companyBeatEmail',
                     type:'get',
-                    data: {b_id:b_id,bc:bc},
+                    data: {b_id:b_id,bc:bc,b_name:b_name,email:email,i_name:b_phone},
                     success: function(a){
                         if(a==1){
                             _this.parent().html("<a data-deliverid='' status='' class='' href='javascript:void(0)'>已发送</a>");
@@ -112,6 +115,7 @@
                                         </div>
                                     </div>
                                     <div class="links">
+                                    
                                         @if($v['cb_cb']==2)
                                             <a data-deliverid="{{$v['b_id']}}" status="4"  href="javascript:void(0)">  联系中  </a>
                                         @elseif($v['cb_cb']==7)
@@ -123,7 +127,8 @@
                                                 @if($v['cb_cb']==4)
                                                         <a  href="javascript:void(0)">  不合适  </a>
                                                 @elseif($v['cb_cb']==6)
-                                                        <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
+                        
+                                                        <a data-deliverid="{{$v['b_id']}}" em="{{$v['b_email']}}" i="{{$v['b_professional']}}" b="{{$v['b_name']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
                                                         <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notices" href="javascript:void(0)">   不合适  </a>
                                                 @elseif($v['cb_cb']==3)
                                                     <a href="javascript:void(0)">  已发送  </a>
@@ -132,12 +137,11 @@
                                         @endif
                                     </div>
                                 
-                                <input type="hidden" i="{{$v['b_phone']}}" class="b_phone">
-                                <input type="hidden" em="{{$v['b_email']}}" class="email">
+                                
                                 </div>
                                 <div class="contactInfo">
                                     <span class="c9">电话：</span>{{$v['b_phone']}} &nbsp;&nbsp;&nbsp;
-                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['b_email']}}</a>
+                                    <span class="c9">邮箱：</span><a href="{{$v['b_email']}}">{{$v['b_email']}}</a>
                                 </div>
                             </li>
                     @endforeach
