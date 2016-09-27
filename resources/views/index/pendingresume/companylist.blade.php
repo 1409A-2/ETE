@@ -1,5 +1,5 @@
 @extends('index.lar.public')
-@section('title', '一拍')
+@section('title', '公司一拍')
 @section('content')
 <input type="hidden" id="url" value="{{$_SERVER['REQUEST_URI']}}">
 <script type="text/javascript">
@@ -63,6 +63,7 @@
 <div id="container">
  @include('index.industry.postOffice_public')
         <div class="content" >
+
             <dl class="company_center_content">
                 <dt>
                 <h1>
@@ -100,7 +101,7 @@
                                         <h3 class="read">
                                             <a title="预览{{$v['b_name']}}的一拍"
                                                href="#">
-                                                {{$v['b_name']}}的一拍
+                                                {{$v['b_name']}}的一拍 
                                             </a>
                                         </h3>
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['b_time'])}}</span>
@@ -118,8 +119,10 @@
                                     
                                         @if($v['cb_cb']==2)
                                             <a data-deliverid="{{$v['b_id']}}" status="4"  href="javascript:void(0)">  联系中  </a>
+                                        @elseif($v['cb_cb']==9)
+                                            <a data-deliverid="{{$v['b_id']}}" href="javascript:void(0)"> <font color="green">Offer被接收</font>  </a>
                                         @elseif($v['cb_cb']==7)
-                                            <a  class="resume_notice" href="javascript:void(0)">  被拒绝 </a>
+                                            <a  class="resume_notice" href="javascript:void(0)">  <font color="red">被拒绝</font> </a>
                                         @else
                                             @if($v['cb_cb']==5)
                                                 <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice1" href="javascript:void(0)">  安排见面  </a>
