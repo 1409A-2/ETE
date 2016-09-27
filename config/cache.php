@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'file'),
+    // 'default' => env('CACHE_DRIVER', 'file'),
+    // 修改为memcached
+    'default' => env('CACHE_DRIVER', 'memcache'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,6 +65,16 @@ return [
             'connection' => 'default',
         ],
 
+        'memcache' => [
+            'driver'  => 'memcache',
+            'servers' => [
+                [
+                    'host' => env('MEMCACHED_HOST', '127.0.0.1'),
+                    'port' => env('MEMCACHED_PORT', 11211),
+                    'weight' => 100,
+                ],
+            ],
+        ],
     ],
 
     /*
