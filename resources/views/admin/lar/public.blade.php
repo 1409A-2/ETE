@@ -49,6 +49,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
         });
 
     </script>
+    @yield('script_admin')
 </head>
 
 <body>

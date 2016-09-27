@@ -1,10 +1,7 @@
 ﻿@extends('index.lar.public')
 @section('title', '开通招聘服务')
 @section('content')
-    <style>.ui-autocomplete {
-            max-height: 160px;
-            overflow-y: scroll;
-        }</style>
+
     <div id="container">
         <div class="content_mid">
             <!--form-->
@@ -34,7 +31,13 @@
     </div>
     <div class="dn" id="loadingDiv" style="display: none;"><img width="32" height="32"
                                                                 src="style/images/ajax-loader.gif"></div>
-    <script src="{{env('APP_HOST')}}/style/js/services.min.js" type="text/javascript"></script>
+    @section('script')
+        <script src="{{env('APP_HOST')}}/style/js/services.min.js" type="text/javascript"></script>
+        <style>.ui-autocomplete {
+                max-height: 160px;
+                overflow-y: scroll;
+            }</style>
+    @endsection
     <div class="clear"></div>
     <input type="hidden" value="3a9b3124ee0a4adca922f2c9756d1ac1" id="resubmitToken">
 

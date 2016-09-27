@@ -68,12 +68,13 @@
 		</div>
 
 
-		<script src="style/js/step3.min.js" type="text/javascript"></script>
+
 		<div class="clear"></div>
 		<input type="hidden" value="52346c62232045a8ab1d45cb3e0540b7" id="resubmitToken"><!-- end #container -->
 @endsection
 
 @section('script')
+    <script src="{{env('APP_HOST')}}/style/js/step3.min.js" type="text/javascript"></script>
     <script>
 
         var ue = UE.getEditor('editor',{

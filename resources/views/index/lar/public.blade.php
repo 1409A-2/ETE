@@ -85,6 +85,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
+                <dd><a href="">消息 <span style="color: red;">(1)</span></a></dd>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collectedPosition">我收藏的职位</a></dd>
@@ -93,6 +94,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
 				<dd><a href="updatePwd.html">帐号设置</a></dd>
+
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>

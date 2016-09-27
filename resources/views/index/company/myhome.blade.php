@@ -306,7 +306,7 @@
 			</div><!-- #logoUploader -->
 		</div>
 		<!------------------------------------- end ----------------------------------------->
-
+        @section('script')
 		<script src="style/js/company.min.js" type="text/javascript"></script>
 		<script>
 			var avatar = {};
@@ -318,6 +318,7 @@
 				}
 			};
 		</script>
+        @endsection
 		<div class="clear"></div>
 		<input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
 @endsection
