@@ -90,7 +90,7 @@
 							</dt>
 							<dd>
                                 @if($company_data['c_intro'])
-								<div class="c_intro">{{$company_data['c_intro']}}</div>
+								<div class="c_intro"><?php echo $company_data['c_intro']?></div>
                                 @else
                                 <div class="c_intro">对方没有留下他的介绍</div>
                                 @endif
@@ -209,7 +209,7 @@
 										
 									</div>
 									<div class="m_position">ceo</div>
-									<div class="m_intro">{{$company_data['ceo_desc']}}</div>
+									<div class="m_intro"><?php echo $company_data['ceo_desc']?></div>
 								</div>
 
 
