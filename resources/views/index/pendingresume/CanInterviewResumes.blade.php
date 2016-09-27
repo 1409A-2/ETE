@@ -1,6 +1,6 @@
 @extends('index.lar.public')
 @section('title', '待定简历')
-@section('content')
+@section('script')
 <script type="text/javascript">
         $(function(){                                              
             $('.r').click(function(){
@@ -105,6 +105,9 @@
             })
         })
     </script>
+ @endsection   
+@section('content')
+
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>

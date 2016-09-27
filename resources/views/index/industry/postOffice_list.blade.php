@@ -50,12 +50,7 @@
 <!-- end #body -->
 
 
-<script src="style/js/core.min.js" type="text/javascript"></script>
-<script src="style/js/popup.min.js" type="text/javascript"></script>
-<script src="style/js/tongji.js" type="text/javascript"></script>
-<!--  -->
-<script src="style/js/analytics01.js" type="text/javascript"></script>
-<script type="text/javascript" src="style/js/h.js"></script>
+@section('script')
 <script type="text/javascript">
     $(function () {
         $('#noticeDot-1').hide();
@@ -99,7 +94,7 @@
     };
     CallCenter.init(url);
 </script>
-
+@endsection
 <div id="cboxOverlay" style="display: none;"></div>
 <div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;">
     <div id="cboxWrapper">

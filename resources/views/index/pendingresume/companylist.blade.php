@@ -1,7 +1,6 @@
 @extends('index.lar.public')
 @section('title', '公司一拍')
-@section('content')
-<input type="hidden" id="url" value="{{$_SERVER['REQUEST_URI']}}">
+@section('script')
 <script type="text/javascript">
         $(function(){                                                                              
             $(document).delegate('.resume_notice','click',function(){
@@ -57,6 +56,10 @@
             })
         })
     </script>
+  @endsection  
+@section('content')
+<input type="hidden" id="url" value="{{$_SERVER['REQUEST_URI']}}">
+
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
