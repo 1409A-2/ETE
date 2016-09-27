@@ -1,6 +1,6 @@
 ﻿@extends('index.lar.public')
 @section('title','前端开发全国-职位搜索-拉勾网-最专业的互联网招聘平台')
-@section('content')
+@section('script')
 <script>
     $(function(){
         $('.moery').click(function(){
@@ -24,6 +24,9 @@
         })
     })
 </script>
+@endsection
+@section('content')
+
 
     <div id="container">
         <div id="sidebar">

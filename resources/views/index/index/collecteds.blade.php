@@ -1,6 +1,7 @@
 @extends('index.lar.public')
 @section('title', '我的收藏-校易聘')
 @section('content')<!-- end #header -->
+@section('script')
 <script>
     $(function () {
         $('.collectionCancel').click(function () {
@@ -27,6 +28,7 @@
         });
     })
 </script>
+@endsection
 <div id="container">
 
     <div class="clearfix">

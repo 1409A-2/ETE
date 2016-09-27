@@ -47,6 +47,12 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 		var youdao_conv_id = 271546;
 	</script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/conv.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{{env('APP_HOST')}}/editor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{{env('APP_HOST')}}/editor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="{{env('APP_HOST')}}/editor/lang/zh-cn/zh-cn.js"></script>
+    @yield('script')
 	<?php
 	$user_data = User::selOne(session('u_id'));
 	?>
@@ -79,6 +85,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
+                <dd><a href="">消息 <span style="color: red;">(1)</span></a></dd>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collectedPosition">我收藏的职位</a></dd>
@@ -87,6 +94,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
 				<dd><a href="updatePwd.html">帐号设置</a></dd>
+
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>
