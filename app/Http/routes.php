@@ -42,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('subscribeDel','Index\FeedbackController@subscribeDel'); 	//删除订阅器  
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
+	Route::get('checkEamil','Index\IndexController@sendMail');
 
 	//登录注册
 	Route::get('login.html','Index\LoginController@login');
@@ -94,6 +95,7 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('haveNoticeResumes','Index\IndustryController@haveNoticeResumes');//查看已发送邮件的简历
 			Route::get('haveRefuseResumes','Index\IndustryController@haveRefuseResumes');//查看不合适的简历
 			Route::get('preview','Index\IndustryController@preview');//公司查看简历详情
+			Route::get('undeterminedOffer','Index\IndustryController@undeterminedOffer');//公司发送Offer给用户   undeterminedOffer
 			Route::get('positions','Index\IndustryController@positions');//查看有效职位  positions
 			Route::get('positionsdown','Index\IndustryController@positionsDown');//查看有效职位  positionsdown
 			Route::get('positionsType','Index\IndustryController@positionsType');//职位上下线管理	positionsType
@@ -117,6 +119,7 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('companyAllBeat', 'Index\IndustryController@companyAllBeat');//公司查看一拍页面   
 			Route::get('companyBeat', 'Index\beatController@companyBeat');//查看一拍页面信息
 			Route::get('beatYes', 'Index\beatController@beatYes');//添加公司的一拍   
+			Route::get('companyBeatEmail', 'Index\IndustryController@companyBeatEmail');// 公司发送offer
 		});
         Route::post('getcollected','Index\IndexController@getCollected');// 是否收藏职位
         Route::post('collectionPosition','Index\IndexController@collectionPosition');// 收藏职位
