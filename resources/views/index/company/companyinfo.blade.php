@@ -90,7 +90,7 @@
 							</dt>
 							<dd>
                                 @if($company_data['c_intro'])
-								<div class="c_intro">{{$company_data['c_intro']}}</div>
+								<div class="c_intro"><?php echo $company_data['c_intro']?></div>
                                 @else
                                 <div class="c_intro">对方没有留下他的介绍</div>
                                 @endif
@@ -209,7 +209,7 @@
 										
 									</div>
 									<div class="m_position">ceo</div>
-									<div class="m_intro">{{$company_data['ceo_desc']}}</div>
+									<div class="m_intro"><?php echo $company_data['ceo_desc']?></div>
 								</div>
 
 
@@ -254,8 +254,8 @@
 			</div><!-- #logoUploader -->
 		</div>
 		<!------------------------------------- end --------------------------------------- -->
-
-		<script src="style/js/company.min.js" type="text/javascript"></script>
+        @section('script')
+		<script src="{{env('APP_HOST')}}/style/js/company.min.js" type="text/javascript"></script>
 		<script>
 			var avatar = {};
 			avatar.uploadComplate = function( data ){
@@ -266,6 +266,7 @@
 				}
 			};
 		</script>
+        @section('script')@section('script')@section('script')@section('script')
 		<div class="clear"></div>
 		<input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
 @endsection

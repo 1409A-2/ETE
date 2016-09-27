@@ -136,7 +136,7 @@
 							<h2><em></em>公司介绍</h2>
 							</dt>
 							<dd>
-								<div class="c_intro">{{$company_data['c_intro']}}</div>
+								<div class="c_intro"><?php echo $company_data['c_intro']?></div>
 								<a title="编辑公司介绍" id="editIntro" class="c_edit" href="/detailed_info5?url=companylist"></a>
 							</dd>
 						</dl>
@@ -261,7 +261,7 @@
 										{{$company_data['c_ceo']}}
 									</div>
 									<div class="m_position">ceo</div>
-									<div class="m_intro">{{$company_data['ceo_desc']}}</div>
+									<div class="m_intro"><?php echo $company_data['ceo_desc']?></div>
 								</div>
 
 								@endif
@@ -306,7 +306,7 @@
 			</div><!-- #logoUploader -->
 		</div>
 		<!------------------------------------- end ----------------------------------------->
-
+        @section('script')
 		<script src="style/js/company.min.js" type="text/javascript"></script>
 		<script>
 			var avatar = {};
@@ -318,6 +318,7 @@
 				}
 			};
 		</script>
+        @endsection
 		<div class="clear"></div>
 		<input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
 @endsection

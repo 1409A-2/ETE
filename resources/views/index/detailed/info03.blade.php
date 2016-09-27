@@ -50,8 +50,10 @@
 								<input type="text" placeholder="请输入创始人新浪微博地址" name="leaderInfos[0].weibo" id="weibo0">--}}
 
 								<h3>创始人简介</h3>
-								<textarea placeholder="请输入该创始人的个人履历等，建议按照时间倒序分条展示" maxlength="1000" name="leaderInfosremark" id="description0">{{$company_data['ceo_desc']}}</textarea>
-								<div class="word_count">你还可以输入 <span>500</span> 字</div>
+								<textarea placeholder="请输入该创始人的个人履历等，建议按照时间倒序分条展示" style="display: none;" maxlength="1000" name="leaderInfosremark" id="description0">{{$company_data['ceo_desc']}}</textarea>
+								<div class="word_count" style="display: none;">你还可以输入 <span>500</span> 字</div>
+                                <script id="editor" type="text/plain" style="width:620px;height:245px;margin-top:20px;"></script>
+
 							</div>
 						</div>
 						{{--<a id="addMember" class="add_member" href="javascript:void(0)"><i></i>继续添加创始团队</a>--}}
@@ -66,7 +68,38 @@
 		</div>
 
 
-		<script src="style/js/step3.min.js" type="text/javascript"></script>
+
 		<div class="clear"></div>
 		<input type="hidden" value="52346c62232045a8ab1d45cb3e0540b7" id="resubmitToken"><!-- end #container -->
+@endsection
+
+@section('script')
+    <script src="{{env('APP_HOST')}}/style/js/step3.min.js" type="text/javascript"></script>
+    <script>
+
+        var ue = UE.getEditor('editor',{
+            wordCount:true          //是否开启字数统计
+            ,maximumWords:500
+            ,wordCountMsg:"你还可以输入 <font color='red'>{#leave}</font> 字"
+        });
+
+        $(function(){
+            var _query_hint=$('#query_hint');
+            _query_hint.css('display','block');
+            setTimeout(function () {
+                setContent();
+                _query_hint.css('display','none');
+            }, 3000);
+        });
+
+
+
+        function setContent(isAppendTo) {
+
+            ue.setContent("<?php echo $company_data['ceo_desc']?>", isAppendTo);
+        }
+
+
+
+    </script>
 @endsection

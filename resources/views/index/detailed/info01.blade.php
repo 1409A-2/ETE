@@ -130,20 +130,21 @@
 			</div><!-- #logoUploader -->
 		</div>--}}
 		<!------------------------------------- end ----------------------------------------->
-
-		<script src="{{env('APP_HOST')}}/style/js/step1.min.js" type="text/javascript"></script>
-		<script>
-			var avatar = {};
-			avatar.uploadComplate = function( data ){
-				var result = eval('('+ data +')');
-				if(result.success){
-					jQuery('#logoShow img').attr("src",ctx+ '/'+result.content);
-					jQuery.colorbox.close();
-					jQuery('#logoNo').hide();
-					jQuery('#logoShow').show();
-				}
-			};
-		</script>
+        @section('script')
+            <script src="{{env('APP_HOST')}}/style/js/step1.min.js" type="text/javascript"></script>
+            <script>
+                var avatar = {};
+                avatar.uploadComplate = function( data ){
+                    var result = eval('('+ data +')');
+                    if(result.success){
+                        jQuery('#logoShow img').attr("src",ctx+ '/'+result.content);
+                        jQuery.colorbox.close();
+                        jQuery('#logoNo').hide();
+                        jQuery('#logoShow').show();
+                    }
+                };
+            </script>
+        @endsection
 		<div class="clear"></div>
 		<input type="hidden" value="13ae35fedd9e45cdb66fb712318d7369" id="resubmitToken">
 
