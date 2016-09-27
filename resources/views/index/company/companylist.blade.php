@@ -165,6 +165,7 @@
 
     <div class="clear"></div>
     <input type="hidden" id="resubmitToken" value=""/>
+    @section('script')
     <script>
         $(function(){
             $('dl dd a').click(function () {
@@ -184,4 +185,5 @@
             }
         })
     </script>
+    @endsection
 @endsection

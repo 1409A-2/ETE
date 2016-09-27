@@ -94,8 +94,9 @@
         </dd>
         </dl>
     </div>
-
-    <script src="style/js/step2.min.js" type="text/javascript"></script>
+    @section('script')
+        <script src="{{env('APP_HOST')}}/style/js/step2.min.js" type="text/javascript"></script>
+    @endsection
     <div class="clear"></div>
     <input type="hidden" value="" id="resubmitToken">
     <!-- end #container -->
