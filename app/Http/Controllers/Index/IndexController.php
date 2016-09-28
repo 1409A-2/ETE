@@ -24,6 +24,7 @@ use App\Model\Resume;
 use App\Model\Feedback;
 use Mail;
 use DB;
+use Cache;
 
 header("content-type:text/html;charset=utf8");
 
