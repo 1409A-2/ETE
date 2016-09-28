@@ -56,6 +56,31 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<?php
 	$user_data = User::selOne(session('u_id'));
 	?>
+    <script>
+        $(function(){
+            if("{{session('u_email')}}" == ''){
+                return
+            } else {
+                var noticeDot = $("#noticeDot-0");
+                var message = $("#message");
+                $.ajax({
+                    type : 'post',
+                    url : "getMessage",
+                    dataType : 'json',
+                    data : {
+                        _token : "{{csrf_token()}}"
+                    },
+                    success : function(re){
+                        if(re != 0){
+                            noticeDot.removeClass('dn');
+                            message.html('('+re+')');
+                            message.show();
+                        }
+                    }
+                })
+            }
+        });
+    </script>
 </head>
 <body>
 <div id="body">
@@ -85,7 +110,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
-                <dd><a href="">消息 <span style="color: red;">(1)</span></a></dd>
+                <dd><a href="messageList">消息  <span style="color: red; display: none;" id="message"></span></a></dd>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collectedPosition">我收藏的职位</a></dd>

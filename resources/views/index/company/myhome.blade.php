@@ -162,7 +162,7 @@
 						<table>
 							<tbody><tr>
 								<td width="45">地点</td>
-								<td>北京</td>
+								<td style="font-size: 16px;">{{$company_data['c_address']}}</td>
 							</tr>
 							<tr>
 								<td>领域</td><!-- 支持多选 -->

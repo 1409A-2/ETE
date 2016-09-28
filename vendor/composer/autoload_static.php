@@ -272,6 +272,7 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
     );
 
     public static $classMap = array (
+        'CreatEteMessageTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_28_202006_creat_ete_message_table.php',
         'CreateEteAdminTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
         'CreateEteBcTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_23_083430_create_ete_bc_table.php',
         'CreateEteBeatTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_20_195844_create_ete_beat_table.php',
@@ -803,6 +804,7 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
         'SeedEteIndustryTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_22_193456_seed_ete_industry_table.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'UpdateEteCompanyTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_28_202543_update_ete_company_table.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

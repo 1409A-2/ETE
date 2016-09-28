@@ -118,7 +118,7 @@
 						<table>
 							<tbody><tr>
 								<td width="45">地点</td>
-								<td>北京</td>
+								<td style="font-size: 16px;">{{$company_data['c_address']}}</td>
 							</tr>
 							<tr>
 								<td>领域</td><!-- 支持多选 -->
@@ -266,7 +266,7 @@
 				}
 			};
 		</script>
-        @section('script')@section('script')@section('script')@section('script')
+        @endsection
 		<div class="clear"></div>
 		<input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
 @endsection

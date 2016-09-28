@@ -74,7 +74,7 @@ class MaterialController extends Controller
         $file_name = time().rand(10000,99999)."_carousel.jpg";
         if ($request->hasFile('logo')) {
             if ($request->file('logo')->isValid()){
-                unlink($_SERVER['DOCUMENT_ROOT'].$carousel['car_img']);
+                @unlink($_SERVER['DOCUMENT_ROOT'].$carousel['car_img']);
                 $request->file('logo')->move($_SERVER['DOCUMENT_ROOT'].$destination_path, $file_name);
                 $data['car_img'] = $destination_path.'/'.$file_name;
             }
@@ -96,7 +96,7 @@ class MaterialController extends Controller
     {
         $car_id = $request->get('car_id');
         $carousel = Carousel::selOnly($car_id);
-        unlink($_SERVER['DOCUMENT_ROOT'].$carousel['car_img']);
+        @unlink($_SERVER['DOCUMENT_ROOT'].$carousel['car_img']);
         if(Carousel::delOne($car_id)){
 
             return redirect('adminMaterial');
@@ -120,7 +120,7 @@ class MaterialController extends Controller
         $carousel = Carousel::selSome($car_id);
 
         foreach($carousel as $val){
-            unlink($_SERVER['DOCUMENT_ROOT'].$val['car_img']);
+            @unlink($_SERVER['DOCUMENT_ROOT'].$val['car_img']);
         }
 
         if(Carousel::delSome($car_id)){

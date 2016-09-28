@@ -43,7 +43,7 @@ class DetailedController extends Controller
 
                         return $this->detailedBase($request->get('url'));
                     }
-                    if(empty($company_data['c_shorthand'])||empty($company_data['c_website'])||empty($company_data['c_industry'])||empty($company_data['c_logo'])||empty($company_data['c_desc'])){
+                    if(empty($company_data['c_shorthand'])||empty($company_data['c_website'])||empty($company_data['c_industry'])||empty($company_data['c_logo'])||empty($company_data['c_desc'])||empty($company_data['c_address'])){
 
                         return $this->detailedBase();
                     }else{
@@ -93,6 +93,7 @@ class DetailedController extends Controller
         $up_data['c_shorthand'] = $request->get('name');
         $up_data['c_website'] = $request->get('website');
         $up_data['c_industry'] = $request->get('select_industry_hidden');
+        $up_data['c_address'] = $request->get('positionAddress');
         if(isset($file)){
             $up_data['c_logo'] = $destination_path.'/'.$file_name;
         }

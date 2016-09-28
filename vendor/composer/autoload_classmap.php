@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreatEteMessageTable' => $baseDir . '/database/migrations/2016_09_28_202006_creat_ete_message_table.php',
     'CreateEteAdminTable' => $baseDir . '/database/migrations/2016_09_08_202614_create_ete_admin_table.php',
     'CreateEteBcTable' => $baseDir . '/database/migrations/2016_09_23_083430_create_ete_bc_table.php',
     'CreateEteBeatTable' => $baseDir . '/database/migrations/2016_09_20_195844_create_ete_beat_table.php',
@@ -537,4 +538,5 @@ return array(
     'SeedEteIndustryTable' => $baseDir . '/database/migrations/2016_09_22_193456_seed_ete_industry_table.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UpdateEteCompanyTable' => $baseDir . '/database/migrations/2016_09_28_202543_update_ete_company_table.php',
 );

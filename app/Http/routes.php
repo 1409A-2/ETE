@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
+
 		//完善公司基本信息（必填）
         Route::get('info','Index\InfoController@checkCompany');
         Route::get('sendEamil','Index\InfoController@sendMail');
@@ -75,6 +76,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('upPwdPro','Index\AccountController@upPwdPro');
         Route::get('unAccount','Index\AccountController@unAccount');
         Route::get('accountPro','Index\AccountController@accountPro');
+        //消息
+        Route::post('getMessage','Index\MessageController@getMessage');//获取消息数量
+        Route::post('reading','Index\MessageController@reading');//标为已读
+        Route::get('messageList','Index\MessageController@messageList');//消息列表
 
 		//这是发布职位控制
 		Route::group(['middleware' => 'company'], function () {
