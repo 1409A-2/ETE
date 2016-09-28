@@ -34,6 +34,6 @@ class SeedEteIndustryTable extends Migration
         DB::table('industry')->delete();
         DB::table('admin')->delete();
         DB::table('company')->delete();
-        DB::table('eduction')->delete();
+        DB::table('education')->delete();
     }
 }
