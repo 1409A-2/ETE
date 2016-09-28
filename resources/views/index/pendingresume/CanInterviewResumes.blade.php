@@ -1,6 +1,6 @@
 @extends('index.lar.public')
 @section('title', '待定简历')
-@section('content')
+@section('script')
 <script type="text/javascript">
         $(function(){                                              
             $('.r').click(function(){
@@ -11,12 +11,17 @@
                 resume_no=$(this).html();
                 rere_id=$(this).attr('data-deliverid');
                 _this=$(this);
+                _num=$('#num');
+                _nu= $("#nu");
+                num=$('#nu').val();
                 $.ajax({
                     url:'nndetermined',
                     type:'get',
                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                     success: function(a){
                         if(a==1){
+                            _nu.val((num-1*1));
+                            _num.html("（共"+(num-1*1)+"份）");
                             _this.parent().parent().parent().remove();
                         }else{
                             alert(resume_no+"失败");
@@ -100,6 +105,9 @@
             })
         })
     </script>
+ @endsection   
+@section('content')
+
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
@@ -110,7 +118,8 @@
                 <dt>
                 <h1>
                     <em></em>
-                    待定简历 <span>（共{{count($resume)}}份）</span></h1>
+                    <input type="hidden" id="nu" value="{{count($resume)}}">
+                    待定简历 <span id="num">（共{{count($resume)}}份）</span></h1>
                 </dt>
                 <dd>
                     <form action="canInterviewResumes.html" method="get" id="filterForm">

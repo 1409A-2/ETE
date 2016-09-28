@@ -87,6 +87,7 @@ class Release extends Model
     //查看各个职位的简历
     public static function selPr($c_id,$re_status){
         return Release::Join('company', 'release.c_id', '=', 'company.c_id')
+        ->orderBy('re_time','desc')
         ->where('release.c_id','=',$c_id)
         ->where('release.re_status','=',$re_status)
         ->get()        
@@ -104,17 +105,14 @@ class Release extends Model
     }
 
     //主页热门搜索职位
-
-        public static function hotRelease(){
-            $re=Release::get()->toArray();
-            if(!$re){
-
-                return $re;
-            }
-
-            return $re[rand(0,count($re)-1)];
+    public static function hotRelease($re_id){
+        $re=Release::join('company','release.c_id','=','company.c_id')->first();
+        if($re){
+            return $re->toArray();
+        }else{
+            return $re;
         }
-
+    }
 
 
     //主页热门薪资搜索职位
@@ -170,5 +168,15 @@ class Release extends Model
     //查看发布职位
     public static function selListLimit($c_id){
         return Release::where($c_id)->where('re_status',0)->limit(3)->get()->toArray();
+    }
+
+    //查询最新职位
+    public static function newTime(){
+        $re= self::join('company','release.c_id','=','company.c_id')->orderBy('re_time','desc')->limit(5)->get();
+        if($re){
+            return $re->toArray();
+        }else{
+            return $re;
+        }
     }
 }

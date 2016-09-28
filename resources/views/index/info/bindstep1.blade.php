@@ -2,7 +2,7 @@
 @section('title', '开通招聘服务')
 @section('content')
 	<div id="container">
-		<script src="{{env('APP_HOST')}}/style/js/ajaxCross.json" charset="UTF-8"></script></head>
+
 		<div class="content_mid">
 			<!--form-->
 			<dl class="c_section c_section_service">
@@ -52,7 +52,10 @@
 		</div>
 		<a rel="nofollow" title="回到顶部" id="backtop"></a>
 	</div>
+    @section('script')
 	<script src="{{env('APP_HOST')}}/style/js/services.min.js" type="text/javascript"></script>
+    <script src="{{env('APP_HOST')}}/style/js/ajaxCross.json" charset="UTF-8"></script>
+    @endsection
 	<div class="clear"></div>
 	<input type="hidden" value="a517d13d23f5432eab682688151c3673" id="resubmitToken">
 @endsection

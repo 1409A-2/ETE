@@ -11,7 +11,7 @@
                        
                     @else
                         <div class="selected s1" style="display: block;">                    
-                        <h2>Java</h2>
+                        <h2>{{$subscribe['s_position']}}</h2>
                         <div class="sbox">
                         <a class="sclose" href="javascript:void(0)" rel="1"></a>
                         <a class="sedit" href="javascript:void(0)" rel="1"></a>
@@ -58,331 +58,33 @@
                             </dt>
                             <dd>
                                 <input type="hidden" id="select_job_hidden" name="positionName" value=""/>
-                                <input type="button" class="select" id="select_job" value="请选择职位名称"/>
+                                <input type="button" class="select" id="select_job" value="请选择职位名称"/>                                    
+                                <div id="sub_box_job" class="dn" style="width:530px">
+                                <dl>
+                                        @foreach($industry as $v)
+                                        @if($v['level']==0)
+                                            <dt>{{$v['i_name']}}</dt>
+                                            <dd>
+                                                @foreach($industry as $k)                                                
+                                                    <ul class="reset job_main">
+                                                        @if($k['i_pid']==$v['i_id'])
+                                                            <li>{{$k['i_name']}}
+                                                                
+                                                                <ul class="reset job_sub dn">
+                                                                    @foreach($industry as $kv)                  
+                                                                    @if($kv['i_pid']==$k['i_id'])
+                                                                        <li>{{$kv['i_name']}}</li>
+                                                                    @endif
+                                                                    @endforeach
+                                                                </ul>
+                                                            </li>
+                                                        @endif
+                                                    </ul>                                                    
+                                                @endforeach
+                                            </dd>
 
-                                <div id="sub_box_job" class="dn">
-                                    <dl>
-                                        <dt>技术</dt>
-                                        <dd>
-                                            <ul class="reset job_main">
-                                                <li>
-                                                    后端开发
-                                                    <ul class="reset job_sub dn">
-                                                        <li>Java</li>
-                                                        <li>C++</li>
-                                                        <li>PHP</li>
-                                                        <li>数据挖掘</li>
-                                                        <li>C</li>
-                                                        <li>C#</li>
-                                                        <li>.NET</li>
-                                                        <li>Hadoop</li>
-                                                        <li>Python</li>
-                                                        <li>Delphi</li>
-                                                        <li>VB</li>
-                                                        <li>Perl</li>
-                                                        <li>Ruby</li>
-                                                        <li>Node.js</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    移动开发
-                                                    <ul class="reset job_sub dn">
-                                                        <li>HTML5</li>
-                                                        <li>Android</li>
-                                                        <li>iOS</li>
-                                                        <li>WP</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    前端开发
-                                                    <ul class="reset job_sub dn">
-                                                        <li>web前端</li>
-                                                        <li>Flash</li>
-                                                        <li>html5</li>
-                                                        <li>JavaScript</li>
-                                                        <li>U3D</li>
-                                                        <li>COCOS2D-X</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    测试
-                                                    <ul class="reset job_sub dn">
-                                                        <li>测试工程师</li>
-                                                        <li>自动化测试</li>
-                                                        <li>功能测试</li>
-                                                        <li>性能测试</li>
-                                                        <li>测试开发</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    运维
-                                                    <ul class="reset job_sub dn">
-                                                        <li>运维工程师</li>
-                                                        <li>运维开发工程师</li>
-                                                        <li>网络工程师</li>
-                                                        <li>系统工程师</li>
-                                                        <li>IT支持</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    DBA
-                                                    <ul class="reset job_sub dn">
-                                                        <li>MySQL</li>
-                                                        <li>SQLServer</li>
-                                                        <li>Oracle</li>
-                                                        <li>DB2</li>
-                                                        <li>MongoDB</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    项目管理
-                                                    <ul class="reset job_sub dn">
-                                                        <li>项目经理</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    高端技术职位
-                                                    <ul class="reset job_sub dn">
-                                                        <li>技术经理</li>
-                                                        <li>技术总监</li>
-                                                        <li>测试经理</li>
-                                                        <li>架构师</li>
-                                                        <li>CTO</li>
-                                                        <li>运维总监</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>产品</dt>
-                                        <dd>
-                                            <ul class="reset job_main">
-                                                <li>
-                                                    产品经理
-                                                    <ul class="reset job_sub dn">
-                                                        <li>产品经理</li>
-                                                        <li>网页产品经理</li>
-                                                        <li>移动产品经理</li>
-                                                        <li>产品助理</li>
-                                                        <li>数据产品经理</li>
-                                                        <li>电商产品经理</li>
-                                                        <li>游戏策划</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    产品设计师
-                                                    <ul class="reset job_sub dn">
-                                                        <li>网页产品设计师</li>
-                                                        <li>无线产品设计师</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    高端产品职位
-                                                    <ul class="reset job_sub dn">
-                                                        <li>产品部经理</li>
-                                                        <li>产品总监</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>设计</dt>
-                                        <dd>
-                                            <ul class="reset job_main">
-                                                <li>
-                                                    视觉设计
-                                                    <ul class="reset job_sub dn">
-                                                        <li>视觉设计师</li>
-                                                        <li>网页设计师</li>
-                                                        <li>Flash设计师</li>
-                                                        <li>APP设计师</li>
-                                                        <li>UI设计师</li>
-                                                        <li>平面设计师</li>
-                                                        <li>美术设计师（2D/3D）</li>
-                                                        <li>广告设计师</li>
-                                                        <li>多媒体设计师</li>
-                                                        <li>原画师</li>
-                                                        <li>游戏特效</li>
-                                                        <li>游戏界面设计师</li>
-                                                        <li>游戏场景</li>
-                                                        <li>游戏角色</li>
-                                                        <li>游戏动作</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    交互设计
-                                                    <ul class="reset job_sub dn">
-                                                        <li>交互设计师</li>
-                                                        <li>无线交互设计师</li>
-                                                        <li>网页交互设计师</li>
-                                                        <li>硬件交互设计师</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    用户研究
-                                                    <ul class="reset job_sub dn">
-                                                        <li>数据分析师</li>
-                                                        <li>用户研究员</li>
-                                                        <li>游戏数值策划</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    高端设计职位
-                                                    <ul class="reset job_sub dn">
-                                                        <li>设计经理/主管</li>
-                                                        <li>设计总监</li>
-                                                        <li>视觉设计经理/主管</li>
-                                                        <li>视觉设计总监</li>
-                                                        <li>交互设计经理/主管</li>
-                                                        <li>交互设计总监</li>
-                                                        <li>用户研究经理/主管</li>
-                                                        <li>用户研究总监</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>运营</dt>
-                                        <dd>
-                                            <ul class="reset job_main">
-                                                <li>
-                                                    运营
-                                                    <ul class="reset job_sub dn">
-                                                        <li>用户运营</li>
-                                                        <li>产品运营</li>
-                                                        <li>数据运营</li>
-                                                        <li>内容运营</li>
-                                                        <li>活动运营</li>
-                                                        <li>商家运营</li>
-                                                        <li>品类运营</li>
-                                                        <li>游戏运营</li>
-                                                        <li>网络推广</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    编辑
-                                                    <ul class="reset job_sub dn">
-                                                        <li>副主编</li>
-                                                        <li>内容编辑</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    客服
-                                                    <ul class="reset job_sub dn">
-                                                        <li>售前咨询</li>
-                                                        <li>售后客服</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    高端运营职位
-                                                    <ul class="reset job_sub dn">
-                                                        <li>主编</li>
-                                                        <li>运营总监</li>
-                                                        <li>COO</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>市场与销售</dt>
-                                        <dd>
-                                            <ul class="reset job_main">
-                                                <li>
-                                                    市场/营销
-                                                    <ul class="reset job_sub dn">
-                                                        <li>市场营销</li>
-                                                        <li>市场策划</li>
-                                                        <li>市场顾问</li>
-                                                        <li>市场推广</li>
-                                                        <li>SEO</li>
-                                                        <li>SEM</li>
-                                                        <li>商务渠道</li>
-                                                        <li>商业数据分析</li>
-                                                        <li>活动策划</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    公关
-                                                    <ul class="reset job_sub dn">
-                                                        <li>媒介经理</li>
-                                                        <li>广告协调</li>
-                                                        <li>品牌公关</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    销售
-                                                    <ul class="reset job_sub dn">
-                                                        <li>销售专员</li>
-                                                        <li>销售经理</li>
-                                                        <li>客户代表</li>
-                                                        <li>大客户代表</li>
-                                                        <li>BD经理</li>
-                                                        <li>商务渠道</li>
-                                                        <li>渠道销售</li>
-                                                        <li>代理商销售</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    高端市场职位
-                                                    <ul class="reset job_sub dn">
-                                                        <li>市场总监</li>
-                                                        <li>销售总监</li>
-                                                        <li>商务总监</li>
-                                                        <li>CMO</li>
-                                                        <li>公关总监</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>职能</dt>
-                                        <dd>
-                                            <ul class="reset job_main">
-                                                <li>
-                                                    人力资源
-                                                    <ul class="reset job_sub dn">
-                                                        <li>人力资源</li>
-                                                        <li>招聘</li>
-                                                        <li>HRBP</li>
-                                                        <li>人事/HR</li>
-                                                        <li>培训经理</li>
-                                                        <li>薪资福利经理</li>
-                                                        <li>绩效考核经理</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    行政
-                                                    <ul class="reset job_sub dn">
-                                                        <li>助理</li>
-                                                        <li>前台</li>
-                                                        <li>法务</li>
-                                                        <li>行政</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    财务
-                                                    <ul class="reset job_sub dn">
-                                                        <li>会计</li>
-                                                        <li>出纳</li>
-                                                        <li>财务</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    高端职能职位
-                                                    <ul class="reset job_sub dn">
-                                                        <li>行政总监/经理</li>
-                                                        <li>财务总监/经理</li>
-                                                        <li>HRD/HRM</li>
-                                                        <li>CFO</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </dd>
+                                        @endif
+                                        @endforeach
                                     </dl>
                                 </div>
                                 <span id="positionError" class="error" style="display:none;">请选择职位名称 </span>

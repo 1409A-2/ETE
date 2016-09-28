@@ -8,6 +8,7 @@ use App\Model\FriendShip;
 use App\Model\FriendSite;
 use App\Model\Industry;
 use App\Model\Lable;
+use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,12 +17,14 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\Convenient;
+use App\Model\ResumeReseale;
 use App\Model\Release;
 use App\Model\Company;
 use App\Model\Resume;
 use App\Model\Feedback;
 use Mail;
 use DB;
+use Cache;
 
 header("content-type:text/html;charset=utf8");
 
@@ -49,6 +52,7 @@ class IndexController extends BaseController
 
         $num = count($new_industry);
         $two_industry='';
+
         foreach($new_industry as $key => $val){
             foreach($val['son'] as $vv){
                 if($vv['i_hot']==1){
@@ -56,9 +60,41 @@ class IndexController extends BaseController
                 }
             }
         }
-
-
-        $hot=Release::hotRelease();
+        $nm = ResumeReseale::selGroup();
+        $hot=array();
+        $new=array();
+        $new=Release::newTime();
+        $i=0;
+        foreach($nm as $k=>$v){
+            $rele['re_id']=$v['re_id'];
+            $h = Release::hotRelease($rele);
+            if(!empty($h)&&$i<5){
+                $i++;
+                $hot[]=$h;
+            }
+        }  
+             
+        
+        foreach ($hot as $key => $value) {
+            $hot[$key]['label']=Lable::selLable($value['c_id']);
+        }
+        foreach ($new as $key => $value) {
+            $new[$key]['label']=Lable::selLable($value['c_id']);
+        }
+        for($i=0;$i<5;$i++){
+            if(empty($new[$i])&&!empty($new)){
+                $new[$i]=$new[$i-1];
+            }
+        }
+        if(empty($hot)){
+            $hot = $new;
+        }
+        for($i=0;$i<5;$i++){
+            if(empty($hot[$i])&&!empty($new)){
+                $hot[$i]=$new[$i];
+            }
+        }
+        // print_r($hot);die; 
         $userKey = $Request->input('user');
         $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {
@@ -72,10 +108,15 @@ class IndexController extends BaseController
             }
         }
 
+        $id = session('u_id');
+        $list = User::findOnly($id);
+        if ($list['u_status']=='0') {
+            return view('index.index.checkEmail');
+        }
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'new'=>$new,'hot'=>$hot,'friend_link'=>$friend]);
     }
 
     //跳转职业详情
@@ -320,5 +361,26 @@ class IndexController extends BaseController
         $collected = CollectedPosition::selCollected(session('u_id'));
 
         return view('index.index.collecteds',['collected'=>$collected]);
+    }
+
+    /**
+     * 发送邮件
+     */
+    public function sendMail()
+    {
+        $u_id = session('u_id');
+        $user_data = User::findOnly($u_id);
+        
+        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email={$user_data['u_email']}'>这里激活</a>";
+        $subject = "校易聘企业认证邮件";
+
+        $rest = MailController::send($content,$user_data['u_email'],$subject);
+
+        if($rest){
+            return 1;
+        }else{
+
+            return 0;
+        }
     }
 }

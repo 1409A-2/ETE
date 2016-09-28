@@ -537,10 +537,11 @@ class ResumeController extends BaseController
                     $num['yes']=count($reList['remuse_2']);
                 }
                 //通知面试
-                if($ve['remuse_resele']==3){
-                    $reList['remuse_3'][]=$ve;
+                if($ve['remuse_resele']==3||$ve['remuse_resele']==6){
+                    $reList['remuse_3'][]=$ve;                    
                     $num['ok']=count($reList['remuse_3']);
                 }
+                
                 //不合格
                 if($ve['remuse_resele']==4){
                     $reList['remuse_4'][]=$ve;

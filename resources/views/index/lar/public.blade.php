@@ -47,6 +47,12 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 		var youdao_conv_id = 271546;
 	</script>
 	<script type="text/javascript" src="{{env('APP_HOST')}}/style/js/conv.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{{env('APP_HOST')}}/editor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{{env('APP_HOST')}}/editor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="{{env('APP_HOST')}}/editor/lang/zh-cn/zh-cn.js"></script>
+    @yield('script')
 	<?php
 	$user_data = User::selOne(session('u_id'));
 	?>
@@ -66,6 +72,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                     <li><a href="{{url('beatIndex')}}">一拍</a></li>
 				@else
 				<li @if($url=='detailed' || $url=='postOffice') class="current" @endif><a href="detailed" rel="nofollow">发布职位</a></li>
+				<li @if($url=='companyBeat') class="current" @endif><a href="companyBeat" rel="nofollow">一拍</a></li>
 				@endif
 
 			</ul>
@@ -78,6 +85,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
+                <dd><a href="">消息 <span style="color: red;">(1)</span></a></dd>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collectedPosition">我收藏的职位</a></dd>
@@ -86,6 +94,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 				<dd><a href="detailed">我要招人</a></dd>
 				@endif
 				<dd><a href="updatePwd.html">帐号设置</a></dd>
+
 				<dd class="logout"><a rel="nofollow" href="loginOut.html">退出</a></dd>
 			</dl>
 			<?php  }else{?>
@@ -123,7 +132,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
         </div>
     </div>
      -->
-	<!-------------------------------------弹窗lightbox  ----------------------------------------->
+	<!-- -----------------------------------弹窗lightbox  --------------------------------------- -->
 	<div style="display:none;">
 		<!-- 登录框 -->
 		<div id="loginPop" class="popup" style="height:240px;">
@@ -144,7 +153,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 			</div>
 		</div><!--/#loginPop-->
 	</div>
-	<!------------------------------------- end ----------------------------------------->
+	<!------------------------------------- end --------------------------------------- -->
 	<script type="text/javascript" src="style/js/Chart.min.js"></script>
 	<script type="text/javascript" src="style/js/home.min.js"></script>
 	<script type="text/javascript" src="style/js/count.js"></script>
@@ -152,7 +161,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<input type="hidden" id="resubmitToken" value="" />
 	<a id="backtop" title="回到顶部" rel="nofollow"></a>
 		
-</div><!-- end #container -->
+
 </div><!-- end #body -->
 <div id="product-fk" style="bottom: 80px;">
 <div id="feedback-icon">
@@ -180,23 +189,23 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
     }
 </script>
 <script type='text/javascript'>
-    (function(m, ei, q, i, a, j, s) {
-        m[i] = m[i] || function() {
-            (m[i].a = m[i].a || []).push(arguments)
-        };
-        j = ei.createElement(q),
-            s = ei.getElementsByTagName(q)[0];
-        j.async = true;
-        j.charset = 'UTF-8';
-        j.src = '//static.meiqia.com/dist/meiqia.js';
-        s.parentNode.insertBefore(j, s);
-    })(window, document, 'script', '_MEIQIA');
-    _MEIQIA('entId', '32443');
-    _MEIQIA('allSet', yourFunction);
+    // (function(m, ei, q, i, a, j, s) {
+    //     m[i] = m[i] || function() {
+    //         (m[i].a = m[i].a || []).push(arguments)
+    //     };
+    //     j = ei.createElement(q),
+    //         s = ei.getElementsByTagName(q)[0];
+    //     j.async = true;
+    //     j.charset = 'UTF-8';
+    //     j.src = '//static.meiqia.com/dist/meiqia.js';
+    //     s.parentNode.insertBefore(j, s);
+    // })(window, document, 'script', '_MEIQIA');
+    // _MEIQIA('entId', '32443');
+    // _MEIQIA('allSet', yourFunction);
 </script>
 <script type='text/javascript'>
-    _MEIQIA('allSet', yourFunction);
-    _MEIQIA('init');
+    // _MEIQIA('allSet', yourFunction);
+    // _MEIQIA('init');
 </script>
 <!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
 </div>

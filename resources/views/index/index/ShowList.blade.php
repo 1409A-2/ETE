@@ -1,6 +1,6 @@
 ﻿@extends('index.lar.public')
 @section('title','前端开发全国-职位搜索-拉勾网-最专业的互联网招聘平台')
-@section('content')
+@section('script')
 <script>
     $(function(){
         $('.moery').click(function(){
@@ -24,6 +24,9 @@
         })
     })
 </script>
+@endsection
+@section('content')
+
 
     <div id="container">
         <div id="sidebar">
@@ -175,8 +178,8 @@
 
                 </div>
                 <div class="mb10"><a href="companyinfo?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_shorthand']}}</a></div>
-                <span><em class="c7">领域： </em>{{$v['c_industry']}}</span>
-                <span><em class="c7">创始人：</em> {{$v['c_ceo']}}</span>
+                <span><em class="c7">领域： </em>{{$v['c_industry']}}</span><br />
+                <span><em class="c7">福利：</em> {{$v['c_ceo']}}</span>
                 <br />
                 <ul class="companyTags reset">
                     @foreach($v['label'] as $label)

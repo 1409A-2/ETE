@@ -19,12 +19,12 @@
                         <div class="delivery_tabs">
 
                             <ul class="reset" id="tab">
-                                <li class="current"><a href="javascript:;">全部</a></li>
-                                <li><a href="javascript:;">投递成功</a></li>
-                                <li><a href="javascript:;">被查看</a></li>
-                                <li><a href="javascript:;">通过初筛</a></li>
-                                <li><a href="javascript:;">通知面试</a></li>
-                                <li class="last"><a href="javascript:;">不合适</a></li>
+                                <li class="current"><a href="javascript:;">全部@if(isset($num['all']))({{$num['all']}}) @endif</a></li>
+                                <li><a href="javascript:;">投递成功@if(isset($num['go']))({{$num['go']}}) @endif </a></li>
+                                <li><a href="javascript:;">被查看@if(isset($num['read']))({{$num['read']}}) @endif </a></li>
+                                <li><a href="javascript:;">通过初筛 @if(isset($num['yes']))({{$num['yes']}}) @endif</a></li>
+                                <li><a href="javascript:;">通知面试 @if(isset($num['ok']))({{$num['ok']}})@endif</a></li>
+                                <li class="last"><a href="javascript:;">不合适@if(isset($num['pass']))({{$num['pass']}})@endif</a></li>
                             </ul>
 
                         </div>
@@ -74,6 +74,10 @@
                                                     @elseif($v['remuse_resele']==4)
                                                         <a class="btn_showprogress" href="javascript:;">
                                                             不合适
+                                                        </a>
+                                                    @elseif($v['remuse_resele']==6)
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            收到Offer
                                                         </a>
                                                     @endif
                                                 </div>
@@ -340,10 +344,16 @@
 
                                                     <div class="clear"></div>
 
-
-                                                    <a class="btn_showprogress" href="javascript:;">
-                                                        通知面试
-                                                    </a>
+                                                    @if($v['remuse_resele']==3)
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            通知面试
+                                                        </a>
+                                                    @else
+                                                        <a class="btn_showprogress" href="javascript:;">
+                                                            收到Offer
+                                                        </a>
+                                                    @endif
+                                                    
 
                                                 </div>
                                                 <div class="progress_status	dn">
