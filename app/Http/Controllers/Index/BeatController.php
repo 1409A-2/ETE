@@ -8,6 +8,7 @@ use App\Model\Industry;
 use App\Model\Porject;
 use App\Model\Resume;
 use App\Model\School;
+use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
