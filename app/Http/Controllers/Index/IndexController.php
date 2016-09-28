@@ -49,7 +49,6 @@ class IndexController extends BaseController
 
         $num = count($new_industry);
         $two_industry='';
-
         foreach($new_industry as $key => $val){
             foreach($val['son'] as $vv){
                 if($vv['i_hot']==1){
@@ -57,6 +56,7 @@ class IndexController extends BaseController
                 }
             }
         }
+
 
         $hot=Release::hotRelease();
         $userKey = $Request->input('user');

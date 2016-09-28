@@ -803,6 +803,8 @@ class ComposerStaticInitf0edef8d82d469d4cfba4316d7feb75f
         'SeedEteIndustryTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_22_193456_seed_ete_industry_table.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'UpdateEteBcTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_26_140534_update_ete_bc_table.php',
+        'UpdateEteBeatTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_26_151215_update_ete_beat_table.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

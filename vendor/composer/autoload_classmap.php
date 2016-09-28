@@ -537,4 +537,6 @@ return array(
     'SeedEteIndustryTable' => $baseDir . '/database/migrations/2016_09_22_193456_seed_ete_industry_table.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UpdateEteBcTable' => $baseDir . '/database/migrations/2016_09_26_140534_update_ete_bc_table.php',
+    'UpdateEteBeatTable' => $baseDir . '/database/migrations/2016_09_26_151215_update_ete_beat_table.php',
 );
