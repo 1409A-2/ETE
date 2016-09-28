@@ -61,19 +61,40 @@ class IndexController extends BaseController
             }
         }
         $nm = ResumeReseale::selGroup();
-        $hot='';
-        $new='';
+        $hot=array();
+        $new=array();
         $new=Release::newTime();
+        $i=0;
         foreach($nm as $k=>$v){
-            $hot[] = Release::hotRelease($v['re_id']);
-        }
+            $rele['re_id']=$v['re_id'];
+            $h = Release::hotRelease($rele);
+            if(!empty($h)&&$i<5){
+                $i++;
+                $hot[]=$h;
+            }
+        }  
+             
+        
         foreach ($hot as $key => $value) {
             $hot[$key]['label']=Lable::selLable($value['c_id']);
         }
         foreach ($new as $key => $value) {
             $new[$key]['label']=Lable::selLable($value['c_id']);
         }
-        // print_r($new);die;
+        for($i=0;$i<5;$i++){
+            if(empty($new[$i])&&!empty($new)){
+                $new[$i]=$new[$i-1];
+            }
+        }
+        if(empty($hot)){
+            $hot = $new;
+        }
+        for($i=0;$i<5;$i++){
+            if(empty($hot[$i])&&!empty($new)){
+                $hot[$i]=$new[$i];
+            }
+        }
+        // print_r($hot);die; 
         $userKey = $Request->input('user');
         $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {

@@ -23,4 +23,24 @@ class Enclosure extends Model
         return self::whereIn('r_id',$id)->delete();
     }
 
+    /** 查询
+     * @param $where
+     * @return mixed
+     */
+    public static function selOne($where){
+        $res=self::where($where)->get();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
+    }
+
+    public static function enclosureAdd($data){
+        return self::insert($data);
+
+    }
+
 }

@@ -15,7 +15,12 @@ class BC extends Model
     public static function cbCb($arr){
         return self::insert($arr);
     }
-
+/**
+ * [sel description]
+ * @param  [type] $bc_cid [description]
+ * @param  [type] $b_id   [description]
+ * @return [type]         [description]
+ */
     public static function sel($bc_cid,$b_id){
     	$bc_bid=self::where('bc_cid','=',$bc_cid)->where('cb_bid','=',$b_id)->first();
     	if($bc_bid){
@@ -45,6 +50,53 @@ class BC extends Model
     public static function up($arr){
         return self::where("cb_bid",'=',$arr['cb_bid'])->where('bc_cid','=',$arr['bc_cid'])->update($arr);
     }
+
+    /** 查询全部公司
+     * @param $where
+     * @return mixed
+     */
+    public static function selOll($where){
+        $res = self::where($where)->get();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
+    }
+
+    /** 修改我的邀约状态
+     * @param $where
+     * @param $update
+     * @return mixed
+     */
+    public static function invitedUp($where,$update){
+
+        return self::where($where)->update($update);
+    }
+
+    /** 删除我的邀约
+     * @param $where
+     * @return mixed
+     */
+    public static function invitedDel($where){
+        return self::where($where)->delete();
+    }
+
+    public static function invitedSel($where){
+
+        $res=self::where($where)->get();
+
+        if ($res) {
+
+            return $res->toArray();
+        }else{
+
+            return $res;
+        }
+    }
+
 }
 
 ?>

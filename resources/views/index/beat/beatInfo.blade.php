@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 @include('index.beat.beatCss')
-<title>一拍</title>
+<title>申请一拍</title>
 <link rel="stylesheet" type="text/css" href="yi/basicInfo.css">
 <link rel="stylesheet" type="text/css" href="yi/jquery.css">
 <body>

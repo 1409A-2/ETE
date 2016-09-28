@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<title>一拍首页</title>
 @include('index.beat.beatCss')
 <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/yi/jquery.mCustomScrollbar.min.css" />
 <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/yi/intro.css" />
