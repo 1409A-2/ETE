@@ -44,9 +44,6 @@ class LoginController extends BaseController
     	$list = User::checkLog($data);
         if ($list)
         {
-            // if ($list['u_status'] == 0) {
-            //     return 3;
-            // }
 			if ($data['status'] == 1) {
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id']);
@@ -165,11 +162,10 @@ class LoginController extends BaseController
         if ($list)
         {
             $email = $list['u_email'];
-            $arr['content'] = '校易聘密码找回，请点击或复制以下网址到浏览器里直接打开以便完成找回密码：'.env('APP_HOST').'/newPwd.html?email='.$list["u_email"].'，非本人邮件请勿操作，谢谢合作！';
-            $rest = Mail::raw($arr['content'], function ($message) use($email) {
-                $to = $email;
-                $message ->to($to)->subject('校易聘密码重置邮件');
-            });
+            $content = "校易聘密码找回，请点击<a href='".env('APP_HOST')."/newPwd.html?email=$email'>这里找回</a>";
+            $subject = "校易聘密码找回系统";
+            $rest = MailController::send($content,$email,$subject);
+            
             if ($rest) {
                 return 0;
             } else {
