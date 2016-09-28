@@ -8,6 +8,7 @@ use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\Admin;
+use App\Model\Role;
 use App\Model\Company;
 use Session;
 
@@ -48,6 +49,19 @@ class AdminController extends Controller
     }
 
     public function adminIndex(){
+        // $user = Admin::find(1);
+        // foreach ($user->roles as $role)
+        // {
+        //     $arr[] = $role->toArray();
+        // }
+        // print_r($arr);
+        // $roleData = Role::find(2);
+        // foreach ($roleData->auths as $auth)
+        // {
+        //     $list[] = $auth->toArray();
+        // }
+        // print_r($list);
+        // die;
         return view("admin.admin.index");
     }
 

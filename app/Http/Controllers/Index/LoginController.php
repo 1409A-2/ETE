@@ -101,8 +101,9 @@ class LoginController extends BaseController
             }
             $u_id = session('u_id');
             $user_data = User::findOnly($u_id);
-            $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$email'>这里激活</a>";
-            $subject = "校易聘企业认证邮件";
+            $enEmail = base64_encode($email);
+            $content = "欢迎注册校易聘：<br/>请验证你的邮箱以便正常访问网站,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
+            $subject = "校易聘注册认证邮件";
             $rest = MailController::send($content,$email,$subject);
             session()->put('u_id', $res);
             session()->put('u_email', $email);
@@ -117,7 +118,8 @@ class LoginController extends BaseController
      */
     public function email(Request $Request)
     {
-        $email = $Request->input('email');
+        $deEmail = $Request->input('email');
+        $email = base64_decode($deEmail);
         $res = User::emailStatus($email);
         if ($res) {
             echo "<script>alert('恭喜您，邮箱验证成功！');location='login.html';</script>";
@@ -162,7 +164,8 @@ class LoginController extends BaseController
         if ($list)
         {
             $email = $list['u_email'];
-            $content = "校易聘密码找回，请点击<a href='".env('APP_HOST')."/newPwd.html?email=$email'>这里找回</a>";
+            $enEmail = base64_encode($email);
+            $content = "校易聘密码找回，请点击<a href='".env('APP_HOST')."/newPwd.html?email=$enEmail'>这里找回</a>";
             $subject = "校易聘密码找回系统";
             $rest = MailController::send($content,$email,$subject);
             
@@ -190,7 +193,8 @@ class LoginController extends BaseController
      */
     public function newPwd(Request $Request)
     {
-        $email = $Request->input('email');
+        $deEmail = $Request->input('email');
+        $email = base64_decode($deEmail);
         return view('index.login.newPwd',['email'=>$email]);
     }
 

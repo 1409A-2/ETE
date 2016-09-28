@@ -225,7 +225,8 @@ class IndexController extends BaseController
             }
             $con_data['u_id'] = $res;
             Convenient::addConven($con_data);
-            $content = "请验证你的邮箱以便正常访问网站,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$email'>这里激活</a>";
+            $enEmail = base64_encode($email);
+            $content = "欢迎注册校易聘：<br/>请验证你的邮箱以便正常访问网站,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
             $subject = "校易聘注册认证邮件";
 
             $rest = MailController::send($content, $email, $subject);
@@ -336,7 +337,8 @@ class IndexController extends BaseController
         $u_id = session('u_id');
         $user_data = User::findOnly($u_id);
         
-        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email={$user_data['u_email']}'>这里激活</a>";
+        $enEmail = base64_encode($user_data['u_email']);
+        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
         $subject = "校易聘企业认证邮件";
 
         $rest = MailController::send($content,$user_data['u_email'],$subject);
