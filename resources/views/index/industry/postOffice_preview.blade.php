@@ -25,7 +25,7 @@
             <dd class="job_bt">
                 <h3 class="description">职位描述</h3>
 
-                <p>{{$release['re_desc']}}<br/></p>
+                <p><?php echo $release['re_desc'] ?><br/></p>
             </dd>
 
             <!-- 职位发布者 -->

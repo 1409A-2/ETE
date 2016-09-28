@@ -1,9 +1,15 @@
 @extends('index.lar.public')
 @section('title', '发布新职位')
+<!-- 配置文件 -->
+<script type="text/javascript" src="/editor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/editor/ueditor.all.js"></script>
+  
+ 
+    
+ 
 @section('content')
-
-   
-
+   <script src="style/js/jobs.min.js" type="text/javascript"></script>
     <div id="container">
 
         @include('index.industry.postOffice_public')
@@ -150,9 +156,55 @@
                                 <tr>
                                     <td><span class="redstar">*</span></td>
                                     <td>职位描述</td>
-                                    <td>
-                                        <span class="c9 f14">(建议分条描述工作职责等。请勿输入公司邮箱、联系电话及其他外链，否则将自动删除)</span>
-                                        <textarea name="re_desc" id="re_desc" cols="30" rows="10"></textarea>
+                                    <td width="540px">
+                                    <span class="c9 f14">(建议分条描述工作职责等。请勿输入公司邮箱、联系电话及其他外链，否则将自动删除)</span>                                    
+                                    <!-- 实例化编辑器 -->
+                                    <script type="text/javascript">
+                                        var ue = UE.getEditor('positionDetail',{
+                                            toolbars: [
+                                            [
+                                                'anchor', //锚点
+                                                'undo', //撤销
+                                                'redo', //重做
+                                                'bold', //加粗
+                                                'indent', //首行缩进
+                                                'italic', //斜体
+                                                'formatmatch', //格式刷
+                                                'preview', //预览
+                                                'removeformat', //清除格式
+                                                'time', //时间
+                                                'date', //日期
+                                                'justifyleft', //居左对齐
+                                                'justifyright', //居右对齐
+                                                'justifycenter', //居中对齐
+                                                'justifyjustify', //两端对齐
+                                                'simpleupload', //单图上传
+                                                'insertimage', //多图上传
+                                                'insertcode', //代码语言
+                                                'fontfamily', //字体
+                                                'fontsize', //字号
+                                                'paragraph', //段落格式                                                
+                                                'link', //超链接
+                                                'emotion', //表情
+                                                'spechars', //特殊字符
+                                                'searchreplace', //查询替换
+                                                'insertvideo', //视频
+                                                'forecolor', //字体颜色
+                                                'backcolor', //背景色
+                                                'fullscreen', //全屏
+                                                'attachment', //附件
+                                                'imagecenter', //居中
+                                                'wordimage', //图片转存
+                                                'lineheight', //行间距
+                                                'edittip ', //编辑提示
+                                                'customstyle', //自定义标题
+                                                'autotypeset', //自动排版
+                                                'template', //模板 
+                                            ]
+                                        ]
+                                        });
+                                    </script>
+                               <textarea name="positionDetail" id="positionDetail" style="width:540px;height:210px;"></textarea>
 
                                     </td>
                                 </tr>

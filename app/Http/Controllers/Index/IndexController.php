@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\Convenient;
+use App\Model\ResumeReseale;
 use App\Model\Release;
 use App\Model\Company;
 use App\Model\Resume;
@@ -59,8 +60,20 @@ class IndexController extends BaseController
                 }
             }
         }
-
-        $hot = Release::hotRelease();
+        $nm = ResumeReseale::selGroup();
+        $hot='';
+        $new='';
+        $new=Release::newTime();
+        foreach($nm as $k=>$v){
+            $hot[] = Release::hotRelease($v['re_id']);
+        }
+        foreach ($hot as $key => $value) {
+            $hot[$key]['label']=Lable::selLable($value['c_id']);
+        }
+        foreach ($new as $key => $value) {
+            $new[$key]['label']=Lable::selLable($value['c_id']);
+        }
+        // print_r($new);die;
         $userKey = $Request->input('user');
         $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {
@@ -82,7 +95,7 @@ class IndexController extends BaseController
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'new'=>$new,'hot'=>$hot,'friend_link'=>$friend]);
     }
 
     //跳转职业详情
