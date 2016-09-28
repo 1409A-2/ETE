@@ -15,11 +15,8 @@
                 </tr>
                 <tr style="background-color:#fff;">
                     <td>
+                        
                         <div>
-                            亲爱的{{$email}}
-                            <span style="color:#019875;"><a target="_blank" href="mailto:1448938869@qq.com"></a></span>，你好!
-                        </div>
-                        <div style="text-indent:2em;">
                             <?php echo $content?>
                         </div>
                         <div style="text-indent:2em;">

@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Index;
-
+use App\Model\BC;
 use App\Model\Beat;
-use App\Model\Bc;
-use App\Model\User;
+use App\Model\Company;
 use App\Model\Industry;
 use App\Model\Porject;
 use App\Model\Resume;
@@ -68,13 +67,23 @@ class BeatController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function beatCenter(){
+
         $id=session('u_id');
         $img=Resume::selFind(['u_id'=>$id],'r_img');
-//        print_r($img);
+//        print_r($img);die;
         $beat=Beat::beatOne(['b_uid'=>$id]);
+        $bc=BC::invitedSel(['cb_bid'=>$beat['b_id']]);
+
+//        print_r($beat);die;
         if($beat)
         {
-            return view('index.beat.beatCenter',['beat'=>$beat,'img'=>$img]);
+            return view(
+                'index.beat.beatCenter',
+                [
+                    'beat'=>$beat,
+                    'img'=>$img,
+                    'bc'=>$bc
+                ]);
         } else {
             return redirect('beatIndex');
         }
@@ -107,10 +116,118 @@ class BeatController extends Controller
     /** 我的邀约
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-//    public function beatInvited(){
-//
-//        return view('index.beat.beatInvited');
-//    }
+    public function beatInvited(){
+
+        $id=session('u_id');
+        $beat=Beat::beatOll(['b_uid'=>$id]);
+         if(empty($beat)){
+           return redirect('beatCenter');
+         }
+        $bc_cid=BC::selOll(['cb_bid'=>$beat['b_id']]);
+      
+        foreach ($bc_cid as $v) {
+
+            //所有邀约
+            $company['cb'][]=Company::selOne($v['bc_cid']);
+            $time['cb'][]=$v['cb_time'];
+            $bc_id['cb'][]=$v['bc_id'];
+            $num['cb']=count($company['cb']);
+
+            //未处理邀约
+            if ($v['cb_cb']==2) {
+
+                $company['cb2'][]=Company::selOne($v['bc_cid']);
+                $time['cb2'][]=$v['cb_time'];
+                $bc_id['cb2'][]=$v['bc_id'];
+                $num['cb2']=count($company['cb2']);
+            }
+            //收到发送Offer
+            if ($v['cb_cb']==3) {
+
+                $company['cb3'][]=Company::selOne($v['bc_cid']);
+                $time['cb3'][]=$v['cb_time'];
+                $bc_id['cb3'][]=$v['bc_id'];
+                $num['cb3']=count($company['cb3']);
+            }
+            //不合适
+            if ($v['cb_cb']==4) {
+
+                $company['cb4'][]=Company::selOne($v['bc_cid']);
+                $time['cb4'][]=$v['cb_time'];
+                $bc_id['cb4'][]=$v['bc_id'];
+                $num['cb4']=count($company['cb4']);
+            }
+            //同意邀约
+            if ($v['cb_cb']==5) {
+
+                $company['cb5'][]=Company::selOne($v['bc_cid']);
+                $time['cb5'][]=$v['cb_time'];
+                $bc_id['cb5'][]=$v['bc_id'];
+                $num['cb5']=count($company['cb5']);
+            }
+            //安排见面
+            if ($v['cb_cb']==6) {
+
+                $company['cb6'][]=Company::selOne($v['bc_cid']);
+                $time['cb6'][]=$v['cb_time'];
+                $bc_id['cb6'][]=$v['bc_id'];
+                $num['cb6']=count($company['cb6']);
+            }
+            //拒绝邀约
+            if ($v['cb_cb']==7) {
+
+                $company['cb7'][]=Company::selOne($v['bc_cid']);
+                $time['cb7']=$v['cb_time'];
+                $bc_id['cb7'][]=$v['bc_id'];
+                $num['cb7']=count($company['cb7']);
+            }
+            //我的Offer
+            if ($v['cb_cb']==9) {
+
+                $company['cb9'][]=Company::selOne($v['bc_cid']);
+                $time['cb9']=$v['cb_time'];
+                $bc_id['cb9'][]=$v['bc_id'];
+                $num['cb9']=count($company['cb9']);
+            }
+
+        }
+
+        return view('index.beat.beatInvited',[
+            'company'=>$company,
+            'num'=>$num,
+            'time'=>$time,
+            'bc_id'=>$bc_id,
+            'bc_cid'=>$bc_cid
+        ]);
+    }
+
+    /** 对我的邀约进行操作
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function invitedUp(Request $request){
+
+        $bc_id=$request->input('bc_id');
+        $cb_cb=$request->input('cb_cb');
+        if(empty($bc_id)||empty($cb_cb)){
+            return redirect('beatCenter');
+        }
+        return BC::invitedUp(['bc_id'=>$bc_id],['cb_cb'=>$cb_cb]);
+
+    }
+
+    /** 删除我的邀约
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     */
+    public function  invitedDel(Request $request){
+        $bc_id=$request->input('bc_id');
+        if(empty($bc_id)){
+            return redirect('beatCenter');
+        }
+        return BC::invitedDel(['bc_id'=>$bc_id]);
+    }
+
 
     /**我的Offer
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -133,7 +250,6 @@ class BeatController extends Controller
             $companylist[$k]['b_professional']=Industry::selBeat($i_id);
             $companylist[$k]['level']=Bc::sel($company_c_id['u_cid'],$v['b_id']);
         }
-        
         return view('index.beat.companylist',['companylist'=>$companylist]);
     }
     //公司邀约简历
@@ -199,6 +315,7 @@ class BeatController extends Controller
         foreach ($professional_content as $k => $v) {
             $professional .= ',' . $v;
         }
+        $beat['b_field'] =  $request->input('field');//期望工作父级
         $beat['b_professional'] = substr($professional, 1);//期望工作的字符串Id
         $beat['b_phone'] = $request->input('phoneNumber');  //手机号
         $beat['b_email'] = $request->input('email');  //邮箱
@@ -301,6 +418,4 @@ class BeatController extends Controller
     }
 
     //--------------------------发送短信结束----------------
-    //
-          
 }

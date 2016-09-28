@@ -105,7 +105,7 @@ class IndustryController extends BaseController
             if($re){
                 return 1;
             }else{
-                return 0;
+                return 0; 
             }
         }else{
             if($time==$my_time){
@@ -254,7 +254,7 @@ class IndustryController extends BaseController
 			$email=$r_id['r_email'];
 	    	$content = $r_id['r_name']."您好，<br />感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们在处理您的简历。请你手机保持随时畅通，以方便我们联系你面试";
 	        // echo $content;die;
-	        $subject = "校易聘企业认证邮件";
+	        $subject = $data['c_name']."人事部认证邮件";
 
         $rest = MailController::send($content,$email,$subject);
 	        $arr['remuse_resele']=$data['remuse_resele'];
@@ -267,7 +267,7 @@ class IndustryController extends BaseController
     public function unDeterminedEmail(Request $request){
     	$data=$request->input();
     	$email=$data['email'];
-    	$content = $data['r_name']."您好，<br />感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们在处理您的简历。请你手机保持随时畅通，以方便我们联系你面试";
+    	$content = $data['r_name'].",您好!<br /><div style='text-indent:2em;'>感谢您投递".$data['c_name']."的".$data['i_name']."职位。您的简历我们已经收到，我们在处理您的简历。请你手机保持随时畅通，以方便我们联系你面试<br />";
         // echo $content;die;
         $subject = "校易聘企业认证邮件";
         $rest = MailController::send($content,$email,$subject);
@@ -280,9 +280,13 @@ class IndustryController extends BaseController
     public function undeterminedOffer(Request $request){
         $data=$request->input();
         $email=$data['email'];
-        $content = $data['r_name']."先生<br />您好，这里是".$data['c_name']."人事部，恭喜你通过了".$data['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职/gz/gz\gz<br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证及学历原件。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：".$data['addr'];
+        if(strpos($email,'qq')){
+            $content = $data['r_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了".$data['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职。</div><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证及学历原件。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：".$data['addr'];
+        }else{
+            $content = $data['r_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了".$data['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职<img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'>。</div><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证及学历原件。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：".$data['addr'];
+        }     
         // echo $content;die;
-        $subject = "校易聘企业认证邮件";
+        $subject = $data['c_name']."人事部认证邮件";
         $rest = MailController::send($content,$email,$subject);
         $arr['rere_id']=$data['rere_id'];
         $arr['remuse_resele']=$data['remuse_resele'];
@@ -510,10 +514,13 @@ class IndustryController extends BaseController
         
         $arr=$request->input();
         $email=$arr['email'];
-        $content = $arr['b_name']."先生<br />您好，这里是".$data['c_name']."人事部，恭喜你通过了".$arr['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职/gz/gz\gz<br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：XXX";
-        
+        if(strpos($email,'qq')){
+            $content = $arr['b_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了".$arr['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职.</dvi><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：XXX";
+        }else{
+            $content = $arr['b_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了".$arr['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职<img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'>.</dvi><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>1.上一单位离职证明。</a><br /><br /> <a href=''>1.一寸照片2张。</a><br /><br /><br />公司地址：XXX";        
+        }
         // echo $content;die;
-        $subject = "校易聘企业认证邮件";
+        $subject = $data['c_name']."人事部认证邮件";
         $rest = MailController::send($content,$email,$subject);
         return $re = Bc::up($arr1);
     }
