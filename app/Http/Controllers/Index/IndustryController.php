@@ -105,7 +105,7 @@ class IndustryController extends BaseController
             if($re){
                 return 1;
             }else{
-                return 0;
+                return 0; 
             }
         }else{
             if($time==$my_time){
