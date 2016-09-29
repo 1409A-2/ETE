@@ -1,5 +1,6 @@
 ﻿@extends('index.lar.public')
 <script src="{{env('APP_HOST')}}/style/js/jq.js" type="text/javascript"></script>
+
 @section('content')
     <div id="container">
 
@@ -38,7 +39,7 @@
                     <span class="c_edit"></span>
 
                     <div class="basicShow">
-                                                <span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
+            			            			<span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
                                                     |  @if($res['r_sex']==0)男@else女@endif
                                                     |
                                                     @if($res['r_education'])
@@ -63,19 +64,11 @@
 
                                                     <br>
                                                     @if($res['r_status'])
-                                                        @if($res['r_status']==0)
-                                                            我目前已离职，可快速到岗
-                                                        @elseif($res['r_status']==1)
-                                                            我目前正在职，正考虑换个新环境
-                                                        @elseif($res['r_status']==2)
-                                                            我暂时不想找工作
-                                                        @elseif($res['r_status']==3)
-                                                            我是应届毕业生
-                                                        @endif
+                                                      {{$res['r_status']}}
                                                     @else
                                                         目前状态
                                                     @endif
-                        </span>
+            			</span>
 
                         <div class="m_portrait">
                             <div></div>
@@ -172,7 +165,7 @@
                                     <td colspan="3">
                                         <input type="hidden" id="currentState" value="" name="currentState">
                                         <input type="button"
-                                               value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@endif"
+                                               value="@if($res['r_status']){{$res['r_status']}}@endif"
                                                id="select_currentState"
                                                class="profile_select_410 profile_select_normal">
 
@@ -228,7 +221,8 @@
                         <input type="hidden" id="topDegreeVal" value="--请选择--">
                     @endif
                     <input type="hidden" id="currentStateVal"
-                           value="@if($res['r_status']==0)我目前已离职，可快速到岗@elseif($res['r_status']==1)我目前正在职，正考虑换个新环境@elseif($res['r_status']==2)我暂时不想找工作@elseif($res['r_status']==3)我是应届毕业生@else--请选择--@endif">
+                           value="@if($res['r_status']){{$res['r_status']}}@else --请选择-- @endif">
+
                     <input type="hidden" id="emailVal" value="{{$res['r_email']}}">
                     <input type="hidden" id="telVal" value="{{$res['r_photo']}}">
                     <input type="hidden" id="pageType" value="1">
@@ -402,14 +396,14 @@
                                         <div class="projectList">
                                             <div class="f16 mb10">{{$v['p_name']}},{{$v['p_duties']}}
                                                 <span class="c9">
-                                                                                                    （{{date('Y.m',$v['p_start_time'])}}
+		            									            								（{{date('Y.m',$v['p_start_time'])}}
                                                     -{{date('Y.d',$v['p_end_time'])}}）
                                                     <a href="javascript:;" class="porjectDel" pid="{{$v['p_id']}}"
                                                        style="font-size: 14px;">删除</a>
                                                     <br/>
                                                     <?php echo $v['p_desc']?>
                                                     {{--<span pid="{{$v['p_id']}}" class="c_edit"></span>--}}
-                                                                                            </span>
+		            									            						</span>
                                             </div>
                                             <div class="dl1"></div>
                                         </div>
@@ -652,7 +646,9 @@
                                 <input type="hidden" value="" class="projectId">
                             </form>
                             <script type="text/javascript">
-                                var ue = UE.getEditor('projectDescriptions');
+                                var ue = UE.getEditor('projectDescriptions',{toolbars: [
+                                    ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                                ] ,zIndex:0});
                             </script>
                         </div>
                         <div class="projectAdd pAdd dn">
@@ -660,6 +656,7 @@
                             来说说让你难忘的项目吧！
                             <span>添加项目经验</span>
                         </div>
+
                     @else
                         <div class="c_add dn"></div>
                         <div class="projectShow dn"></div>
@@ -897,7 +894,9 @@
                                 <input type="hidden" value="" class="projectId">
                             </form>
                             <script type="text/javascript">
-                                var ue = UE.getEditor('projectDescriptions');
+                                var ue = UE.getEditor('projectDescriptions',{toolbars: [
+                                    ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                                ] ,zIndex:0});
                             </script>
                         </div>
                         <div class="projectAdd pAdd">
@@ -907,7 +906,9 @@
                         </div><!--end .projectAdd-->
                     @endif
                     <script type="text/javascript">
-                        var ue = UE.getEditor('projectDescription');
+                        var ue = UE.getEditor('projectDescription',{toolbars: [
+                            ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                        ] ,zIndex:0});
                     </script>
                 </div>
 
@@ -1450,7 +1451,9 @@
                                     </tbody>
                                 </table>
                                 <script type="text/javascript">
-                                    var ue = UE.getEditor('containerTe');
+                                    var ue = UE.getEditor('containerTe',{toolbars: [
+                                        ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                                    ] ,zIndex:0});
                                 </script>
                                 <input type="hidden" class="showId" value="">
                             </form>
@@ -1519,7 +1522,9 @@
                                     </tbody>
                                 </table>
                                 <script type="text/javascript">
-                                    var ue = UE.getEditor('containerTe');
+                                    var ue = UE.getEditor('containerTe',{toolbars: [
+                                        ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                                    ] ,zIndex:0});
                                 </script>
                                 <input type="hidden" class="showId" value="">
                             </form>
@@ -1532,7 +1537,9 @@
                         </div>
                     @endif
                     <script type="text/javascript">
-                        var ue = UE.getEditor('containerT');
+                        var ue = UE.getEditor('containerT',{toolbars: [
+                            ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                        ] ,zIndex:0});
                     </script>
                 </div>
                 <input type="hidden" id="resumeId" value="{{$res['r_id']}}">
@@ -1696,10 +1703,11 @@
 <script src="{{env('APP_HOST')}}/editor/ueditor.config.js"></script>
 <script src="{{env('APP_HOST')}}/editor/ueditor.all.js"></script>
 <script type="text/javascript">
-    var ue = UE.getEditor('containerText');
+    var ue = UE.getEditor('containerText',{toolbars: [
+        ['fullscreen', 'source', 'undo', 'redo', 'bold']
+    ] ,zIndex:0});
 </script>
 <script>
-
     function img_check(a, b, c) {
         var myimg = $('#myimg');
         var a = $("#" + c);

@@ -62,13 +62,15 @@ class ResumeReseale extends Model
 
 
     public  static  function selOne($where){
-        $res=self::where($where)->select('r_id')->first();
+        $res=self::where($where)->first();
         if($res){
             return $res->toArray();
         }else{
             return $res;
         }
     }
+
+
 
 
     /**查询所有 个人
@@ -143,5 +145,15 @@ class ResumeReseale extends Model
     //查询组数据
     public static function selGroup(){
         return self::select(DB::raw('re_id,count(re_id) re_num'))->groupBy('re_id')->orderBy("re_num",'desc')->get()->toArray();
+    }
+
+
+    public  static  function rereAll($where,$start,$end){
+        $res=self::where($where)->whereBetween('delivery_time',[$start,$end])->get();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
     }
 }

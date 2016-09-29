@@ -71,17 +71,40 @@ class Release extends Model
 
     //查看发布职位
     public static function selList($c_id){
-        return Release::where($c_id)->get()->toArray();
+        $res=Release::where($c_id)->get();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
+
+
 
     //预览职位
     public static function selPreview($c_id){
-        return Release::where($c_id)->orderBy('re_id','desc')->first()->toArray();
+        $res=Release::where($c_id)->orderBy('re_id','desc')->first();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
 
     //用户查看的职位详情
     public static function selPreviews($c_id){
-        return Release::where($c_id)->orderBy('re_id','desc')->first()->toArray();
+        $res=Release::where($c_id)->orderBy('re_id','desc')->first();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
 
     //查看各个职位的简历
@@ -178,5 +201,18 @@ class Release extends Model
         }else{
             return $re;
         }
+    }
+
+    //查询职位是否存在
+    public static function releaseSel($where){
+
+            $res=self::where($where)->first();
+           if ($res) {
+
+               return $res->toArray();
+           } else {
+
+               return $res;
+           }
     }
 }

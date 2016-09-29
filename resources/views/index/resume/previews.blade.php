@@ -97,9 +97,16 @@
 
                             <div>
                                 <h3>{{$school['s_name']}}</h3>
-                                <h4>{{$school['s_major']}}， @if($resume['r_education']==1)
-                                        大专@elseif($resume['r_education']==2)本科@elseif($resume['r_education']==3)
-                                        硕士@elseif($resume['r_education']==4)博士@elseif($resume['r_education']==5)其他@endif </h4>
+                                <h4>{{$school['s_major']}}，
+
+                                    @foreach ($education as $v)
+                                        @if ($resume['r_education']==$v['ed_id'])
+
+                                            {{$v['ed_name']}}
+
+                                        @endif
+                                    @endforeach
+                                </h4>
                             </div>
 
                 </div>
