@@ -105,6 +105,10 @@ class LoginController extends BaseController
             $content = "欢迎注册校易聘：<br/>请验证你的邮箱以便正常访问网站,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
             $subject = "校易聘注册认证邮件";
             $rest = MailController::send($content,$email,$subject);
+            if ($rest) {
+                $content = "欢迎注册校易聘：您的验证邮件已经发送，请您尽快验证，以方便我们更好的为您服务。";
+                MessageController::sendMessage($res,$content,2);
+            }
             session()->put('u_id', $res);
             session()->put('u_email', $email);
             return json_encode($res);
