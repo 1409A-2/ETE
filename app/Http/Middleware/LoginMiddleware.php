@@ -21,7 +21,7 @@ class LoginMiddleware
         if(!session('u_id')){
             return redirect('login.html');
         }
-        $id = session('u_id');        
+        $id = session('u_id');
         $list = User::findOnly($id);
         if ($list['u_status']=='0') {
             return redirect('/checkEmail.html');
