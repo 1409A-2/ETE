@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\Convenient;
+use App\Model\ResumeReseale;
 use App\Model\Release;
 use App\Model\Company;
 use App\Model\Resume;
@@ -31,9 +32,12 @@ class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index(Request $Request){
+    public function index(){
+        $Request = new Request();
         //查询所有行业
-        $industry=industry::sel();
+        
+        $industry=industry::sel(); 
+        
         //print_r($industry);die;
         $new_industry='';
         $parent=0;
@@ -59,8 +63,41 @@ class IndexController extends BaseController
                 }
             }
         }
-
-        $hot = Release::hotRelease();
+        $nm = ResumeReseale::selGroup();
+        $hot=array();
+        $new=array();
+        $new=Release::newTime();
+        $i=0;
+        foreach($nm as $k=>$v){
+            $rele['re_id']=$v['re_id'];
+            $h = Release::hotRelease($rele);
+            if(!empty($h)&&$i<5){
+                $i++;
+                $hot[]=$h;
+            }
+        }  
+             
+        
+        foreach ($hot as $key => $value) {
+            $hot[$key]['label']=Lable::selLable($value['c_id']);
+        }
+        foreach ($new as $key => $value) {
+            $new[$key]['label']=Lable::selLable($value['c_id']);
+        }
+        for($i=0;$i<5;$i++){
+            if(empty($new[$i])&&!empty($new)){
+                $new[$i]=$new[$i-1];
+            }
+        }
+        if(empty($hot)){
+            $hot = $new;
+        }
+        for($i=0;$i<5;$i++){
+            if(empty($hot[$i])&&!empty($new)){
+                $hot[$i]=$new[$i];
+            }
+        }
+        // print_r($hot);die; 
         $userKey = $Request->input('user');
         $ct_type = $Request->input('ct_type');
         if (!empty($userKey)) {
@@ -82,7 +119,7 @@ class IndexController extends BaseController
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 
-        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'hot'=>$hot,'friend_link'=>$friend]);
+        return  view('index.index.test',['count'=>$num,'two_industry'=>$two_industry,'industry'=>$industry,'nav_industry'=>$new_industry,'carousel'=>$carousel,'new'=>$new,'hot'=>$hot,'friend_link'=>$friend]);
     }
 
     //跳转职业详情
