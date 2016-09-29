@@ -33,11 +33,10 @@ class IndexController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function index(){
-        $Request = new Request();
+        $request = new Request();
         //查询所有行业
-        
-        $industry=industry::sel(); 
-        
+
+        $industry=industry::sel();
         //print_r($industry);die;
         $new_industry='';
         $parent=0;
@@ -98,8 +97,8 @@ class IndexController extends BaseController
             }
         }
         // print_r($hot);die; 
-        $userKey = $Request->input('user');
-        $ct_type = $Request->input('ct_type');
+        $userKey = $request->input('user');
+        $ct_type = $request->input('ct_type');
         if (!empty($userKey)) {
             $con_data = Convenient::checkOnly($userKey);
             if ($con_data) {
