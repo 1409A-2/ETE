@@ -138,8 +138,8 @@
                                     <div class="resumeIntro">
                                     @if($v['remuse_resele']==0)
                                         <h3 class="unread">
-                                            <a class="r" target="_blank" title="预览jason的简历"
-                                               href="preview?rere_id={{$v['rere_id']}}">
+                                            <a class="r" target="_blank" title="预览{{$v['r_name']}}的简历jason的简历"
+                                               href="preview?rere_id={{$v['rere_id']}}&u_id={{$v['u_id']}}">
                                                 {{$v['r_name']}}的简历
                                             </a>
                                             <em></em>

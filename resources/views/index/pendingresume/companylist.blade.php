@@ -7,6 +7,7 @@
                 b_id=$(this).attr('data-deliverid');
                 // alert(bc);return;
                 b_name=$(this).attr('b');
+                u_id=$(this).attr('uid');
                 email=$(this).attr("em");
                 b_phone=$(this).attr('i');
                 _this=$(this);
@@ -14,7 +15,7 @@
                 $.ajax({
                     url:'companyBeatEmail',
                     type:'get',
-                    data: {b_id:b_id,bc:bc,b_name:b_name,email:email,i_name:b_phone},
+                    data: {b_id:b_id,u_id:u_id,bc:bc,b_name:b_name,email:email,i_name:b_phone},
                     success: function(a){
                         if(a==1){
                             _this.parent().html("<a data-deliverid='' status='' class='' href='javascript:void(0)'>已发送</a>");
@@ -110,7 +111,7 @@
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['b_time'])}}</span>
 
                                         <div>
-                                            {{$v['b_name']}} / @if($v['b_sex']==0) 男 @else  女  @endif / {{$v['b_workyear']}}年 /    
+                                            {{$v['b_name']}} / @if($v['b_sex']==1) 男 @else  女  @endif / {{$v['b_workyear']}}年 /    
                                             {{$v['b_status']}} 
                                         </div>
                                         <div class="jdpublisher" style="height:50px">
@@ -134,7 +135,7 @@
                                                         <a  href="javascript:void(0)">  不合适  </a>
                                                 @elseif($v['cb_cb']==6)
                         
-                                                        <a data-deliverid="{{$v['b_id']}}" em="{{$v['b_email']}}" i="{{$v['b_professional']}}" b="{{$v['b_name']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
+                                                        <a data-deliverid="{{$v['b_id']}}" uid="{{$v['b_uid']}}" em="{{$v['b_email']}}" i="{{$v['b_professional']}}" b="{{$v['b_name']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
                                                         <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notices" href="javascript:void(0)">   不合适  </a>
                                                 @elseif($v['cb_cb']==3)
                                                     <a href="javascript:void(0)">  已发送  </a>
