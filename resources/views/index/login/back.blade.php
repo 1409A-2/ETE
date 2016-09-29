@@ -69,7 +69,7 @@ $(function(){
 	    	messages: {
 	    	   	email: {
 	    	    	required: "请输入登录邮箱地址",
-	    	    	email: "请输入有效的邮箱地址，如：vivi@lagou.com"
+	    	    	email: "请输入有效的邮箱地址，如：xyp@163.com"
 	    	   	}
 	    	},
 	    	submitHandler:function(form) {
@@ -83,6 +83,7 @@ $(function(){
 	    		var geetest_challenge = $('.geetest_challenge').val();
 	    		var geetest_validate = $('.geetest_validate').val();
 	    		var geetest_seccode = $('.geetest_seccode').val();
+	    		$(form).find(":submit").attr("disabled", true);
 
 	    		$.ajax({
 	            	type:'POST',
@@ -96,6 +97,7 @@ $(function(){
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
+	            			$(form).find(":submit").attr("disabled", false);
 	            		} else {
 	            			window.location.href='/pwdBack.html';
 	            		}
@@ -106,11 +108,13 @@ $(function(){
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
+	            			$(form).find(":submit").attr("disabled", false);
 	            		} else {
 	            			var str = '验证码验证失效，请刷新重置！';
 	            			$('#beError').attr('style','');
 	            			$('#beError').text('');
 	            			$('#beError').append(str);
+	            			$(form).find(":submit").attr("disabled", false);
 	            		}
 	            	}
 	            })

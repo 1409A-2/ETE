@@ -541,5 +541,6 @@ return array(
     'UpdateEteBcTable' => $baseDir . '/database/migrations/2016_09_26_140534_update_ete_bc_table.php',
     'UpdateEteBeatTable' => $baseDir . '/database/migrations/2016_09_26_151215_update_ete_beat_table.php',
     'UpdateEteCompanyTable' => $baseDir . '/database/migrations/2016_09_28_202543_update_ete_company_table.php',
-    'UserTableSeeder' => $baseDir . '/database/seeds/UserTableSeeder.php',
+    'UpdateEteResumeResealeTable' => $baseDir . '/database/migrations/2016_09_29_212927_update_ete_resume_reseale_table.php',
+    'UpdateEteResumeTable' => $baseDir . '/database/migrations/2016_09_29_211522_update_ete_resume_table.php',
 );

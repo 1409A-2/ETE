@@ -25,6 +25,7 @@
 Route::group(['middleware' => ['web']], function () {
 	// 验证公司邮箱
 	Route::get('adopt','Index\InfoController@adoptVerify');
+	Route::get('checkEmail.html','Index\IndexController@checkEmail');
     //前台
     Route::get('/','Index\IndexController@index');
 	Route::get('postPreview','Index\IndexController@postPreview');//查看职位详情
@@ -195,6 +196,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'admin'],function(){
 		//后台首页
 		Route::get('adminIndex','Admin\AdminController@adminIndex');
+		Route::get('homeIndexOut','Admin\AdminController@homeIndexOut');// 后台生成前台首页   
 		Route::get('adminMaterial','Admin\MaterialController@carousel');
 		Route::post('adminMaterialPro','Admin\MaterialController@carouselPro');
 		Route::get('upcarousel','Admin\MaterialController@upCarousel');

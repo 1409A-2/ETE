@@ -104,7 +104,7 @@
 </a>
 -->
 </div>
-<div class="content" style="height: 1200px;">
+<div class="content" @if(count($arr)==1) style="margin-bottom:300px" @elseif(count($arr)==2) style="margin-bottom:150px" @endif >
     <div id="search_box">
         <form action="jump" method="get">
             <ul id="searchType">
@@ -147,7 +147,7 @@
     </div>
     @if(empty($arr))
         <center>
-            <div class="txt" style="margin-top:200px">
+            <div class="txt" style="margin-top:300px;margin-bottom:200px">
                 <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
                 <br/>
                 <span style="color:#91cebe;font-size:22px">请重新修改搜索条件后再进行搜索</span>
@@ -166,9 +166,9 @@
                 <span><em class="c7">月薪：{{$v['re_salarymin']}}-{{$v['re_salarymax']}}k</em></span>
                 <span><em class="c7">最低学历：{{$v['re_education']}}</em></span>
                 <br />
-                <span><em class="c7">职位诱惑:{{$v['re_desc']}}</em></span>
+                <span><em class="c7">职位诱惑：{{$v['re_welfare']}}</em></span>
                 <br />
-                <span>1天前发布</span>
+                <span>{{ceil((time()-$v['re_time'])/86400)}}天以前发布</span>
             </div>
         
             <div class="hot_pos_r">

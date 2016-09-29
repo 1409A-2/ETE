@@ -129,7 +129,7 @@ class Release extends Model
 
     //主页热门搜索职位
     public static function hotRelease($re_id){
-        $re=Release::join('company','release.c_id','=','company.c_id')->first();
+        $re=Release::where("release.re_status",'=',0)->where($re_id)->join('company','release.c_id','=','company.c_id')->first();
         if($re){
             return $re->toArray();
         }else{
@@ -195,7 +195,7 @@ class Release extends Model
 
     //查询最新职位
     public static function newTime(){
-        $re= self::join('company','release.c_id','=','company.c_id')->orderBy('re_time','desc')->limit(5)->get();
+        $re= self::where("release.re_status",'=',0)->join('company','release.c_id','=','company.c_id')->orderBy('re_time','desc')->limit(5)->get();
         if($re){
             return $re->toArray();
         }else{
