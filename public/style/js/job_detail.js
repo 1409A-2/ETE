@@ -690,12 +690,14 @@ function errorTipsSet(msg){
   */
 function file_check(obj,action_url,id)
 {
+
 	$('#loadingImg').css("visibility","visible");
 	var obj = $('#' + id);
 	var userId = $('#userid').val();
-
+    var _token=$('#popup_token').val();
 	this.AllowExt='.doc,.docx,.pdf,.ppt,.pptx,.txt,.wps';
 	this.FileExt=obj.val().substr(obj.val().lastIndexOf(".")).toLowerCase();
+
 
 	if(this.AllowExt != 0 && this.AllowExt.indexOf(this.FileExt)==-1)
 	{
@@ -708,49 +710,50 @@ function file_check(obj,action_url,id)
 			$('#loadingImg').css("visibility","hidden");
 		}
 	}else if(this.FileExt == ''){
-	 	return false;
+		return false;
 	}else{
 		$.ajaxFileUpload ({
 			type:'POST',
 			url: action_url,
 			secureuri:false,
 			fileElementId:id,
-			data:{userId:userId},
+			data:{userId:userId,_token:_token},
 			dataType: 'text',
 			success: function (jsonStr) {
-				var json = eval('(' + jsonStr + ')');
-				$('#loadingImg').css("visibility","hidden");
-				if(json.success){
-					var nearbyName = '';
-					if(json.content.nearbyName.length>18){
-						nearbyName = json.content.nearbyName.substring(0,15)+'...';
-					}else{
-						nearbyName = json.content.nearbyName;
-					}
-					$('#resumeSendForm .btn_profile_save').removeAttr('disabled').css('backgroundColor','#019875');
-					$('#resumeSetForm .btn_profile_save').removeAttr('disabled').css('backgroundColor','#019875');
-					if(id == 'reUploadResume1'){
-						$('#setResume .uploadedResume').text(nearbyName).attr('title',json.content.nearbyName).removeClass('red');
-						$('#setResume .downloadResume').removeClass('dn').siblings('span').removeClass('dn');
-						$('#setResume .reUpload').text('重新上传');
-					}else if(id == 'reUploadResume2'){
-						$('#setResumeApply .uploadedResume').text(nearbyName).attr('title',json.content.nearbyName).removeClass('red');
-						$('#setResumeApply .downloadResume').removeClass('dn').siblings('span').removeClass('dn');
-						$('#setResumeApply .reUpload').text('重新上传');
-					}else{
-						$.colorbox({inline:true, href:$("div#uploadFileSuccess"),title:"上传附件简历"});
-					}
-				}else{
-					//issac 加判断
-
-					if(json.code==-1){
-						$.colorbox({inline:true, href:$("div#fileResumeUpload"),title:"附件简历上传失败"});
-					}else if(json.code==-2){
-						$.colorbox({inline:true, href:$("div#fileResumeUploadSize"),title:"附件简历上传失败"});
-					}else{
-						errorTips("简历上传失败，请重新上传");
-					}
-				}
+				//var json = eval('(' + jsonStr + ')');
+				//$('#loadingImg').css("visibility","hidden");
+                alert(jsonStr)
+				//if(json.success){
+				//	var nearbyName = '';
+				//	if(json.content.nearbyName.length>18){
+				//		nearbyName = json.content.nearbyName.substring(0,15)+'...';
+				//	}else{
+				//		nearbyName = json.content.nearbyName;
+				//	}
+				//	$('#resumeSendForm .btn_profile_save').removeAttr('disabled').css('backgroundColor','#019875');
+				//	$('#resumeSetForm .btn_profile_save').removeAttr('disabled').css('backgroundColor','#019875');
+				//	if(id == 'reUploadResume1'){
+				//		$('#setResume .uploadedResume').text(nearbyName).attr('title',json.content.nearbyName).removeClass('red');
+				//		$('#setResume .downloadResume').removeClass('dn').siblings('span').removeClass('dn');
+				//		$('#setResume .reUpload').text('重新上传');
+				//	}else if(id == 'reUploadResume2'){
+				//		$('#setResumeApply .uploadedResume').text(nearbyName).attr('title',json.content.nearbyName).removeClass('red');
+				//		$('#setResumeApply .downloadResume').removeClass('dn').siblings('span').removeClass('dn');
+				//		$('#setResumeApply .reUpload').text('重新上传');
+				//	}else{
+				//		$.colorbox({inline:true, href:$("div#uploadFileSuccess"),title:"上传附件简历"});
+				//	}
+				//}else{
+				//	//issac 加判断
+                //
+				//	if(json.code==-1){
+				//		$.colorbox({inline:true, href:$("div#fileResumeUpload"),title:"附件简历上传失败"});
+				//	}else if(json.code==-2){
+				//		$.colorbox({inline:true, href:$("div#fileResumeUploadSize"),title:"附件简历上传失败"});
+				//	}else{
+				//		errorTips("简历上传失败，请重新上传");
+				//	}
+				//}
 			},
 			error:function(err){
 				errorTips("简历上传失败，请重新上传");
@@ -758,4 +761,4 @@ function file_check(obj,action_url,id)
 		})//end of ajax
 
 	}
-} 
+}

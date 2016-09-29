@@ -2,9 +2,9 @@
     <div class="wrapper">
         <div class="inner_wrapper">
             <a class="footer_app click_track" event-name="l-appdownload-footer" href="javascript:void(0);"
-               rel="nofollow">校易聘APP<span></span><i></i></a>
+               rel="nofollow">校易聘APP<span></span></a>
             <a class="click_track" event-name="l-weibo-footer" href="javascript:void(0)" target="_blank" rel="nofollow">校易聘微博</a>
-            <a class="footer_qr click_track" event-name="l-weixin-footer" href="javascript:void(0)" rel="nofollow">校易聘微信<i></i></a>
+            <a class="footer_qr click_track" event-name="l-weixin-footer" href="javascript:void(0)" rel="nofollow">校易聘微信</a>
             <a class="click_track" event-name="l-whatisnew-footer" href="javascript:void(0)"
                target="_blank" rel="nofollow">版本更新</a>
             <a class="click_track" event-name="l-help-footer" href="javascript:void(0)" target="_blank"
