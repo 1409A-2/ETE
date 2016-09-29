@@ -110,7 +110,7 @@
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['b_time'])}}</span>
 
                                         <div>
-                                            {{$v['b_name']}} / @if($v['b_sex']==0) 男 @else  女  @endif / {{$v['b_workyear']}}年 /    
+                                            {{$v['b_name']}} / @if($v['b_sex']==1) 男 @else  女  @endif / {{$v['b_workyear']}}年 /    
                                             {{$v['b_status']}} 
                                         </div>
                                         <div class="jdpublisher" style="height:50px">

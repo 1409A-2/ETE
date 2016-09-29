@@ -195,6 +195,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'admin'],function(){
 		//后台首页
 		Route::get('adminIndex','Admin\AdminController@adminIndex');
+		Route::get('homeIndexOut','Admin\AdminController@homeIndexOut');// 后台生成前台首页   
 		Route::get('adminMaterial','Admin\MaterialController@carousel');
 		Route::post('adminMaterialPro','Admin\MaterialController@carouselPro');
 		Route::get('upcarousel','Admin\MaterialController@upCarousel');
