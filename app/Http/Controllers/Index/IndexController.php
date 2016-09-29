@@ -33,10 +33,10 @@ class IndexController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function index(){
-        $request = new Request();
         //查询所有行业
-
-        $industry=industry::sel();
+        
+        $industry=industry::sel(); 
+        
         //print_r($industry);die;
         $new_industry='';
         $parent=0;
@@ -97,24 +97,6 @@ class IndexController extends BaseController
             }
         }
         // print_r($hot);die; 
-        $userKey = $request->input('user');
-        $ct_type = $request->input('ct_type');
-        if (!empty($userKey)) {
-            $con_data = Convenient::checkOnly($userKey);
-            if ($con_data) {
-                $checkRest = User::findOnly($con_data['u_id']);
-                session()->put('u_id', $checkRest['u_id']);
-                session()->put('u_email', $checkRest['u_email']);
-            } else {
-                return view('index.index.WeixinRegister',['userKey'=>$userKey,'ct_type'=>$ct_type]);
-            }
-        }
-
-        $id = session('u_id');
-        $list = User::findOnly($id);
-        if ($list['u_status']=='0') {
-            return view('index.index.checkEmail');
-        }
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 
@@ -261,12 +243,14 @@ class IndexController extends BaseController
             }
             $con_data['u_id'] = $res;
             Convenient::addConven($con_data);
-            $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
-            $rest = Mail::raw($arr['content'], function ($message) use($email) {
-                $to = $email;
-                $message ->to($to)->subject('校易聘注册认证邮件');
-            });
+            $enEmail = base64_encode($email);
+            $content = "欢迎注册校易聘：<br/>请验证你的邮箱以便正常访问网站,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
+            $subject = "校易聘注册认证邮件";
+
+            $rest = MailController::send($content, $email, $subject);
             if ($rest) {
+                $content = "欢迎注册校易聘：您的验证邮件已经发送，请您尽快验证，以方便我们更好的为您服务。";
+                MessageController::sendMessage($res,$content,2);
                 return json_encode($con_data['ct_openid']);
             } else {
                 return json_encode($rest);
@@ -373,7 +357,8 @@ class IndexController extends BaseController
         $u_id = session('u_id');
         $user_data = User::findOnly($u_id);
         
-        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email={$user_data['u_email']}'>这里激活</a>";
+        $enEmail = base64_encode($user_data['u_email']);
+        $content = "请激活的你的发布招聘的资格,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
         $subject = "校易聘企业认证邮件";
 
         $rest = MailController::send($content,$user_data['u_email'],$subject);
@@ -383,6 +368,20 @@ class IndexController extends BaseController
         }else{
 
             return 0;
+        }
+    }
+
+    /**
+     * 邮箱验证
+     */
+    public function checkEmail()
+    {
+        $id = session('u_id');
+        $list = User::findOnly($id);
+        if ($list['u_status']=='0') {
+            return view('index.index.checkEmail');
+        } else {
+            return redirect('/');
         }
     }
 }
