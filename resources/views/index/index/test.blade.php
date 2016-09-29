@@ -233,6 +233,12 @@
                 </li>
                 @endforeach
             </ul>
+            @else
+            <div class="hot_pos reset" style="margin-top:150px;margin-left:100px;margin-bottom:100px">
+                    <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
+                    <br>
+                    
+            </div>
     @endif       
 
     @if($new)        
@@ -276,7 +282,13 @@
                 </li>
                 @endforeach
             </ul>
-@endif   
+            @else
+                <div class="hot_pos hot_posHotPosition reset" style="display:none" style="margin-top:150px;margin-left:100px;margin-bottom:100px">
+                    <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
+                    <br>
+                    
+                </div>
+        @endif   
         </div>
 
         <div class="clear"></div>

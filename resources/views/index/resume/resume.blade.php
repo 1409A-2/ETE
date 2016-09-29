@@ -38,7 +38,7 @@
                     <span class="c_edit"></span>
 
                     <div class="basicShow">
-            			            			<span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
+                                                <span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
                                                     |  @if($res['r_sex']==0)男@else女@endif
                                                     |
                                                     @if($res['r_education'])
@@ -75,7 +75,7 @@
                                                     @else
                                                         目前状态
                                                     @endif
-            			</span>
+                        </span>
 
                         <div class="m_portrait">
                             <div></div>
@@ -386,7 +386,7 @@
                     <input type="hidden" id="expectPositionVal" value="{{$expected['ex_name']}}">
                     <input type="hidden" id="expectSalaryVal" value="">
                 </div>
-
+        {{--项目经验--}}
                 <div class="profile_box" id="projectExperience">
                     <h2>项目经验</h2>
                     @if($porject)
@@ -402,14 +402,14 @@
                                         <div class="projectList">
                                             <div class="f16 mb10">{{$v['p_name']}},{{$v['p_duties']}}
                                                 <span class="c9">
-		            									            								（{{date('Y.m',$v['p_start_time'])}}
+                                                                                                    （{{date('Y.m',$v['p_start_time'])}}
                                                     -{{date('Y.d',$v['p_end_time'])}}）
                                                     <a href="javascript:;" class="porjectDel" pid="{{$v['p_id']}}"
                                                        style="font-size: 14px;">删除</a>
                                                     <br/>
                                                     <?php echo $v['p_desc']?>
                                                     {{--<span pid="{{$v['p_id']}}" class="c_edit"></span>--}}
-		            									            						</span>
+                                                                                            </span>
                                             </div>
                                             <div class="dl1"></div>
                                         </div>
@@ -517,7 +517,7 @@
                                     <tr>
                                         <td valign="top"></td>
                                         <td colspan="3">
-                                            <textarea class="projectDescription s_textarea" name="projectDescription"
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescription"
                                                     placeholder="项目描述"></textarea>
 
                                         </td>
@@ -634,7 +634,7 @@
                                     <tr>
                                         <td valign="top"></td>
                                         <td colspan="3">
-                                            <textarea class="projectDescription s_textarea" name="projectDescription"
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescriptions"
                                                         placeholder="项目描述"></textarea>
 
                                         </td>
@@ -651,6 +651,9 @@
                                 </table>
                                 <input type="hidden" value="" class="projectId">
                             </form>
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('projectDescriptions');
+                            </script>
                         </div>
                         <div class="projectAdd pAdd dn">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
@@ -760,7 +763,7 @@
                                     <tr>
                                         <td valign="top"></td>
                                         <td colspan="3">
-                                            <textarea class="projectDescription s_textarea" name="projectDescription"
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescription"
                                                 placeholder="项目描述"></textarea>
                                         </td>
                                     </tr>
@@ -877,7 +880,7 @@
                                     <tr>
                                         <td valign="top"></td>
                                         <td colspan="3">
-                                            <textarea class="projectDescription s_textarea" name="projectDescription"
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescriptions"
                                                        placeholder="项目描述"></textarea>
                                         </td>
                                     </tr>
@@ -893,7 +896,9 @@
                                 </table>
                                 <input type="hidden" value="" class="projectId">
                             </form>
-
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('projectDescriptions');
+                            </script>
                         </div>
                         <div class="projectAdd pAdd">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
@@ -901,9 +906,12 @@
                             <span>添加项目经验</span>
                         </div><!--end .projectAdd-->
                     @endif
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('projectDescription');
+                    </script>
                 </div>
 
-
+            {{--教育背景--}}
                 <div class="profile_box" id="educationalBackground">
                     <h2>教育背景<span>（投递简历时必填）</span></h2>
 
@@ -1400,7 +1408,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      id="containerText"   name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerT"   name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1429,7 +1437,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      id="containerText"    name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerT"          name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1441,6 +1449,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <script type="text/javascript">
+                                    var ue = UE.getEditor('containerTe');
+                                </script>
                                 <input type="hidden" class="showId" value="">
                             </form>
                             <!--end .workForm-->
@@ -1466,7 +1477,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                            name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerT"       name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1495,7 +1506,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                   name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerTe"   name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1507,6 +1518,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <script type="text/javascript">
+                                    var ue = UE.getEditor('containerTe');
+                                </script>
                                 <input type="hidden" class="showId" value="">
                             </form>
                             <!--end .workForm-->
@@ -1517,7 +1531,9 @@
                             <span>添加作品展示</span>
                         </div>
                     @endif
-
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('containerT');
+                    </script>
                 </div>
                 <input type="hidden" id="resumeId" value="{{$res['r_id']}}">
             </div>
