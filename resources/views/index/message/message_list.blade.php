@@ -36,9 +36,9 @@
                                                     <div class="clear"></div>
                                                     <h2>
                                                         @if($message['m_type'] == 1)
-                                                            系统消息
-                                                        @elseif($message['m_type'] == 2)
                                                             投递反馈
+                                                        @elseif($message['m_type'] == 2)
+                                                            系统消息
                                                         @else
                                                             一拍消息
                                                         @endif

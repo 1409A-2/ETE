@@ -91,7 +91,7 @@
 						<input type="hidden" id="companyName" name="companyName" value="{{$company_data['c_name']}}">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
                         <h3>总部地址</h3>
-                        <input type="text" placeholder="请输入详细的工作地址" value="" name="positionAddress" id="positionAddress" class="input_520" id="positionAddress">
+                        <input type="text" placeholder="请输入详细的工作地址" value="{{empty($url) ? '': $company_data['c_address']}}" name="positionAddress" id="positionAddress" class="input_520" id="positionAddress">
                         <input type="hidden" value="" name="positionLng" id="lng">
                         <input type="hidden" value="" name="positionLat" id="lat">
                         <div class="work_place f14">我们将在职位详情页以地图方式精准呈现给用户  <a id="mapPreview" href="javascript:;">预览地图</a></div>

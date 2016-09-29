@@ -25,7 +25,7 @@ class CreateEteReleaseTable extends Migration
             $table->string('re_welfare',60);
             $table->string('re_address',100);
             $table->string('i_name',20);
-            $table->tinyInteger('re_status')->->default('0');
+            $table->tinyInteger('re_status')->default('0');
             $table->integer('c_id');
         });
     }
