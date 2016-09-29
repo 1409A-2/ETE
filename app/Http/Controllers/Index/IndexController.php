@@ -32,8 +32,7 @@ class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index(){
-        $Request = new Request();
+    public function index(Request $Request){
         //查询所有行业
         
         $industry=industry::sel(); 
