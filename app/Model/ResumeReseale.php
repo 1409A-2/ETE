@@ -142,6 +142,6 @@ class ResumeReseale extends Model
 
     //查询组数据
     public static function selGroup(){
-        return self::select(DB::raw('re_id,count(re_id) re_num'))->groupBy('re_id')->orderBy("re_num",'desc')->limit(5)->get()->toArray();
+        return self::select(DB::raw('re_id,count(re_id) re_num'))->groupBy('re_id')->orderBy("re_num",'desc')->get()->toArray();
     }
 }

@@ -67,6 +67,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                 <li><a href="javascript:void(0);" class="icon-home"> 开始</a>
                     <ul>
                         <li><a href="adminIndex">首页</a></li>
+                        <li><a href="homeIndexOut">生成前台首页</a></li>
                     </ul>
                 </li>
                 {{--<li><a href="javascript:void(0);" class="icon-cog"> 系统</a>

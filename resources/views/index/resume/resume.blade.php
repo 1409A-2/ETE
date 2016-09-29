@@ -1,7 +1,6 @@
 ﻿@extends('index.lar.public')
 <script src="{{env('APP_HOST')}}/style/js/jq.js" type="text/javascript"></script>
 @section('content')
-
     <div id="container">
 
         <div class="clearfix">
@@ -29,7 +28,7 @@
                     <div class="score fl">
                         <canvas height="120" width="120" id="doughnutChartCanvas"
                                 style="width: 120px; height: 120px;"></canvas>
-                        <div style="" class="scoreVal"><span>{{$sum}}</span>分</div>
+                        <div style="" class="scoreVal"><span>@if(empty($sum)) 5 @else {{$sum}} @endif</span>分</div>
                     </div>
                 </div>
                 <!--end #resumeScore-->
@@ -39,7 +38,7 @@
                     <span class="c_edit"></span>
 
                     <div class="basicShow">
-            			            			<span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
+                                                <span>@if($res['r_name']){{$res['r_name']}} @else姓名 @endif
                                                     |  @if($res['r_sex']==0)男@else女@endif
                                                     |
                                                     @if($res['r_education'])
@@ -66,19 +65,19 @@
                                                     @if($res['r_status'])
                                                         @if($res['r_status']==0)
                                                             我目前已离职，可快速到岗
-                                                           @elseif($res['r_status']==1)
+                                                        @elseif($res['r_status']==1)
                                                             我目前正在职，正考虑换个新环境
                                                         @elseif($res['r_status']==2)
                                                             我暂时不想找工作
                                                         @elseif($res['r_status']==3)
                                                             我是应届毕业生
-                                                            @endif
-                                                        @else
+                                                        @endif
+                                                    @else
                                                         目前状态
                                                     @endif
-            			</span>
+                        </span>
 
-                            <div class="m_portrait">
+                        <div class="m_portrait">
                             <div></div>
                             @if($res['r_img'])
                                 <img width="120" height="120" alt="jason" src="{{env('APP_HOST')}}/{{$res['r_img']}}">
@@ -387,7 +386,7 @@
                     <input type="hidden" id="expectPositionVal" value="{{$expected['ex_name']}}">
                     <input type="hidden" id="expectSalaryVal" value="">
                 </div>
-
+        {{--项目经验--}}
                 <div class="profile_box" id="projectExperience">
                     <h2>项目经验</h2>
                     @if($porject)
@@ -403,14 +402,14 @@
                                         <div class="projectList">
                                             <div class="f16 mb10">{{$v['p_name']}},{{$v['p_duties']}}
                                                 <span class="c9">
-		            									            								（{{date('Y.m',$v['p_start_time'])}}
+                                                                                                    （{{date('Y.m',$v['p_start_time'])}}
                                                     -{{date('Y.d',$v['p_end_time'])}}）
                                                     <a href="javascript:;" class="porjectDel" pid="{{$v['p_id']}}"
                                                        style="font-size: 14px;">删除</a>
                                                     <br/>
-                                                    <?php echo mb_substr($v['p_desc'],0,15,'UTF-8')?>
+                                                    <?php echo $v['p_desc']?>
                                                     {{--<span pid="{{$v['p_id']}}" class="c_edit"></span>--}}
-		            									            						</span>
+                                                                                            </span>
                                             </div>
                                             <div class="dl1"></div>
                                         </div>
@@ -518,8 +517,8 @@
                                     <tr>
                                         <td valign="top"></td>
                                         <td colspan="3">
-                                            <textarea class="projectDescription s_textarea" name="projectDescription"
-                                                      placeholder="项目描述"></textarea>
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescription"
+                                                    placeholder="项目描述"></textarea>
 
                                         </td>
                                     </tr>
@@ -536,15 +535,135 @@
                                 <input type="hidden" value="" class="projectId">
                             </form>
                         </div>
-                        <div class="projectEd dn"></div>
+                        <div class="projectEd dn">
+                            <form class="projectForm">
+                                <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="项目名称" name="projectName"
+                                                   class="projectName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="担任职务，如：产品负责人" name="thePost"
+                                                   class="thePost">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectYearStart" value=""
+                                                       name="projectYearStart">
+                                                <input type="button" value="开始年份"
+                                                       class="profile_select_139 profile_select_normal select_projectYearStart">
+
+                                                <div class="box_projectYearStart  boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectMonthStart" value=""
+                                                       name="projectMonthStart">
+                                                <input type="button" value="开始月份"
+                                                       class="profile_select_139 profile_select_normal select_projectMonthStart">
+
+                                                <div style="display: none;"
+                                                     class="box_projectMonthStart boxUpDown boxUpDown_139 dn">
+                                                    <ul>
+                                                        @for($i=01;$i<13;$i++)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectYearEnd" value=""
+                                                       name="projectYearEnd">
+                                                <input type="button" value="结束年份"
+                                                       class="profile_select_139 profile_select_normal select_projectYearEnd">
+
+                                                <div class="box_projectYearEnd  boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        <li>至今</li>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectMonthEnd" value=""
+                                                       name="projectMonthEnd">
+                                                <input type="button" value="结束月份"
+                                                       class="profile_select_139 profile_select_normal select_projectMonthEnd">
+
+                                                <div style="display: none;"
+                                                     class="box_projectMonthEnd boxUpDown boxUpDown_139 dn">
+                                                    <ul>
+                                                        @for($i=01;$i<13;$i++)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescriptions"
+                                                        placeholder="项目描述"></textarea>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" value="" class="projectId">
+                            </form>
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('projectDescriptions');
+                            </script>
+                        </div>
                         <div class="projectAdd pAdd dn">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
                             来说说让你难忘的项目吧！
                             <span>添加项目经验</span>
                         </div>
                     @else
-                        <div class="c_edit dn"></div>
+                        <div class="c_add dn"></div>
                         <div class="projectShow dn"></div>
+
                         <div class="projectEdit dn">
                             <form class="projectForm">
                                 <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
@@ -644,8 +763,8 @@
                                     <tr>
                                         <td valign="top"></td>
                                         <td colspan="3">
-                                            <textarea class="projectDescription s_textarea" name="projectDescription"
-                                                      placeholder="项目描述"></textarea>
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescription"
+                                                placeholder="项目描述"></textarea>
                                         </td>
                                     </tr>
 
@@ -662,15 +781,137 @@
                             </form>
 
                         </div>
+                        <div class="projectEd dn">
+                            <form class="projectForm">
+                                <input type="hidden" id="project_token" value="{{csrf_token()}}"/>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="项目名称" name="projectName"
+                                                   class="projectName">
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="担任职务，如：产品负责人" name="thePost"
+                                                   class="thePost">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectYearStart" value=""
+                                                       name="projectYearStart">
+                                                <input type="button" value="开始年份"
+                                                       class="profile_select_139 profile_select_normal select_projectYearStart">
+
+                                                <div class="box_projectYearStart  boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectMonthStart" value=""
+                                                       name="projectMonthStart">
+                                                <input type="button" value="开始月份"
+                                                       class="profile_select_139 profile_select_normal select_projectMonthStart">
+
+                                                <div style="display: none;"
+                                                     class="box_projectMonthStart boxUpDown boxUpDown_139 dn">
+                                                    <ul>
+                                                        @for($i=01;$i<13;$i++)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectYearEnd" value=""
+                                                       name="projectYearEnd">
+                                                <input type="button" value="结束年份"
+                                                       class="profile_select_139 profile_select_normal select_projectYearEnd">
+
+                                                <div class="box_projectYearEnd  boxUpDown boxUpDown_139 dn"
+                                                     style="display: none;">
+                                                    <ul>
+                                                        <li>至今</li>
+                                                        @for($i=2016;$i>1969;$i--)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="fl">
+                                                <input type="hidden" class="projectMonthEnd" value=""
+                                                       name="projectMonthEnd">
+                                                <input type="button" value="结束月份"
+                                                       class="profile_select_139 profile_select_normal select_projectMonthEnd">
+
+                                                <div style="display: none;"
+                                                     class="box_projectMonthEnd boxUpDown boxUpDown_139 dn">
+                                                    <ul>
+                                                        @for($i=01;$i<13;$i++)
+                                                            <li>{{$i}}</li>
+                                                        @endfor
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <textarea class="projectDescription s_textarea" name="projectDescription" id="projectDescriptions"
+                                                       placeholder="项目描述"></textarea>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <input type="submit" value="保 存" class="btn_profile_save">
+                                            <a class="btn_profile_cancel" href="javascript:;">取 消</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" value="" class="projectId">
+                            </form>
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('projectDescriptions');
+                            </script>
+                        </div>
                         <div class="projectAdd pAdd">
                             项目经验是用人单位衡量人才能力的重要指标哦！<br>
                             来说说让你难忘的项目吧！
                             <span>添加项目经验</span>
                         </div><!--end .projectAdd-->
                     @endif
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('projectDescription');
+                    </script>
                 </div>
 
-
+            {{--教育背景--}}
                 <div class="profile_box" id="educationalBackground">
                     <h2>教育背景<span>（投递简历时必填）</span></h2>
 
@@ -1064,7 +1305,7 @@
                     @endif
                 </div>
                 <!--end #educationalBackground-->
-
+            {{--自我描述--}}
                 <div class="profile_box" id="selfDescription">
                     <h2>自我描述</h2>
                     <input type="hidden" value="{{csrf_token()}}" id="desc_token"/>
@@ -1072,7 +1313,7 @@
                     @if($res['r_desc'])
                         <div class="descriptionShow ">
 
-                            {{$res['r_desc']}}
+                           <?php echo $res['r_desc']?>
 
                         </div> <span class="c_edit"></span>
                         <div class="descriptionEdit dn">
@@ -1081,9 +1322,9 @@
                                     <tbody>
                                     <tr>
                                         <td colspan="2">
-                                            <textarea class="selfDescription s_textarea" name="selfDescription"
-                                                      placeholder=""></textarea>
-
+                                                <textarea class="selfDescription s_textarea" name="selfDescription"
+                                                      id="containerText"     placeholder=""><?php echo $res['r_desc']?></textarea>
+                                            {{--<script id="container" type="text/plain"></script>--}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -1107,7 +1348,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <textarea class="selfDescription s_textarea" name="selfDescription"
-                                                      placeholder=""></textarea>
+                                                      id="containerText"    placeholder=""></textarea>
 
                                         </td>
                                     </tr>
@@ -1132,6 +1373,7 @@
                     @endif
                 </div>
 
+            {{--作品--}}
                 <div class="profile_box" id="worksShow">
                     <h2>作品展示</h2>
 
@@ -1141,12 +1383,13 @@
                         <div class="workShow">
                             @foreach($works as $v)
 
-
                                 <div class="workList c7">
                                     <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
-                                        <a href="javascript:;" class="workDel" wid="{{$v['w_id']}}"    style="font-size: 14px;">删除</a>
+
+                                        <a  href="javascript:;" class="workDel" wid="{{$v['w_id']}}"
+                                           style="font-size: 14px; margin-left: 30px;">删除</a>
                                     </div>
-                                    <p>{{$v['w_desc']}} </p>
+                                    <p><?php echo $v['w_desc']?> </p>
                                 </div>
                                 <hr/>
                             @endforeach
@@ -1165,8 +1408,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      id="workDescription" name="workDescription"
-                                                      placeholder="请输入说明文字"></textarea>
+                                                      id="containerT"   name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1195,7 +1437,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerT"          name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1207,6 +1449,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <script type="text/javascript">
+                                    var ue = UE.getEditor('containerTe');
+                                </script>
                                 <input type="hidden" class="showId" value="">
                             </form>
                             <!--end .workForm-->
@@ -1232,7 +1477,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerT"       name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1261,7 +1506,7 @@
                                     <tr>
                                         <td>
                                             <textarea maxlength="100" class="workDescription s_textarea"
-                                                      name="workDescription" placeholder="请输入说明文字"></textarea>
+                                                      id="containerTe"   name="workDescription" placeholder="请输入说明文字"></textarea>
 
                                         </td>
                                     </tr>
@@ -1273,6 +1518,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <script type="text/javascript">
+                                    var ue = UE.getEditor('containerTe');
+                                </script>
                                 <input type="hidden" class="showId" value="">
                             </form>
                             <!--end .workForm-->
@@ -1283,7 +1531,9 @@
                             <span>添加作品展示</span>
                         </div>
                     @endif
-
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('containerT');
+                    </script>
                 </div>
                 <input type="hidden" id="resumeId" value="{{$res['r_id']}}">
             </div>
@@ -1291,12 +1541,13 @@
             <div class="content_r">
                 <div class="mycenterR" id="myInfo">
                     <h2>我的信息</h2>
-                    <!--  <a target="_blank" href="collections.html">我收藏的职位</a>
+                     <a target="_blank" href="{{url('collectedPosition')}}">我收藏的职位</a>
                      <br>
-                     <a target="_blank" href="subscribe.html">我订阅的职位</a>
-                     <br/> -->
+                     <a target="_blank" href="{{url('subscribe')}}">我订阅的职位</a>
+                     <br/>
                     <a target="_blank" href="{{url('remuseShow')}}">已投递的简历</a>
                 </div>
+
                 <!--end #myInfo-->
 
                 {{--<div class="mycenterR" id="myResume">--}}
@@ -1333,8 +1584,8 @@
                 <!--end #resumeSet-->
 
                 {{--<div class="mycenterR" id="myShare">--}}
-                    {{--<h2>当前每日投递量：10个</h2>--}}
-                    {{--<a target="_blank" href="h/share/invite.html">邀请好友，提升投递量</a>--}}
+                {{--<h2>当前每日投递量：10个</h2>--}}
+                {{--<a target="_blank" href="h/share/invite.html">邀请好友，提升投递量</a>--}}
                 {{--</div>--}}
                 <!--end #myShare-->
 
@@ -1346,140 +1597,7 @@
         <input type="hidden" id="userid" name="userid" value="{{$res['r_id']}}">
 
         <!-------------------------------------弹窗lightbox ----------------------------------------->
-        <div style="display:none;">
-            <!-- 上传简历 -->
-            <div class="popup" id="uploadFile">
-                <table width="100%">
-                    <tbody>
-                    <tr>
-                        <td align="center">
-                            <form>
-                                <input type="hidden" value="{{csrf_token()}}" id="popup_token"/>
-                                <a class="btn_addPic" href="javascript:void(0);">
-                                    <span>选择上传文件</span>
-                                    <input type="file"
-                                           onchange="file_check(this,'{{url('enclosureAdd')}}','resumeUpload')"
-                                           class="filePrew" id="resumeUpload" name="newResume" size="3"
-                                           title="支持word、pdf、ppt、txt、wps格式文件，大小不超过10M" tabindex="3">
-                                </a>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left">支持word、pdf、ppt、txt、wps格式文件<br>文件大小需小于10M</td>
-                    </tr>
-                    <tr>
-                        <td align="left" style="color:#dd4a38; padding-top:10px;">注：若从其它网站下载的word简历，请将文件另存为.docx格式后上传
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center"><img width="55" height="16" alt="loading" style="visibility: hidden;"
-                                                id="loadingImg" src="style/images/loading.gif"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/#uploadFile-->
 
-            <!-- 简历上传成功 -->
-            <div class="popup" id="uploadFileSuccess">
-                <h4>简历上传成功！</h4>
-                <table width="100%">
-                    <tbody>
-                    <tr>
-                        <td align="center"><p>你可以将简历投给你中意的公司了。</p></td>
-                    </tr>
-                    <tr>
-                        <td align="center"><a class="btn_s" href="javascript:;">确&nbsp;定</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/#uploadFileSuccess-->
-
-            <!-- 没有简历请上传 -->
-            <div class="popup" id="deliverResumesNo">
-                <table width="100%">
-                    <tbody>
-                    <tr>
-                        <td align="center"><p class="font_16">你在拉勾还没有简历，请先上传一份</p></td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <form>
-                                <a class="btn_addPic" href="javascript:void(0);">
-                                    <span>选择上传文件</span>
-                                    <input type="file"
-                                           onchange="file_check(this,'h/nearBy/updateMyResume.json','resumeUpload1')"
-                                           class="filePrew" id="resumeUpload1" name="newResume" size="3"
-                                           title="支持word、pdf、ppt、txt、wps格式文件，大小不超过10M">
-                                </a>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">支持word、pdf、ppt、txt、wps格式文件，大小不超过10M</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/#deliverResumesNo-->
-
-            <!-- 上传附件简历操作说明-重新上传 -->
-            <div class="popup" id="fileResumeUpload">
-                <table width="100%">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div class="f18 mb10">请上传标准格式的word简历</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="f16">
-                                操作说明：<br>
-                                打开需要上传的文件 - 点击文件另存为 - 选择.docx - 保存
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <a title="上传附件简历" href="#uploadFile" class="inline btn cboxElement">重新上传</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/#fileResumeUpload-->
-
-            <!-- 上传附件简历操作说明-重新上传 -->
-            <div class="popup" id="fileResumeUploadSize">
-                <table width="100%">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div class="f18 mb10">上传文件大小超出限制</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="f16">
-                                提示：<br>
-                                单个附件不能超过10M，请重新选择附件简历！
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <a title="上传附件简历" href="#uploadFile" class="inline btn cboxElement">重新上传</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!--/#deliverResumeConfirm-->
-
-        </div>
         <!------------------------------------- end ----------------------------------------->
 
         <script src="{{env('APP_HOST')}}/style/js/Chart.min.js" type="text/javascript"></script>
@@ -1502,7 +1620,7 @@
 {{--基本信息验证--}}
 
 <script type="text/javascript">
-    var URL='{{url('/')}}';
+    var URL = '{{url('/')}}';
     $(function () {
         $('#noticeDot-1').hide();
         $('#noticeTip a.closeNT').click(function () {
@@ -1575,6 +1693,11 @@
     </div>
     <div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
 </div>
+<script src="{{env('APP_HOST')}}/editor/ueditor.config.js"></script>
+<script src="{{env('APP_HOST')}}/editor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('containerText');
+</script>
 <script>
 
     function img_check(a, b, c) {
@@ -1610,17 +1733,17 @@
      * 删除 期望工作
      * @param id
      */
-    function expectedDel(id){
+    function expectedDel(id) {
         $.ajax({
-            type:'GET',
-            url:"{{url('expectedDel')}}",
-            data:{expectedId:id},
-            success:function(msg){
-                if(msg==1){
-                $('#expectJob .expectShow').addClass('dn');
-                $('#expectJob .c_edit').addClass('dn');
-                $('#expectJob .expectAdd').removeClass('dn');
-                }else{
+            type: 'GET',
+            url: "{{url('expectedDel')}}",
+            data: {expectedId: id},
+            success: function (msg) {
+                if (msg == 1) {
+                    $('#expectJob .expectShow').addClass('dn');
+                    $('#expectJob .c_edit').addClass('dn');
+                    $('#expectJob .expectAdd').removeClass('dn');
+                } else {
                     $('#expectJob h2').html('删除失败')
                 }
             }
@@ -1630,17 +1753,17 @@
      * 删除 教育背景
      * @param id
      */
-    function schoolDel(id){
+    function schoolDel(id) {
         $.ajax({
-            type:'GET',
-            url:"{{url('schoolDel')}}",
-            data:{schoolId:id},
-            success:function(msg){
-                if(msg==1){
+            type: 'GET',
+            url: "{{url('schoolDel')}}",
+            data: {schoolId: id},
+            success: function (msg) {
+                if (msg == 1) {
                     $('#educationalBackground .educationalShow').addClass('dn');
                     $('#educationalBackground .c_edit').addClass('dn');
                     $('#educationalBackground .educationalAdd').removeClass('dn');
-                }else{
+                } else {
                     $('#educationalBackground h2').html('删除失败')
                 }
             }
@@ -1693,64 +1816,5 @@
                 }
             })
         })
-
-        {{--$(document).delegate('#projectExperience .c_edit','click',function(){--}}
-            {{--var pid=$(this).attr('pid');--}}
-            {{--var token='{{csrf_token()}}';--}}
-            {{--$.ajax({--}}
-                {{--type: 'GET',--}}
-                {{--url: "{{url('porjectSel')}}",--}}
-                {{--data: {pid: pid},--}}
-                {{--dataType:'json',--}}
-                {{--success: function (msg) {--}}
-                   {{--html=''--}}
-                    {{--html+='<form class="projectForm">';--}}
-                    {{--html+='<input type="hidden" name="porjectId" id="porjectId" value='+msg['p_id']+'>'--}}
-                    {{--html+='<input type="hidden" name="project_token" id="project_token" value="'+token+'"/>';--}}
-                    {{--html+='<table><tbody><tr> <td valign="top">';--}}
-                    {{--html+='<span class="redstar">*</span></td> <td>';--}}
-                    {{--html+='<input type="text" value='+msg['p_name']+' placeholder="项目名称" name="projectName" class="projectName">';--}}
-                    {{--html+='</td> <td valign="top"> <span class="redstar">*</span> </td> <td>';--}}
-                    {{--html+='<input type="text" placeholder="担任职务，如：产品负责人" value='+msg['p_duties']+' name="thePost" class="thePost">';--}}
-                    {{--html+='</td> </tr> <tr> <td valign="top"> <span class="redstar">*</span> </td> <td> <div class="fl">';--}}
-                    {{--html+='<input type="hidden" class="projectYearStart" value="" name="projectYearStart">';--}}
-                    {{--html+='<input type="button" value="开始年份"class="profile_select_139 profile_select_normal select_projectYearStart">';--}}
-                    {{--html+='<div class="box_projectYearStart  boxUpDown boxUpDown_139 dn"style="display: none;"> <ul>';--}}
-                    {{--for(var i=2016; i>1969; i--){--}}
-                     {{--html+='<li>'+i+'</li>'--}}
-                    {{--}--}}
-                    {{--html+='</ul> </div> </div> <div class="fl"> <input type="hidden" class="projectMonthStart" value="" name="projectMonthStart">';--}}
-                    {{--html+='<input type="button" value="开始月份"class="profile_select_139 profile_select_normal select_projectMonthStart">';--}}
-                    {{--html+='<div style="display: none;"class="box_projectMonthStart boxUpDown boxUpDown_139 dn"> <ul>';--}}
-                    {{--for(var v=1; v<13; v++){--}}
-                        {{--html+='<li>'+v+'</li>'--}}
-                    {{--}--}}
-                    {{--html+='</ul></div></div><div class="clear"></div> </td> <td valign="top"> <span class="redstar">*</span> </td> <td> <div class="fl">';--}}
-                    {{--html+='<input type="hidden" class="projectYearEnd" value="" name="projectYearEnd">';--}}
-                    {{--html+='<input type="button" value="结束年份" class="profile_select_139 profile_select_normal select_projectYearEnd">';--}}
-                    {{--html+='<div class="box_projectYearEnd  boxUpDown boxUpDown_139 dn"style="display: none;">';--}}
-                    {{--html+='<ul> <li>至今</li>';--}}
-                    {{--for(var i=2016; i>1969; i--){--}}
-                        {{--html+='<li>'+i+'</li>'--}}
-                    {{--}--}}
-                    {{--html+='</ul></div> </div> <div class="fl"> <input type="hidden" class="projectMonthEnd" value="" name="projectMonthEnd">';--}}
-                    {{--html+='<input type="button" value="结束月份" class="profile_select_139 profile_select_normal select_projectMonthEnd">';--}}
-                    {{--html+='<div style="display: none;"class="box_projectMonthEnd boxUpDown boxUpDown_139 dn"> <ul>';--}}
-                    {{--for(var v=1; v<13; v++){--}}
-                        {{--html+='<li>'+v+'</li>'--}}
-                    {{--}--}}
-                    {{--html+='</ul></div></div><div class="clear"></div></td></tr><tr><td valign="top"></td><td colspan="3">'--}}
-                    {{--html+='<textarea class="projectDescription s_textarea" name="projectDescription" placeholder="项目描述">'+msg['p_desc']+'</textarea>';--}}
-                    {{--html+='</td> </tr><tr><td valign="top"></td><td colspan="3">';--}}
-                    {{--html+='<input type="submit" value="保 存" class="btn_profile_save">';--}}
-                    {{--html+='<a class="btn_profile_cancel" href="javascript:;">取 消</a>';--}}
-                    {{--html+='</td> </tr> </tbody> </table> <input type="hidden" value="" class="projectId"> </form>'--}}
-                    {{--$('#projectExperience .projectShow').addClass('dn');--}}
-                    {{--$('#projectExperience .c_add').addClass('dn');--}}
-                    {{--$('#projectExperience .projectEd').removeClass('dn').html(html);--}}
-                    {{--$('#projectExperience .projectShow').addClass('dn');--}}
-                {{--}--}}
-            {{--})--}}
-        {{--})--}}
     })
 </script>
