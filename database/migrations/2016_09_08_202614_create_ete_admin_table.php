@@ -17,6 +17,10 @@ class CreateEteAdminTable extends Migration
             $table->increments('a_id');
             $table->string('a_name',30);
             $table->char('a_pwd',32);
+            $table->char('a_repwd',32);
+            $table->string('a_nickname',32);
+            $table->string('a_email',30);
+
         });
     }
 

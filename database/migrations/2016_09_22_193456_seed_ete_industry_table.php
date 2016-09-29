@@ -19,7 +19,7 @@ class SeedEteIndustryTable extends Migration
             'a_name' => 'admin',
             'a_pwd' => md5('123123')
         ]);
-        DB::table('eduction')->insert([
+        DB::table('education')->insert([
             'ed_name' => '不限'
         ]);
     }
@@ -34,6 +34,6 @@ class SeedEteIndustryTable extends Migration
         DB::table('industry')->delete();
         DB::table('admin')->delete();
         DB::table('company')->delete();
-        DB::table('eduction')->delete();
+        DB::table('education')->delete();
     }
 }
