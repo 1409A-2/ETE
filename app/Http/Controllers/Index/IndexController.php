@@ -32,7 +32,7 @@ class IndexController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index(Request $Request){
+    public function index(){
         //查询所有行业
         
         $industry=industry::sel(); 
@@ -97,24 +97,6 @@ class IndexController extends BaseController
             }
         }
         // print_r($hot);die; 
-        $userKey = $Request->input('user');
-        $ct_type = $Request->input('ct_type');
-        if (!empty($userKey)) {
-            $con_data = Convenient::checkOnly($userKey);
-            if ($con_data) {
-                $checkRest = User::findOnly($con_data['u_id']);
-                session()->put('u_id', $checkRest['u_id']);
-                session()->put('u_email', $checkRest['u_email']);
-            } else {
-                return view('index.index.WeixinRegister',['userKey'=>$userKey,'ct_type'=>$ct_type]);
-            }
-        }
-
-        $id = session('u_id');
-        $list = User::findOnly($id);
-        if ($list['u_status']=='0') {
-            return view('index.index.checkEmail');
-        }
         $carousel = Carousel::selCarousel();
         $friend = FriendShip::selFriendLink();
 
@@ -386,6 +368,20 @@ class IndexController extends BaseController
         }else{
 
             return 0;
+        }
+    }
+
+    /**
+     * 邮箱验证
+     */
+    public function checkEmail()
+    {
+        $id = session('u_id');
+        $list = User::findOnly($id);
+        if ($list['u_status']=='0') {
+            return view('index.index.checkEmail');
+        } else {
+            return redirect('/');
         }
     }
 }

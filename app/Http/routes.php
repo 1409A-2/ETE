@@ -25,6 +25,7 @@
 Route::group(['middleware' => ['web']], function () {
 	// 验证公司邮箱
 	Route::get('adopt','Index\InfoController@adoptVerify');
+	Route::get('checkEmail.html','Index\IndexController@checkEmail');
     //前台
     Route::get('/','Index\IndexController@index');
 	Route::get('postPreview','Index\IndexController@postPreview');//查看职位详情

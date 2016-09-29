@@ -13,6 +13,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\User;
+use App\Model\Convenient;
 use Mail;
 header("Access-Control-Allow-Origin:*");
 class LoginController extends BaseController
@@ -20,10 +21,24 @@ class LoginController extends BaseController
     use CaptchaGeetest;
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     // 登陆
-    public function login(){
+    public function login(Request $request){
+        $userKey = $request->input('user');
+        $ct_type = $request->input('ct_type');
+        if (!empty($userKey)) {
+            $con_data = Convenient::checkOnly($userKey);
+            if ($con_data) {
+                $checkRest = User::findOnly($con_data['u_id']);
+                session()->put('u_id', $checkRest['u_id']);
+                session()->put('u_email', $checkRest['u_email']);
+            } else {
+
+                return view('index.index.WeixinRegister',['userKey'=>$userKey,'ct_type'=>$ct_type]);
+            }
+        }
         if (!empty(session('u_id'))&&!empty(session('u_email'))) {
             return redirect('/');
         }
+
     	return  view('index.login.login');
     }
 
