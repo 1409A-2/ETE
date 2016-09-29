@@ -11,6 +11,7 @@ use App\Model\Admin;
 use App\Model\Role;
 use App\Model\Company;
 use Session;
+use App\Http\Controllers\Index\IndexController;
 
 class AdminController extends Controller
 {
@@ -76,6 +77,19 @@ class AdminController extends Controller
         session()->forget('uid');
         //print_r($data);die;
         return redirect('admin');
+    }
+
+    /**
+     * 生成前台首页
+     */
+    public function homeIndexOut(){
+        $index = new IndexController();
+        ob_start();
+        $fp =fopen("./index.html",'w');
+        $content=$index->Index();
+        fwrite($fp, $content);
+        fclose($fp);
+        echo "<script>alert('首页生成成功');location.href='adminIndex';</script>";
     }
 
 }

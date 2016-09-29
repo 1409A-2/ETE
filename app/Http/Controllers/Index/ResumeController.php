@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\Enclosure;
 use App\Model\Expected;
 use App\Model\Porject;
 use App\Model\Resume;
@@ -182,6 +183,124 @@ class ResumeController extends BaseController
 
     }
 
+    /**添加(修改)期望工作
+     * @param Request $request
+     * @return mixed
+     */
+    public function expectedAdd(Request $request)
+    {
+        //自带验证
+        $validator = Validator::make($request->all(), [
+            'positionName' => 'required',
+            'salaryMin' => 'required',
+            'salaryMax' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        }
+        //接收表单的值
+        $data['ex_name'] = $request->input('positionName');
+        $data['re_salarymin'] = $request->input('salaryMin');
+        $data['re_salarymax'] = $request->input('salaryMax');
+        $data['r_id'] = $request->input('id');
+        $res = Expected::SelOne(['r_id' => $data['r_id']]);
+        if ($res) {
+            $expected=Expected::expectedUp(['r_id' => $data['r_id']], $data);
+            if($expected){
+                return json_encode(Expected::selOne(['r_id'=>$data['r_id']]));
+            }else{
+                return 0;
+            }
+        } else {
+            Expected::expectedAdd($data);
+            return json_encode(Expected::selOne(['r_id'=>$data['r_id']]));
+
+        }
+    }
+
+    /**删除期望工作
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function expectedDel(Request $request)
+    {
+        $id=$request->input('expectedId');
+        return Expected::expectedDel(['r_id' => $id]);
+
+
+    }
+
+
+    /** * 添加项目
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function porjectAdd(Request $request)
+    {
+        //表单自带验证
+        $validator = Validator::make($request->all(), [
+            'projectName' => 'required',
+            'positionName' => 'required',
+            'startYear' => 'required',
+            'startMonth' => 'required',
+            'endYear' => 'required',
+            'projectid' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        }
+
+        //接收表单的值
+        $data['p_name'] = $request->input('projectName');//项目名称
+        $data['p_duties'] = $request->input('positionName');//担任职务
+        $data['p_start_time'] = strtotime($request->input('startYear') . '-' . $request->input('startMonth'));//项目开始年月
+        $data['p_end_time'] = ($request->input('endYear') == '至今') ? time() : strtotime($request->input('endYear') . '-' . $request->input('endMonth'));//项目结束年月
+        $data['p_desc'] = $request->input('projectRemark');//项目描述
+        $data['r_id'] = $request->input('projectid');//对应简历的Id
+
+
+        $res = Porject::addProject($data);
+
+        if ($res) {
+
+            return json_encode(Porject::selAll(['r_id'=>$data['r_id']]));
+        } else {
+
+            return 0;
+        }
+    }
+
+//    public function porjectSel(Request $request){
+//         $pid= $request->input('pid');
+//
+//        return json_encode(Porject::selOne(['p_id'=>$pid]));
+//
+//
+//    }
+
+
+    /**   * 删除项目
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function porjectDel(Request $request)
+    {
+        $id=$request->input('porjectId');
+        $re = Porject::delPorject(['p_id' => $id]);
+        if ($re == 1) {
+            $res = Resume::selOne(['u_id' => session('u_id')]);
+            if ($porject = Porject::selAll(['r_id' => $res['r_id']])) {
+               return  2;
+            }else{
+                return 1;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+
+
     /**  教育背景的添加
      * @param Request $request
      * @return $this
@@ -233,7 +352,7 @@ class ResumeController extends BaseController
         } else {
             $res = School::addSchool($data);
             if ($res) {
-               return json_encode($sc_data);
+                return json_encode($sc_data);
             } else {
                 return 0;
             }
@@ -250,6 +369,8 @@ class ResumeController extends BaseController
         return  School::delSchool(['r_id'=>$id]);
 
     }
+
+
 
     /** 添加简历中的个人描述
      * @param Request $request
@@ -279,6 +400,7 @@ class ResumeController extends BaseController
         }
     }
 
+
     /**   *添加作品
      * @param Request $request
      * @return array|string
@@ -303,7 +425,7 @@ class ResumeController extends BaseController
         $res = Works::addWorks($data);
         //判断是否添加成功
         if ($res) {
-           return json_encode(Works::selAll(['r_id'=>$data['r_id']]));
+            return json_encode(Works::selAll(['r_id'=>$data['r_id']]));
         } else {
             return 0;
         }
@@ -330,131 +452,36 @@ class ResumeController extends BaseController
     }
 
 
-    /** * 添加项目
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function porjectAdd(Request $request)
-    {
-        //表单自带验证
-        $validator = Validator::make($request->all(), [
-            'projectName' => 'required',
-            'positionName' => 'required',
-            'startYear' => 'required',
-            'startMonth' => 'required',
-            'endYear' => 'required',
-            'projectRemark' => 'required',
-            'projectid' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
-        }
-//        $porjectId=$request->input('porjectId');
-        //接收表单的值
-        $data['p_name'] = $request->input('projectName');//项目名称
-        $data['p_duties'] = $request->input('positionName');//担任职务
-        $data['p_start_time'] = strtotime($request->input('startYear') . '-' . $request->input('startMonth'));//项目开始年月
-        $data['p_end_time'] = ($request->input('endYear') == '至今') ? time() : strtotime($request->input('endYear') . '-' . $request->input('endMonth'));//项目结束年月
-        $data['p_desc'] = $request->input('projectRemark');//项目描述
-        $data['r_id'] = $request->input('projectid');//对应简历的Id
-//        if (isset($porjectId)) {
-//
-//            $res = Porject::updateProject($data,['p_id'=>$porjectId]);
-//                if ($res) {
-//                    return json_encode($data);
-//                } else {
-//                    return 0;
-//                }
-//
-//        } else {
 
-        $res = Porject::addProject($data);
 
-        if ($res) {
+    public function enclosureAdd(Request $request){
 
-            return json_encode(Porject::selAll(['r_id'=>$data['r_id']]));
-        } else {
 
-            return 0;
-//        }
+         $id=$request->input('userId');
+         $enclosure=Enclosure::selOne(['r_id'=>$id]);
+        if(count($enclosure)>=3){
+            return 3;
+        }else{
+            $newR=explode('.',$_FILES['newResume']['name']);
+
+            $type=array_pop($newR);
+
+            $data['e_path']= 'uploads/' . session('u_email') . rand(0, 999) . '.'.$type;
+            $data['e_name']=$_FILES['newResume']['name'];
+            $data['r_id']=$id;
+            move_uploaded_file($_FILES['newResume']['tmp_name'], $data['e_name']);
+            $res=Enclosure::enclosureAdd($data);
+                if ($res) {
+
+                    return json_encode($data);
+                } else {
+
+                    return 0;
+                }
         }
     }
 
-    public function porjectSel(Request $request){
-         $pid= $request->input('pid');
 
-        return json_encode(Porject::selOne(['p_id'=>$pid]));
-
-
-    }
-
-
-    /**   * 删除项目
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function porjectDel(Request $request)
-    {
-        $id=$request->input('porjectId');
-        $re = Porject::delPorject(['p_id' => $id]);
-        if ($re == 1) {
-            $res = Resume::selOne(['u_id' => session('u_id')]);
-            if ($porject = Porject::selAll(['r_id' => $res['r_id']])) {
-               return  2;
-            }else{
-                return 1;
-            }
-        } else {
-            return 0;
-        }
-    }
-
-    /**添加(修改)期望工作
-     * @param Request $request
-     * @return mixed
-     */
-    public function expectedAdd(Request $request)
-    {
-        //自带验证
-        $validator = Validator::make($request->all(), [
-            'positionName' => 'required',
-            'salaryMin' => 'required',
-            'salaryMax' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
-        }
-        //接收表单的值
-        $data['ex_name'] = $request->input('positionName');
-        $data['re_salarymin'] = $request->input('salaryMin');
-        $data['re_salarymax'] = $request->input('salaryMax');
-        $data['r_id'] = $request->input('id');
-        $res = Expected::SelOne(['r_id' => $data['r_id']]);
-        if ($res) {
-            $expected=Expected::expectedUp(['r_id' => $data['r_id']], $data);
-            if($expected){
-                return json_encode(Expected::selOne(['r_id'=>$data['r_id']]));
-            }else{
-                return 0;
-            }
-        } else {
-                Expected::expectedAdd($data);
-                return json_encode(Expected::selOne(['r_id'=>$data['r_id']]));
-
-        }
-    }
-
-    /**删除期望工作
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function expectedDel(Request $request)
-    {
-        $id=$request->input('expectedId');
-         return Expected::expectedDel(['r_id' => $id]);
-
-
-    }
 
     /**投递简历
      * @param $id
@@ -524,6 +551,8 @@ class ResumeController extends BaseController
 
         } else {
             $reList[] = '';
+            $num='';
+
         }
 
 

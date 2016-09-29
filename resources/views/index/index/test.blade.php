@@ -39,7 +39,7 @@
         <a class="subscribe" href="subscribe" >订阅职位</a>
             </div>
 
-        <div class="content" style="height: 1000px;">
+        <div class="content">
         <div id="search_box">
         <form action="jump" method="get">
             <ul id="searchType">
@@ -191,32 +191,106 @@
             <li class="current">热门职位</li>
             <li>最新职位</li>
         </ul>
-@if($hot)
+
         <div id="hotList">
+@if($hot)        
             <ul class="hot_pos reset">
+            @foreach($hot as $v)
                 <li class="clearfix">
-                    @if($hot)
+                    
                     <div class="hot_pos_l">
                         <div class="mb10">
-                            <a href="postPreview?re_id={{$hot['re_id']}}" target="_blank">{{$hot['re_name']}}</a>
+                            <a href="postPreview?re_id={{$v['re_id']}}" target="_blank">{{$v['re_name']}}</a>
                             &nbsp;
                             <span class="c9">[北京]</span>
                         </div>
-                        <span><em class="c7">月薪： </em>{{$hot['re_salarymin']}}k-{{$hot['re_salarymax']}}k</span>
-                        <span><em class="c7">最低学历： </em>{{$hot['re_education']}}</span>
+                        <span><em class="c7">月薪： </em>{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k</span>
+                        <span><em class="c7">最低学历： </em>{{$v['re_education']}}</span>
                         <br />
-                        <span><em class="c7">职位诱惑：</em>{{$hot['re_welfare']}}</span>
+                        <span><em class="c7">职位诱惑：</em>{{$v['re_welfare']}}</span>
                         <br />
-                        <span>{{ceil((time()-$hot['re_time'])/86400)}}天以前发布</span>
+                        <span>{{ceil((time()-$v['re_time'])/86400)}}天以前发布</span>
                         <!-- <a  class="wb">分享到微博</a> -->
                     </div>
-                    @endif
+                    
                     <div class="hot_pos_r">
+                    <div class="apply">       
+                        </div>
+                        <div class="mb10"><a href="companyinfo?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_name']}}</a></div>
+                        <span><em class="c7">领域： </em>{{$v['c_industry']}}</span><br />
+                        <span><em class="c7">创始人：</em>{{$v['c_ceo']}}</span>
+                        
+                        <br />
+                        <ul class="companyTags reset">
+                            @foreach($v['label'] as $ks=>$label)
+                            @if($ks>3)
+                            @else
+                                <li>{{$label['lab_name']}}</li>                                
+                            @endif                        
+                            @endforeach
+                        </ul>
                     </div>
                 </li>
+                @endforeach
             </ul>
+            @else
+            <div class="hot_pos reset" style="margin-top:150px;margin-left:100px;margin-bottom:100px">
+                    <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
+                    <br>
+                    
+            </div>
+    @endif       
+
+    @if($new)        
+            <ul class="hot_pos hot_posHotPosition reset" style="display:none">
+            @foreach($new as $v)
+                <li class="clearfix">
+                    
+                    <div class="hot_pos_l">
+                        <div class="mb10">
+                            <a href="postPreview?re_id={{$v['re_id']}}" target="_blank">{{$v['re_name']}}</a>
+                            &nbsp;
+                            <span class="c9">[北京]</span>
+                        </div>
+                        <span><em class="c7">月薪： </em>{{$v['re_salarymin']}}k-{{$v['re_salarymax']}}k</span>
+                        <span><em class="c7">最低学历： </em>{{$v['re_education']}}</span>
+                        <br />
+                        <span><em class="c7">职位诱惑：</em>{{$v['re_welfare']}}</span>
+                        <br />
+                        <span>{{ceil((time()-$v['re_time'])/86400)}}天以前发布</span>
+                        <!-- <a  class="wb">分享到微博</a> -->
+                    </div>
+                    
+                    <div class="hot_pos_r">
+                    <div class="apply">       
+                        </div>
+                        <div class="mb10"><a href="companyinfo?c_id={{$v['c_id']}}" title="" target="_blank">{{$v['c_name']}}</a></div>
+                        <span><em class="c7">领域： </em>{{$v['c_industry']}}</span><br />
+                        <span><em class="c7">创始人：</em>{{$v['c_ceo']}}</span>
+                        </span>
+                        <br />
+                        <ul class="companyTags reset">
+                        @foreach($v['label'] as $ks=>$label)
+                        @if($ks>3)
+                        @else
+                            <li>{{$label['lab_name']}}</li>
+                            
+                        @endif                        
+                        @endforeach
+                        </ul>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+            @else
+                <div class="hot_pos hot_posHotPosition reset" style="display:none" style="margin-top:150px;margin-left:100px;margin-bottom:100px">
+                    <div style="color:#91cebe;font-size:28px">暂时没有符合该搜索条件的职位</div>
+                    <br>
+                    
+                </div>
+        @endif   
         </div>
-@endif
+
         <div class="clear"></div>
         <div id="linkbox">
             <dl>

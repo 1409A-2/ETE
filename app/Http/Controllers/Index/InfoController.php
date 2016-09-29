@@ -211,6 +211,8 @@ class InfoController extends Controller
         $up_data['c_status'] = 2;
 
         Company::upStatus($company_data['c_id'],$up_data);
+        $content = "你已经通过公司的验证，完善公司信息就可以发布职位了。<br/> <a href='detailed'>去完善信息，发布职位</a>";
+        MessageController::sendMessage($u_id,$content,1);
 
         return view('index.info.success');
     }

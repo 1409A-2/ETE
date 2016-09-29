@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html id="html">
 <head>
 
     <title>一拍我的邀约-校易聘-最专业的互联网招聘平台</title>
     @include('index.beat.beatCss')
 
     <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/yi/invation.css">
+    <link rel="stylesheet" type="text/css" href="{{env('APP_HOST')}}/style/css/style.css">
     <script charset="utf-8" class="lazyload" src="{{env('APP_HOST')}}/yi/jq.js"></script>
 </head>
 <body>
@@ -51,9 +52,6 @@
                 </li>
                 <li class="active" onclick="trackMonitor('l-talent-invited-nav')"><a
                             href="{{url('beatInvited')}}">我的邀约</a></li>
-                {{--<li class="" onclick="trackMonitor('l-reward-nav')">--}}
-                {{--<a href="{{url('beatReward')}}">我的Offer</a>--}}
-                {{--</li>--}}
                 <li class="" onclick="trackMonitor('l-guide-nav')">
                     <a href="{{url('beatRaider')}}">一拍攻略</a></li>
             </ul>
@@ -63,569 +61,515 @@
 </div>
 
 <div id="body">
-    <div class="body-loading body-loading-">
-        <div class="spinner">
-            <div class="spinner-container container1">
-                <div class="circle1"></div>
-                <div class="circle2"></div>
-                <div class="circle3"></div>
-                <div class="circle4"></div>
-            </div>
-            <div class="spinner-container container2">
-                <div class="circle1"></div>
-                <div class="circle2"></div>
-                <div class="circle3"></div>
-                <div class="circle4"></div>
-            </div>
-            <div class="spinner-container container3">
-                <div class="circle1"></div>
-                <div class="circle2"></div>
-                <div class="circle3"></div>
-                <div class="circle4"></div>
-            </div>
-        </div>
-    </div>
     <div class="realcontent">
-        <ul class="navlist" id="navlist">
+        <ul class="navlist" style="width: 1000px" id="navlist">
             <li class="total click_track MD5_INDEX_0" event-name="c-myreceivedInvitations-toptotal" id="total"
                 data-type="total" style="height:24px;line-height:24px;font-size:14px;margin-top:13px;margin-left:10px;">
-                <a href="http://pai.lagou.com/talent/invited.html?type=total">收到的所有邀约（<span>0</span>）</a></li>
+                <a href="javascript:;">收到的所有邀约(<span>@if($num['cb']) {{$num['cb']}} @else 无 @endif</span>)</a>
+            </li>
+
             <li class="arrange click_track md5_index_4" event-name="c-myreceivedInvitations-tophasarragedInterview"
-            '="" data-type="arrange"><a
-                    href="http://pai.lagou.com/talent/invited.html?type=arrange">已安排约见（<span>0</span>）</a>
-
-
+                data-type="arrange">
+                <a href="javascript:;">我的Offer(<span>@if(isset($num['cb9'])) {{$num['cb9']}} @else 0 @endif</span>)</a>
+            </li>
+            <li class="arrange click_track md5_index_4" event-name="c-myreceivedInvitations-tophasarragedInterview"
+                data-type="arrange">
+                <a href="javascript:;">收到Offer(<span>@if(isset($num['cb3'])) {{$num['cb6']}} @else 0 @endif</span>)</a>
             </li>
 
+            <li class="arrange click_track md5_index_4" event-name="c-myreceivedInvitations-tophasarragedInterview"
+                data-type="arrange">
+                <a href="javascript:;">不合适(<span>@if(isset($num['cb4'])) {{$num['cb4']}} @else 0 @endif</span>)</a>
+            </li>
 
+            <li class="arrange click_track md5_index_4" event-name="c-myreceivedInvitations-tophasarragedInterview"
+                data-type="arrange">
+                <a href="javascript:;">已安排约见(<span>@if(isset($num['cb6'])) {{$num['cb6']}} @else 0 @endif</span>)</a>
+            </li>
             <li class="refused click_track MD5_INDEX_3" event-name="c-myreceivedInvitations-tophasrefuse"
-                data-type="refused"><a href="http://pai.lagou.com/talent/invited.html?type=refused">已拒绝（<span>0</span>）</a>
-
+                data-type="refused"><a href="javascript:;">已拒绝(<span>@if(isset($num['cb7'])) {{$num['cb7']}}  @else
+                            0 @endif</span>)</a>
             </li>
-
             <li class="accepted click_track MD5_INDEX_2" event-name="c-myreceivedInvitations-tophasreceived"
-                data-type="accepted"><a href="http://pai.lagou.com/talent/invited.html?type=accepted">已接受（<span>0</span>）</a>
-
+                data-type="accepted"><a href="javascript:;">已接受(<span>@if(isset($num['cb5'])) {{$num['cb5']}}  @else
+                            0 @endif</span>)</a>
             </li>
-            <li class="chat click_track MD5_INDEX_1 active" event-name="c-myreceivedInvitations-topwait"
-            '="" data-type="chat"><a href="http://pai.lagou.com/talent/invited.html?type=chat">待处理（<span>0</span>）</a>
 
-            </li></ul>
+            <li class="chat c
+            lick_track MD5_INDEX_1 active" event-name="c-myreceivedInvitations-topwait" data-type="chat">
+                <a href="javascript:;">待处理(<span>@if(isset($num['cb2'])) {{$num['cb2']}}  @else 0 @endif</span>)</a>
+            </li>
+
+        </ul>
         <div id="content" class="clearfix">
-            <div id="content-left">
-                <div class="sidebar" id="mouse-over">
-                    <ul style="position: relative; overflow: visible;"
-                        class="barlist mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" id="barlistover">
-                        <div tabindex="0" style="max-height: none;" id="mCSB_1"
-                             class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside">
-                            <div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
-                                 style="position:relative; top:0; left:0;" dir="ltr"></div>
-                        </div>
-                        <div style="display: none;" id="mCSB_1_scrollbar_vertical"
-                             class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal mCSB_scrollTools_vertical">
-                            <div class="mCSB_draggerContainer">
-                                <div id="mCSB_1_dragger_vertical" class="mCSB_dragger"
-                                     style="position: absolute; min-height: 50px; top: 0px;"
-                                     oncontextmenu="return false;">
-                                    <div style="line-height: 50px;" class="mCSB_dragger_bar"></div>
+
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb']))
+                    @foreach($company['cb'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+                                    <span class="fr">邀请时间：{{date('Y-m-d H:i',$time['cb'][$k])}}</span>
+
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+
+
                                 </div>
-                                <div class="mCSB_draggerRail"></div>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-                <div style="display: block;" id="content-right">
-                    <div class="loading">
-                        <div class="spinner">
-                            <div class="spinner-container container1">
-                                <div class="circle1"></div>
-                                <div class="circle2"></div>
-                                <div class="circle3"></div>
-                                <div class="circle4"></div>
-                            </div>
-                            <div class="spinner-container container2">
-                                <div class="circle1"></div>
-                                <div class="circle2"></div>
-                                <div class="circle3"></div>
-                                <div class="circle4"></div>
-                            </div>
-                            <div class="spinner-container container3">
-                                <div class="circle1"></div>
-                                <div class="circle2"></div>
-                                <div class="circle3"></div>
-                                <div class="circle4"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="content-right-detail"></div>
-                </div>
-                <div id="no-tip" class="" style="margin-top: 50px">
-                    <img src="{{env('APP_HOST')}}/yi/noresult.png" alt="tip" style="margin-left:0;">
+                                <div class="links">
+                                        @if($bc_cid[$k]['cb_cb']==2)
+                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                           bc_id="{{$bc_id['cb'][$k]}}" cb_cb="5" data-email="888888888@qq.com" class="resume_refuse"
+                                           cb_cb="5" href="javascript:void(0)">接受邀约</a>
+                                        <a data-deliverid="1686182" class="resume_refuse"
+                                           bc_id="{{$bc_id['cb'][$k]}}" cb_cb="7" href="javascript:void(0)">拒绝邀约</a>
+                                    @elseif($bc_cid[$k]['cb_cb']==3)
+                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                           bc_id="{{$bc_id['cb'][$k]}}" cb_cb="9" class="resume_refuse"
+                                           href="javascript:void(0)">接受此Offer</a>
+                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                           bc_id="{{$bc_id['cb'][$k]}}" cb_cb="7" class="resume_refuse"
+                                           href="javascript:void(0)">拒绝此Offer</a>
 
-                    <p>收到的邀约均已处理</p>
-
-                    <p>暂无相关邀约记录</p>
-                </div>
-            </div>
-            <div class="hide">
-                <div id="popBox">
-                    <div class="content-wrapper">
-                        <div class="pop">
-                            <div class="pop-body">
-                                <p id="popbox-tip">接受邀约，企业可查看完整简历并主动与你私信啦～</p>
+                                    @elseif($bc_cid[$k]['cb_cb']==4)
+                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                           bc_id="{{$bc_id['cb'][$k]}}" class="resume_redel"
+                                           href="javascript:void(0)">删除本条</a>
+                                    @elseif($bc_cid[$k]['cb_cb']==5)
+                                        <b>等待约见</b>
+                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                           bc_id="{{$bc_id['cb'][$k]}}" cb_cb="7" class="resume_refuse"
+                                           href="javascript:void(0)">取消本次约见</a>
+                                    @elseif($bc_cid[$k]['cb_cb']==6)
+                                        <b>具体详情请查看邮箱</b>
+                                    @elseif($bc_cid[$k]['cb_cb']==7)
+                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                           bc_id="{{$bc_id['cb'][$k]}}" class="resume_redel"
+                                           href="javascript:void(0)">删除本条</a>
+                                    @elseif($bc_cid[$k]['cb_cb']==9)
+                                        <b>请尽快入职</b>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="pop-foot">
-                                <input class="btn btn-ok" value="确定" type="button">
-                                <input class="btn btn-close" value="取消" type="button">
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hide">
-                <div id="popBoxRefuse">
-                    <div class="content-wrapper">
-                        <div class="pop">
-                            <div class="pop-body">
-                                <p id="popboxRefuse-tip">
-                                </p>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
 
-                                <h1>你不感兴趣的原因是？</h1>
+        {{--我的Offer--}}
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb9']))
+                    @foreach($company['cb9'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
 
-                                <p class="desc"></p>
-                                <ul>
-                                    <li><input value="1" name="refuseReason" id="refuse1" type="radio"><label
-                                                for="refuse1">行业不感兴趣</label></li>
-                                    <li><input value="2" name="refuseReason" id="refuse2" type="radio"><label
-                                                for="refuse2">公司了解太少</label></li>
-                                    <li><input value="3" name="refuseReason" id="refuse3" type="radio"><label
-                                                for="refuse3">工作地点不满意</label></li>
-                                    <li><input value="4" name="refuseReason" id="refuse4" type="radio"><label
-                                                for="refuse4">工作内容不感兴趣</label></li>
-                                    <li><input value="5" name="refuseReason" id="refuse5" type="radio"><label
-                                                for="refuse5">薪资不满意</label></li>
-                                    <li><input value="6" name="refuseReason" id="refuse6" type="radio"><label
-                                                for="refuse6">已有满意offer</label></li>
-                                </ul>
-                                <input name="otherRefuse" id="otherRefuse" class="otherRefuse1"
-                                       placeholder="或者你有其他原因(限15字)" type="text">
 
-                                <div class="error-tip">输入过长(限15字)</div>
-                                <div class="all-error-tip">请选择不感兴趣理由或填写自定义内容</div>
-                                <div class="one-error-tip">只能提交一个原因</div>
-                                <p></p>
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+
+
+                                </div>
+                                <div class="links">
+                            <b>请尽快入职</b>
+                                </div>
                             </div>
-                            <div class="pop-foot">
-                                <input class="btn-refuse-ok" value="确&nbsp;定" type="button">
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+
+        {{--收到的Offer--}}
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb3']))
+                    @foreach($company['cb3'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+
+
+                                </div>
+                                <div class="links">
+
+                                    <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                       bc_id="{{$bc_id['cb3'][$k]}}" cb_cb="9" class="resume_refuse"
+                                       href="javascript:void(0)">接受此Offer</a>
+                                    <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                       bc_id="{{$bc_id['cb3'][$k]}}" cb_cb="7" class="resume_refuse"
+                                       href="javascript:void(0)">拒绝此Offer</a>
+                                </div>
+                            </div>
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+
+            {{--不合适--}}
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb4']))
+                    @foreach($company['cb4'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+                                    <span class="fr">邀请时间：{{date('Y-m-d H:i',$time['cb4'][$k])}}</span>
+                                    <br/>
+                                    <span class="fr">原因：@if(empty($bc_id['cb4'][$k]['cb_reason']))
+                                            无 @else{{$bc_id['cb4'][$k]['cb_reason']}} @endif</span>
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+
+
+                                </div>
+                                <div class="links">
+
+                                    <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                       bc_id="{{$bc_id['cb4'][$k]}}" class="resume_redel"
+                                       href="javascript:void(0)">删除本条</a>
+                                </div>
+                            </div>
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+        {{--已安排约见--}}
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb6']))
+                    @foreach($company['cb6'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+                                    <span class="fr">邀请时间：{{date('Y-m-d H:i',$time['cb6'][$k])}}</span>
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+                                </div>
+                                <div class="links">
+
+                                    <b>具体详情请查看邮箱</b>
+
+                                </div>
+                            </div>
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+
+            {{--已拒绝--}}
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb7']))
+                    @foreach($company['cb7'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+                                    <span class="fr">邀请时间：{{date('Y-m-d H:i',$time['cb7'][$k])}}</span>
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+                                </div>
+                                <div class="links">
+                                    <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                       bc_id="{{$bc_id['cb'][$k]}}" class="resume_redel"
+                                       href="javascript:void(0)">删除本条</a>
+                                </div>
+                            </div>
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+            {{--已接受--}}
+            <ul class="reset resumeLists hide">
+                @if(isset($company['cb5']))
+                    @foreach($company['cb5'] as $k=>$v)
+
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+                                    <span class="fr">邀请时间：{{date('Y-m-d H:i',$time['cb5'][$k])}}</span>
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+                                    <div class="jdpublisher">
+                                                        <span>
+                                                            简短介绍：<a title="{{$v['c_shorthand']}}"
+                                                                    href="javascript:;">{{$v['c_shorthand']}}</a>
+                                                                                                                    </span>
+                                    </div>
+                                </div>
+                                <div class="links">
+
+                                    <b>等待约见</b>
+                                    <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                       bc_id="{{$bc_id['cb5'][$k]}}" cb_cb="7" class="resume_refuse"
+                                       href="javascript:void(0)">取消本次约见</a>
+                                </div>
+                            </div>
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
+                            </div>
+                        </li>
+
+                    @endforeach
+                @endif
+            </ul>
+
+            {{--待处理--}}
+            <ul class="reset resumeLists">
+                @if(isset($company['cb2']))
+                    @foreach($company['cb2'] as $k=>$v)
+                        <li data-id="1686182" class="onlineResume">
+
+
+                            <div class="resumeShow">
+                                <a title="预览公司" target="_blank" class="resumeImg"
+                                   href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                    <img src="{{env('APP_HOST')}}{{$v['c_logo']}}">
+                                </a>
+
+                                <div class="resumeIntro">
+                                    <h3 class="unread">
+                                        <a target="_blank" title="{{$v['c_name']}}"
+                                           href="{{url('companyinfo')}}?c_id={{$v['c_id']}}">
+                                            {{$v['c_name']}}
+                                        </a>
+                                    </h3>
+                                    <span class="fr">邀请时间：{{date('Y-m-d H:i',$time['cb2'][$k])}}</span>
+
+                                    <div>
+                                        所处行业：{{$v['c_industry']}}<br>
+                                        公司网址：<a target="_blank" href="{{$v['c_website']}}">{{$v['c_website']}}</a>
+
+                                    </div>
+                                    <div class="jdpublisher">
+				                                        <span>
+				                                        	公司：<a title="{{$v['c_shorthand']}}"
+                                                                  href="javascript:;">{{$v['c_shorthand']}}</a>
+				                                       						                                        </span>
+                                    </div>
+                                </div>
+                                <div class="links">
+                                    <a data-deliverid="1686182" data-name="jason" data-positionid="149594"
+                                       bc_id="{{$bc_id['cb2'][$k]}}" cb_cb="5" data-email="888888888@qq.com" class="resume_refuse"
+                                       cb_cb="5" href="javascript:void(0)">接受邀约</a>
+                                    <a data-deliverid="1686182" class="resume_refuse"
+                                       bc_id="{{$bc_id['cb2'][$k]}}" cb_cb="7" href="javascript:void(0)">拒绝邀约</a>
+                                </div>
+                            </div>
+                            <div class="contactInfo">
+                                <span class="c9">电话：</span>{{$v['c_tel']}} &nbsp;&nbsp;&nbsp;
+                                <span class="c9">邮箱：</span><a href="mailto:{{$v['c_email']}}">{{$v['c_email']}}</a>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
         </div>
     </div>
+
 </div>
-{{--<script type="text/html" id="sideBar">--}}
-{{--{{each invites as invite}}--}}
-{{--<li userID="{{invite.inviteId}}" positionid="{{invite.id}}" class="{{invite.inviteIdMD5}}">--}}
-{{--{{if invite.showInvitesTip == true}}--}}
-{{--<i class='news'></i>--}}
 
 
-{{--{{if invite.interviewTime}}--}}
-{{--<div class="time">--}}
-{{--{{if invite.companyLog != null && invite.companyLog }}--}}
-{{--<img src="http://www.lagou.com/{{invite.companyLog}}" alt="头像" class='company-logo'>--}}
-
-{{--<h3>{{if invite.companyName}} {{invite.companyName}} {{else}}</h3>--}}
-
-
-{{--<p class='money'><span>{{invite.salary}}</span>/月·{{invite.city}}</p>--}}
-
-{{--<p class="positions">{{invite.positionName}}</p>--}}
-{{--{{if invite.isInterviewTimeGreen}}--}}
-{{--<p class="interviewTimeGreen">约见时间 : {{invite.interviewTime}}</p>--}}
-{{--{{else}}--}}
-{{--<p class="interviewTimeGrey">约见时间 : {{invite.interviewTime}}</p>--}}
-
-{{--</div>--}}
-{{--{{else}}--}}
-{{--<div>--}}
-{{--{{if invite.companyLog != null && invite.companyLog }}--}}
-{{--<img src="http://www.lagou.com/{{invite.companyLog}}" alt="头像" class='company-logo'>--}}
-
-{{--<h3>{{if invite.companyName}} {{invite.companyName}} {{else}}</h3>--}}
-
-
-{{--<p class='money'><span>{{invite.salary}}</span>/月·{{invite.city}}</p>--}}
-
-{{--<p class="positions">{{invite.positionName}}</p>--}}
-{{--</div>--}}
-
-{{--{{if invite.statusStr == "已拒绝"}}--}}
-{{--<span class="gray">{{invite.statusStr}}</span>--}}
-
-{{--{{if invite.statusStr == "被取消"}}--}}
-{{--<span class="gray">{{invite.statusStr}}</span>--}}
-
-{{--{{if invite.statusStr == "待处理"}}--}}
-{{--<span class="green">{{invite.statusStr}}</span>--}}
-
-{{--{{if invite.statusStr == "已接受"}}--}}
-{{--<span class="green">{{invite.statusStr}}</span>--}}
-
-{{--{{if invite.statusStr == "沟通中"}}--}}
-{{--<span class="green">{{invite.statusStr}}</span>--}}
-
-{{--{{if invite.statusStr == "已安排约见"}}--}}
-{{--<span class="green">{{invite.statusStr}}</span>--}}
-
-{{--{{if invite.statusStr == "已完成约见"}}--}}
-{{--<span class="green">{{invite.statusStr}}</span>--}}
-
-{{--</li>--}}
-{{--{{/each}}--}}
-
-{{--</script>--}}
-{{--<script type="text/html" id="detail">--}}
-{{--{{if detailVo != null && detailVo}}--}}
-{{--<div class="detail" positionId="{{detailVo.id}}" receive="{{detailVo.hrId}}" userID="{{detailVo.inviteId}}"--}}
-{{--userName="{{detailVo.userName}}" attr="{{detailVo.status}}">--}}
-{{--<div class="detail-top">--}}
-{{--<ul>--}}
-{{--<li class='company-information'>--}}
-{{--{{if detailVo.logo != null && detailVo.logo}}--}}
-{{--<img src="http://www.lagou.com/{{detailVo.logo}}" alt="头像" class='detail-company-logo'>--}}
-
-{{--<h3>{{detailVo.companyShortName}}·{{detailVo.positionName}}<span>（{{detailVo.salary}}/月）</span>--}}
-{{--</h3>--}}
-
-{{--<p class='company-size'>{{detailVo.industryField}} / {{detailVo.financeStage}}</p>--}}
-
-{{--<p class='job-attract'>职位诱惑：{{detailVo.positionAdvantage}}</p>--}}
-{{--</li>--}}
-{{--<li class='add-more click_track ' event-name="c-myinvations-jobDetail"><a--}}
-{{--href="http://pai.lagou.com/job/{{detailVo.inviteId}}.html" target="_blank">查看职位详情>></a></li>--}}
-{{--{{if detailVo.invitationContent != null && detailVo.invitationContent}}--}}
-{{--<li class='hr-tip'>--}}
-{{--<p>{{detailVo.invitationContent}}</p>--}}
-
-{{--<!--<p>快加入我们吧!</p>-->--}}
-{{--<span></span>--}}
-{{--</li>--}}
-
-{{--<li class='detail-handler'>--}}
-{{--{{if detailVo.status == 2 || detailVo.status == 1}}--}}
-{{--<p>只有你同意邀约，企业才可以查看你的联系方式或主动向你发出私信~ 一周内不回应将自动拒绝邀约并知会到企业。</p>--}}
-{{--<a href="javascript:void(0)" class='btn-accept click_track'--}}
-{{--event-name="c-myinvations-receiveInvitations">接受邀约</a>--}}
-{{--<a href="javascript:void(0)" class='btn-accept click_track'--}}
-{{--event-name="c-myinvations-hasReceiveInvitations" id="has-accept">已接受</a>--}}
-{{--<a href="javascript:void(0)" class='btn-dislike click_track'--}}
-{{--event-name="c-myinvations-dislike">不感兴趣</a>--}}
-{{--<a href="javascript:void(0)" class='btn-dislike click_track' event-name="c-myinvations-hasrefuse"--}}
-{{--id="has-refuse">已拒绝</a>--}}
-
-{{--<div class="sixin-arrow">--}}
-{{--<a href="javascript:void(0)" class='btn-private click_track' event-name="c-myinvitations-sixin"><span></span>私信</a>--}}
-{{--<i class='textarrow'></i>--}}
-{{--</div>--}}
-{{--{{else if detailVo.status == 3}}--}}
-
-{{--<p>你已经接受了企业的邀约，企业将向你发出正式的约见通知。超过<span style="color: #ff7452;">7天</span>未收到企业约见通知，可以选择不再接受约见。</p>--}}
-
-{{--{{if detailVo.showInviteButton == true}}--}}
-{{--<a href="javascript:void(0)" class="btn-not-invite-3  click_track"--}}
-{{--event-name="c-myinvitations-neverReceiveInterview" style='background:#95cdbe;'>不再接受约见</a>--}}
-
-{{--<div class="sixin-arrow">--}}
-{{--<a href="javascript:void(0)" class='btn-private click_track' event-name="c-myinvitations-sixin"><span></span>私信</a>--}}
-{{--<i class='textarrow'></i>--}}
-{{--</div>--}}
-{{--<div class="abolish" id="abolish">--}}
-{{--<span class="abolish-icon" style=""></span>--}}
-
-
-{{--<h2>不再接受约见吗</h2>--}}
-
-{{--<h3>告诉HR原因吧~</h3>--}}
-{{--<ul>--}}
-{{--<li><input value="1" type="radio" name="refuseReason" id="refuse1"/><label--}}
-{{--for="refuse1">已通过一拍收到其它offer</label></li>--}}
-{{--<li><input value="2" type="radio" name="refuseReason" id="refuse2"/><label--}}
-{{--for="refuse2">已通过其他渠道收到offer</label></li>--}}
-
-{{--<li><input value="3" type="radio" name="refuseReason" id="refuse3"/><label--}}
-{{--for="refuse3">沟通后未达成一致</label></li>--}}
-{{--{{if hasSevenDay == true}}--}}
-{{--<li><input value="4" type="radio" name="refuseReason" id="refuse4"/><label--}}
-{{--for="refuse4">长时间未收到面试通知</label></li>--}}
-
-{{--</ul>--}}
-{{--<input type="text" name="otherRefuse" id="otherRefuse" placeholder="或者你有其他原因(15字以内)"/>--}}
-
-{{--<div class="otherRefuse_send">--}}
-{{--<a href="javascript:void(0)" class="btn-abolish-send">确定</a>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--{{else}}--}}
-{{--<div id="disabled">不再接受约见</div>--}}
-{{--<div class="sixin-arrow" style='margin-left:112px;'>--}}
-{{--<a href="javascript:void(0)" class='btn-private-3'><span></span>私信</a>--}}
-{{--<i class='textarrow'></i>--}}
-{{--</div>--}}
-
-{{--{{else if detailVo.status == 4}}--}}
-{{--{{if refuseReason}}--}}
-{{--<p>你已经拒绝了企业的邀约，企业无法查看你的联系方式。原因：<span style="color: #ff7452;">{{refuseReason}}</span></p>--}}
-{{--{{else}}--}}
-{{--<p>你已经拒绝了企业的邀约，企业无法查看你的联系方式。</p>--}}
-
-{{--{{else if detailVo.status == 5}}--}}
-{{--<p>企业给你发出正式的面试通知了。做好准备赴约吧，别错过到手的机会。<br/>如果你已取得了Offer，可以去反馈Offer情况。</p>--}}
-
-{{--<div class="sixin-arrow">--}}
-{{--<a href="javascript:void(0)" class='btn-private-5 click_track'--}}
-{{--event-name="c-myinvitations-sixin"><span></span>私信</a>--}}
-{{--<i class='textarrow'></i>--}}
-{{--</div>--}}
-{{--{{else if detailVo.status == 8}}--}}
-{{--<!--<p style='width: 400px;background: url("/static/images/pointright.png") no-repeat top right;'>邀约被取消，原因：{{cancelReason}}</p>-->--}}
-{{--<p style='width: 400px;'>邀约被取消，原因：{{cancelReason}}</p>--}}
-{{--{{else if detailVo.status == 9}}--}}
-
-{{--<!--<p style='width: 320px;background: url("/static/images/pointright.png") no-repeat top right;'>企业已操作完成约见，如有疑问，请联系一拍顾问</p>-->--}}
-{{--<p style='width: 320px;'>企业已操作完成约见，如有疑问，请联系一拍顾问</p>--}}
-
-
-{{--<div class="private-text text-hide">--}}
-{{--<textarea name="sixin" id="sixin" cols="30" rows="10"></textarea>--}}
-{{--<a href="javascript:void(0)" class='btn-send'>发送</a>--}}
-{{--<a href="javascript:void(0)" class='btn-no'>取消</a>--}}
-
-{{--</div>--}}
-
-{{--</li>--}}
-{{--</ul>--}}
-{{--</div>--}}
-
-{{--<div class="detail-message">--}}
-{{--<ul style="position:relative;">--}}
-{{--{{if chatRecordVo != null && chatRecordVo.length !=0 }}--}}
-{{--<div style="width:30px;height:34px;background: url('/static/images/dtop.png') no-repeat 0px -3px;position: absolute;top: 0px;left: -4px;z-index: 999;"></div>--}}
-{{--{{each chatRecordVo as chatRecord index}}--}}
-{{--{{if index == 0}}--}}
-{{--<input type="hidden" id="revertImage" value="{{chatRecord.iconWrite}}"/>--}}
-
-{{--{{/each}}--}}
-{{--{{each chatRecordVo as chatRecord}}--}}
-{{--{{if chatRecord.showInvitePosition}}--}}
-
-{{--<li class='system-message'>--}}
-{{--<i style="background:url('{{chatRecord.icon}}') no-repeat"></i>--}}
-{{--<span class='logo system-logo'><img src="{{chatRecord.headPic}}" alt="头像"/></span>--}}
-
-
-{{--{{if chatRecord.receiveId == 6023231}}--}}
-{{--<h3>收到邀约</h3>--}}
-{{--{{else}}--}}
-{{--<h3 class="grey">收到邀约</h3>--}}
-
-
-{{--<h5>{{chatRecord.createTime}}</h5>--}}
-
-{{--<p><strong class="grey">职位：</strong><span><a--}}
-{{--href="http://pai.lagou.com/job/{{chatRecord.inviteId}}.html" target="_blank"--}}
-{{--style="color:#00b38a;">{{chatRecord.invitePositionVo.invitationpositionname}}</a></span>--}}
-{{--</p>--}}
-
-{{--<p><strong class="grey">城市：</strong><span>{{chatRecord.invitePositionVo.invitationcity}}</span></p>--}}
-
-{{--<p><strong class="grey">薪资：</strong><span>{{chatRecord.invitePositionVo.invitationsalary}}</span>--}}
-{{--</p>--}}
-
-{{--<h3 class="content" style='margin-top:10px;'>{{#chatRecord.content}}</h3>--}}
-{{--</li>--}}
-{{--{{else if chatRecord.showInviteRecord}}--}}
-{{--<li class='system-message'>--}}
-{{--<i style="background:url('{{chatRecord.icon}}') no-repeat"></i>--}}
-{{--<span class='logo system-logo'><img src="{{chatRecord.headPic}}" alt="头像"/></span>--}}
-
-
-{{--{{if chatRecord.receiveId == 6023231}}--}}
-{{--<h3>约见安排</h3>--}}
-
-{{--{{else}}--}}
-{{--<h3 class="grey">约见安排</h3>--}}
-
-
-{{--<h5>{{chatRecord.createTime}}</h5>--}}
-
-
-{{--<p><strong class="grey">约见时间：</strong><span>{{chatRecord.invitationRecordVo.inviteTime}}</span></p>--}}
-
-{{--<p><strong class="grey">约见地点：</strong><span>{{chatRecord.invitationRecordVo.inviteSite}}</span></p>--}}
-
-{{--<p><strong class="grey">联系人：</strong><span--}}
-{{--class='person'>{{chatRecord.invitationRecordVo.linkman}}</span></p>--}}
-
-{{--<p><strong class="grey">联系电话：</strong><span>{{chatRecord.invitationRecordVo.linkPhone}}</span></p>--}}
-
-{{--</li>--}}
-{{--{{else if chatRecord.sendId == -1}}--}}
-{{--<li class='system-accept system-logo'>--}}
-{{--<i style="background:url('{{chatRecord.icon}}') no-repeat"></i>--}}
-{{--<span class='logo'><img src="{{chatRecord.headPic}}" alt="头像"/></span>--}}
-
-{{--<h3 class="content">{{#chatRecord.content}}</h3>--}}
-{{--<h5></h5>--}}
-{{--</li>--}}
-{{--{{else}}--}}
-{{--{{if chatRecord.sendId == 6023231}}--}}
-{{--<li class='myself'>--}}
-{{--<i style="background:url('{{chatRecord.icon}}') no-repeat"></i>--}}
-{{--<span class='logo myself-logo'><img src="{{chatRecord.headPic}}" alt="头像"/></span>--}}
-
-{{--<div class='myself-said-content'>--}}
-{{--<div class='myself'>{{chatRecord.viewName}}</div>--}}
-{{--{{#chatRecord.content}}--}}
-{{--</div>--}}
-{{--<h5>{{chatRecord.createTime}}</h5>--}}
-{{--</li>--}}
-{{--{{else}}--}}
-{{--<li class='hr-said'>--}}
-{{--<i style="background:url('{{chatRecord.icon}}') no-repeat"></i>--}}
-{{--<span class='logo hr-logo'><img src="{{chatRecord.headPic}}" alt="头像"/></span>--}}
-
-{{--<div class='hr-said-content'>--}}
-{{--<div class='hr-said-name'>{{chatRecord.viewName}}：</div>--}}
-{{--{{#chatRecord.content}}--}}
-{{--<h5>{{chatRecord.createTime}}</h5>--}}
-{{--</div>--}}
-{{--</li>--}}
-
-
-
-{{--{{/each}}--}}
-{{--<div style="width:30px;height:23px;background: url('/static/images/dfoot.png') no-repeat;position: absolute;bottom: 0px;left: -4px;z-index: 999;"></div>--}}
-
-{{--</ul>--}}
-{{--</div>--}}
-
-{{--</div>--}}
-
-{{--</script>--}}
-{{--<script type="text/html" id="navlistLi">--}}
-{{--<li class='total click_track MD5_INDEX_0' event-name="c-myreceivedInvitations-toptotal" id='total' data-type="total"--}}
-{{--style="height:24px;line-height:24px;font-size:14px;margin-top:13px;margin-left:10px;"><a--}}
-{{--href="http://pai.lagou.com/talent/invited.html?type=total">收到的所有邀约（<span>{{total}}</span>）</a></li>--}}
-{{--<li class='arrange click_track md5_index_4'--}}
-{{--event-name="c-myreceivedInvitations-tophasarragedInterview"' data-type="arrange"><a--}}
-{{--href="http://pai.lagou.com/talent/invited.html?type=arrange">已安排约见（<span>{{arrange}}</span>）</a>--}}
-
-{{--{{if hrInvitesNumTipVo.arrange >9}}--}}
-{{--<div class='news-tip'>10+</div>--}}
-{{--{{else if hrInvitesNumTipVo.arrange >0}}--}}
-{{--<div class='news-tip'>{{hrInvitesNumTipVo.arrange}}</div>--}}
-
-{{--</li>--}}
-
-
-{{--<li class='refused click_track MD5_INDEX_3' event-name="c-myreceivedInvitations-tophasrefuse" data-type="refused"><a--}}
-{{--href="http://pai.lagou.com/talent/invited.html?type=refused">已拒绝（<span>{{refuse}}</span>）</a>--}}
-{{--{{if hrInvitesNumTipVo.refuse >9 }}--}}
-{{--<div class='news-tip'>10+</div>--}}
-{{--{{else if hrInvitesNumTipVo.refuse >0}}--}}
-{{--<div class='news-tip'>{{hrInvitesNumTipVo.refuse}}</div>--}}
-
-{{--</li>--}}
-
-{{--<li class='accepted click_track MD5_INDEX_2' event-name="c-myreceivedInvitations-tophasreceived"--}}
-{{--data-type="accepted"><a--}}
-{{--href="http://pai.lagou.com/talent/invited.html?type=accepted">已接受（<span>{{accept}}</span>）</a>--}}
-{{--{{if hrInvitesNumTipVo.accept >9 }}--}}
-{{--<div class='news-tip'>10+</div>--}}
-{{--{{else if hrInvitesNumTipVo.accept >0}}--}}
-{{--<div class='news-tip'>{{hrInvitesNumTipVo.accept}}</div>--}}
-
-{{--</li>--}}
-{{--<li class='chat click_track MD5_INDEX_1' event-name="c-myreceivedInvitations-topwait"' data-type="chat"><a--}}
-{{--href="http://pai.lagou.com/talent/invited.html?type=chat">待处理（<span>{{chat}}</span>）</a>--}}
-{{--{{if hrInvitesNumTipVo.wait+hrInvitesNumTipVo.chat > 9}}--}}
-{{--<div class='news-tip'>10+</div>--}}
-{{--{{else if hrInvitesNumTipVo.chat >0}}--}}
-{{--<div class='news-tip'>{{hrInvitesNumTipVo.wait+hrInvitesNumTipVo.chat}}</div>--}}
-
-{{--</li>--}}
-{{--</script>--}}
-<div id="footer">
-    <div class="wrapper">
-        <i class="footer_lagou_icon"></i>
-
-        <div class="inner_wrapper">
-            <a class="footer_app click_track" event-name="l-appdownload-footer"
-               href="http://www.lagou.com/app/download.html" rel="nofollow">拉勾APP<span></span><i></i></a>
-            <a class="click_track" event-name="l-weibo-footer" href="http://e.weibo.com/lagou720" target="_blank"
-               rel="nofollow">拉勾微博</a>
-            <a class="footer_qr click_track" event-name="l-weixin-footer" href="javascript:void(0)"
-               rel="nofollow">拉勾微信<i></i></a>
-            <a class="click_track" event-name="l-whatisnew-footer" href="http://www.lagou.com/topic/whatisnew.html"
-               target="_blank" rel="nofollow">版本更新</a>
-            <a class="click_track" event-name="l-help-footer" href="http://www.lagou.com/qa.html?t=1" target="_blank"
-               rel="nofollow">帮助中心</a>
-            <a class="click_track" event-name="l-about-footer" href="http://www.lagou.com/about.html" target="_blank"
-               rel="nofollow">联系我们</a>
-            <a class="click_track" event-name="l-chat-footer" id="onlineService" href="javascript:void(0);"
-               rel="nofollow">在线交流</a>
-            <span class="tel">服务热线：<em>400-605-9900 (9:00 -19:00)</em></span>
-        </div>
-        <div class="copy">
-            <span><em>©</em>2016 Lagou</span>
-            <a class="click_track" event-name="l-beian-footer" target="_blank"
-               href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" rel="nofollow">京ICP备14023790号-2</a>
-            <span>京公网安备11010802017116号</span>
-        </div>
-    </div>
-</div>
-<div class="totop-wrapper" style="width:1024px;margin:0 auto;">
-    <a style="display: none;margin-left: 1060px" id="backtop" title="回到顶部" rel="nofollow"></a>
-
-    <div id="product-fk">
-        <div id="feedback-icon" class="click_track" event-name="b-feedback">
-            <div class="fb-icon"></div>
-            <span>我要反馈</span>
-            <em class="error dn fk-limit">今天已经反馈足够多了，给Candy点时间消化下吧~<i></i></em>
-            <em class="error dn fk-suc">&nbsp;&nbsp;反馈提交成功！</em>
-        </div>
-    </div>
-    <div id="feedback-con">
-        <div class="pfb-pho-close">
-            <div class="pfb-pho"></div>
-            <div class="pfb-close"></div>
-        </div>
-        <em class="error dn"><span>你还没填任何反馈呢</span><i></i></em>
-
-        <form id="product-fb">
-            <div class="pfb-txt">
-                <textarea placeholder="我是一拍的小管家Candy，把你遇到的问题，对一拍的意见或建议告诉我吧（200字以内）" maxlength="200"></textarea>
-            </div>
-            <div class="pfb-email" style="height:60px;">
-                <input name="email" placeholder="留下邮箱方便我们沟通（选填）" type="text">
-                <span class="ensure">确定</span>
-            </div>
-        </form>
-    </div>
-</div>
-<div id="_lgpassport_" data-css-site="0" data-css-popup="0"></div>
 <script type="text/javascript" src="{{env('APP_HOST')}}/yi/esl.js"></script>
-<script type="text/javascript">/*resourcemap*/
-    require.config({
-        paths: {
-            "common/widgets/subject_header_c/javascript/msgPopup": "/static/common/widgets/subject_header_c/javascript/msgPopup"
-        }
-    });</script>
+
 <script type="text/javascript" src="{{env('APP_HOST')}}/yi/invation.js"></script>
 <script type="text/javascript">
+
+    //期望工作--开始
+    window.onload = function () {
+        var $li = $('#navlist li');
+        var $ul = $('#content ul');
+
+        $li.click(function () {
+            var $this = $(this);
+            var $t = $this.index();
+            $li.removeClass('active');
+            $this.addClass('active');
+            $ul.siblings('ul').addClass('hide');
+            $ul.eq($t).removeClass('hide');
+        })
+    }
     var ctx = "http://pai.lagou.com";
     var lctx = "http://www.lagou.com";
 
@@ -639,39 +583,6 @@
     })();
 
 
-    var headPic = "i/image/M00/54/BE/CgqKkVfE-PuAbPOuAAYXdYYFqZk407.jpg";
-    if (!headPic) {
-        headPic = "/images/myresume/default_headpic.png"
-    }
-
-
-    require(['talents/page/invation/invation']);
-    require(['talents/page/intro/intro']);
-
-
-    // 关闭
-    //3s tips消失
-    $(function () {
-        window.global = window.global || {};
-        global.email = "18519112343@163.com";
-        global.usertoken = jQuery.cookie('user_trace_token');
-    });
-
-
-    require(['dep/jquery.cookie/jquery.cookie', 'common/static/js/feedback', 'common/static/js/usertrack/track']);
-    // 在线交流
-    jQuery.ajax({
-        url: 'http://wpa.b.qq.com/cgi/wpa.php',
-        dataType: 'script',
-        cache: true
-    }).done(function () {
-        BizQQWPA.addCustom({
-            aty: '0',
-            a: '0',
-            nameAccount: 800056379,
-            selector: 'onlineService'
-        });
-    });
     jQuery(function () {
         //小火箭
         $(window).scroll(function () {
@@ -705,84 +616,60 @@
             $(this).removeClass("expend");
             $("dd", this).hide();
         });
+    });
 
-        //鼠标悬浮显示微信二维码
-        //footer_qr
-        $('.footer_qr').hover(function () {
-            $("i", this).stop().fadeIn(200);
-        }, function () {
-            $("i", this).stop().fadeOut(200);
-        });
 
-        //footer-app
-        $('.footer_app').hover(function () {
-            $("i", this).stop().fadeIn(200);
-        }, function () {
-            $("i", this).stop().fadeOut(200);
-        });
-        //是否加vip图标
-        function callback(response) {
-            if (response.success == true && response.state == 1) {
-                $("#nowrap").parent().addClass('plus-vip');
-                if ($('#accountSetting')[0]) {
-                    $('#accountSetting')[0].href = "http://hr.lagou.com/baseinfo/accountDetail.html";
+    /**
+     *  对我的邀约的操作
+     * @param  {[type]} ){                            var bc_id [description]
+ * @param  {[type]} success: function(msg){                                             if(msg [description]
+ * @return {[type]}          [description]
+ */
+    $('.resume_refuse').click(function () {
+
+        var bc_id = $(this).attr('bc_id');
+        var cb_cb = $(this).attr('cb_cb');
+        _this = $(this);
+        $.ajax({
+            type: "GET",
+            url: "invitedUp",
+            data: {bc_id: bc_id, cb_cb: cb_cb},
+            success: function (msg) {
+                if (msg==1) {
+                    _this.parents('.onlineResume').slideUp('slow');
+                } else {
+                    alert('刷新后重试');
                 }
             }
-        }
-
-        jQuery.ajax({
-            url: "http://hr.lagou.com/plus/getVipTip.json",
-            dataType: 'jsonp',
-            jsonp: 'jsoncallback'
-        }).done(function (response) {
-            callback && callback(response);
         });
+
     });
 
 
-    var paiUserId = "6023231";
+    /**
+     * 删除我的邀约信息
+     */
+    $('.resume_redel').click(function () {
 
+        var bc_id = $(this).attr('bc_id');
+//        alert(bc_id)
+        _this = $(this);
+        $.ajax({
+            type: "GET",
+            url: "invitedDel",
+            data: {bc_id: bc_id},
+            success: function (msg) {
+                if (msg == 1) {
+                    _this.parents('.onlineResume').slideUp('slow');
+                } else {
+                    alert('刷新后重试');
+                }
+            }
+        });
 
-    jQuery.ajax({
-        url: 'http://passport.lagou.com/static/js/passport.js',
-        dataType: 'script',
-        cache: true
-    }).done(function () {
-
-        require(['common/widgets/subject_header_c/javascript/msgPopup']);
     });
+
 </script>
-<script type="text/javascript" src="{{env('APP_HOST')}}/yi/tongji.js"></script>
-<script type="text/javascript" src="{{env('APP_HOST')}}/yi/analytics.js"></script>
-<script type="text/javascript" src="{{env('APP_HOST')}}/yi/oss.js"></script>
-<div style="display: none;" id="cboxOverlay"></div>
-<div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox">
-    <div id="cboxWrapper">
-        <div>
-            <div style="float: left;" id="cboxTopLeft"></div>
-            <div style="float: left;" id="cboxTopCenter"></div>
-            <div style="float: left;" id="cboxTopRight"></div>
-        </div>
-        <div style="clear: left;">
-            <div style="float: left;" id="cboxMiddleLeft"></div>
-            <div style="float: left;" id="cboxContent">
-                <div style="float: left;" id="cboxTitle"></div>
-                <div style="float: left;" id="cboxCurrent"></div>
-                <button id="cboxPrevious" type="button"></button>
-                <button id="cboxNext" type="button"></button>
-                <button id="cboxSlideshow"></button>
-                <div style="float: left;" id="cboxLoadingOverlay"></div>
-                <div style="float: left;" id="cboxLoadingGraphic"></div>
-            </div>
-            <div style="float: left;" id="cboxMiddleRight"></div>
-        </div>
-        <div style="clear: left;">
-            <div style="float: left;" id="cboxBottomLeft"></div>
-            <div style="float: left;" id="cboxBottomCenter"></div>
-            <div style="float: left;" id="cboxBottomRight"></div>
-        </div>
-    </div>
-    <div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
-</div>
+
 </body>
 </html>

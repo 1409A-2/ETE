@@ -56,6 +56,31 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<?php
 	$user_data = User::selOne(session('u_id'));
 	?>
+    <script>
+        $(function(){
+            if("{{session('u_email')}}" == ''){
+                return
+            } else {
+                var noticeDot = $("#noticeDot-0");
+                var message = $("#message");
+                $.ajax({
+                    type : 'post',
+                    url : "getMessage",
+                    dataType : 'json',
+                    data : {
+                        _token : "{{csrf_token()}}"
+                    },
+                    success : function(re){
+                        if(re != 0){
+                            noticeDot.removeClass('dn');
+                            message.html('('+re+')');
+                            message.show();
+                        }
+                    }
+                })
+            }
+        });
+    </script>
 </head>
 <body>
 <div id="body">
@@ -85,7 +110,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 					<span class="red dn" id="noticeDot-0"></span>
 					<i></i>
 				</dt>
-                <dd><a href="">消息 <span style="color: red;">(1)</span></a></dd>
+                <dd><a href="messageList">消息  <span style="color: red; display: none;" id="message"></span></a></dd>
 				@if($user_data['u_cid']==0)
 				<dd><a rel="nofollow" href="resumeList">我的简历</a></dd>
 				<dd><a href="collectedPosition">我收藏的职位</a></dd>
@@ -161,7 +186,7 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
 	<input type="hidden" id="resubmitToken" value="" />
 	<a id="backtop" title="回到顶部" rel="nofollow"></a>
 		
-</div><!-- end #container -->
+
 </div><!-- end #body -->
 <div id="product-fk" style="bottom: 80px;">
 <div id="feedback-icon">
@@ -189,23 +214,23 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
     }
 </script>
 <script type='text/javascript'>
-    (function(m, ei, q, i, a, j, s) {
-        m[i] = m[i] || function() {
-            (m[i].a = m[i].a || []).push(arguments)
-        };
-        j = ei.createElement(q),
-            s = ei.getElementsByTagName(q)[0];
-        j.async = true;
-        j.charset = 'UTF-8';
-        j.src = '//static.meiqia.com/dist/meiqia.js';
-        s.parentNode.insertBefore(j, s);
-    })(window, document, 'script', '_MEIQIA');
-    _MEIQIA('entId', '32443');
-    _MEIQIA('allSet', yourFunction);
+    // (function(m, ei, q, i, a, j, s) {
+    //     m[i] = m[i] || function() {
+    //         (m[i].a = m[i].a || []).push(arguments)
+    //     };
+    //     j = ei.createElement(q),
+    //         s = ei.getElementsByTagName(q)[0];
+    //     j.async = true;
+    //     j.charset = 'UTF-8';
+    //     j.src = '//static.meiqia.com/dist/meiqia.js';
+    //     s.parentNode.insertBefore(j, s);
+    // })(window, document, 'script', '_MEIQIA');
+    // _MEIQIA('entId', '32443');
+    // _MEIQIA('allSet', yourFunction);
 </script>
 <script type='text/javascript'>
-    _MEIQIA('allSet', yourFunction);
-    _MEIQIA('init');
+    // _MEIQIA('allSet', yourFunction);
+    // _MEIQIA('init');
 </script>
 <!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=616859204&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:616859204:53" alt="校易聘官方客服" title="校易聘官方客服"/></a> -->
 </div>

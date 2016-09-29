@@ -174,7 +174,7 @@ class Company extends Model
     public static function selBase($c_id)
     {
         $data = self::where('c_id',$c_id)
-            ->select('c_shorthand','c_website','c_industry','c_desc','c_name','c_email','c_tel','c_status')
+            ->select('c_shorthand','c_website','c_industry','c_desc','c_name','c_email','c_tel','c_status','c_address')
             ->first();
         if($data){
 
