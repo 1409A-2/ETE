@@ -208,4 +208,16 @@ class User extends Model
         }
         return $res;
     }
+
+    public static function userSel($where){
+
+        $res=self::where($where)->first();
+            if ($res) {
+
+                return $res->toArray();
+            } else {
+
+                return $res;
+            }
+    }
 }

@@ -225,4 +225,14 @@ class SessionManager extends Manager
     {
         $this->app['config']['session.driver'] = $name;
     }
+    
+    /**
+     * Create an instance of the Memcached session driver.
+     *
+     * @return IlluminateSessionStore
+     */
+    protected function createMemcacheDriver()
+    {
+        return $this->createCacheBased('memcache');
+    }
 }

@@ -52,8 +52,8 @@
                 <li class="" onclick="trackMonitor('l-profile-nav')">
                     <a href="{{url('beatProfile')}}">我的履历</a>
                 </li>
-                {{--<li class="" onclick="trackMonitor('l-talent-invited-nav')"><a--}}
-                            {{--href="{{url('beatInvited')}}">我的邀约</a></li>--}}
+                <li class="" onclick="trackMonitor('l-talent-invited-nav')"><a
+                            href="{{url('beatInvited')}}">我的邀约</a></li>
                 {{--<li class="" onclick="trackMonitor('l-reward-nav')">--}}
                     {{--<a href="{{url('beatReward')}}">我的Offer</a>--}}
                 {{--</li>--}}

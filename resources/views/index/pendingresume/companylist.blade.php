@@ -1,18 +1,21 @@
 @extends('index.lar.public')
-@section('title', '一拍')
-@section('content')
-<input type="hidden" id="url" value="{{$_SERVER['REQUEST_URI']}}">
+@section('title', '公司一拍')
+@section('script')
 <script type="text/javascript">
         $(function(){                                                                              
             $(document).delegate('.resume_notice','click',function(){
                 b_id=$(this).attr('data-deliverid');
                 // alert(bc);return;
+                b_name=$(this).attr('b');
+                u_id=$(this).attr('uid');
+                email=$(this).attr("em");
+                b_phone=$(this).attr('i');
                 _this=$(this);
                 bc=3;
                 $.ajax({
-                    url:'beatYes',
+                    url:'companyBeatEmail',
                     type:'get',
-                    data: {b_id:b_id,bc:bc},
+                    data: {b_id:b_id,u_id:u_id,bc:bc,b_name:b_name,email:email,i_name:b_phone},
                     success: function(a){
                         if(a==1){
                             _this.parent().html("<a data-deliverid='' status='' class='' href='javascript:void(0)'>已发送</a>");
@@ -54,12 +57,17 @@
             })
         })
     </script>
+  @endsection  
+@section('content')
+<input type="hidden" id="url" value="{{$_SERVER['REQUEST_URI']}}">
+
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
 <div id="container">
  @include('index.industry.postOffice_public')
         <div class="content" >
+
             <dl class="company_center_content">
                 <dt>
                 <h1>
@@ -97,13 +105,13 @@
                                         <h3 class="read">
                                             <a title="预览{{$v['b_name']}}的一拍"
                                                href="#">
-                                                {{$v['b_name']}}的一拍
+                                                {{$v['b_name']}}的一拍 
                                             </a>
                                         </h3>
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['b_time'])}}</span>
 
                                         <div>
-                                            {{$v['b_name']}} / @if($v['b_sex']==0) 男 @else  女  @endif / {{$v['b_workyear']}}年 /    
+                                            {{$v['b_name']}} / @if($v['b_sex']==1) 男 @else  女  @endif / {{$v['b_workyear']}}年 /    
                                             {{$v['b_status']}} 
                                         </div>
                                         <div class="jdpublisher" style="height:50px">
@@ -112,10 +120,13 @@
                                         </div>
                                     </div>
                                     <div class="links">
+                                    
                                         @if($v['cb_cb']==2)
                                             <a data-deliverid="{{$v['b_id']}}" status="4"  href="javascript:void(0)">  联系中  </a>
+                                        @elseif($v['cb_cb']==9)
+                                            <a data-deliverid="{{$v['b_id']}}" href="javascript:void(0)"> <font color="green">Offer被接收</font>  </a>
                                         @elseif($v['cb_cb']==7)
-                                            <a  class="resume_notice" href="javascript:void(0)">  被拒绝 </a>
+                                            <a  class="resume_notice" href="javascript:void(0)">  <font color="red">被拒绝</font> </a>
                                         @else
                                             @if($v['cb_cb']==5)
                                                 <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice1" href="javascript:void(0)">  安排见面  </a>
@@ -123,7 +134,8 @@
                                                 @if($v['cb_cb']==4)
                                                         <a  href="javascript:void(0)">  不合适  </a>
                                                 @elseif($v['cb_cb']==6)
-                                                        <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
+                        
+                                                        <a data-deliverid="{{$v['b_id']}}" uid="{{$v['b_uid']}}" em="{{$v['b_email']}}" i="{{$v['b_professional']}}" b="{{$v['b_name']}}" status="4" class="resume_notice" href="javascript:void(0)">  发送Offer  </a>
                                                         <a data-deliverid="{{$v['b_id']}}" status="4" class="resume_notices" href="javascript:void(0)">   不合适  </a>
                                                 @elseif($v['cb_cb']==3)
                                                     <a href="javascript:void(0)">  已发送  </a>
@@ -132,12 +144,11 @@
                                         @endif
                                     </div>
                                 
-                                <input type="hidden" i="{{$v['b_phone']}}" class="b_phone">
-                                <input type="hidden" em="{{$v['b_email']}}" class="email">
+                                
                                 </div>
                                 <div class="contactInfo">
                                     <span class="c9">电话：</span>{{$v['b_phone']}} &nbsp;&nbsp;&nbsp;
-                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['b_email']}}</a>
+                                    <span class="c9">邮箱：</span><a href="{{$v['b_email']}}">{{$v['b_email']}}</a>
                                 </div>
                             </li>
                     @endforeach

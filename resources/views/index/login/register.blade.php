@@ -1,6 +1,31 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<style>
+.query_hint{
+	display:none;
+	border:5px solid #939393;
+	width:250px;
+	height:50px;
+	line-height:55px;
+	padding:0 20px;
+	position:absolute;
+	left:50%;
+	margin-left:-140px;
+	top:50%;
+	margin-top:-40px;
+	font-size:15px;
+	color:#333;
+	font-weight:bold;
+	text-align:center;
+	background-color:#f9f9f9;
+}
+.query_hint img{
+	position:relative;
+	top:10px;
+	left:-8px;
+}
+</style>
 <script id="allmobilize" charset="utf-8" src="style/js/allmobilize.min.js"></script>
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <link rel="alternate" media="handheld"  />
@@ -69,7 +94,7 @@ var youdao_conv_id = 271546;
             	<a  href="login.html"  class="registor_now">直接登录</a>
                 <div class="login_others">使用以下帐号直接登录:</div>
                 <div id="hzy_fast_login">
-					<a href="http://www.chinayang.top/test/demo/index.php">
+					<a href="http://www.chinayang.top/test/demo/index.php?url={{env('APP_HOST')}}">
 					    <img src="{{env('APP_HOST')}}/style/images/wx1.png" alt="使用微信登录">
 					</a>
                 </div>
@@ -77,6 +102,9 @@ var youdao_conv_id = 271546;
         </div>
         <div class="login_box_btm"></div>
     </div>
+	<div id="query_hint" class="query_hint">
+		<img src="{{env('APP_HOST')}}/style/images/load.gif" />正在处理，请稍等...
+	</div>
     <script type="text/javascript">    
     $110(document).ready(function(e) {
         // 显示密码
@@ -145,12 +173,14 @@ var youdao_conv_id = 271546;
 			    		var callback = $('#callback').val();
 			    		var authType = $('#authType').val();
 			    		var signature = $('#signature').val();
-			    		var timestamp = $('#timestamp').val();
+			    		var timestampamp = $('#timestamp').val();
 			    		var geetest_challenge = $('.geetest_challenge').val();
 			    		var geetest_validate = $('.geetest_validate').val();
 		    			var geetest_seccode = $('.geetest_seccode').val();
 						var _beError = $('#beError');
-		
+						$('#query_hint').css('display','block');
+						_query_hint=$('#query_hint');
+						_login_hint=$('#login_hint');
 			    		// $(form).find(":submit").attr("disabled", true);
 			            $.ajax({
 			            	type:'POST',
@@ -160,29 +190,35 @@ var youdao_conv_id = 271546;
 		            		success: function(e) {
 							    if(e) {
 							    	if (e==500) {
+			            				_query_hint.css('display','none');
 							    		var str = '该邮箱已被注册！';
 										_beError.attr('style','');
 										_beError.text('');
 										_beError.append(str);
 							    	} else {
+			            				_query_hint.css('display','none');
 								    	window.location.href='login.html';
 							    	}
 							    } else {
+							    	_query_hint.css('display','none');
 							    	window.location.href='register.html';
 							    }
 						    },
 			            	error:function(e){
 			            		if (e.responseText =='{"geetest_challenge":["The geetest challenge field is required."]}') {
+			            			_query_hint.css('display','none');
 			            			var str = '请验证验证码！';
 									_beError.attr('style','');
 									_beError.text('');
 									_beError.append(str);
 			            		} else if (e.responseText ='{"geetest_challenge":["\u9a8c\u8bc1\u7801\u6821\u9a8c\u5931\u8d25"]}') {
+			            			_query_hint.css('display','none');
 			            			var str = '验证码验证失效，请刷新重置！';
 									_beError.attr('style','');
 									_beError.text('');
 									_beError.append(str);
 			            		} else {
+			            			_query_hint.css('display','none');
 			            			window.location.href='register.html';
 			            		}
 			            	}

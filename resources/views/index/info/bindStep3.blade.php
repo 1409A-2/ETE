@@ -48,11 +48,13 @@
             </div>
             <!------------------------------------- end ----------------------------------------->
 
-            <script src="style/js/services.min.js" type="text/javascript"></script>
+
             <div class="clear"></div>
             <input type="hidden" value="de66a3b79bed40df9c0c2a470d356435" id="resubmitToken">
 
         <!-- end #container -->
+    @section('script')
+    <script src="style/js/services.min.js" type="text/javascript"></script>
     <script>
         function sendEamil(){
             var _query_hint=$('#query_hint');
@@ -72,4 +74,5 @@
             });
         }
     </script>
+    @endsection
 @endsection

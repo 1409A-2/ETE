@@ -40,6 +40,7 @@ class Beat extends Model
         }
     }
 
+
     /** 查询出期望工作职位
      * @param $where
      * @return mixed
@@ -47,19 +48,19 @@ class Beat extends Model
     public static function beatOne($where){
        $res=self::where($where)->where('b_state','!=','2')->first();
         if($res){
-            $res->toArray();
-        $arr=explode(',',$res['b_professional']);
+            $reArray=$res->toArray();
+        $arr=explode(',',$reArray['b_professional']);
         if ($arr) {
 
            foreach($arr as $v){
                $beOne[]=Industry::findAll(['i_id'=>$v]);
            }
-            $res['b_field']=Industry::findOll(['i_id'=>$res['b_field']]);
-            $res['b_professional']=$beOne;
-            return $res;
+            $reArray['b_field']=Industry::findOll(['i_id'=>$reArray['b_field']]);
+            $reArray['b_professional']=$beOne;
+            return $reArray;
         } else {
 
-          return $res['b_professional']=Industry::findAll(['i_id'=>$res['b_professional']]);
+          return $reArray['b_professional']=Industry::findAll(['i_id'=>$reArray['b_professional']]);
         }
         }else{
             return $res;
@@ -71,6 +72,19 @@ class Beat extends Model
 */
     public static function selAll(){
         $res=self::where('b_state','=',1)->get();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+    }
+
+    /**查询出当前 一拍
+     * @param $where
+     * @return mixed
+     */
+    public static function beatOll($where){
+        $res=self::where($where)->where('b_state','=','1')->select('b_id')->first();
         if($res){
             return $res->toArray();
         }else{

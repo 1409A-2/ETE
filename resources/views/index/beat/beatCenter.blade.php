@@ -56,8 +56,8 @@
                 <li class="" onclick="trackMonitor('l-profile-nav')">
                     <a href="{{url('beatProfile')}}">我的履历</a>
                 </li>
-                {{--<li class="" onclick="trackMonitor('l-talent-invited-nav')"><a--}}
-                            {{--href="{{url('beatInvited')}}">我的邀约</a></li>--}}
+                <li class="" onclick="trackMonitor('l-talent-invited-nav')"><a
+                            href="{{url('beatInvited')}}">我的邀约</a></li>
                 {{--<li class="" onclick="trackMonitor('l-reward-nav')">--}}
                     {{--<a href="{{url('beatReward')}}">我的Offer</a>--}}
                 {{--</li>--}}
@@ -97,6 +97,7 @@
 
         <div class="content-left">
             {{--1  2  3   4  --}}
+            @if(empty($bc))
             <div class="m-progress s-clearfix">
                 <div class="item"><i
                             style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"
@@ -151,6 +152,122 @@
                     </div>
                 </div>
             </div>
+            @else
+
+
+                <div class="m-progress s-clearfix">
+                    <div class="item"><i
+                                style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"
+                                class="stepEle"><span class="step">1</span></i>
+
+                        <p>报名</p>
+
+                        <div class="tip first-tip" style="display: none;">
+                            顾问会对你的报名信息和简历进行审核，审核结果会在<span class="green">2</span>个工作日内通知你。完善的简历可以提高审核通过几率，同时有助于顾问快速完成审核，报名完成后你可以进一步完善以下简历信息：<span
+                                    class="green">基本信息、教育经历、工作经历、项目经验、作品展示、自我介绍等。</span>
+                        </div>
+                    </div>
+                    <div style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px -52px;"
+                         class="arrow first-arrow"></div>
+                    <div class="item"><i
+                                style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"
+
+                                class="stepEle"><span class="step">2</span></i>
+
+                        <p>审核通过</p>
+
+                        <div class="tip second-tip" style="display: none;">
+                            审核通过后，顾问会根据你预约的时间为你安排专场。<p class="note"><span class="bold">注意：</span><span class="note-content">专场展示期间你将不能编辑你的简历，在展示开始前请完善你的简历信息。</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px -52px;"
+                         class="arrow"></div>
+                    <div class="item"><i
+                                style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px 0px;"
+                                class="stepEle"><span class="step">3</span></i>
+
+                        <p>处理邀约</p>
+
+                        <div class="tip third-tip" style="display: none;">
+                            你的履历将在专场上展示<span class="green">1</span>周，企业会向你发出面试邀请，你可以接受感兴趣的邀约或者拒绝不感兴趣的工作机会，超过<span
+                                    class="green">7</span>天未处理的邀约会被自动拒绝。只有在你接受邀约后，HR才能查看你的联系方式。记得及时处理邀约哦。
+                            <p class="note"><span class="bold">注意：</span><span class="note-content">拍卖开始后，不能修改履历信息。</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px -52px;"
+                         class="arrow last-arrow"></div>
+                    <div class="item"><i
+                                style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"
+                                class="stepEle"><span class="step">4</span></i>
+
+                        <p>反馈Offer</p>
+
+                        <div class="tip fourth-tip" style="display: none;">
+                            反馈Offer，可以方便顾问辅助你做进一步分析决策<br>
+                        </div>
+                    </div>
+                </div>
+
+                        {{--<div class="m-progress s-clearfix">--}}
+                            {{--<div class="item"><i--}}
+                                        {{--style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"--}}
+                                        {{--class="stepEle"><span class="step">1</span></i>--}}
+
+                                {{--<p>报名</p>--}}
+
+                                {{--<div class="tip first-tip" style="display: none;">--}}
+                                    {{--顾问会对你的报名信息和简历进行审核，审核结果会在<span class="green">2</span>个工作日内通知你。完善的简历可以提高审核通过几率，同时有助于顾问快速完成审核，报名完成后你可以进一步完善以下简历信息：<span--}}
+                                            {{--class="green">基本信息、教育经历、工作经历、项目经验、作品展示、自我介绍等。</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px -52px;"--}}
+                                 {{--class="arrow first-arrow"></div>--}}
+                            {{--<div class="item"><i--}}
+                                        {{--style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"--}}
+
+                                        {{--class="stepEle"><span class="step">2</span></i>--}}
+
+                                {{--<p>审核通过</p>--}}
+
+                                {{--<div class="tip second-tip" style="display: none;">--}}
+                                    {{--审核通过后，顾问会根据你预约的时间为你安排专场。<p class="note"><span class="bold">注意：</span><span class="note-content">专场展示期间你将不能编辑你的简历，在展示开始前请完善你的简历信息。</span>--}}
+                                    {{--</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px -52px;"--}}
+                                 {{--class="arrow"></div>--}}
+                            {{--<div class="item"><i--}}
+                                        {{--style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px 0px;"--}}
+                                        {{--class="stepEle"><span class="step">3</span></i>--}}
+
+                                {{--<p>处理邀约</p>--}}
+
+                                {{--<div class="tip third-tip" style="display: none;">--}}
+                                    {{--你的履历将在专场上展示<span class="green">1</span>周，企业会向你发出面试邀请，你可以接受感兴趣的邀约或者拒绝不感兴趣的工作机会，超过<span--}}
+                                            {{--class="green">7</span>天未处理的邀约会被自动拒绝。只有在你接受邀约后，HR才能查看你的联系方式。记得及时处理邀约哦。--}}
+                                    {{--<p class="note"><span class="bold">注意：</span><span class="note-content">拍卖开始后，不能修改履历信息。</span>--}}
+                                    {{--</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll 0px -52px;"--}}
+                                 {{--class="arrow last-arrow"></div>--}}
+                            {{--<div class="item"><i--}}
+                                        {{--style="background: transparent url(&quot;/yi/progress.png&quot;) no-repeat scroll -38px 0px;"--}}
+                                        {{--class="stepEle"><span class="step">4</span></i>--}}
+
+                                {{--<p>反馈Offer</p>--}}
+
+                                {{--<div class="tip fourth-tip" style="display: none;">--}}
+                                    {{--反馈Offer，可以方便顾问辅助你做进一步分析决策<br>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+
+            @endif
+
             <div class="dynamic">
                 <div class="dynamic-title">
                     <div class="dynamic-text">动态</div>
@@ -184,8 +301,7 @@
                                         @endforeach
 
 
-                                        · <span class="money">{{$beat['b_salary_start']}}k-{{$beat['b_salary_end']}}
-                                            k</span>/月 · 北京</p>
+                                        · <span class="money">{{$beat['b_salary_start']}}k-{{$beat['b_salary_end']}}k</span>/月 · 北京</p>
                                 </div>
                                 <div class="user-info-tail"><a href="{{url('beatProfile')}}"
                                                                onclick="trackMonitor('c-infos-showyoinfo');"
@@ -229,25 +345,8 @@
                         <p><span>QQ：</span><span id="qq-id">969501997</span></p>
                     </div>
                 </div>
-                <div style="display: block;" class="my-invitation-title right-info2">
-                    <div class="my-invitation-text">我的邀约</div>
-                    <div class="my-invitation-line"></div>
-                </div>
-                <div style="display: block;" class="my-invitation-content right-info2">
-                    <div class="my-invitation-content-wrapper">
-                        <p><span class="item">待处理</span><span class="number" id="wait-num">0</span><a class="link"
-                                                                                                      href="http://pai.lagou.com/talent/invited.html"
-                                                                                                      onclick="trackMonitor('c-right-wait');">去处理
-                                &gt;&gt;</a></p>
-
-                        <p><span class="item">已安排约见</span><span class="number" id="arrange-num">0</span><a class="link"
-                                                                                                            href="http://pai.lagou.com/talent/invited.html?type=arrange"
-                                                                                                            onclick="trackMonitor('c-right-arrange');">查看
-                                &gt;&gt;</a></p>
 
 
-                    </div>
-                </div>
             </div>
         </div>
     @else

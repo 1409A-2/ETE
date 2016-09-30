@@ -1,23 +1,27 @@
 @extends('index.lar.public')
 @section('title', '待处理简历')
-@section('content')
+@section('script')
 <script type="text/javascript">
                                         $(function(){
                                             $('.r').click(function(){
                                                 $(this).parent().attr('class','read');
                                             }) 
                                             $(document).delegate('.resume_notice','click',function(){
-                                                // alert(111);return
                                                 resume_notice=$(this).attr('status');
                                                 resume_no=$(this).html();
                                                 rere_id=$(this).attr('data-deliverid');
                                                 _this=$(this);
+                                                _num=$('#num');
+                                                _nu= $("#nu");
+                                                num=$('#nu').val();
                                                 $.ajax({
                                                     url:'nndetermined',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                                                     success: function(a){
                                                         if(a==1){
+                                                            _nu.val((num-1*1));
+                                                            _num.html("（共"+(num-1*1)+"份）");
                                                             _this.parent().parent().parent().remove();
                                                         }else{
                                                             alert(resume_no+"失败");
@@ -44,8 +48,10 @@
                                                     }
                                                 })
                                             });
-                                        })
-                                    </script>
+                                        })</script>
+@endsection
+@section('content')
+
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
@@ -55,8 +61,9 @@
             <dl class="company_center_content">
                 <dt>
                 <h1>
+                <input type="hidden" id="nu" value="{{count($resume)}}">
                     <em></em>
-                    待处理简历 <span>（共{{count($resume)}}份）</span></h1>
+                    待处理简历 <span id="num">（共{{count($resume)}}份）</span></h1>
                 </dt>
                 <dd>
                     <form action="canInterviewResumes.html" method="get" id="filterForm">
@@ -131,8 +138,8 @@
                                     <div class="resumeIntro">
                                     @if($v['remuse_resele']==0)
                                         <h3 class="unread">
-                                            <a class="r" target="_blank" title="预览jason的简历"
-                                               href="preview?rere_id={{$v['rere_id']}}">
+                                            <a class="r" target="_blank" title="预览{{$v['r_name']}}的简历jason的简历"
+                                               href="preview?rere_id={{$v['rere_id']}}&u_id={{$v['u_id']}}">
                                                 {{$v['r_name']}}的简历
                                             </a>
                                             <em></em>

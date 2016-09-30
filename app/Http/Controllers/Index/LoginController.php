@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Index;
 
 use App\Model\Resume;
 use DB;
+use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -12,6 +13,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\User;
+use App\Model\Convenient;
 use Mail;
 header("Access-Control-Allow-Origin:*");
 class LoginController extends BaseController
@@ -19,10 +21,24 @@ class LoginController extends BaseController
     use CaptchaGeetest;
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     // 登陆
-    public function login(){
+    public function login(Request $request){
+        $userKey = $request->input('user');
+        $ct_type = $request->input('ct_type');
+        if (!empty($userKey)) {
+            $con_data = Convenient::checkOnly($userKey);
+            if ($con_data) {
+                $checkRest = User::findOnly($con_data['u_id']);
+                session()->put('u_id', $checkRest['u_id']);
+                session()->put('u_email', $checkRest['u_email']);
+            } else {
+
+                return view('index.index.WeixinRegister',['userKey'=>$userKey,'ct_type'=>$ct_type]);
+            }
+        }
         if (!empty(session('u_id'))&&!empty(session('u_email'))) {
             return redirect('/');
         }
+
     	return  view('index.login.login');
     }
 
@@ -43,9 +59,6 @@ class LoginController extends BaseController
     	$list = User::checkLog($data);
         if ($list)
         {
-            if ($list['u_status'] == 0) {
-                return 3;
-            }
 			if ($data['status'] == 1) {
 				//使用put方法直接创建Session变量
 			    session()->put('u_id', $list['u_id']);
@@ -101,11 +114,18 @@ class LoginController extends BaseController
                 $user['u_id']=$res;
                 Resume::addResume($user);
             }
-            $arr['content'] = '欢迎注册校易聘，请点击或复制以下网址到浏览器里直接打开以便完成注册：'.env('APP_HOST').'/email?email='.$data["u_email"];
-            $rest = Mail::raw($arr['content'], function ($message) use($email) {
-                $to = $email;
-                $message ->to($to)->subject('校易聘注册认证邮件');
-            });
+            $u_id = session('u_id');
+            $user_data = User::findOnly($u_id);
+            $enEmail = base64_encode($email);
+            $content = "欢迎注册校易聘：<br/>请验证你的邮箱以便正常访问网站,进入此网址进行激活》》 <a href='".env('APP_HOST')."/email?email=$enEmail'>这里激活</a>";
+            $subject = "校易聘注册认证邮件";
+            $rest = MailController::send($content,$email,$subject);
+            if ($rest) {
+                $content = "欢迎注册校易聘：您的验证邮件已经发送，请您尽快验证，以方便我们更好的为您服务。";
+                MessageController::sendMessage($res,$content,2);
+            }
+            session()->put('u_id', $res);
+            session()->put('u_email', $email);
             return json_encode($res);
     	} else {
     		return json_encode($res);
@@ -117,7 +137,8 @@ class LoginController extends BaseController
      */
     public function email(Request $Request)
     {
-        $email = $Request->input('email');
+        $deEmail = $Request->input('email');
+        $email = base64_decode($deEmail);
         $res = User::emailStatus($email);
         if ($res) {
             echo "<script>alert('恭喜您，邮箱验证成功！');location='login.html';</script>";
@@ -162,11 +183,11 @@ class LoginController extends BaseController
         if ($list)
         {
             $email = $list['u_email'];
-            $arr['content'] = '校易聘密码找回，请点击或复制以下网址到浏览器里直接打开以便完成找回密码：'.env('APP_HOST').'/newPwd.html?email='.$list["u_email"].'，非本人邮件请勿操作，谢谢合作！';
-            $rest = Mail::raw($arr['content'], function ($message) use($email) {
-                $to = $email;
-                $message ->to($to)->subject('校易聘密码重置邮件');
-            });
+            $enEmail = base64_encode($email);
+            $content = "校易聘密码找回，请点击<a href='".env('APP_HOST')."/newPwd.html?email=$enEmail'>这里找回</a>";
+            $subject = "校易聘密码找回系统";
+            $rest = MailController::send($content,$email,$subject);
+            
             if ($rest) {
                 return 0;
             } else {
@@ -191,7 +212,8 @@ class LoginController extends BaseController
      */
     public function newPwd(Request $Request)
     {
-        $email = $Request->input('email');
+        $deEmail = $Request->input('email');
+        $email = base64_decode($deEmail);
         return view('index.login.newPwd',['email'=>$email]);
     }
 

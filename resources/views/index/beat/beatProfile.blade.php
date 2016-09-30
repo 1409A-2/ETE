@@ -52,8 +52,8 @@
                 <li class="active" onclick="trackMonitor('l-profile-nav')">
                     <a href="{{url('beatProfile')}}">我的履历</a>
                 </li>
-                {{--<li class="" onclick="trackMonitor('l-talent-invited-nav')"><a--}}
-                            {{--href="{{url('beatInvited')}}">我的邀约</a></li>--}}
+                <li class="" onclick="trackMonitor('l-talent-invited-nav')"><a
+                            href="{{url('beatInvited')}}">我的邀约</a></li>
                 {{--<li class="" onclick="trackMonitor('l-reward-nav')">--}}
                     {{--<a href="{{url('beatReward')}}">我的Offer</a>--}}
                 {{--</li>--}}
@@ -85,7 +85,7 @@
                             实习 · {{$school['s_name']}} · {{$beat['b_workyear']}}年项目经验</p>
 
                         <p class="self-one-word">
-                           {{$resume['r_desc']}}</p>
+                           <?php echo $resume['r_desc']?></p>
                         @if($beat['b_state']==0)
                         <a class="btn-edit " title="点击编辑，修改约会补充资料；完整简历请到【我的简历】中进行修改"
                            href="{{url('resumeList')}}" type="button" target="_blank">编辑简历</a>
@@ -116,7 +116,7 @@
                                         <div class="content-sub-title s-clearfix"><span class="left">{{$v['p_duties']}}</span><span
                                                     class="right">{{date('Y.m.d',$v['p_start_time'])}} - {{date('Y.m.d',$v['p_end_time'])}}</span>
                                         </div>
-                                        <p>{{$v['p_desc']}}</p>
+                                        <p> <?php echo $v['p_desc']?></p></p>
                                     </div>
                                 </div>
                                 @endforeach

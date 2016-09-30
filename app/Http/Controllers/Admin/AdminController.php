@@ -8,8 +8,10 @@ use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\Admin;
+use App\Model\Role;
 use App\Model\Company;
 use Session;
+use App\Http\Controllers\Index\IndexController;
 
 class AdminController extends Controller
 {
@@ -48,6 +50,19 @@ class AdminController extends Controller
     }
 
     public function adminIndex(){
+        // $user = Admin::find(1);
+        // foreach ($user->roles as $role)
+        // {
+        //     $arr[] = $role->toArray();
+        // }
+        // print_r($arr);
+        // $roleData = Role::find(2);
+        // foreach ($roleData->auths as $auth)
+        // {
+        //     $list[] = $auth->toArray();
+        // }
+        // print_r($list);
+        // die;
         return view("admin.admin.index");
     }
 
@@ -151,5 +166,16 @@ class AdminController extends Controller
         }
        
     }
-
+	/**
+     * 生成前台首页
+     */
+    public function homeIndexOut(){
+        $index = new IndexController();
+        ob_start();
+        $fp =fopen("./index.html",'w');
+        $content=$index->Index();
+        fwrite($fp, $content);
+        fclose($fp);
+        echo "<script>alert('首页生成成功');location.href='adminIndex';</script>";
+    }
 }

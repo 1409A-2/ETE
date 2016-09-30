@@ -25,6 +25,7 @@
 Route::group(['middleware' => ['web']], function () {
 	// 验证公司邮箱
 	Route::get('adopt','Index\InfoController@adoptVerify');
+	Route::get('checkEmail.html','Index\IndexController@checkEmail');
     //前台
     Route::get('/','Index\IndexController@index');
 	Route::get('postPreview','Index\IndexController@postPreview');//查看职位详情
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('subscribeDel','Index\FeedbackController@subscribeDel'); 	//删除订阅器  
 	// 注册发送邮件
 	Route::get('mail/send','MailController@send');
+	Route::get('checkEamil','Index\IndexController@sendMail');
 
 	//登录注册
 	Route::get('login.html','Index\LoginController@login');
@@ -61,6 +63,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	//用户个人信息
 	Route::group(['middleware' => 'login'], function () {
+
 		//完善公司基本信息（必填）
         Route::get('info','Index\InfoController@checkCompany');
         Route::get('sendEamil','Index\InfoController@sendMail');
@@ -74,6 +77,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('upPwdPro','Index\AccountController@upPwdPro');
         Route::get('unAccount','Index\AccountController@unAccount');
         Route::get('accountPro','Index\AccountController@accountPro');
+        //消息
+        Route::post('getMessage','Index\MessageController@getMessage');//获取消息数量
+        Route::post('reading','Index\MessageController@reading');//标为已读
+        Route::get('messageList','Index\MessageController@messageList');//消息列表
 
 		//这是发布职位控制
 		Route::group(['middleware' => 'company'], function () {
@@ -94,6 +101,7 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('haveNoticeResumes','Index\IndustryController@haveNoticeResumes');//查看已发送邮件的简历
 			Route::get('haveRefuseResumes','Index\IndustryController@haveRefuseResumes');//查看不合适的简历
 			Route::get('preview','Index\IndustryController@preview');//公司查看简历详情
+			Route::get('undeterminedOffer','Index\IndustryController@undeterminedOffer');//公司发送Offer给用户   undeterminedOffer
 			Route::get('positions','Index\IndustryController@positions');//查看有效职位  positions
 			Route::get('positionsdown','Index\IndustryController@positionsDown');//查看有效职位  positionsdown
 			Route::get('positionsType','Index\IndustryController@positionsType');//职位上下线管理	positionsType
@@ -117,11 +125,12 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('companyAllBeat', 'Index\IndustryController@companyAllBeat');//公司查看一拍页面   
 			Route::get('companyBeat', 'Index\beatController@companyBeat');//查看一拍页面信息
 			Route::get('beatYes', 'Index\beatController@beatYes');//添加公司的一拍   
+			Route::get('companyBeatEmail', 'Index\IndustryController@companyBeatEmail');// 公司发送offer
 		});
         Route::post('getcollected','Index\IndexController@getCollected');// 是否收藏职位
         Route::post('collectionPosition','Index\IndexController@collectionPosition');// 收藏职位
         Route::post('cancelCollected','Index\IndexController@cancelCollected');// 取消收藏职位
-        Route::get('collectedPosition','Index\IndexController@collectedPosition');// 取消收藏职位
+        Route::get('collectedPosition','Index\IndexController@collectedPosition');// 我的收藏职位
     });
     Route::get('downloadResume','Index\IndustryController@downloadResume');//下载简历   	downloadResume
 
@@ -139,7 +148,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('worksDel', 'Index\ResumeController@worksDel');//删除作品
 
         Route::post('porjectAdd', 'Index\ResumeController@porjectAdd');//添加项目
-        Route::get('porjectSel', 'Index\ResumeController@porjectSel');//查询项目
+//        Route::get('porjectSel', 'Index\ResumeController@porjectSel');//查询项目
         Route::get('porjectDel', 'Index\ResumeController@porjectDel');//删除项目
 
         Route::post('expectedAdd', 'Index\ResumeController@expectedAdd');//添加(修改)期望工作
@@ -151,6 +160,8 @@ Route::group(['middleware' => ['web']], function () {
         //投递简历
         Route::get('remusePro/{id}', 'Index\ResumeController@remusePro');//投递简历添加
         Route::get('remuseShow', 'Index\ResumeController@remuseShow');//投递简历和对应状况查看
+
+        Route::post('enclosureAdd', 'Index\ResumeController@enclosureAdd');//投递简历附件
 
         //一拍
         Route::get('beatIndex', 'Index\beatController@beatIndex');//一拍首页
@@ -165,8 +176,12 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('beatCenter', 'Index\beatController@beatCenter');//一拍个人中心
         Route::get('beatProfile', 'Index\beatController@beatProfile');//一拍我的履历
-//        Route::get('beatInvited', 'Index\beatController@beatInvited');//一拍我的邀约
-//        Route::get('beatReward', 'Index\beatController@beatReward');//一拍我的Offer
+        Route::get('beatInvited', 'Index\beatController@beatInvited');//一拍我的邀约
+
+        Route::get('invitedUp', 'Index\beatController@invitedUp');//邀约的操作
+        Route::get('invitedDel', 'Index\beatController@invitedDel');//邀约的操作
+
+
 
 
 
@@ -181,6 +196,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'admin'],function(){
 		//后台首页
 		Route::get('adminIndex','Admin\AdminController@adminIndex');
+		Route::get('homeIndexOut','Admin\AdminController@homeIndexOut');// 后台生成前台首页   
 		Route::get('adminMaterial','Admin\MaterialController@carousel');
 		Route::post('adminMaterialPro','Admin\MaterialController@carouselPro');
 		Route::get('upcarousel','Admin\MaterialController@upCarousel');

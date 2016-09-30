@@ -71,22 +71,46 @@ class Release extends Model
 
     //查看发布职位
     public static function selList($c_id){
-        return Release::where($c_id)->get()->toArray();
+        $res=Release::where($c_id)->get();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
+
+
 
     //预览职位
     public static function selPreview($c_id){
-        return Release::where($c_id)->orderBy('re_id','desc')->first()->toArray();
+        $res=Release::where($c_id)->orderBy('re_id','desc')->first();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
 
     //用户查看的职位详情
     public static function selPreviews($c_id){
-        return Release::where($c_id)->orderBy('re_id','desc')->first()->toArray();
+        $res=Release::where($c_id)->orderBy('re_id','desc')->first();
+        if ($res) {
+
+            return $res->toArray();
+        } else {
+
+            return $res;
+        }
     }
 
     //查看各个职位的简历
     public static function selPr($c_id,$re_status){
         return Release::Join('company', 'release.c_id', '=', 'company.c_id')
+        ->orderBy('re_time','desc')
         ->where('release.c_id','=',$c_id)
         ->where('release.re_status','=',$re_status)
         ->get()        
@@ -104,14 +128,13 @@ class Release extends Model
     }
 
     //主页热门搜索职位
-    public static function hotRelease(){
-        $re=Release::get()->toArray();
-        if(!$re){
-
+    public static function hotRelease($re_id){
+        $re=Release::where("release.re_status",'=',0)->where($re_id)->join('company','release.c_id','=','company.c_id')->first();
+        if($re){
+            return $re->toArray();
+        }else{
             return $re;
         }
-
-        return $re[rand(0,count($re)-1)];
     }
 
 
@@ -168,5 +191,28 @@ class Release extends Model
     //查看发布职位
     public static function selListLimit($c_id){
         return Release::where($c_id)->where('re_status',0)->limit(3)->get()->toArray();
+    }
+
+    //查询最新职位
+    public static function newTime(){
+        $re= self::where("release.re_status",'=',0)->join('company','release.c_id','=','company.c_id')->orderBy('re_time','desc')->limit(5)->get();
+        if($re){
+            return $re->toArray();
+        }else{
+            return $re;
+        }
+    }
+
+    //查询职位是否存在
+    public static function releaseSel($where){
+
+            $res=self::where($where)->first();
+           if ($res) {
+
+               return $res->toArray();
+           } else {
+
+               return $res;
+           }
     }
 }

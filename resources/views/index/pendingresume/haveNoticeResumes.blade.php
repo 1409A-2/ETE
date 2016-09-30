@@ -1,6 +1,6 @@
 @extends('index.lar.public')
 @section('title', '通知面试')
-@section('content')
+@section('script')
 <script type="text/javascript">
                                         $(function(){
                                             $('.r').click(function(){
@@ -11,12 +11,17 @@
                                                 resume_no=$(this).html();
                                                 rere_id=$(this).attr('data-deliverid');
                                                 _this=$(this);
+                                                _num=$('#num');
+                                                _nu= $("#nu");
+                                                num=$('#nu').val();
                                                 $.ajax({
-                                                    url:'nndeterminedEmail',
+                                                    url:'nndetermined',
                                                     type:'get',
                                                     data: {remuse_resele:resume_notice,rere_id:rere_id},
                                                     success: function(a){
                                                         if(a==1){
+                                                            _nu.val((num-1*1));
+                                                            _num.html("（共"+(num-1*1)+"份）");
                                                             _this.parent().parent().parent().remove();
                                                         }else{
                                                             alert(resume_no+"失败");
@@ -35,11 +40,12 @@
                                                 c_name=$('.c_name').attr('c');
                                                 r_name=$('.r_name').attr('r');
                                                 i_name=$('.i_name').attr('i');
+                                                addr=$('.addr').attr('i');
                                                 _query_hint=$('#query_hint');
                                                 $.ajax({
-                                                    url:'nndeterminedEmail',
+                                                    url:'undeterminedOffer',
                                                     type:'get',
-                                                    data: {i_name:i_name,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:rere_id},
+                                                    data: {i_name:i_name,addr:addr,r_name:r_name,c_name:c_name,remuse_resele:resume_notice,email:email,rere_id:rere_id},
                                                     success: function(a){
                                                         if(a==1){
                                                             _this.parent().html('<a href="javascript:void(0)">已发送</a>');
@@ -71,8 +77,10 @@
                                                     }
                                                 })
                                             });
-                                        })
-                                    </script>
+                                        })</script>
+@endsection    
+@section('content')
+
 <script src="style/js/job_list.min.js" type="text/javascript"></script>
     <!-- // <script src="style/js/conv.js" type="text/javascript"></script> -->
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
@@ -82,8 +90,9 @@
             <dl class="company_center_content">
                 <dt>
                 <h1>
+                <input type="hidden" id="nu" value="{{count($resume)}}">
                     <em></em>
-                    已通知面试简历 <span>（共{{count($resume)}}份）</span></h1>
+                    已通知面试简历 <span id="num">（共{{count($resume)}}份）</span></h1>
                 </dt>
                 <dd>
                     <form action="canInterviewResumes.html" method="get" id="filterForm">
@@ -155,6 +164,7 @@
                                     <input type="hidden" c="{{$v['c_name']}}" class="c_name">
                                     <input type="hidden" i="{{$v['i_name']}}" class="i_name">
                                     <input type="hidden" em="{{$v['r_email']}}" class="email">
+                                    <input type="hidden" i="{{$v['re_address']}}" class="addr">
                                     @if($v['remuse_resele']==6)
                                         <a data-deliverid="{{$v['rere_id']}}" 
                                            href="javascript:void(0)">已发送</a>

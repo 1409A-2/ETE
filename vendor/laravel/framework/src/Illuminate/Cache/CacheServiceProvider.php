@@ -32,7 +32,10 @@ class CacheServiceProvider extends ServiceProvider
         $this->app->singleton('memcached.connector', function () {
             return new MemcachedConnector;
         });
-
+ 
+        $this->app->singleton('memcache.connector',function() {
+            return new MemcacheConnector;
+        });
         $this->registerCommands();
     }
 
@@ -58,7 +61,7 @@ class CacheServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'cache', 'cache.store', 'memcached.connector', 'command.cache.clear',
+            'cache', 'cache.store', 'memcached.connector', 'command.cache.clear','memcache.connector',
         ];
     }
 }

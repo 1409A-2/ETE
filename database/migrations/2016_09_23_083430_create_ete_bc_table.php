@@ -13,6 +13,7 @@ class CreateEteBcTable extends Migration
     public function up()
     {
         Schema::create('bc', function (Blueprint $table) {
+            $table->increments('bc_id');
             $table->integer('bc_cid');
             $table->integer('cb_bid');
             $table->tinyInteger('cb_cb');
