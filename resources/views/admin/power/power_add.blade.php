@@ -6,7 +6,7 @@
 		    <div class="tab-body">
 		        <br />
 		        <div class="tab-panel active" id="tab-set">
-		            <form method="post" class="form-x" action="powerEdit">
+		            <form method="post" class="form-x" action="power_addPro">
 		          
 		                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
 		                <div class="form-group">
