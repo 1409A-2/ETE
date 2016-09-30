@@ -1,10 +1,39 @@
 <?php
+header("content-type:text/html;charset=utf8");
 if(strpos($_SERVER['REQUEST_URI'],'?')){
     $url = substr($_SERVER['REQUEST_URI'],1,strpos($_SERVER['REQUEST_URI'],'?')-1);
 }else{
     $url = substr($_SERVER['REQUEST_URI'],1);
 }
+
+$admin_id=session('uid');
+$admin=DB::table('admin')
+->join('u_r','u_r.a_id','=','admin.a_id')
+->join('role','u_r.r_id','=','role.r_id')
+->join('r_p','r_p.r_id','=','role.r_id')
+->join('power','r_p.p_id','=','power.p_id')
+->where('admin.a_id','=',$admin_id['a_id'])
+->get();
+
+// print_r($admin);die;
+$admin_list=level($admin,$parent_id=0,$level=0);
+// print_r($admin_list);die;
+function level($admin,$parent_id=0,$level=0){
+    static $arr=array();
+    foreach($admin as $k=>$v){
+        $val=get_object_vars($v);
+        if($val['parent_id']==$parent_id){
+            $val['level']=$level;
+            $arr[]=$val;
+            level($admin,$val['p_id'],$level+1); 
+        }
+
+    }
+     return $arr;  
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -49,7 +78,6 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
         });
 
     </script>
-    @yield('script_admin')
 </head>
 
 <body>
@@ -64,35 +92,19 @@ if(strpos($_SERVER['REQUEST_URI'],'?')){
                 <a class="button button-little bg-yellow" href="cancellation">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
-                <li><a href="javascript:void(0);" class="icon-home"> 开始</a>
+            @foreach($admin_list as $key=>$v)
+                @if($v['level']==0)
+                <li><a href="javascript:void(0);" class="icon-home"> {{$v['p_name']}}</a>
                     <ul>
-                        <li><a href="adminIndex">首页</a></li>
-                        <li><a href="homeIndexOut">生成前台首页</a></li>
+                    @foreach($admin_list as $key=>$val)
+                        @if($val['parent_id']==$v['p_id'])
+                        <li><a href="{{$val['p_route']}}">{{$val['p_name']}}</a></li>
+                        @endif
+                      @endforeach  
                     </ul>
                 </li>
-                {{--<li><a href="javascript:void(0);" class="icon-cog"> 系统</a>
-                    <ul><li><a href="#">全局设置</a></li>/ul>
-                </li>--}}
-                <li><a href="javascript:void(0);" class="icon-file-text"> 行业</a>
-                    <ul>
-                        <li><a href="adminIndustryList">行业列表</a></li>
-                        <li><a href="adminIndustryAdd">添加行业</a></li>
-                    </ul>
-                </li>
-                {{--<li><a href="javascript:void(0);" class="icon-shopping-cart"> 订单</a></li>--}}
-                <li><a href="javascript:void(0);" class="icon-user"> 用户管理</a>
-                    <ul><li><a href="adminUserList">用户列表</a></li><li><a href="feedBackList">反馈列表</a></li><li><a href="feedBackHandle">已处理反馈</a></li></ul>
-                </li>
-                <li><a href="javascript:void(0);" class="icon-file"> 文件</a>
-                    <ul><li><a href="adminSubscribe">订阅管理</a></li></ul>
-                </li>
-                <li><a href="javascript:void(0);" class="icon-th-list"> 栏目</a>
-                    <ul>
-                        <li><a href="adminMaterial">轮播管理</a></li>
-                        <li><a href="adminFriendShip">友情链接</a></li>
-                        <li><a href="adminRecommend">推荐网站</a></li>
-                    </ul>
-                </li>
+                @endif
+                @endforeach
             </ul>
         </div>
         <div class="admin-bread">

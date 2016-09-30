@@ -79,7 +79,94 @@ class AdminController extends Controller
         return redirect('admin');
     }
 
+       //后台管理员列表
+    public function manageList(Request $request){
+        $rows=Admin::countAll();
+        $length=3;
+        $pages=ceil($rows/$length);
+        //print_r($pages);die;
+        $page=$request->get('page',1);
+        $limit=($page-1)*$length;
+        $admin_list=Admin::selAll($length,$limit);
+        
+        return view('admin.admin.manageList',['admin_list'=>$admin_list,'pages'=>$pages,'page'=>$page]);
+    }
+
+    public function manageAdd(){
+
+        return view('admin.admin.manageAdd');
+    }
     /**
+     * [userAdd description]管理员添加
+     * @return [type] [description]
+     */
+    public function userAdd(Request $request){
+        //接收表单传值
+        $data=$request->all();
+        unset($data['_token']);
+        $data['a_name']=$request->input('a_name');
+        //print_r($data['a_name']);die;
+        $data['a_pwd']=md5($data['a_pwd']);
+        $data['a_repwd']=md5($data['a_repwd']);
+        $data['a_nickname']=$request->input('a_nickname');
+        $data['a_email']=$request->input('a_email');
+        $res=Admin::addOne($data);
+       
+        if($res){
+            
+            return redirect('manageList');
+        }else{
+           
+           return redirect('manageAdd');
+        }
+
+    }
+
+    //修改用户信息---1/2
+    public function userUpd(){
+      $admin=session('uid');
+
+      $data=Admin::selOne($admin['a_id']);
+   
+        return view('admin.admin.manageAdd',['data'=>$data]);
+    }
+
+    public function manageEdit(Request $request){
+
+          $a_id=$request->input('a_id');
+
+            $data['a_name']=$request->input('a_name');
+            $data['a_nickname']=$request->input('a_nickname');
+            $data['a_email']=$request->input('a_email');
+
+            $res=Admin::userUpd(['a_id'=>$a_id],$data);
+
+            if ($res) {
+                   return redirect('manageList');
+            } else {
+                    return redirect('manageEdit');
+            }
+
+    }
+
+    //删除用户信息
+    public function userDel(Request $request){
+        $a_id=$request->input('a_id');
+        ///print_r($a_id);die;
+        if($a_id==1){
+            echo "<script>alert('管理员不能删除');location.href='manageList';</script>";
+        }else{
+            $res=Admin::userDel(['a_id'=>$a_id]);
+            if($res){
+
+                return redirect('manageList');
+            }else{
+                echo "<script>alert('删除失败');location.href='manageList';</script>";
+            }
+        }
+       
+    }
+	/**
      * 生成前台首页
      */
     public function homeIndexOut(){
@@ -91,5 +178,4 @@ class AdminController extends Controller
         fclose($fp);
         echo "<script>alert('首页生成成功');location.href='adminIndex';</script>";
     }
-
 }
