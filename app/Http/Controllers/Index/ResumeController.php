@@ -248,8 +248,15 @@ class ResumeController extends BaseController
         $res = Porject::addProject($data);
 
         if ($res) {
+            $res=Porject::selAll(['r_id'=>$data['r_id']]);
+                foreach ($res as $k=>$v) {
+                    $res[$k]['p_start_time']=date('Y.m',$v['p_start_time']);
+                    $res[$k]['p_end_time']=date('Y.m',$v['p_end_time']);
+                }
+            return json_encode($res);
 
-            return json_encode(Porject::selAll(['r_id'=>$data['r_id']]));
+
+
         } else {
 
             return 0;
@@ -364,13 +371,7 @@ class ResumeController extends BaseController
      */
     public function educationDesc(Request $request)
     {
-        //表单自带验证
-        $validator = Validator::make($request->all(), [
-            'myRemark' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
-        }
+
 
         //接收表单的值
         $data['r_desc'] = $request->input('myRemark');
