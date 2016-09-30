@@ -1372,6 +1372,11 @@
 
 
                     @endif
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('containerText',{toolbars: [
+                            ['fullscreen', 'source', 'undo', 'redo', 'bold']
+                        ] ,zIndex:0});
+                    </script>
                 </div>
 
             {{--作品--}}
@@ -1540,6 +1545,7 @@
                         var ue = UE.getEditor('containerT',{toolbars: [
                             ['fullscreen', 'source', 'undo', 'redo', 'bold']
                         ] ,zIndex:0});
+
                     </script>
                 </div>
                 <input type="hidden" id="resumeId" value="{{$res['r_id']}}">
@@ -1702,11 +1708,7 @@
 </div>
 <script src="{{env('APP_HOST')}}/editor/ueditor.config.js"></script>
 <script src="{{env('APP_HOST')}}/editor/ueditor.all.js"></script>
-<script type="text/javascript">
-    var ue = UE.getEditor('containerText',{toolbars: [
-        ['fullscreen', 'source', 'undo', 'redo', 'bold']
-    ] ,zIndex:0});
-</script>
+
 <script>
     function img_check(a, b, c) {
         var myimg = $('#myimg');
