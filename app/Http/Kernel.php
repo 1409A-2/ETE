@@ -52,5 +52,6 @@ class Kernel extends HttpKernel
         'company' => \App\Http\Middleware\CompanyMiddleware::class,
         'resume' => \App\Http\Middleware\ResumeMiddleware::class,
 		'company' => \App\Http\Middleware\CompanyMiddleware::class,
+        'power' => \App\Http\Middleware\PowerMiddleware::class,
 		'admin' => \App\Http\Middleware\AdminMiddleware::class,    ];
 }

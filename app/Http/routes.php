@@ -234,6 +234,7 @@ Route::group(['middleware' => ['web']], function () {
 
 		//用户反馈信息模块   
 		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
+		Route::get('feedBackList','Admin\FeekController@feedBackList'); // 后台显示用户反馈的信息列表
 		Route::get('feedBackDel','Admin\FeekController@feedBackDel'); //用户反馈信息删除  
 		Route::get('feedBackDele','Admin\FeekController@feedBackDele'); //确认用户反馈信息删除  
 		Route::get('feedBackHandle','Admin\FeekController@feedBackHandle');//用户反馈信息管理
@@ -245,5 +246,53 @@ Route::group(['middleware' => ['web']], function () {
 
         //注销退出
         Route::get('cancellation','Admin\AdminController@cancellation');
+
+       //后台管理员列表
+		Route::get('manageList','Admin\AdminController@manageList');
+		
+		Route::get('manageAdd','Admin\AdminController@manageAdd');
+		//后台管理员添加
+		Route::post('admin_addPro','Admin\AdminController@userAdd');
+		//后台管理员修改----1/2
+		Route::get('manageUpd','Admin\AdminController@userUpd');  
+		//后台管理员修改 ---2/2
+		Route::post('manageEdit','Admin\AdminController@manageEdit');
+        //后台管理员删除
+		Route::get('manageDel','Admin\AdminController@userDel');
+
+		//角色列表
+		Route::get('roleList','Role\RoleController@roleList');
+		
+		Route::get('roleAdd','Role\RoleController@roleAdd');
+		//角色添加
+		Route::post('role_addPro','Role\RoleController@addPro');
+		//角色删除
+		Route::get('userDel','Role\RoleController@roleDel');
+		//角色修改1---2
+		Route::get('userUpd','Role\RoleController@roleUpd');
+		//角色修改2---2
+		Route::post('roleEdit','Role\RoleController@roleEdit');
+		//分配角色
+		Route::get('allotRole','Role\RoleController@allotRole');
+
+		Route::post('setRole_pro','Role\RoleController@setPro');
+		//权限
+		Route::get('powerList','Power\PowerController@powerList')->middleware('power');
+		Route::get('setPower_add','Power\PowerController@powerAdd');
+		//权限添加
+		Route::post('power_addPro','Power\PowerController@powerInsert');
+		//删除
+		Route::get('power_del','Power\PowerController@powerDel');
+		//分配权限
+		Route::get('SetPower_allot','Power\PowerController@powerAllot');
+		Route::post('setPowers_pro','Power\PowerController@setPro');
+		//权限修改1--2
+		Route::get('power_upd','Power\PowerController@powerUpd');
+		//修改2---2
+		Route::post('powerEdit','Power\PowerController@powerEdit');
+
 	});
+		Route::post('getRole','Role\RoleController@getRole');
+		Route::post('getPower','Power\PowerController@getPower');
+
 });
