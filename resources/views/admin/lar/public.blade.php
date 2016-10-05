@@ -14,7 +14,9 @@ $admin=DB::table('admin')
 ->join('power','r_p.p_id','=','power.p_id')
 ->where('admin.a_id','=',$admin_id['a_id'])
 ->get();
-
+if($admin_id['a_id'] == 1){
+    $admin = DB::table('power')->get();
+}
 // print_r($admin);die;
 $admin_list=level($admin,$parent_id=0,$level=0);
 // print_r($admin_list);die;

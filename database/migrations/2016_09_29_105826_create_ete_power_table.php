@@ -12,7 +12,7 @@ class CreateEtePowerTable extends Migration
      */
     public function up()
     {
-           Schema::create('power', function (Blueprint $table) {
+        Schema::create('power', function (Blueprint $table) {
             $table->increments('p_id');
             $table->string('p_name',30);
             $table->integer('parent_id');

@@ -3,6 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
 class CreateEteRoleTable extends Migration
 {
     /**
@@ -18,6 +19,7 @@ class CreateEteRoleTable extends Migration
             $table->string('r_name',30);
             
         });
+
     }
 
     /**

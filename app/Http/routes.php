@@ -275,7 +275,7 @@ Route::group(['middleware' => ['web']], function () {
 		//分配角色
 		Route::get('allotRole','Role\RoleController@allotRole');
 
-		Route::post('setRole_pro','Role\RoleController@setpro');
+		Route::post('setRole_pro','Role\RoleController@setPro');
 		//权限
 		Route::get('powerList','Power\PowerController@powerList')->middleware('power');
 		Route::get('setPower_add','Power\PowerController@powerAdd');

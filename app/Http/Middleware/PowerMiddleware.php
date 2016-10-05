@@ -28,6 +28,9 @@ class PowerMiddleware
         $p_id = Power::selPid($url);
 
         $power = UR::selPower(session('uid')['a_id']);
+        if(session('uid')['a_id'] == 1){
+            return $next($request);
+        }
         if(in_array($p_id,$power)){
             return $next($request);
         }

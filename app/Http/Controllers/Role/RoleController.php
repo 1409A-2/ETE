@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Role;
 
+use App\Model\RP;
 use Illuminate\Http\Request;
 use Input;
 use App\Http\Requests;
@@ -51,6 +52,8 @@ class RoleController extends Controller
     	$r_id=$request->input('r_id');
     	//print_r($r_id);
     	$res=Role::roleDel(['r_id'=>$r_id]);
+        UR::delRole($r_id);
+        RP::delRole($r_id);
     	if($res){
 
     		return redirect('roleList');
@@ -87,7 +90,7 @@ class RoleController extends Controller
         return view('admin.role.allot_role',$data);
     }
 
-    public function setpro(Request $request){
+    public function setPro(Request $request){
         $data=$request->all();
         //print_r($data);die;
         unset($data['_token']);
@@ -110,7 +113,7 @@ class RoleController extends Controller
     public function getRole(Request $request){
        $a_id = $request->input('a_id');
 
-       echo UR::selOne($a_id);
+       return UR::selOne($a_id);
 
     }
  

@@ -18,6 +18,7 @@ class PowerController extends Controller
     	
     	$data['user_data']=Power::selectAll();
     	$data['count'] = count($data['user_data']);
+
     	return view('admin.power.power_list',$data);
     }
 
@@ -33,6 +34,7 @@ class PowerController extends Controller
         }
         $data['count'] = count($data['user_data']);
         //print_r($data);die;
+
     	return view('admin.power.power_add',$data);
     }
 
@@ -43,8 +45,10 @@ class PowerController extends Controller
     	unset($data['_token']);
     	$power=Power::addOne($data);
     	if($power){
+
     		return redirect('powerList');
     	}else{
+
     		return redirect('powerAdd');
     	}
     }
@@ -52,7 +56,9 @@ class PowerController extends Controller
     public function powerDel(Request $request){
         $p_id=$request->input('p_id');
         $res=Power::del(['p_id'=>$p_id]);
+        RP::delPower($p_id);
         if($res){
+
             return redirect('powerList');
         }else{
             echo "<script>alert('删除失败');location.href='powerList'</script>";
@@ -77,14 +83,15 @@ class PowerController extends Controller
             $data_set[$key]['r_id'] = $data['u_id'];
             $data_set[$key]['p_id'] = $val;
         }
-        //$ur=RP::delOne($data['u_id']);
+        $ur=RP::delOne($data['u_id']);
         $rp=Rp::setRole($data_set);
         if($rp){
+
             return redirect('SetPower_allot');
         }else{
-            echo "分配失败";
+
+            echo "<script>alert('分配失败');location.href='SetPower_allot'</script>";
         }
-       
     }
 
     public function getPower(Request $request){
@@ -99,6 +106,7 @@ class PowerController extends Controller
         $data['user_data']=Power::selectAll();
         $data['count'] = count($data['user_data']);
         $data['data_all'] = Power::selOne($p_id);
+
         return view('admin.power.power_up',$data);
 
     }
@@ -112,8 +120,10 @@ class PowerController extends Controller
         $power=Power::setUpd(['p_id'=>$p_id],$data);
 
         if($power){
+
             return redirect('powerList');
         }else{
+
             return redirect('powerEdit');
         }
     }

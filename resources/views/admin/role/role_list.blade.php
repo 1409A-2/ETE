@@ -17,7 +17,7 @@
                 <th width="200">全选</th>
                 <th width="380">ID</th>
                 <th width="700">角色名</th>
-                <th>操作</th>
+                <th width="300">操作</th>
             </tr>
           @foreach($role_list as $k=>$v)
             <tr>

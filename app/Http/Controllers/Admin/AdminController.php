@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\UR;
 use Illuminate\Http\Request;
 use Validator;
 use Mail;
@@ -96,6 +97,7 @@ class AdminController extends Controller
 
         return view('admin.admin.manageAdd');
     }
+
     /**
      * [userAdd description]管理员添加
      * @return [type] [description]
@@ -157,6 +159,7 @@ class AdminController extends Controller
             echo "<script>alert('管理员不能删除');location.href='manageList';</script>";
         }else{
             $res=Admin::userDel(['a_id'=>$a_id]);
+            UR::delUser($a_id);
             if($res){
 
                 return redirect('manageList');
