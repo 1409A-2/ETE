@@ -122,6 +122,8 @@
                         </div>
                         <!-- end .filter_options -->
                         <ul class="reset resumeLists">
+                        @if(empty($resume))
+                        @else
                         @foreach($resume as $v)
                             <li data-id="{{$v['rere_id']}}" class="onlineResume">
                                 <label class="checkbox">
@@ -156,7 +158,7 @@
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
 
                                         <div>
-                                            {{$v['rere_content']['r_name']}} / @if($v['rere_content']['r_sex']==0) 男 @else  女  @endif / {{$v['rere_content']['school']['ed_id']}} /  北京 <br>
+                                            {{$v['rere_content']['r_name']}} / @if($v['rere_content']['r_sex']==0) 男 @else  女  @endif / @if($v['rere_content']['school']['ed_id']=='') 无 @endif {{$v['rere_content']['school']['ed_id']}} /  北京 <br>
                                             {{$v['release']['i_name']}} · {{$v['c_name']}} | {{$v['rere_content']['school']['ed_id']}}
                                         </div>
                                         <div class="jdpublisher">
@@ -180,6 +182,7 @@
                                 </div>
                             </li>
                         @endforeach
+                        @endif
                         </ul>
                         <!-- end .resumeLists -->
                     </form>
