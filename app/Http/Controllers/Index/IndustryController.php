@@ -401,7 +401,6 @@ class IndustryController extends BaseController
          */
         $data['school']= School::selOne(['r_id'=>$r_id['r_id']]);
 
-
         return view('index.resume.preview',$data);
 
     }
@@ -458,7 +457,7 @@ class IndustryController extends BaseController
         ob_start();
         $fp =fopen("./".$data['r_id'].".html",'w');
         $content=self::previews($data);
-
+//        print_r($content);die;
         fwrite($fp, $content);
         $fps =file_get_contents("./".$data['r_id'].".html");
         print_r($fps);
@@ -472,7 +471,6 @@ class IndustryController extends BaseController
             header('Content-Type:pdf');
             header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.pdf"');
         }
-        
         fclose($fp);
         unlink("./".$data['r_id'].".html");
     }
@@ -481,7 +479,7 @@ class IndustryController extends BaseController
     public static function previews($arr){
 
 
-//        print_r($r_id);die;
+//        print_r($arr);die;
         /**
          * 个人简历
          */
@@ -508,6 +506,7 @@ class IndustryController extends BaseController
          */
         $data['school']= School::selOne(['r_id'=>$arr['r_id']]);
 
+        $data['education'] = Education::selAll();
 //        print_r($data);die;
         if($arr['type']!=2){
 
