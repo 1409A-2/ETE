@@ -89,5 +89,17 @@ class Resume extends Model
         }
         
     }
+    /**
+     * 查询用户id
+     */
+    public static function resumeUser($where){
+        $res=self::select('u_id')->where('r_id','=',$where)->first();
+        if($res){
+            $re= $res->toArray();
+            return $re['u_id'];
+        }else{
+            return $res;
+        }
+    }
 
 }

@@ -24,7 +24,6 @@ class ResumeReseale extends Model
     	}    	
     }
 
-
     /**查询
      * @param $where
      * @return mixed
@@ -62,15 +61,21 @@ class ResumeReseale extends Model
 
 
     public  static  function selOne($where){
-        $res=self::where($where)->first();
+        $res=self::where($where)->select('r_id')->first();
         if($res){
             return $res->toArray();
         }else{
             return $res;
         }
     }
-
-
+    public  static  function selOneFeed($where){
+        $res=self::where($where)->select('r_id','re_id')->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+    }
 
 
     /**查询所有 个人
@@ -147,8 +152,32 @@ class ResumeReseale extends Model
         return self::select(DB::raw('re_id,count(re_id) re_num'))->groupBy('re_id')->orderBy("re_num",'desc')->get()->toArray();
     }
 
+    //查询简历详情
+    public static function resumeOut($where,$re_id){
+        $resume = self::whereIn('remuse_resele',$where)->where('re_id','=',$re_id)->get();
+        if($resume){
 
-    public  static  function rereAll($where,$start,$end){
+            return $resume->toArray();
+        } else {
+
+            return '';
+        }
+    }
+
+    //根据简历关系id查询简历
+    public static function oneResume($rere_id){
+        $resume = self::where('rere_id','=',$rere_id)->first();
+        if($resume){
+
+            return $resume->toArray();
+        } else {
+
+            return '';
+        }
+    }
+
+    
+    public static function rereAll($where,$start,$end){
         $res=self::where($where)->whereBetween('delivery_time',[$start,$end])->get();
         if($res){
             return $res->toArray();

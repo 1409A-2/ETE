@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="Pagination myself">
-                    <a target="_blank" href="{{url('remusePro')}}/{{$release['re_id']}}" style="background-image: none;font-size: 20px;height: 43px;line-height: 43px;margin-top: 25px;padding: 0 22px">投个简历</a>
+                    <a href="{{url('remusePro')}}/{{$release['re_id']}}" style="background-image: none;font-size: 20px;height: 43px;line-height: 43px;margin-top: 25px;padding: 0 22px">投个简历</a>
                 </div>
 
             </dd>

@@ -19,6 +19,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\Education;
+use App\Http\Controllers\Index\MessageController;
 
 class ResumeController extends BaseController
 {
@@ -480,7 +481,7 @@ class ResumeController extends BaseController
 
         $re_id=ResumeReseale::selOne(['re_id'=>$id,'r_id'=>$resume['r_id']]);
          if($re_id){
-             return "<script>alert('你已此职位投递过简历');</script>".redirect('remuseShow');
+             return "<script>alert('你已此职位投递过简历');location.href='/remuseShow'</script>";
          }
 
         $release_id=Release::releaseSel(['re_id'=>$id]);
@@ -544,8 +545,8 @@ class ResumeController extends BaseController
         if ($res == 1) {
             //发送消息
             $u_id=User::userSel(['u_cid'=>$release_id['c_id']]); //投递简历的那家公司的id
-            $content="您好，您公司招聘的职位，已有人投递简历。<a href='".env('APP_HOST')."nndetermined'>查看</a>";
-            MessageController::sendMessage($u_id,$content,1);
+            $content="您好，您公司招聘的职位，已有人投递简历。<a href='".env('APP_HOST')."/pendingResume'>查看</a>";
+            MessageController::sendMessage($u_id['u_id'],$content,1);
             return redirect('remuseShow');
         } else {
             return "<script>alert('投递失败');history.go(-1)</script>";

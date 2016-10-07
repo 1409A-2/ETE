@@ -106,7 +106,7 @@ Route::group(['middleware' => ['web']], function () {
 			Route::get('positionsdown','Index\IndustryController@positionsDown');//查看有效职位  positionsdown
 			Route::get('positionsType','Index\IndustryController@positionsType');//职位上下线管理	positionsType
 			Route::get('positionsDel','Index\IndustryController@positionsDel');//删除职位   positionsDel
-
+			Route::get('companyResume','Index\IndustryController@companyResume');//公司下载简历   companyResume
 
 
 			//完善公司的信息
