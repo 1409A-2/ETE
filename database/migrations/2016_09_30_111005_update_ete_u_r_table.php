@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateEteBcTable extends Migration
+class UpdateEteURTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class UpdateEteBcTable extends Migration
      */
     public function up()
     {
-        Schema::table('bc', function ($table) {
-            $table->integer('cb_time');
-            $table->string('cb_reason',50);
+        Schema::table('u_r', function ($table) {
+            $table->renameColumn('u_id', 'a_id');
         });
-
     }
 
     /**
@@ -26,10 +24,8 @@ class UpdateEteBcTable extends Migration
      */
     public function down()
     {
-        Schema::table('bc', function ($table) {
-            $table->dropColumn('cb_time');
-            $table->string('cb_reason');
+        Schema::table('u_r', function ($table) {
+            $table->renameColumn('a_id', 'u_id');
         });
-
     }
 }

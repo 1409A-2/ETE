@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Index;
 use App\Model\Enclosure;
 use App\Model\Expected;
 use App\Model\Porject;
+use App\Model\Release;
 use App\Model\Resume;
 use App\Model\ResumeReseale;
 use App\Model\School;
@@ -18,6 +19,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Germey\Geetest\CaptchaGeetest;
 use App\Model\Education;
+use App\Http\Controllers\Index\MessageController;
 
 class ResumeController extends BaseController
 {
@@ -124,22 +126,8 @@ class ResumeController extends BaseController
         }
         $data['r_email'] = $request->input('email');
         $data['r_photo'] = $request->input('phone');
-        $status = $request->input('status');
-        //判断目前状态
-        switch ($status) {
-            case "我目前已离职，可快速到岗":
-                $data['r_status'] = 0;
-                break;
-            case "我目前正在职，正考虑换个新环境":
-                $data['r_status'] = 1;
-                break;
-            case "我暂时不想找工作":
-                $data['r_status'] = 2;
-                break;
-            case "我是应届毕业生":
-                $data['r_status'] = 3;
-                break;
-        }
+        $data['r_status'] = $request->input('status');
+
         $data['r_time'] = time();
         $data['u_id'] = $request->session()->get('u_id');
 
@@ -147,7 +135,6 @@ class ResumeController extends BaseController
             if($re==1){
                 $resume=Resume::selOne(['u_id' => $data['u_id']]);
                 $resume['r_education']=$highestEducation;
-                $resume['r_status']=$status;
                 return json_encode($resume);
             }else{
                 return 0;
@@ -254,7 +241,7 @@ class ResumeController extends BaseController
         $data['p_name'] = $request->input('projectName');//项目名称
         $data['p_duties'] = $request->input('positionName');//担任职务
         $data['p_start_time'] = strtotime($request->input('startYear') . '-' . $request->input('startMonth'));//项目开始年月
-        $data['p_end_time'] = ($request->input('endYear') == '至今') ? time() : strtotime($request->input('endYear') . '-' . $request->input('endMonth'));//项目结束年月
+        $data['p_end_time'] = ($request->input('endYear') == '至今') ? strtotime(date('Y-m',time())) : strtotime($request->input('endYear') . '-' . $request->input('endMonth'));//项目结束年月
         $data['p_desc'] = $request->input('projectRemark');//项目描述
         $data['r_id'] = $request->input('projectid');//对应简历的Id
 
@@ -262,8 +249,15 @@ class ResumeController extends BaseController
         $res = Porject::addProject($data);
 
         if ($res) {
+            $res=Porject::selAll(['r_id'=>$data['r_id']]);
+                foreach ($res as $k=>$v) {
+                    $res[$k]['p_start_time']=date('Y.m',$v['p_start_time']);
+                    $res[$k]['p_end_time']=date('Y.m',$v['p_end_time']);
+                }
+            return json_encode($res);
 
-            return json_encode(Porject::selAll(['r_id'=>$data['r_id']]));
+
+
         } else {
 
             return 0;
@@ -378,13 +372,7 @@ class ResumeController extends BaseController
      */
     public function educationDesc(Request $request)
     {
-        //表单自带验证
-        $validator = Validator::make($request->all(), [
-            'myRemark' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
-        }
+
 
         //接收表单的值
         $data['r_desc'] = $request->input('myRemark');
@@ -454,32 +442,32 @@ class ResumeController extends BaseController
 
 
 
-    public function enclosureAdd(Request $request){
-
-
-         $id=$request->input('userId');
-         $enclosure=Enclosure::selOne(['r_id'=>$id]);
-        if(count($enclosure)>=3){
-            return 3;
-        }else{
-            $newR=explode('.',$_FILES['newResume']['name']);
-
-            $type=array_pop($newR);
-
-            $data['e_path']= 'uploads/' . session('u_email') . rand(0, 999) . '.'.$type;
-            $data['e_name']=$_FILES['newResume']['name'];
-            $data['r_id']=$id;
-            move_uploaded_file($_FILES['newResume']['tmp_name'], $data['e_name']);
-            $res=Enclosure::enclosureAdd($data);
-                if ($res) {
-
-                    return json_encode($data);
-                } else {
-
-                    return 0;
-                }
-        }
-    }
+//    public function enclosureAdd(Request $request){
+//
+//
+//         $id=$request->input('userId');
+//         $enclosure=Enclosure::selOne(['r_id'=>$id]);
+//        if(count($enclosure)>=3){
+//            return 3;
+//        }else{
+//            $newR=explode('.',$_FILES['newResume']['name']);
+//
+//            $type=array_pop($newR);
+//
+//            $data['e_path']= 'uploads/' . session('u_email') . rand(0, 999) . '.'.$type;
+//            $data['e_name']=$_FILES['newResume']['name'];
+//            $data['r_id']=$id;
+//            move_uploaded_file($_FILES['newResume']['tmp_name'], $data['e_name']);
+//            $res=Enclosure::enclosureAdd($data);
+//                if ($res) {
+//
+//                    return json_encode($data);
+//                } else {
+//
+//                    return 0;
+//                }
+//        }
+//    }
 
 
 
@@ -490,11 +478,75 @@ class ResumeController extends BaseController
     public function remusePro($id)
     {
         $resume = Resume::selOne(['u_id' => session('u_id')]);
+
+        $re_id=ResumeReseale::selOne(['re_id'=>$id,'r_id'=>$resume['r_id']]);
+         if($re_id){
+             return "<script>alert('你已此职位投递过简历');location.href='/remuseShow'</script>";
+         }
+
+        $release_id=Release::releaseSel(['re_id'=>$id]);
+//        print_r($release_id);die;
+        if (!$release_id) {
+
+            return "<script>alert('此职位不存在');location.href='/'</script>";
+        }
+
+
+        $t = time();
+        $start = mktime(0,0,0,date("m",$t),date("d",$t),date("Y",$t));
+        $end = mktime(23,59,59,date("m",$t),date("d",$t),date("Y",$t));
+
+        $rereAlls=ResumeReseale::rereAll(['r_id'=>$resume['r_id']],$start,$end);
+
+        $count=count($rereAlls);
+        if($count>=10){
+            return "<script>alert('今天已投递10次简历');location.href='/'</script>";
+        }
+
+        $education = Education::selAll();
+
+        if($resume['r_sex']==0){
+            $resume['r_sex']='男';
+        }else{
+            $resume['r_sex']='女';
+        }
+//        作品
+        $resume['works']=Works::selAll(['r_id'=>$resume['r_id']]);
+
+        //期望工作
+        $resume['expected']=Expected::selOne(['r_id'=>$resume['r_id']]);
+
+
+        //项目经验
+        $resume['porject']=Porject::selAll(['r_id'=>$resume['r_id']]);
+//        教育背景
+
+        $resume['school']=School::selOne(['r_id'=>$resume['r_id']]);
+        foreach ($education as $k => $v) {
+            if ($resume['school']['ed_id'] == $v['ed_id']) {
+                $resume['school']['ed_id'] = $v['ed_name'];
+            }
+        }
+
+            //判断学历
+        foreach ($education as $k => $v) {
+            if ($resume['r_education'] == $v['ed_id']) {
+                $resume['r_education'] = $v['ed_name'];
+            }
+        }
+
+
         $data['r_id'] = $resume['r_id'];//简历的id
         $data['re_id'] = $id; //职位id
         $data['delivery_time'] = time();
+        unset($resume['r_id']);
+        $data['rere_content']=json_encode($resume);
         $res = ResumeReseale::reAdd($data);
         if ($res == 1) {
+            //发送消息
+            $u_id=User::userSel(['u_cid'=>$release_id['c_id']]); //投递简历的那家公司的id
+            $content="您好，您公司招聘的职位，已有人投递简历。<a href='".env('APP_HOST')."/pendingResume'>查看</a>";
+            MessageController::sendMessage($u_id['u_id'],$content,1);
             return redirect('remuseShow');
         } else {
             return "<script>alert('投递失败');history.go(-1)</script>";
@@ -510,55 +562,47 @@ class ResumeController extends BaseController
 
         $resume = Resume::selOne(['u_id' => session('u_id')]);
         $re_all = ResumeReseale::selWhole(['r_id' => $resume['r_id']]);
-
+//        print_r($re_all);die;
         if ($re_all) {
             foreach ($re_all as $k => $v) {
                 //查询出当前投递的简历
                 $arr[] = ResumeReseale::selRes(['resume_reseale.rere_id' => $v['rere_id']]);
             }
-
+//            print_r($arr);die;
             foreach ($arr as $ke => $ve) {
                 //全部投递的简历
                 $reList['all'][] = $ve;
-                $num['all']=count($reList['all']);
                 //投递成功
                 if($ve['remuse_resele']==0){
                     $reList['remuse_0'][]=$ve;
-                    $num['go']=count($reList['remuse_0']);
                 }
                 //查看过的简历
                 if($ve['remuse_resele']==1){
                     $reList['remuse_1'][]=$ve;
-                    $num['read']=count($reList['remuse_1']);
                 }
                 //简历初试通过
                 if($ve['remuse_resele']==2){
                     $reList['remuse_2'][]=$ve;
-                    $num['yes']=count($reList['remuse_2']);
                 }
                 //通知面试
                 if($ve['remuse_resele']==3||$ve['remuse_resele']==6){
-                    $reList['remuse_3'][]=$ve;                    
-                    $num['ok']=count($reList['remuse_3']);
+                    $reList['remuse_3'][]=$ve;
                 }
                 
                 //不合格
                 if($ve['remuse_resele']==4){
                     $reList['remuse_4'][]=$ve;
-                    $num['pass']=count($reList['remuse_4']);
                 }
             }
 
         } else {
             $reList[] = '';
-            $num='';
 
         }
 
 
         return view('index.resume.delivery', [
             'reList' => $reList,
-            'num'=>$num
         ]);
     }
 
@@ -569,7 +613,7 @@ class ResumeController extends BaseController
      */
     public function previewList($id)
     {
-
+        $data['education'] = Education::selAll();
         //个人简历信息查询
         $data['resume'] = Resume::selOne(['r_id' => $id]);
 
@@ -585,6 +629,7 @@ class ResumeController extends BaseController
         //教育背景查询
         $data['school'] = School::selOne(['r_id' => $id]);
 
+//        print_r($data);die;
         return view('index.resume.preview', $data);
     }
 

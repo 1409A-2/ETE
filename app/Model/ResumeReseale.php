@@ -24,7 +24,6 @@ class ResumeReseale extends Model
     	}    	
     }
 
-
     /**查询
      * @param $where
      * @return mixed
@@ -174,6 +173,16 @@ class ResumeReseale extends Model
         } else {
 
             return '';
+        }
+    }
+
+    
+    public static function rereAll($where,$start,$end){
+        $res=self::where($where)->whereBetween('delivery_time',[$start,$end])->get();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
         }
     }
 }

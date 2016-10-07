@@ -577,6 +577,7 @@ class IndustryController extends BaseController
         $data['school']= School::selOne(['r_id'=>$arr['r_id']]);
 
        // print_r($data);die;
+		$data['education'] = Education::selAll();
         if($arr['type']!=2){
 
             return view('index.resume.previews',$data);
