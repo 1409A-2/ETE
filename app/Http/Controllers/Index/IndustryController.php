@@ -205,16 +205,20 @@ class IndustryController extends BaseController
                     } 
                 }                
             }
-            foreach ($releas as $key => $value) {
-                if( $value['remuse_resele']!=$read && $read!=-1){
-                    unset($releas[$key]);
-                }
-                if($ed_name!="不限"){
-                    if($ed_name!=$value['rere_content']['school']['ed_id']){
+            if(!empty($releas)){
+                foreach ($releas as $key => $value) {
+                    if( $value['remuse_resele']!=$read && $read!=-1){
                         unset($releas[$key]);
-                    } 
+                    }
+                    if($ed_name!="不限"){
+                        if($ed_name!=$value['rere_content']['school']['ed_id']){
+                            unset($releas[$key]);
+                        } 
+                    }
+                                   
                 }
-                               
+            }else{
+                $releas='';
             }
             $education=Education::selTion();
 
@@ -280,12 +284,16 @@ class IndustryController extends BaseController
                     } 
                 }                
             }
-            foreach ($releas as $key => $value) {
-                if($ed_name!="不限"){
-                    if($ed_name!=$value['rere_content']['school']['ed_id']){
-                        unset($releas[$key]);
-                    } 
+            if(!empty($releas)){
+                foreach ($releas as $key => $value) {
+                    if($ed_name!="不限"){
+                        if($ed_name!=$value['rere_content']['school']['ed_id']){
+                            unset($releas[$key]);
+                        } 
+                    }
                 }
+            }else{
+                $releas='';
             }
             $education=Education::selTion();
 
@@ -385,12 +393,16 @@ class IndustryController extends BaseController
                     } 
                 }                  
             }
-            foreach ($releas as $key => $value) {
-                if($ed_name!=1&&$ed_name!="不限"){
-                    if($ed_name!=$value['rere_content']['school']['ed_id']){
-                        unset($releas[$key]);
-                    } 
-                }                               
+            if(!empty($releas)){
+                foreach ($releas as $key => $value) {
+                    if($ed_name!=1&&$ed_name!="不限"){
+                        if($ed_name!=$value['rere_content']['school']['ed_id']){
+                            unset($releas[$key]);
+                        } 
+                    }                               
+                }
+            }else{
+                $releas='';
             }
             $education=Education::selTion();
             // print_r($release);die;
@@ -428,13 +440,16 @@ class IndustryController extends BaseController
                     } 
                 }   
             }
-            foreach ($releas as $key => $value) {
-                if($ed_name!=1&&$ed_name!="不限"){
-                    if($ed_name!=$value['rere_content']['school']['ed_id']){
-                        unset($releas[$key]);
-                    } 
+            if(!empty($releas)){
+                foreach ($releas as $key => $value) {
+                    if($ed_name!=1&&$ed_name!="不限"){
+                        if($ed_name!=$value['rere_content']['school']['ed_id']){
+                            unset($releas[$key]);
+                        } 
+                    }                               
                 }
-                               
+            }else{
+                $releas='';
             }
             $education=Education::selTion();
             // print_r($data);die;

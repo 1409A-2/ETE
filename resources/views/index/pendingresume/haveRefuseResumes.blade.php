@@ -79,7 +79,7 @@
                             <dl>
                                 <dt>最低学历：</dt>
                                 <dd>
-                                     @foreach($education as $v)
+                                @foreach($education as $v)
                                 @if($ed_name==$v['ed_name']) 
                                     <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
                                 @else
@@ -93,52 +93,55 @@
                         </div>
                         <!-- end .filter_options -->
                         <ul class="reset resumeLists">
-                        @foreach($resume as $v)
-                            <li data-id="{{$v['rere_id']}}" class="onlineResume">
-                                <label class="checkbox">
-                                    <input class="chec" value="{{$v['rere_id']}}" type="checkbox">
-                                    <i></i>
-                                </label>
-                                
-                                <div class="resumeShow">
-                                    <a title="预览在线简历" target="_blank" class="resumeImg"
-                                       href="resumeView.html?deliverId=1686182">
-                                        <img src="style/images/default_headpic.png">
-                                    </a>
-
-                                    <div class="resumeIntro">
-                                        <h3 class="read">
-                                            <a target="_blank" title="预览{{$v['rere_content']['r_name']}}的简历"
-                                               href="preview?rere_id={{$v['rere_id']}}">
-                                                {{$v['rere_content']['r_name']}}的简历
-                                            </a>
-                                            <em></em>
-                                        </h3>
-                                        <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
-
-                                        <div>
-                                            {{$v['rere_content']['r_name']}} / @if($v['rere_content']['r_sex']==0) 男 @else  女  @endif / {{$v['rere_content']['school']['ed_id']}} /  北京 <br>
-                                            {{$v['release']['i_name']}} · {{$v['c_name']}} | {{$v['rere_content']['school']['ed_id']}}
-                                        </div>
-                                        <div class="jdpublisher">
-                                            <span>应聘职位：<a title="{{$v['release']['re_name']}}" target="_blank"href="">{{$v['release']['re_name']}}</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="links">
-                                        <a data-deliverid="{{$v['rere_id']}}" status="2" data-name="jason" data-positionid="149594"
-                                           data-email="888888888@qq.com" class="resume_notice"
-                                           href="javascript:void(0)">待定</a>
-                                        <a data-deliverid="{{$v['rere_id']}}" status="5" class="resume_notice"
-                                           href="javascript:void(0)">删除</a>
+                        @if(empty($resume))
+                        @else
+                            @foreach($resume as $v)
+                                <li data-id="{{$v['rere_id']}}" class="onlineResume">
+                                    <label class="checkbox">
+                                        <input class="chec" value="{{$v['rere_id']}}" type="checkbox">
+                                        <i></i>
+                                    </label>
+                                    
+                                    <div class="resumeShow">
+                                        <a title="预览在线简历" target="_blank" class="resumeImg"
+                                           href="resumeView.html?deliverId=1686182">
+                                            <img src="style/images/default_headpic.png">
                                         </a>
+
+                                        <div class="resumeIntro">
+                                            <h3 class="read">
+                                                <a target="_blank" title="预览{{$v['rere_content']['r_name']}}的简历"
+                                                   href="preview?rere_id={{$v['rere_id']}}">
+                                                    {{$v['rere_content']['r_name']}}的简历
+                                                </a>
+                                                <em></em>
+                                            </h3>
+                                            <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
+
+                                            <div>
+                                                {{$v['rere_content']['r_name']}} / @if($v['rere_content']['r_sex']==0) 男 @else  女  @endif / @if($v['rere_content']['school']['ed_id']=='') 无 @endif {{$v['rere_content']['school']['ed_id']}} /  北京 <br>
+                                                {{$v['release']['i_name']}} · {{$v['c_name']}} | {{$v['rere_content']['school']['ed_id']}}
+                                            </div>
+                                            <div class="jdpublisher">
+                                                <span>应聘职位：<a title="{{$v['release']['re_name']}}" target="_blank"href="">{{$v['release']['re_name']}}</a></span>
+                                            </div>
+                                        </div>
+                                        <div class="links">
+                                            <a data-deliverid="{{$v['rere_id']}}" status="2" data-name="jason" data-positionid="149594"
+                                               data-email="888888888@qq.com" class="resume_notice"
+                                               href="javascript:void(0)">待定</a>
+                                            <a data-deliverid="{{$v['rere_id']}}" status="5" class="resume_notice"
+                                               href="javascript:void(0)">删除</a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="contactInfo">
-                                    <span class="c9">电话：</span>{{$v['rere_content']['r_photo']}} &nbsp;&nbsp;&nbsp;
-                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['rere_content']['r_email']}}</a>
-                                </div>
-                            </li>
-                        @endforeach
+                                    <div class="contactInfo">
+                                        <span class="c9">电话：</span>{{$v['rere_content']['r_photo']}} &nbsp;&nbsp;&nbsp;
+                                        <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['rere_content']['r_email']}}</a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @endif
                         </ul>
                         <!-- end .resumeLists -->
                     </form>
