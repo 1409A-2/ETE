@@ -56,10 +56,10 @@
         </div>
         <!--end #expectJob-->
 
+        @if($porject)
+            <div class="profile_box" id="projectExperience">
+                <h2>项目经验</h2>
 
-        <div class="profile_box" id="projectExperience">
-            <h2>项目经验</h2>
-            @if($porject)
                 @foreach($porject as $v)
                     <div class="projectShow">
                         <ul class="plist clearfix">
@@ -71,76 +71,78 @@
                                             -{{date('Y.d',$v['p_end_time'])}}）
 		            									            						</span>
                                     </div>
-                                    <div class="dl1"></div>
+                                    <div class="dl1"><?php echo $v['p_desc']?></div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     @endforeach
-                    @endif
-                            <!--end .projectShow-->
-        </div>
-        <!--end #projectExperience-->
 
-        <div class="profile_box" id="educationalBackground">
-            <h2>教育背景</h2>
-            @if($school)
-                <div class="educationalShow">
-                    <ul class="elist clearfix">
-                        <li class="clear">
+                            <!--end .projectShow-->
+            </div>
+            @endif
+                    <!--end #projectExperience-->
+
+            <div class="profile_box" id="educationalBackground">
+                <h2>教育背景</h2>
+                @if($school)
+                    <div class="educationalShow">
+                        <ul class="elist clearfix">
+                            <li class="clear">
                             <span class="c9">{{date('Y',$school['s_start_time'])}}
                                 -{{date('Y',$school['s_end_time'])}}</span>
 
-                            <div>
-                                <h3>{{$school['s_name']}}</h3>
-                                <h4>{{$school['s_major']}}，
-                                    @foreach ($education as $v)
-                                        @if ($resume['r_education']==$v['ed_id'])
+                                <div>
+                                    <h3>{{$school['s_name']}}</h3>
+                                    <h4>{{$school['s_major']}}，
+                                        @foreach ($education as $v)
+                                            @if ($resume['r_education']==$v['ed_id'])
 
-                                            {{$v['ed_name']}}
+                                                {{$v['ed_name']}}
 
-                                        @endif
-                                    @endforeach
-                                </h4>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            @endif
-        </div>
-        <!--end #educationalBackground-->
-
-        <div class="profile_box" id="selfDescription">
-            <h2>自我描述</h2>
-            @if($resume['r_desc'])
-                <div class="descriptionShow">
-                    {{$resume['r_desc']}}
-                </div>
-                @endif
-
-                        <!--end .descriptionShow-->
-        </div>
-        <!--end #selfDescription-->
-
-        <div class="profile_box" id="worksShow">
-            <h2>作品展示</h2>
-            @if($works)
-                @foreach($works as $v)
-                    <div class="workShow">
-                        <ul class="slist clearfix">
-                            <li class="noborder">
-                                <div class="workList c7">
-                                    <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
-                                    </div>
-                                    <p>{{$v['w_desc']}} </p>
+                                            @endif
+                                        @endforeach
+                                    </h4>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                @endforeach
-            @endif
-        </div>
-        <!--end #worksShow-->
+                @endif
+            </div>
+            <!--end #educationalBackground-->
+
+            <div class="profile_box" id="selfDescription">
+                <h2>自我描述</h2>
+                @if($resume['r_desc'])
+                    <div class="descriptionShow">
+                        <?php echo $resume['r_desc']?>
+                    </div>
+                    @endif
+
+                            <!--end .descriptionShow-->
+            </div>
+            <!--end #selfDescription-->
+            @if($works)
+                <div class="profile_box" id="worksShow">
+                    <h2>作品展示</h2>
+
+                    @foreach($works as $v)
+                        <div class="workShow">
+                            <ul class="slist clearfix">
+                                <li class="noborder">
+                                    <div class="workList c7">
+                                        <div class="f16">网址：<a target="_blank" href="{{$v['w_url']}}">{{$v['w_url']}}</a>
+                                        </div>
+                                        <p><?php echo $v['w_desc']?> </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    @endforeach
+
+                </div>
+                @endif
+                        <!--end #worksShow-->
     </div>
     <!--end .preview_content-->
 </div><!--end #previewWrapper-->

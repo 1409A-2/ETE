@@ -457,6 +457,7 @@ class IndustryController extends BaseController
         ob_start();
         $fp =fopen("./".$data['r_id'].".html",'w');
         $content=self::previews($data);
+
 //        print_r($content);die;
         fwrite($fp, $content);
         $fps =file_get_contents("./".$data['r_id'].".html");
