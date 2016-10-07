@@ -21,6 +21,7 @@ use App\Model\ResumeReseale;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\Index\MessageController;
 use Mail;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -172,7 +173,7 @@ class IndustryController extends BaseController
     //公司查看简历   //待处理
     public function pendingResume(Request $request){
         $read=$remuse_resele[0]=$request->input('rel',-1); 
-        $ed_name=$request->input('rels',1); 
+        $ed_name=$request->input('rels','不限'); 
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
 
@@ -183,36 +184,74 @@ class IndustryController extends BaseController
                 $remuse_resele[0]=0;
                 $remuse_resele[1]=1;
             }            
-        	$resume=Release::selAs($c_id,$remuse_resele);
-            if($ed_name==1){
-                if($read==-1){
-                    $resume=Release::selAs($c_id,$remuse_resele);
-                }else{                    
-                    $resume=Release::selRel($c_id,$remuse_resele);
+        	$release = Release::companyOne(['c_id'=>$c_id]);            
+            $array=array();
+            $i=0;
+            foreach ($release as $k => $v) {
+                $arr=array();
+                $resume[$k] = ResumeReseale::resumeOut($remuse_resele,$v['re_id']);
+                $data = Company::selOne($v['c_id']);
+                if(!empty($resume[$k])){
+                    foreach ($resume[$k] as $key => $value) {
+                        $releas[$i]['release']=$v;
+                        $releas[$i]['re_id']=$value['re_id'];
+                        $releas[$i]['rere_id']=$value['rere_id'];
+                        $releas[$i]['r_id']=$value['r_id'];
+                        $releas[$i]['delivery_time']=$value['delivery_time'];
+                        $releas[$i]['remuse_resele']=$value['remuse_resele'];
+                        $releas[$i]['c_name']=$data['c_name'];
+                        $releas[$i]['rere_content']=json_decode($value['rere_content'],true);  
+                        $i++;                      
+                    } 
+                }                
+            }
+            foreach ($releas as $key => $value) {
+                if( $value['remuse_resele']!=$read && $read!=-1){
+                    unset($releas[$key]);
                 }
-                $ed_name=1; 
-            }else{
-                if($read==-1){
-                    $resume=Release::selEd($c_id,$remuse_resele,$ed_name);
-                }else{
-                    $resume=Release::selReled($c_id,$remuse_resele,$ed_name);
+                if($ed_name!="不限"){
+                    if($ed_name!=$value['rere_content']['school']['ed_id']){
+                        unset($releas[$key]);
+                    } 
                 }
-            } 
+                               
+            }
             $education=Education::selTion();
 
-        	return view('index.pendingresume.pendingresume',['resume'=>$resume,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
+        	return view('index.pendingresume.pendingresume',['resume'=>$releas,'read'=>$read,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
     //修改公司查看简历后状态
     public function unDetermined(Request $request){
     	$data=$request->input();
+        $r = ResumeReseale::selOneFeed(['rere_id'=>$data['rere_id']]);
+        $re_name = Release::work($r['re_id']);
+        $u_id=Resume::resumeUser($r['r_id']);
+        switch ($data['remuse_resele']) {
+            case 2:
+                $content="您好，您投递的<a style='font-size:18px;color:#91bece;' href='".env('APP_HOST')."postPreview?re_id='".$r['re_id'].">".$re_name."</a>职位，已经通过初试，请等待面试通知。";
+                break;
+            case 3:
+                $content="您好，您投递的<a style='font-size:18px;color:#91bece;' href='".env('APP_HOST')."postPreview?re_id='".$r['re_id'].">".$re_name."</a>职位的面试通知已发送到你的邮箱，请注意查看你的邮箱。";
+                break;
+            case 4:
+                $content="您好，您投递的<a style='font-size:18px;color:#91bece;' href='".env('APP_HOST')."postPreview?re_id='".$r['re_id'].">".$re_name."</a>职位的简历已经被pass。";
+                break;
+            case 6:
+                $content="您好，您投递的<a style='font-size:18px;color:#91bece;' href='".env('APP_HOST')."postPreview?re_id='".$r['re_id'].">".$re_name."</a>职位的Offer已发送，请注意查收您的Offer。";
+                break;
+            default:
+                $content="您好";
+                break;
+        }       
+        MessageController::sendMessage($u_id,$content,1);
     	return ResumeReseale::upResumereseale($data);
     }
 
     //查看待定简历
     public function canInterviewResumes(Request $request){
-        $ed_name=$request->input('rels',1);       
+        $ed_name=$request->input('rels','不限');       
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
 
@@ -220,15 +259,37 @@ class IndustryController extends BaseController
         }else{
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele[0]=2;
-            if($ed_name==1){
-                $resume=Release::selAs($c_id,$remuse_resele);                
-            }else{
-                $resume=Release::selEd($c_id,$remuse_resele,$ed_name);
-            }   
+            $release = Release::companyOne(['c_id'=>$c_id]);            
+            $array=array();
+            $i=0;
+            foreach ($release as $k => $v) {                
+                $arr=array();
+                $resume[$k] = ResumeReseale::resumeOut($remuse_resele,$v['re_id']);
+                $data = Company::selOne($v['c_id']);
+                if(!empty($resume[$k])){
+                    foreach ($resume[$k] as $key => $value) {
+                        $releas[$i]['release']=$v;
+                        $releas[$i]['re_id']=$value['re_id'];
+                        $releas[$i]['rere_id']=$value['rere_id'];
+                        $releas[$i]['r_id']=$value['r_id'];
+                        $releas[$i]['delivery_time']=$value['delivery_time'];
+                        $releas[$i]['remuse_resele']=$value['remuse_resele'];
+                        $releas[$i]['c_name']=$data['c_name'];
+                        $releas[$i]['rere_content']=json_decode($value['rere_content'],true);  
+                        $i++;                      
+                    } 
+                }                
+            }
+            foreach ($releas as $key => $value) {
+                if($ed_name!="不限"){
+                    if($ed_name!=$value['rere_content']['school']['ed_id']){
+                        unset($releas[$key]);
+                    } 
+                }
+            }
             $education=Education::selTion();
-        	// print_r($resume);die;
 
-        	return view('index.pendingresume.CanInterviewResumes',['resume'=>$resume,'education'=>$education,'ed_name'=>$ed_name]);
+        	return view('index.pendingresume.CanInterviewResumes',['resume'=>$releas,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
     //执行待定与不合适
@@ -295,7 +356,7 @@ class IndustryController extends BaseController
 
     //查看已发送邮件的简历
     public function haveNoticeResumes(Request $request){
-        $ed_name=$request->input('rels',1);
+        $ed_name=$request->input('rels','不限');
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return redirect('/info');
@@ -303,79 +364,118 @@ class IndustryController extends BaseController
             $c_id=$company_c_id['u_cid'];
         	$remuse_resele[0]=3;
             $remuse_resele[1]=6;
-        	$resume=Release::selAs($c_id,$remuse_resele);
-            if($ed_name==1){
-                $resume=Release::selAs($c_id,$remuse_resele);
-            }else{
-                $resume=Release::selEd($c_id,$remuse_resele,$ed_name);
+        	$release = Release::companyOne(['c_id'=>$c_id]);            
+            $array=array();
+            $i=0;
+            foreach ($release as $k => $v) {                
+                $arr=array();
+                $resume[$k] = ResumeReseale::resumeOut($remuse_resele,$v['re_id']);
+                $data = Company::selOne($v['c_id']);
+                if(!empty($resume[$k])){
+                    foreach ($resume[$k] as $key => $value) {
+                        $releas[$i]['release']=$v;
+                        $releas[$i]['re_id']=$value['re_id'];
+                        $releas[$i]['rere_id']=$value['rere_id'];
+                        $releas[$i]['r_id']=$value['r_id'];
+                        $releas[$i]['delivery_time']=$value['delivery_time'];
+                        $releas[$i]['remuse_resele']=$value['remuse_resele'];
+                        $releas[$i]['c_name']=$data['c_name'];
+                        $releas[$i]['rere_content']=json_decode($value['rere_content'],true);  
+                        $i++;                      
+                    } 
+                }                  
+            }
+            foreach ($releas as $key => $value) {
+                if($ed_name!=1&&$ed_name!="不限"){
+                    if($ed_name!=$value['rere_content']['school']['ed_id']){
+                        unset($releas[$key]);
+                    } 
+                }                               
             }
             $education=Education::selTion();
-        	// print_r($resume);die;
-
-        	return view('index.pendingresume.haveNoticeResumes',['resume'=>$resume,'education'=>$education,'ed_name'=>$ed_name]);
+            // print_r($release);die;
+        	return view('index.pendingresume.haveNoticeResumes',['resume'=>$releas,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
     //查看不合适的简历
     public function haveRefuseResumes(Request $request){
-        $ed_name=$request->input('rels',1);
+        $ed_name=$request->input('rels','不限');
     	$company_c_id=User::selOne(session('u_id'));
         if($company_c_id['u_cid']==0||$company_c_id['u_cid']==1){
             return redirect('/info');
         }else{
             $c_id['c_id']=$company_c_id['u_cid'];
         	$remuse_resele[0]=4;
-        	$resume=Release::selAs($c_id,$remuse_resele);
-            if($ed_name==1){
-                $resume=Release::selAs($c_id,$remuse_resele);
-            }else{
-                $resume=Release::selEd($c_id,$remuse_resele,$ed_name);
-            } 
+            $release = Release::companyOne($c_id);            
+            $array=array();
+            $i=0;
+            foreach ($release as $k => $v) {
+                $arr=array();
+                $resume[$k] = ResumeReseale::resumeOut($remuse_resele,$v['re_id']);
+                $data = Company::selOne($v['c_id']);
+                if(!empty($resume[$k])){
+                    foreach ($resume[$k] as $key => $value) {
+                        $releas[$i]['release']=$v;
+                        $releas[$i]['re_id']=$value['re_id'];
+                        $releas[$i]['rere_id']=$value['rere_id'];
+                        $releas[$i]['r_id']=$value['r_id'];
+                        $releas[$i]['delivery_time']=$value['delivery_time'];
+                        $releas[$i]['remuse_resele']=$value['remuse_resele'];
+                        $releas[$i]['c_name']=$data['c_name'];
+                        $releas[$i]['rere_content']=json_decode($value['rere_content'],true);  
+                        $i++;                      
+                    } 
+                }   
+            }
+            foreach ($releas as $key => $value) {
+                if($ed_name!=1&&$ed_name!="不限"){
+                    if($ed_name!=$value['rere_content']['school']['ed_id']){
+                        unset($releas[$key]);
+                    } 
+                }
+                               
+            }
             $education=Education::selTion();
-        	// print_r($resume);die;
-
-        	return view('index.pendingresume.haveRefuseResumes',['resume'=>$resume,'education'=>$education,'ed_name'=>$ed_name]);
+            // print_r($data);die;
+        	return view('index.pendingresume.haveRefuseResumes',['resume'=>$releas,'education'=>$education,'ed_name'=>$ed_name]);
         }
     }
 
+
     //公司查看简历
     public function preview(Request $request){
-        $arr=$request->input();
+        $arr['rere_id']=$request->input('rere_id');
+        $u_id=$request->input('u_id');
+        $r = ResumeReseale::selOneFeed(['rere_id'=>$arr['rere_id']]);
+        $re_name = Release::work($r['re_id']);
+        $content="您好，您投递的<a style='font-size:18px;color:#91bece;' href='".env('APP_HOST')."postPreview?re_id='".$r['re_id'].">".$re_name."</a>职位的简历正在被查看。";       
         if($request->input('remuse_resele')){
-           ResumeReseale::upResumereseale($arr); 
+
+           $arr['remuse_resele']=$request->input('remuse_resele');
+           $e=ResumeReseale::upResumereseale($arr); 
+           if($e){
+                MessageController::sendMessage($u_id,$content,1);
+           }
+           unset($arr['remuse_resele']);
         }
+        $one=ResumeReseale::oneResume($arr['rere_id']);
         
+        
+        $resume=json_decode($one['rere_content'],true);
+
+        $resume['r_id']=$resume['expected']['r_id'];       
+        $data['resume']=$resume;                    //用户简历基本信息
+        $data['works']=$resume['works'];            // 作品查询
+        $data['porject']=$resume['porject'];        // 项目查询
+        $data['expected']=$resume['expected'];      // 工作查询
+        $data['school']=$resume['school'];          // 教育背景查询
 
         $data['re_re']=$arr;
-        $r_id=ResumeReseale::selOne(['rere_id'=>$arr['rere_id']]);
-        /**
-         * 个人简历
-         */
-        $data['resume']=Resume::selOne(['r_id'=>$r_id['r_id']]);
-        /**
-         * 作品
-         */
-        $data['works']=Works::selAll(['r_id'=>$r_id['r_id']]);
 
-        /**
-         * 项目
-         */
-        $data['porject']=Porject::selAll(['r_id'=>$r_id['r_id']]);
+        // print_r($data);die;
 
-        /**
-         * 期望工作
-         */
-        $data['expected']=Expected::SelOne(['r_id'=>$r_id['r_id']]);
-
-
-
-        /**
-         * 教育背景
-         */
-        $data['school']= School::selOne(['r_id'=>$r_id['r_id']]);
-
-
-        return view('index.resume.preview',$data);
+        return view('index.pendingresume.preview',$data);
 
     }
 
@@ -453,8 +553,6 @@ class IndustryController extends BaseController
     //公司查看简历
     public static function previews($arr){
 
-
-//        print_r($r_id);die;
         /**
          * 个人简历
          */
@@ -473,15 +571,12 @@ class IndustryController extends BaseController
          * 期望工作
          */
         $data['expected']=Expected::SelOne(['r_id'=>$arr['r_id']]);
-
-
-
         /**
          * 教育背景
          */
         $data['school']= School::selOne(['r_id'=>$arr['r_id']]);
 
-//        print_r($data);die;
+       // print_r($data);die;
         if($arr['type']!=2){
 
             return view('index.resume.previews',$data);
@@ -508,16 +603,21 @@ class IndustryController extends BaseController
         $company_c_id=User::selOne(session('u_id'));
         $data = Company::selOne($company_c_id['u_cid']);
 
+        $u_id=$request->input('u_id');
+        $content="您好，您<font color='#91bece' >一拍</font>职位的Offer已发送，请注意查收您的Offer。";
+        MessageController::sendMessage($u_id,$content,3);
+
         $arr1['cb_bid']=$request->input('b_id');
         $arr1['bc_cid']=$company_c_id['u_cid'];
         $arr1['cb_cb']=$request->input('bc',2);        
         
         $arr=$request->input();
+        unset($arr['u_id']);
         $email=$arr['email'];
         if(strpos($email,'qq')){
-            $content = $arr['b_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了".$arr['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职.</dvi><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>2.上一单位离职证明。</a><br /><br /> <a href=''>3.一寸照片2张。</a><br /><br /><br />公司地址：".$data['c_address'];
+            $content = $arr['b_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了面试。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职.</dvi><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>2.上一单位离职证明。</a><br /><br /> <a href=''>3.一寸照片2张。</a><br /><br /><br />公司地址：".$data['c_address'];
         }else{
-            $content = $arr['b_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了".$arr['i_name']."一职。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职<img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'>.</dvi><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>2.上一单位离职证明。</a><br /><br /> <a href=''>3.一寸照片2张。</a><br /><br /><br />公司地址：".$data['c_address'];        
+            $content = $arr['b_name']."先生,您好！<br /><div style='text-indent:2em;'>这里是".$data['c_name']."人事部，恭喜你通过了面试。现通知您于".date('Y-m-d',time()+24*3600)."上午9:00来公司入职<img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'><img src='".env('APP_HOST')."/style/images/gz.png'>.</dvi><br /><br />入职所需携带资料：<br /><br /> <a href=''>1.身份证。</a><br /><br /> <a href=''>2.上一单位离职证明。</a><br /><br /> <a href=''>3.一寸照片2张。</a><br /><br /><br />公司地址：".$data['c_address'];        
         }
         // echo $content;die;
         $subject = $data['c_name']."人事部认证邮件";
@@ -525,6 +625,53 @@ class IndustryController extends BaseController
         return $re = Bc::up($arr1);
     }
 
+
+
+    //公司查看简历详情的下载
+    public function companyResume(Request $request){
+        $data=$request->input();
+        ob_start();
+        $fp =fopen("./company/".$data['rere_id'].".html",'w');
+        $content=self::companyPreview($data);
+        fwrite($fp, $content);
+        $fps =file_get_contents("./company/".$data['rere_id'].".html");
+        print_r($fps);
+        if($data['type']==1){
+            header('Content-Type:doc/docx');
+            header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.doc"');
+        }elseif($data['type']==2){
+            header('Content-Type:html');
+            header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.html"');
+        }else{
+            header('Content-Type:pdf');
+            header('Content-Disposition:attachment; filename="'.$data['name'].'的简历.pdf"');
+        }
+        
+        fclose($fp);
+        unlink("./company/".$data['rere_id'].".html");
+    }
+
+    //公司下载简历
+    public function companyPreview($arr){
+        $one=ResumeReseale::oneResume($arr['rere_id']);                
+        $resume=json_decode($one['rere_content'],true);  //格式化json串
+        $resume['r_id']=$resume['expected']['r_id'];       
+        $data['resume']=$resume;                        //用户简历基本信息
+        $data['works']=$resume['works'];                // 作品查询
+        $data['porject']=$resume['porject'];            // 项目查询
+        $data['expected']=$resume['expected'];          // 工作查询
+        $data['school']=$resume['school'];              // 教育背景查询
+
+        $data['re_re']=$arr;
+        // print_r($arr);die;
+        if($arr['type']!=2){
+
+            return view('index.pendingresume.previews',$data);
+        }else{
+
+            return view('index.pendingresume.preview',$data);
+        }
+    }
 }
 
 

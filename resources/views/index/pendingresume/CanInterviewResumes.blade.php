@@ -144,10 +144,10 @@
                                 <dt>最低学历：</dt>
                                 <dd>
                                    @foreach($education as $v)
-                                @if($ed_name==$v['ed_id']) 
+                                @if($ed_name==$v['ed_name']) 
                                     <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
                                 @else
-                                    <a href="canInterviewResumes?rels={{$v['ed_id']}}">{{$v['ed_name']}}</a>
+                                    <a href="canInterviewResumes?rels={{$v['ed_name']}}">{{$v['ed_name']}}</a>
                                 @endif 
                                 @endforeach
                                 </dd>
@@ -158,7 +158,7 @@
                         <!-- end .filter_options -->
                         <ul class="reset resumeLists">
                         @foreach($resume as $v)
-                            <li data-id="{{$v['rere_id']}}" class="onlineResume">
+                        <li data-id="{{$v['rere_id']}}" class="onlineResume">
                                 <label class="checkbox">
                                     <input class="chec" value="{{$v['rere_id']}}" type="checkbox">
                                     <i></i>
@@ -172,40 +172,45 @@
 
                                     <div class="resumeIntro">
                                         <h3 class="read">
-                                            <a target="_blank" title="预览jason的简历"
+                                            <a target="_blank" title="预览{{$v['rere_content']['r_name']}}的简历"
                                                href="preview?rere_id={{$v['rere_id']}}">
-                                                {{$v['r_name']}}的简历
+                                                {{$v['rere_content']['r_name']}}的简历
                                             </a>
                                             <em></em>
                                         </h3>
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
 
                                         <div>
-                                            {{$v['r_name']}} / @if($v['r_sex']==0) 男 @else  女  @endif / {{$v['ed_name']}} /  北京 <br>
-                                            {{$v['i_name']}} · {{$v['c_name']}} | {{$v['ed_name']}}
+                                            {{$v['rere_content']['r_name']}} / @if($v['rere_content']['r_sex']==0) 男 @else  女  @endif / {{$v['rere_content']['school']['ed_id']}} /  北京 <br>
+                                            {{$v['release']['i_name']}} · {{$v['c_name']}} | {{$v['rere_content']['school']['ed_id']}}
                                         </div>
                                         <div class="jdpublisher">
-                                            <span>应聘职位：<a title="{{$v['i_name']}}" target="_blank"href="">{{$v['i_name']}}</a></span>
+                                            <span>应聘职位：<a title="{{$v['release']['re_name']}}" target="_blank"href="">{{$v['release']['re_name']}}</a></span>
                                         </div>
                                     </div>
                                     <div class="links">
-                                        <a data-deliverid="{{$v['rere_id']}}" status="3" data-name="jason" data-positionid="149594"
-                                           email="{{$v['r_email']}}" class="resume_notices"
-                                           href="javascript:void(0)">通知面试</a>
-                                        <a data-deliverid="{{$v['rere_id']}}" status="4" class="resume_notice"
-                                           href="javascript:void(0)">不合适</a>
-                                        </a>
+                                    <input type="hidden" r="{{$v['rere_content']['r_name']}}" class="r_name">
+                                    <input type="hidden" c="{{$v['c_name']}}" class="c_name">
+                                    <input type="hidden" i="{{$v['release']['re_name']}}" class="i_name">
+                                    <input type="hidden" em="{{$v['rere_content']['r_email']}}" class="email">
+                                    <input type="hidden" i="{{$v['release']['re_address']}}" class="addr">
+                                    <a data-deliverid="{{$v['rere_id']}}" status="3" data-name="jason" data-positionid="149594"
+                                        email="{{$v['rere_content']['r_email']}}" class="resume_notices"
+                                        href="javascript:void(0)">通知面试</a>
+                                    <a data-deliverid="{{$v['rere_id']}}" status="4" class="resume_notice"
+                                       href="javascript:void(0)">不合适</a>
+                                    </a>
+                                        
                                     </div>
-                                <input type="hidden" r="{{$v['r_name']}}" class="r_name">
-                                <input type="hidden" c="{{$v['c_name']}}" class="c_name">
-                                <input type="hidden" i="{{$v['i_name']}}" class="i_name">
-                                <input type="hidden" em="{{$v['r_email']}}" class="email">
+
+
                                 </div>
                                 <div class="contactInfo">
-                                    <span class="c9">电话：</span>{{$v['r_photo']}} &nbsp;&nbsp;&nbsp;
-                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['r_email']}}</a>
+                                    <span class="c9">电话：</span>{{$v['rere_content']['r_photo']}} &nbsp;&nbsp;&nbsp;
+                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['rere_content']['r_email']}}</a>
                                 </div>
                             </li>
+                            
                         @endforeach
                         </ul>
                         <!-- end .resumeLists -->

@@ -179,4 +179,28 @@ class Release extends Model
             return $re;
         }
     }
+
+    //查询职位名称
+    public static function work($where){
+        $res=self::select('re_name')->where('re_id','=',$where)->first();
+        if($res){
+            $re= $res->toArray();
+            return $re['re_name'];
+        }else{
+            return $res;
+        }
+    }
+
+    //查询本公司所有发布的职位
+    public static function companyOne($where){
+        $company = self::where($where)->where("re_status",'=',0)->get();
+        if ($company){
+
+            return $company->toArray();
+        } else {
+
+            return $company;
+        }
+
+    }
 }

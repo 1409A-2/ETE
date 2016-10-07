@@ -230,12 +230,6 @@ class BeatController extends Controller
     }
 
 
-    /**我的Offer
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-//    public function beatReward(){
-//        return view('index.beat.beatReward');
-//    }
 
 
 
@@ -256,8 +250,14 @@ class BeatController extends Controller
     //公司邀约简历
     public function beatYes(Request $request){
         $arr['cb_bid']=$request->input('b_id');
+        $user = Beat::beatSel(['b_id'=>$arr['cb_bid']]);
         $company_c_id=User::selOne(session('u_id'));
         $arr['bc_cid']=$company_c_id['u_cid'];
+        $company = Company::sel(['c_id'=>$company_c_id['u_cid']]);
+        $content="您好，您<font style='color:#91bece;font-size:16px' >一拍</font>已被<font style='color:#91bece;font-size:16px' >".$company['c_name']."</font>公司邀约，请注意查看。";
+        MessageController::sendMessage($user['u_id'],$content,3);
+
+
         $arr['cb_cb']=$request->input('bc',2);
         if($arr['cb_cb']==2){
             $re = Bc::cbCb($arr);

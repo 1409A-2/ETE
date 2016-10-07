@@ -69,6 +69,14 @@ class ResumeReseale extends Model
             return $res;
         }
     }
+    public  static  function selOneFeed($where){
+        $res=self::where($where)->select('r_id','re_id')->first();
+        if($res){
+            return $res->toArray();
+        }else{
+            return $res;
+        }
+    }
 
 
     /**查询所有 个人
@@ -143,5 +151,29 @@ class ResumeReseale extends Model
     //查询组数据
     public static function selGroup(){
         return self::select(DB::raw('re_id,count(re_id) re_num'))->groupBy('re_id')->orderBy("re_num",'desc')->get()->toArray();
+    }
+
+    //查询简历详情
+    public static function resumeOut($where,$re_id){
+        $resume = self::whereIn('remuse_resele',$where)->where('re_id','=',$re_id)->get();
+        if($resume){
+
+            return $resume->toArray();
+        } else {
+
+            return '';
+        }
+    }
+
+    //根据简历关系id查询简历
+    public static function oneResume($rere_id){
+        $resume = self::where('rere_id','=',$rere_id)->first();
+        if($resume){
+
+            return $resume->toArray();
+        } else {
+
+            return '';
+        }
     }
 }

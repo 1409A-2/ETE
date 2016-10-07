@@ -107,10 +107,10 @@
                                 <dt>最低学历：</dt>
                                 <dd>
                                 @foreach($education as $v)
-                                @if($ed_name==$v['ed_id']) 
+                                @if($ed_name==$v['ed_name']) 
                                     <a class="current"  href="javascript:;">{{$v['ed_name']}}</a>
                                 @else
-                                    <a href="pendingResume?rels={{$v['ed_id']}}&rel={{$read}}">{{$v['ed_name']}}</a>
+                                    <a href="pendingResume?rels={{$v['ed_name']}}&rel={{$read}}">{{$v['ed_name']}}</a>
                                 @endif 
                                 @endforeach
 
@@ -138,17 +138,17 @@
                                     <div class="resumeIntro">
                                     @if($v['remuse_resele']==0)
                                         <h3 class="unread">
-                                            <a class="r" target="_blank" title="预览jason的简历"
-                                               href="preview?rere_id={{$v['rere_id']}}">
-                                                {{$v['r_name']}}的简历
+                                            <a class="r" target="_blank" title="预览{{$v['rere_content']['r_name']}}的简历"
+                                               href="preview?remuse_resele=1&rere_id={{$v['rere_id']}}&u_id={{$v['rere_content']['u_id']}}">
+                                                {{$v['rere_content']['r_name']}}的简历
                                             </a>
                                             <em></em>
                                         </h3>
                                     @else
                                         <h3 class="read">
-                                            <a target="_blank" title="预览{{$v['r_name']}}的简历"
+                                            <a target="_blank" title="预览{{$v['rere_content']['r_name']}}的简历"
                                                href="preview?rere_id={{$v['rere_id']}}&remuse_resele=1">
-                                                {{$v['r_name']}}的简历
+                                                {{$v['rere_content']['r_name']}}的简历
                                             </a>
                                             <em></em>
                                         </h3>
@@ -156,11 +156,11 @@
                                         <span class="fr">投递时间:{{date('Y-m-d H:i:s',$v['delivery_time'])}}</span>
 
                                         <div>
-                                            {{$v['r_name']}} / @if($v['r_sex']==0) 男 @else  女  @endif / {{$v['ed_name']}} /  北京 <br>
-                                            {{$v['i_name']}} · {{$v['c_name']}} | {{$v['ed_name']}}
+                                            {{$v['rere_content']['r_name']}} / @if($v['rere_content']['r_sex']==0) 男 @else  女  @endif / {{$v['rere_content']['school']['ed_id']}} /  北京 <br>
+                                            {{$v['release']['i_name']}} · {{$v['c_name']}} | {{$v['rere_content']['school']['ed_id']}}
                                         </div>
                                         <div class="jdpublisher">
-                                            <span>应聘职位：<a title="{{$v['i_name']}}" target="_blank"href="">{{$v['i_name']}}</a></span>
+                                            <span>应聘职位：<a title="{{$v['release']['re_name']}}" target="_blank"href="">{{$v['release']['re_name']}}</a></span>
                                         </div>
                                     </div>
                                     <div class="links">
@@ -175,8 +175,8 @@
 
                                 </div>
                                 <div class="contactInfo">
-                                    <span class="c9">电话：</span>{{$v['r_photo']}} &nbsp;&nbsp;&nbsp;
-                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['r_email']}}</a>
+                                    <span class="c9">电话：</span>{{$v['rere_content']['r_photo']}} &nbsp;&nbsp;&nbsp;
+                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">{{$v['rere_content']['r_email']}}</a>
                                 </div>
                             </li>
                         @endforeach
