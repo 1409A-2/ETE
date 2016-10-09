@@ -6,14 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
-    /**
-     * 用户角色
-     */
-    public function roles()
-    {
-        return $this->belongsToMany('App\Model\Role', 'admin_role', 'a_id', 'ro_id');
-    }
-
 	protected $table = 'admin';
 
 	protected $guarded = 'a_id';
@@ -30,6 +22,14 @@ class Admin extends Model
 			return false;
 		}
 	}
+
+    /**
+     * 用户角色
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Model\Role', 'admin_role', 'a_id', 'ro_id');
+    }
 
 	  public static function addOne($data)
     {
